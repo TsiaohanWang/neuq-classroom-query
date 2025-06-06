@@ -20,7 +20,7 @@ const htmlTemplate = `
         body {
             max-width: 800px;
             margin: 0px auto 15px;
-            padding: 0 15px;
+            padding: 0 10px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             line-height: 1.6;
             color: #333;
@@ -29,10 +29,10 @@ const htmlTemplate = `
 
         .tab-container {
             width: 100%;
-            margin-top: 15px;
+            margin-top: 10px;
             background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            border-radius: 16px;
+            box-shadow: 2px 4px 3px 2px rgba(0, 0, 0, 0.06);
             overflow: hidden;
             text-align: center;
         }
@@ -49,7 +49,7 @@ const htmlTemplate = `
             border: none;
             background-color: transparent;
             color: #888;
-            font-size: 15px;
+            font-size: 17px;
             font-weight: 500;
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
             outline: none;
@@ -71,7 +71,7 @@ const htmlTemplate = `
             background-color: #fff;
             color: #30448c;
             border-bottom: 2px solid #30448c;
-            font-size: 15px;
+            font-size: 17px;
         }
 
         .tab-content {
@@ -128,7 +128,7 @@ const htmlTemplate = `
         .gxg-table td:first-child {
             font-weight: bold;
             width: 30px;
-            font-size: 15px;
+            font-size: 14px;
             text-align: center;
         }
 
@@ -181,19 +181,18 @@ const htmlTemplate = `
 
         /* 时间段标题样式 */
         .timeslot-title {
-            font-weight: bold;
-            font-size: 18px;
+            font-size: 20px;
             text-align: center;
-            margin-top: 16px;
+            margin-top: 10px;
             margin-bottom: 4px;
-            color: #495057;
+            color: #30448c;
         }
          /* 为下划线和加粗添加样式 */
         u {
-            text-decoration-color: #30448c;
         }
         strong {
-            text-decoration-color: #30448c;
+            font-weight: bold;
+            color: #30448c;
         }
     </style>
 </head>
@@ -202,7 +201,7 @@ const htmlTemplate = `
 
     <h1><span id="current-date-placeholder">YYYY/MM/DD</span> 东秦空闲教室总表</h1>
     <p class="info-text update-time">本空闲教室表更新于 <span id="update-time-placeholder">YYYY/MM/DD HH:MM</span></p>
-    <p class="info-text"><u>下划线</u>表示该教室在上一时间段未处于空闲状态，<strong>加粗</strong>表示该教室全天(1-12节)空闲</p>
+    <p class="info-text"><u>下划线</u>表示该教室在上一时段未处于空闲，<strong>蓝色加粗</strong>表示该教室全天(1-12节)空闲</p>
     <p class="info-text">内容仅供参考，实际请以<a href="https://jwxt.neuq.edu.cn/">教务系统</a>查询结果为准</p>
     <hr>
 
@@ -495,6 +494,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
+            <hr style="margin-top: 20px; margin-bottom: 10px;">
+            <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
         </div>
 
         <!-- 本部其它教学楼内容 -->
@@ -625,6 +626,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
+            <hr style="margin-top: 20px; margin-bottom: 10px;">
+            <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
         </div>
 
         <!-- 南校区内容 -->
@@ -638,8 +641,8 @@ const htmlTemplate = `
                         <td>人文楼</td>
                     </tr>
                     <tr class="classroom-row">
-                        <td id="KJL1-2" style="font-size: small">KJL1-2占位符</td>
-                        <td id="RWL1-2" style="font-size: small">RWL1-2占位符</td>
+                        <td id="KJL1-2" style="font-size: 13px">KJL1-2占位符</td>
+                        <td id="RWL1-2" style="font-size: 13px">RWL1-2占位符</td>
                     </tr>
                 </tbody>
             </table>
@@ -652,8 +655,8 @@ const htmlTemplate = `
                         <td>人文楼</td>
                     </tr>
                     <tr class="classroom-row">
-                        <td id="KJL3-4" style="font-size: small">KJL3-4占位符</td>
-                        <td id="RWL3-4" style="font-size: small">RWL3-4占位符</td>
+                        <td id="KJL3-4" style="font-size: 13px">KJL3-4占位符</td>
+                        <td id="RWL3-4" style="font-size: 13px">RWL3-4占位符</td>
                     </tr>
                 </tbody>
             </table>
@@ -666,8 +669,8 @@ const htmlTemplate = `
                         <td>人文楼</td>
                     </tr>
                     <tr class="classroom-row">
-                        <td id="KJL5-6" style="font-size: small">KJL5-6占位符</td>
-                        <td id="RWL5-6" style="font-size: small">RWL5-6占位符</td>
+                        <td id="KJL5-6" style="font-size: 13px">KJL5-6占位符</td>
+                        <td id="RWL5-6" style="font-size: 13px">RWL5-6占位符</td>
                     </tr>
                 </tbody>
             </table>
@@ -680,8 +683,8 @@ const htmlTemplate = `
                         <td>人文楼</td>
                     </tr>
                     <tr class="classroom-row">
-                        <td id="KJL7-8" style="font-size: small">KJL7-8占位符</td>
-                        <td id="RWL7-8" style="font-size: small">RWL7-8占位符</td>
+                        <td id="KJL7-8" style="font-size: 13px">KJL7-8占位符</td>
+                        <td id="RWL7-8" style="font-size: 13px">RWL7-8占位符</td>
                     </tr>
                 </tbody>
             </table>
@@ -694,8 +697,8 @@ const htmlTemplate = `
                         <td>人文楼</td>
                     </tr>
                     <tr class="classroom-row">
-                        <td id="KJL9-10" style="font-size: small">KJL9-10占位符</td>
-                        <td id="RWL9-10" style="font-size: small">RWL9-10占位符</td>
+                        <td id="KJL9-10" style="font-size: 13px">KJL9-10占位符</td>
+                        <td id="RWL9-10" style="font-size: 13px">RWL9-10占位符</td>
                     </tr>
                 </tbody>
             </table>
@@ -708,8 +711,8 @@ const htmlTemplate = `
                         <td>人文楼</td>
                     </tr>
                     <tr class="classroom-row">
-                        <td id="KJL11-12" style="font-size: small">KJL11-12占位符</td>
-                        <td id="RWL11-12" style="font-size: small">RWL11-12占位符</td>
+                        <td id="KJL11-12" style="font-size: 13px">KJL11-12占位符</td>
+                        <td id="RWL11-12" style="font-size: 13px">RWL11-12占位符</td>
                     </tr>
                 </tbody>
             </table>
@@ -722,11 +725,13 @@ const htmlTemplate = `
                         <td>人文楼</td>
                     </tr>
                     <tr class="classroom-row">
-                        <td id="KJL1-8" style="font-size: small">KJL1-8占位符</td>
-                        <td id="RWL1-8" style="font-size: small">RWL1-8占位符</td>
+                        <td id="KJL1-8" style="font-size: 13px">KJL1-8占位符</td>
+                        <td id="RWL1-8" style="font-size: 13px">RWL1-8占位符</td>
                     </tr>
                 </tbody>
             </table>
+            <hr style="margin-top: 20px; margin-bottom: 10px;">
+            <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
         </div>
     </div>
 
@@ -1013,8 +1018,8 @@ function generateFinalHtmlReport() {
                         else if (isBold) displayName = `<strong>${item["名称"]}</strong>`;
                         else if (isUnderlined) displayName = `<u>${item["名称"]}</u>`;
 
-                        if (buildingName === "科技楼" && item["名称"].includes("自主学习室")) {
-                            zizhuKeJiLouRooms.push({ raw: item["名称"], display: displayName, letter: item["名称"].match(/自主学习室([A-Z])$/)?.[1] || 'Z' });
+                        if (buildingName === "科技楼" && item["名称"].includes("自习室")) {
+                            zizhuKeJiLouRooms.push({ raw: item["名称"], display: displayName, letter: item["名称"].match(/自习室([A-Z])$/)?.[1] || 'Z' });
                         } else {
                             regularKeJiLouRooms.push({ raw: item["名称"], display: displayName });
                         }
