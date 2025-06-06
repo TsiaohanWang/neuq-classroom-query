@@ -1,0 +1,43 @@
+name: Classroom Query and Deploy Automation
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Run every 6 hours
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  query-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: |
+        npm install
+        npx playwright install --with-deps chromium
+        
+    - name: Run Playwright test
+      env:
+        YOUR_NEUQ_USERNAME: ${{ secrets.NEUQ_USERNAME }}
+        YOUR_NEUQ_PASSWORD: ${{ secrets.NEUQ_PASSWORD }}
+      run: npx playwright test tests/classroom_query.spec.ts
+        
+    - name: Process JSON
+      run: node scripts/process_json.js
+        
+    - name: Generate HTML
+      run: node scripts/generate_html.js
+        
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .
+        publish_branch: gh-pages
+        cname: classroom.wxh1104.online
