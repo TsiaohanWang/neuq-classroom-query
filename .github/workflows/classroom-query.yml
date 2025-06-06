@@ -20,13 +20,13 @@ jobs:
     - name: Install dependencies
       run: |
         npm install
-        npx playwright install --with-deps chromium
+        npx playwright install --with-deps
         
     - name: Run Playwright test
       env:
         YOUR_NEUQ_USERNAME: ${{ secrets.NEUQ_USERNAME }}
         YOUR_NEUQ_PASSWORD: ${{ secrets.NEUQ_PASSWORD }}
-      run: npx playwright test tests/classroom_query.spec.ts
+      run: npx playwright test tests/classroom_query.spec.ts --project=chromium
         
     - name: Process JSON
       run: node scripts/process_json.js
