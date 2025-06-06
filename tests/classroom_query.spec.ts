@@ -33,19 +33,24 @@ test("登录并按多时间段查询空闲教室测试", async ({ page }) => {
   await usernameInput.waitFor({ state: "visible", timeout: 100000 });
   console.log("登录页面已加载。正在填写用户名...");
   // 填充用户名。
-  // [重要/可调参数]: 'YOUR_ACTUAL_USERNAME' - 这是实际的用户名，运行测试前务必替换为您自己的有效用户名。
-  await usernameInput.fill("YOUR_ACTUAL_USERNAME");
-  // 在填充操作后等待一小段时间。
+  /// [重要/可调参数]: 'YOUR_NEUQ_USERNAME' - 必须替换为实际的、有效的测试用户名。
+  // 从环境变量中获取用户名
+  const username = process.env.YOUR_NEUQ_USERNAME;
+  if (!username) {
+    throw new Error("环境变量 YOUR_NEUQ_USERNAME 未设置！请在 GitHub Secrets 中配置。");
+  }
+  await usernameInput.fill(username); // 使用环境变量中的值
   await page.waitForTimeout(interactionDelay);
 
-  // 定位密码输入框。使用ID选择器 '#password'。
-  // [可调参数]: '#password' - 如果密码输入框的HTML ID属性改变，此选择器需要更新。
   const passwordInput = page.locator("#password");
   console.log("正在填写密码...");
-  // 填充密码。
-  // [重要/可调参数]: 'YOUR_ACTUAL_PASSWORD' - 这是实际的密码，运行测试前务必替换为您自己的有效密码。
-  await passwordInput.fill("YOUR_ACTUAL_PASSWORD");
-  // 在填充操作后等待一小段时间。
+  // [重要/可调参数]: 'YOUR_NEUQ_PASSWORD' - 必须替换为实际的、有效的测试密码。
+  // 从环境变量中获取密码
+  const password = process.env.YOUR_NEUQ_PASSWORD;
+  if (!password) {
+    throw new Error("环境变量 YOUR_NEUQ_PASSWORD 未设置！请在 GitHub Secrets 中配置。");
+  }
+  await passwordInput.fill(password); // 使用环境变量中的值
   await page.waitForTimeout(interactionDelay);
 
   // 定位登录按钮。使用复合选择器，匹配 <button> 元素，且其 class 包含 'submitBtn'，type 属性为 'submit'。
