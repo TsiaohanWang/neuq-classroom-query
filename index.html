@@ -81,6 +81,26 @@
             }
         }
 
+        /* 临时信息通知框样式 */
+        .emergency-info {
+            padding: 4px 10px; /* 调整内边距 */
+            margin-bottom: 10px; /* 与下方内容的间距 */
+            border: 2px dashed rgba(48, 68, 140, 0.3); /* 校色的浅色边框 */
+            border-radius: 8px; /* 圆角 */
+            background-color: rgba(48, 68, 140, 0.08); /* 校色的淡化透明背景 */
+            color: #2c3e50; /* 文字颜色 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 13px; /* 字体大小 */
+            line-height: 1.5; /* 行高 */
+        }
+        .emergency-info p { /* 通知内每条消息的段落样式 */
+            margin: 0 0 5px 0; /* 段落下边距 */
+        }
+        .emergency-info p:last-child {
+            margin-bottom: 0; /* 最后一条消息无下边距 */
+        }
+
+
         /* 表格样式 */
         table {
             width: 100%;
@@ -123,16 +143,15 @@
             font-weight: bold;
             text-align: center;
             background-color: #f8f9fa;
-            /* 轻微背景色区分 */
             font-size: 13px;
         }
 
         /* 本部其它和南校区表格的教室号行样式 */
         .campus-table .classroom-row td {
-            text-align: center; /* 修改为居中 */
+            text-align: center;
             min-height: 50px;
             word-break: break-word;
-            white-space: pre-wrap; /* 允许<br>换行 */
+            white-space: pre-wrap;
         }
 
 
@@ -186,8 +205,7 @@
 <body>
 
     <h1><span id="current-date-placeholder">2025/06/07</span> 东秦空闲教室总表</h1>
-    <p class="info-text update-time">本空闲教室表更新于 <span id="update-time-placeholder">2025/06/07 11:36</span></p>
-    <p class="info-text"><u>下划线</u>表示该教室在上一时段未处于空闲，<strong>蓝色加粗</strong>表示该教室全天(1-12节)空闲</p>
+    <p class="info-text update-time">本空闲教室表更新于 <span id="update-time-placeholder">2025/06/07 14:47</span></p>
     <p class="info-text">内容仅供参考，实际请以<a href="https://jwxt.neuq.edu.cn/">教务系统</a>查询结果为准</p>
     <hr>
 
@@ -200,6 +218,7 @@
 
         <!-- 工学馆内容 -->
         <div id="gongxueguan" class="tab-content active">
+            <div class="emergency-info" id="gxg-emergency-info"><p>今日暂无重要事件通知。</p></div>
             <!-- 🏙上午第1-2节 -->
             <h3 class="timeslot-title">🏙上午第1-2节</h3>
             <table border="1" class="gxg-table">
@@ -481,11 +500,13 @@
                 </tbody>
             </table>
             <hr style="margin-top: 20px; margin-bottom: 10px;">
+            <p class="info-text" style="text-align: justify">注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>蓝色加粗</strong>表示该教室全天(1-12节)空闲</p>
             <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
         </div>
 
         <!-- 本部其它教学楼内容 -->
         <div id="benbuqita" class="tab-content">
+            <div class="emergency-info" id="benbu-emergency-info"><p>今日暂无重要事件通知。</p></div>
             <!-- 🏙上午第1-2节 -->
             <h3 class="timeslot-title">🏙上午第1-2节</h3>
             <table border="1" class="campus-table">
@@ -618,6 +639,7 @@
 
         <!-- 南校区内容 -->
         <div id="nanxiaoqu" class="tab-content">
+            <div class="emergency-info" id="nanqu-emergency-info"><p>今日暂无重要事件通知。</p></div>
             <!-- 🏙上午第1-2节 -->
             <h3 class="timeslot-title">🏙上午第1-2节</h3>
             <table border="1" class="campus-table">
@@ -641,7 +663,7 @@
                         <td>人文楼</td>
                     </tr>
                     <tr class="classroom-row">
-                        <td id="KJL3-4" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> 6054 <strong>6058</strong> <strong>6062</strong><br><strong><u>6001-A自习室A</u></strong><br><strong><u>6004自习室B</u></strong><br><strong><u>6001-1A自习室C</u></strong><br><strong><u>6003自习室D</u></strong><br><strong><u>6010自习室E</u></strong><br><strong><u>6010-1A自习室F</u></strong><br><strong><u>6009自习室G</u></strong><br><strong><u>6014自习室H</u></strong><br><strong><u>6009-1A自习室I</u></strong><br><strong><u>6014-1A自习室J</u></strong><br><strong><u>6011自习室K</u></strong><br><strong><u>6016自习室L</u></strong><br><strong><u>6022-A自习室M</u></strong><br><strong><u>6022-1A自习室N</u></strong><br><strong><u>6024自习室O</u></strong><br><strong><u>6026自习室P</u></strong><br><strong><u>6026-A自习室Q</u></strong><br><strong><u>6017自习室R</u></strong><br><strong><u>6028自习室S</u></strong><br><strong><u>6019自习室T</u></strong></td>
+                        <td id="KJL3-4" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> 6054 <strong>6058</strong> <strong>6062</strong><br><strong>6001-A自习室A</strong><br><strong>6004自习室B</strong><br><strong>6001-1A自习室C</strong><br><strong>6003自习室D</strong><br><strong>6010自习室E</strong><br><strong>6010-1A自习室F</strong><br><strong>6009自习室G</strong><br><strong>6014自习室H</strong><br><strong>6009-1A自习室I</strong><br><strong>6014-1A自习室J</strong><br><strong>6011自习室K</strong><br><strong>6016自习室L</strong><br><strong>6022-A自习室M</strong><br><strong>6022-1A自习室N</strong><br><strong>6024自习室O</strong><br><strong>6026自习室P</strong><br><strong>6026-A自习室Q</strong><br><strong>6017自习室R</strong><br><strong>6028自习室S</strong><br><strong>6019自习室T</strong></td>
                         <td id="RWL3-4" style="font-size: 13px"><strong>201</strong> <strong>205</strong> <strong>208</strong> <strong>209</strong> <strong>212</strong> <strong>213</strong> <strong>216</strong> <strong>217</strong> <strong>220</strong> <strong>221</strong> <strong>224</strong> <strong>225</strong> <strong>228</strong> <strong>229</strong> <strong>308</strong> <strong>328</strong> <strong>401</strong> <strong>405</strong> <strong>510</strong> <strong>518</strong> <strong>620</strong> <strong>637</strong> <strong>701</strong> <strong>710</strong> <strong>728</strong></td>
                     </tr>
                 </tbody>
@@ -655,7 +677,7 @@
                         <td>人文楼</td>
                     </tr>
                     <tr class="classroom-row">
-                        <td id="KJL5-6" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> <strong>6058</strong> <strong>6062</strong><br><strong><u>6001-A自习室A</u></strong><br><strong><u>6004自习室B</u></strong><br><strong><u>6001-1A自习室C</u></strong><br><strong><u>6003自习室D</u></strong><br><strong><u>6010自习室E</u></strong><br><strong><u>6010-1A自习室F</u></strong><br><strong><u>6009自习室G</u></strong><br><strong><u>6014自习室H</u></strong><br><strong><u>6009-1A自习室I</u></strong><br><strong><u>6014-1A自习室J</u></strong><br><strong><u>6011自习室K</u></strong><br><strong><u>6016自习室L</u></strong><br><strong><u>6022-A自习室M</u></strong><br><strong><u>6022-1A自习室N</u></strong><br><strong><u>6024自习室O</u></strong><br><strong><u>6026自习室P</u></strong><br><strong><u>6026-A自习室Q</u></strong><br><strong><u>6017自习室R</u></strong><br><strong><u>6028自习室S</u></strong><br><strong><u>6019自习室T</u></strong></td>
+                        <td id="KJL5-6" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> <strong>6058</strong> <strong>6062</strong><br><strong>6001-A自习室A</strong><br><strong>6004自习室B</strong><br><strong>6001-1A自习室C</strong><br><strong>6003自习室D</strong><br><strong>6010自习室E</strong><br><strong>6010-1A自习室F</strong><br><strong>6009自习室G</strong><br><strong>6014自习室H</strong><br><strong>6009-1A自习室I</strong><br><strong>6014-1A自习室J</strong><br><strong>6011自习室K</strong><br><strong>6016自习室L</strong><br><strong>6022-A自习室M</strong><br><strong>6022-1A自习室N</strong><br><strong>6024自习室O</strong><br><strong>6026自习室P</strong><br><strong>6026-A自习室Q</strong><br><strong>6017自习室R</strong><br><strong>6028自习室S</strong><br><strong>6019自习室T</strong></td>
                         <td id="RWL5-6" style="font-size: 13px"><strong>201</strong> <strong>205</strong> <strong>208</strong> <strong>209</strong> <strong>212</strong> <strong>213</strong> <strong>216</strong> <strong>217</strong> <strong>220</strong> <strong>221</strong> <strong>224</strong> <strong>225</strong> <strong>228</strong> <strong>229</strong> <strong>308</strong> <strong>328</strong> <strong>401</strong> <strong>405</strong> <strong>510</strong> <strong>518</strong> <strong>620</strong> <strong>637</strong> <strong>701</strong> <strong>710</strong> <strong>728</strong></td>
                     </tr>
                 </tbody>
@@ -669,7 +691,7 @@
                         <td>人文楼</td>
                     </tr>
                     <tr class="classroom-row">
-                        <td id="KJL7-8" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> <strong>6058</strong> <strong>6062</strong><br><strong><u>6001-A自习室A</u></strong><br><strong><u>6004自习室B</u></strong><br><strong><u>6001-1A自习室C</u></strong><br><strong><u>6003自习室D</u></strong><br><strong><u>6010自习室E</u></strong><br><strong><u>6010-1A自习室F</u></strong><br><strong><u>6009自习室G</u></strong><br><strong><u>6014自习室H</u></strong><br><strong><u>6009-1A自习室I</u></strong><br><strong><u>6014-1A自习室J</u></strong><br><strong><u>6011自习室K</u></strong><br><strong><u>6016自习室L</u></strong><br><strong><u>6022-A自习室M</u></strong><br><strong><u>6022-1A自习室N</u></strong><br><strong><u>6024自习室O</u></strong><br><strong><u>6026自习室P</u></strong><br><strong><u>6026-A自习室Q</u></strong><br><strong><u>6017自习室R</u></strong><br><strong><u>6028自习室S</u></strong><br><strong><u>6019自习室T</u></strong></td>
+                        <td id="KJL7-8" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> <strong>6058</strong> <strong>6062</strong><br><strong>6001-A自习室A</strong><br><strong>6004自习室B</strong><br><strong>6001-1A自习室C</strong><br><strong>6003自习室D</strong><br><strong>6010自习室E</strong><br><strong>6010-1A自习室F</strong><br><strong>6009自习室G</strong><br><strong>6014自习室H</strong><br><strong>6009-1A自习室I</strong><br><strong>6014-1A自习室J</strong><br><strong>6011自习室K</strong><br><strong>6016自习室L</strong><br><strong>6022-A自习室M</strong><br><strong>6022-1A自习室N</strong><br><strong>6024自习室O</strong><br><strong>6026自习室P</strong><br><strong>6026-A自习室Q</strong><br><strong>6017自习室R</strong><br><strong>6028自习室S</strong><br><strong>6019自习室T</strong></td>
                         <td id="RWL7-8" style="font-size: 13px"><strong>201</strong> <strong>205</strong> <strong>208</strong> <strong>209</strong> <strong>212</strong> <strong>213</strong> <strong>216</strong> <strong>217</strong> <strong>220</strong> <strong>221</strong> <strong>224</strong> <strong>225</strong> <strong>228</strong> <strong>229</strong> <strong>308</strong> <strong>328</strong> <strong>401</strong> <strong>405</strong> <strong>510</strong> <strong>518</strong> <strong>620</strong> <strong>637</strong> <strong>701</strong> <strong>710</strong> <strong>728</strong></td>
                     </tr>
                 </tbody>
@@ -683,7 +705,7 @@
                         <td>人文楼</td>
                     </tr>
                     <tr class="classroom-row">
-                        <td id="KJL9-10" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> <u>6054</u> <strong>6058</strong> <strong>6062</strong><br><strong><u>6001-A自习室A</u></strong><br><strong><u>6004自习室B</u></strong><br><strong><u>6001-1A自习室C</u></strong><br><strong><u>6003自习室D</u></strong><br><strong><u>6010自习室E</u></strong><br><strong><u>6010-1A自习室F</u></strong><br><strong><u>6009自习室G</u></strong><br><strong><u>6014自习室H</u></strong><br><strong><u>6009-1A自习室I</u></strong><br><strong><u>6014-1A自习室J</u></strong><br><strong><u>6011自习室K</u></strong><br><strong><u>6016自习室L</u></strong><br><strong><u>6022-A自习室M</u></strong><br><strong><u>6022-1A自习室N</u></strong><br><strong><u>6024自习室O</u></strong><br><strong><u>6026自习室P</u></strong><br><strong><u>6026-A自习室Q</u></strong><br><strong><u>6017自习室R</u></strong><br><strong><u>6028自习室S</u></strong><br><strong><u>6019自习室T</u></strong></td>
+                        <td id="KJL9-10" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> <u>6054</u> <strong>6058</strong> <strong>6062</strong><br><strong>6001-A自习室A</strong><br><strong>6004自习室B</strong><br><strong>6001-1A自习室C</strong><br><strong>6003自习室D</strong><br><strong>6010自习室E</strong><br><strong>6010-1A自习室F</strong><br><strong>6009自习室G</strong><br><strong>6014自习室H</strong><br><strong>6009-1A自习室I</strong><br><strong>6014-1A自习室J</strong><br><strong>6011自习室K</strong><br><strong>6016自习室L</strong><br><strong>6022-A自习室M</strong><br><strong>6022-1A自习室N</strong><br><strong>6024自习室O</strong><br><strong>6026自习室P</strong><br><strong>6026-A自习室Q</strong><br><strong>6017自习室R</strong><br><strong>6028自习室S</strong><br><strong>6019自习室T</strong></td>
                         <td id="RWL9-10" style="font-size: 13px"><strong>201</strong> <strong>205</strong> <strong>208</strong> <strong>209</strong> <strong>212</strong> <strong>213</strong> <strong>216</strong> <strong>217</strong> <strong>220</strong> <strong>221</strong> <strong>224</strong> <strong>225</strong> <strong>228</strong> <strong>229</strong> <strong>308</strong> <strong>328</strong> <strong>401</strong> <strong>405</strong> <strong>510</strong> <strong>518</strong> <strong>620</strong> <strong>637</strong> <strong>701</strong> <strong>710</strong> <strong>728</strong></td>
                     </tr>
                 </tbody>
@@ -697,7 +719,7 @@
                         <td>人文楼</td>
                     </tr>
                     <tr class="classroom-row">
-                        <td id="KJL11-12" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> 6054 <strong>6058</strong> <strong>6062</strong><br><strong><u>6001-A自习室A</u></strong><br><strong><u>6004自习室B</u></strong><br><strong><u>6001-1A自习室C</u></strong><br><strong><u>6003自习室D</u></strong><br><strong><u>6010自习室E</u></strong><br><strong><u>6010-1A自习室F</u></strong><br><strong><u>6009自习室G</u></strong><br><strong><u>6014自习室H</u></strong><br><strong><u>6009-1A自习室I</u></strong><br><strong><u>6014-1A自习室J</u></strong><br><strong><u>6011自习室K</u></strong><br><strong><u>6016自习室L</u></strong><br><strong><u>6022-A自习室M</u></strong><br><strong><u>6022-1A自习室N</u></strong><br><strong><u>6024自习室O</u></strong><br><strong><u>6026自习室P</u></strong><br><strong><u>6026-A自习室Q</u></strong><br><strong><u>6017自习室R</u></strong><br><strong><u>6028自习室S</u></strong><br><strong><u>6019自习室T</u></strong></td>
+                        <td id="KJL11-12" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> 6054 <strong>6058</strong> <strong>6062</strong><br><strong>6001-A自习室A</strong><br><strong>6004自习室B</strong><br><strong>6001-1A自习室C</strong><br><strong>6003自习室D</strong><br><strong>6010自习室E</strong><br><strong>6010-1A自习室F</strong><br><strong>6009自习室G</strong><br><strong>6014自习室H</strong><br><strong>6009-1A自习室I</strong><br><strong>6014-1A自习室J</strong><br><strong>6011自习室K</strong><br><strong>6016自习室L</strong><br><strong>6022-A自习室M</strong><br><strong>6022-1A自习室N</strong><br><strong>6024自习室O</strong><br><strong>6026自习室P</strong><br><strong>6026-A自习室Q</strong><br><strong>6017自习室R</strong><br><strong>6028自习室S</strong><br><strong>6019自习室T</strong></td>
                         <td id="RWL11-12" style="font-size: 13px"><strong>201</strong> <strong>205</strong> <strong>208</strong> <strong>209</strong> <strong>212</strong> <strong>213</strong> <strong>216</strong> <strong>217</strong> <strong>220</strong> <strong>221</strong> <strong>224</strong> <strong>225</strong> <strong>228</strong> <strong>229</strong> <u>232</u> <strong>308</strong> <strong>328</strong> <strong>401</strong> <strong>405</strong> <strong>510</strong> <strong>518</strong> <strong>620</strong> <strong>637</strong> <strong>701</strong> <strong>710</strong> <strong>728</strong></td>
                     </tr>
                 </tbody>
