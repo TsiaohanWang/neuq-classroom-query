@@ -4,11 +4,15 @@
 
 本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
 
+本表定期更新可能占用教室的校园事件。
+
 本项目通过 `/tests/classroom_query.spec.ts` 文件自动登录东秦教务系统，查询空闲教室信息，并将结果保存为JSON格式储存于 `/output` 中。
 
 查询结果随后会被 `scripts/process_json.js` 处理，对数据进行筛选和合并，存储在 `/output/processed_classroom_data.json` 中。
 
 `/scripts/generate_html.js` 会将 `/output/processed_classroom_data.json` 转换为对应的 `/index.html`。然后将该HTML文件发布在 `GitHub Pages` 上。
+
+对于可能占用教室的校园事件，将其记录在 `/calendar/neuq_events.json` 中。`/scripts/generate_html.js`在生成HTML文件时会读取该文件，检查是否有当日发生的事件。
 
 由于东秦教务系统网站时有变动，可能会导致Playwright自动化运行失效，**请以教务系统实际查询结果为准**。
 
