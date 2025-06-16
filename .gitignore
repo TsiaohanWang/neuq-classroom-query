@@ -1,3 +1,5 @@
+# 本地测试需要，暂不提交
+tests/
 # Playwright
 node_modules/
 /test-results/
