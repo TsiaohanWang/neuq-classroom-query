@@ -2,7 +2,7 @@ name: Classroom Query and Deploy Automation
 
 on:
   schedule:
-    - cron: '0 */4 * * *'  # Run every 4 hours
+    - cron: '0 */6 * * *'  # Run every 6 hours
   workflow_dispatch:  # Allow manual triggering
 
 permissions:
