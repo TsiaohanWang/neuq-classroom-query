@@ -236,12 +236,6 @@ const htmlTemplate = `
             <!-- 🏙上午第1-2节 -->
             <h3 class="timeslot-title">🏙上午第1-2节</h3>
             <table border="1" class="gxg-table">
-                <thead>
-                    <tr>
-                        <th>楼层</th>
-                        <th>教室</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
                         <td>1F</td>
@@ -276,12 +270,6 @@ const htmlTemplate = `
             <!-- 🏙上午第3-4节 -->
             <h3 class="timeslot-title">🏙上午第3-4节</h3>
             <table border="1" class="gxg-table">
-                <thead>
-                    <tr>
-                        <th>楼层</th>
-                        <th>教室</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
                         <td>1F</td>
@@ -316,12 +304,6 @@ const htmlTemplate = `
             <!-- 🌇下午第5-6节 -->
             <h3 class="timeslot-title">🌇下午第5-6节</h3>
             <table border="1" class="gxg-table">
-                <thead>
-                    <tr>
-                        <th>楼层</th>
-                        <th>教室</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
                         <td>1F</td>
@@ -356,12 +338,6 @@ const htmlTemplate = `
             <!-- 🌇下午第7-8节 -->
             <h3 class="timeslot-title">🌇下午第7-8节</h3>
             <table border="1" class="gxg-table">
-                <thead>
-                    <tr>
-                        <th>楼层</th>
-                        <th>教室</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
                         <td>1F</td>
@@ -396,12 +372,6 @@ const htmlTemplate = `
             <!-- 🌃晚上第9-10节 -->
             <h3 class="timeslot-title">🌃晚上第9-10节</h3>
             <table border="1" class="gxg-table">
-                <thead>
-                    <tr>
-                        <th>楼层</th>
-                        <th>教室</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
                         <td>1F</td>
@@ -436,12 +406,6 @@ const htmlTemplate = `
             <!-- 🌃晚上第11-12节 -->
             <h3 class="timeslot-title">🌃晚上第11-12节</h3>
             <table border="1" class="gxg-table">
-                <thead>
-                    <tr>
-                        <th>楼层</th>
-                        <th>教室</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
                         <td>1F</td>
@@ -476,12 +440,6 @@ const htmlTemplate = `
             <!-- 🏙昼间第1-8节 -->
             <h3 class="timeslot-title">🏙昼间第1-8节</h3>
             <table border="1" class="gxg-table">
-                <thead>
-                    <tr>
-                        <th>楼层</th>
-                        <th>教室</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
                         <td>1F</td>
