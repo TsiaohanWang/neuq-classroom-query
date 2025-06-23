@@ -2,6 +2,10 @@
 
 本仓库通过部署在 `GitHub Actions` 上的 `Playwright` 测试文件来自动化获取空闲教室信息，并且借助JavaScript脚本生成对应HTML文件，自动发布在 `GitHub Pages` 上。该流程会每6小时自动执行一次。
 
+> 由于未知的原因，目前该项目在`GitHub Actions`上部署的定期执行无法正常生成正确的HTML文件，需要手动触发。
+> 
+> 进入该项目的`Actions`，在左侧找到`Classroom Query and Deploy Automation`这项workflow。此时会显示`This workflow has a workflow_dispatch event trigger.`，点击`Run workflow`按钮即可手动触发。
+
 本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
 
 本表定期更新可能占用教室的校园事件。
