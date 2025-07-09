@@ -1,0 +1,728 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东秦空闲教室总表</title>
+    <style>
+        body {
+            max-width: 800px;
+            margin: 0px auto 15px;
+            padding: 0 10px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .tab-container {
+            width: 100%;
+            margin-top: 10px;
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 2px 4px 3px 2px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .tab-buttons {
+            display: flex;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #d8d8d8;
+        }
+
+        .tab-button {
+            padding: 6px 10px;
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            color: #888;
+            font-size: 17px;
+            font-weight: 500;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+            outline: none;
+            flex-grow: 1;
+            text-align: center;
+            border-right: 1px solid #d8d8d8;
+        }
+
+        .tab-button:last-child {
+            border-right: none;
+        }
+
+        .tab-button:hover {
+            background-color: #e5e5e5;
+            color: #000;
+        }
+
+        .tab-button.active {
+            background-color: #fff;
+            color: #30448c;
+            border-bottom: 2px solid #30448c;
+            font-size: 17px;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 15px;
+            border-top: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* 临时信息通知框样式 */
+        .emergency-info {
+            padding: 4px 10px; /* 调整内边距 */
+            margin-bottom: 10px; /* 与下方内容的间距 */
+            border: 2px dashed rgba(48, 68, 140, 0.3); /* 校色的浅色边框 */
+            border-radius: 8px; /* 圆角 */
+            background-color: rgba(48, 68, 140, 0.08); /* 校色的淡化透明背景 */
+            color: #2c3e50; /* 文字颜色 */
+            text-align: left; /* 文字左对齐 */
+            font-size: 13px; /* 字体大小 */
+            line-height: 1.5; /* 行高 */
+        }
+        .emergency-info p { /* 通知内每条消息的段落样式 */
+            margin: 0 0 5px 0; /* 段落下边距 */
+        }
+        .emergency-info p:last-child {
+            margin-bottom: 0; /* 最后一条消息无下边距 */
+        }
+
+
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        th,
+        td {
+            border: 1px solid #e0e0e0;
+            padding: 4px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        td {
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* 工学馆楼层列样式 */
+        .gxg-table td:first-child {
+            font-weight: bold;
+            width: 30px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* 本部其它和南校区表格的教学楼名称行样式 */
+        .campus-table .building-name-row td {
+            font-weight: bold;
+            text-align: center;
+            background-color: #f8f9fa;
+            font-size: 13px;
+        }
+
+        /* 本部其它和南校区表格的教室号行样式 */
+        .campus-table .classroom-row td {
+            text-align: center;
+            min-height: 50px;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+
+
+        /* 页面标题和信息文本样式 */
+        h1 {
+            text-align: center;
+            margin-bottom: 1px;
+            font-size: 22px;
+            color: #343a40;
+        }
+
+        .info-text {
+            text-align: center;
+            margin-bottom: 4px;
+            font-size: 13px;
+            color: #6c757d;
+        }
+
+        .info-text.update-time {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .info-text a {
+            color: #30448c;
+            text-decoration: none;
+        }
+
+        .info-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* 时间段标题样式 */
+        .timeslot-title {
+            font-size: 20px;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            color: #30448c;
+        }
+         /* 为下划线和加粗添加样式 */
+        u {
+        }
+        strong {
+            font-weight: bold;
+            color: #30448c;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1><span id="current-date-placeholder">2025/07/10</span> 东秦空闲教室总表</h1>
+    <p class="info-text update-time">本空闲教室表更新于 <span id="update-time-placeholder">2025/07/10 02:22</span></p>
+    <p class="info-text">内容仅供参考，实际请以<a href="https://jwxt.neuq.edu.cn/">教务系统</a>查询结果为准</p>
+    <hr>
+
+    <div class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="openTab(event, 'gongxueguan')">工学馆</button>
+            <button class="tab-button" onclick="openTab(event, 'benbuqita')">本部其它</button>
+            <button class="tab-button" onclick="openTab(event, 'nanxiaoqu')">南校区</button>
+        </div>
+
+        <!-- 工学馆内容 -->
+        <div id="gongxueguan" class="tab-content active">
+            <div class="emergency-info" id="gxg-emergency-info"><p>今日暂无重要事件通知。</p></div>
+            <!-- 🏙上午第1-2节 -->
+            <h3 class="timeslot-title">🏙上午第1-2节</h3>
+            <table border="1" class="gxg-table">
+                <tbody>
+                    <tr>
+                        <td>1F</td>
+                        <td id="GXG1F1-2"><strong>103</strong> <strong>104</strong> 106 <strong>107</strong> <strong>111</strong> <strong>112</strong> <strong>115</strong> <strong>116</strong> <strong>119</strong> <strong>122</strong> <strong>126</strong> <strong>127</strong> <strong>129</strong></td>
+                    </tr>
+                    <tr>
+                        <td>2F</td>
+                        <td id="GXG2F1-2"><strong>203</strong> <strong>204</strong> <strong>206</strong> <strong>207</strong> <strong>211</strong> <strong>212</strong> <strong>215</strong> <strong>216</strong> <strong>220</strong> <strong>221</strong> <strong>226</strong> <strong>230</strong> <strong>231</strong></td>
+                    </tr>
+                    <tr>
+                        <td>3F</td>
+                        <td id="GXG3F1-2"><strong>303</strong> <strong>304</strong> <strong>306</strong> <strong>307</strong> <strong>311</strong> <strong>312</strong> 315 <strong>316</strong> <strong>320</strong> <strong>321</strong> <strong>326</strong> <strong>330</strong> <strong>331</strong></td>
+                    </tr>
+                    <tr>
+                        <td>4F</td>
+                        <td id="GXG4F1-2"><strong>410</strong></td>
+                    </tr>
+                    <tr>
+                        <td>5F</td>
+                        <td id="GXG5F1-2">无</td>
+                    </tr>
+                    <tr>
+                        <td>6F</td>
+                        <td id="GXG6F1-2"><strong>603</strong></td>
+                    </tr>
+                    <tr>
+                        <td>7F</td>
+                        <td id="GXG7F1-2"><strong>703</strong> <strong>706</strong> <strong>707</strong> <strong>710</strong> <strong>711</strong> <strong>714</strong> <strong>717</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🏙上午第3-4节 -->
+            <h3 class="timeslot-title">🏙上午第3-4节</h3>
+            <table border="1" class="gxg-table">
+                <tbody>
+                    <tr>
+                        <td>1F</td>
+                        <td id="GXG1F3-4"><strong>103</strong> <strong>104</strong> <strong>107</strong> <strong>111</strong> <strong>112</strong> <strong>115</strong> <strong>116</strong> <strong>119</strong> <strong>122</strong> <strong>126</strong> <strong>127</strong> <strong>129</strong></td>
+                    </tr>
+                    <tr>
+                        <td>2F</td>
+                        <td id="GXG2F3-4"><strong>203</strong> <strong>204</strong> <strong>206</strong> <strong>207</strong> <strong>211</strong> <strong>212</strong> <strong>215</strong> <strong>216</strong> <strong>220</strong> <strong>221</strong> <strong>226</strong> <strong>230</strong> <strong>231</strong></td>
+                    </tr>
+                    <tr>
+                        <td>3F</td>
+                        <td id="GXG3F3-4"><strong>303</strong> <strong>304</strong> <strong>306</strong> <strong>307</strong> <strong>311</strong> <strong>312</strong> <strong>316</strong> <strong>320</strong> <strong>321</strong> <strong>326</strong> <strong>330</strong> <strong>331</strong></td>
+                    </tr>
+                    <tr>
+                        <td>4F</td>
+                        <td id="GXG4F3-4"><strong>410</strong></td>
+                    </tr>
+                    <tr>
+                        <td>5F</td>
+                        <td id="GXG5F3-4">无</td>
+                    </tr>
+                    <tr>
+                        <td>6F</td>
+                        <td id="GXG6F3-4"><strong>603</strong></td>
+                    </tr>
+                    <tr>
+                        <td>7F</td>
+                        <td id="GXG7F3-4"><strong>703</strong> <strong>706</strong> <strong>707</strong> <strong>710</strong> <strong>711</strong> <strong>714</strong> <strong>717</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🌇下午第5-6节 -->
+            <h3 class="timeslot-title">🌇下午第5-6节</h3>
+            <table border="1" class="gxg-table">
+                <tbody>
+                    <tr>
+                        <td>1F</td>
+                        <td id="GXG1F5-6"><strong>103</strong> <strong>104</strong> <u>106</u> <strong>107</strong> <strong>111</strong> <strong>112</strong> <strong>115</strong> <strong>116</strong> <strong>119</strong> <strong>122</strong> <strong>126</strong> <strong>127</strong> <strong>129</strong></td>
+                    </tr>
+                    <tr>
+                        <td>2F</td>
+                        <td id="GXG2F5-6"><strong>203</strong> <strong>204</strong> <strong>206</strong> <strong>207</strong> <strong>211</strong> <strong>212</strong> <strong>215</strong> <strong>216</strong> <strong>220</strong> <strong>221</strong> <strong>226</strong> <strong>230</strong> <strong>231</strong></td>
+                    </tr>
+                    <tr>
+                        <td>3F</td>
+                        <td id="GXG3F5-6"><strong>303</strong> <strong>304</strong> <strong>306</strong> <strong>307</strong> <strong>311</strong> <strong>312</strong> <u>315</u> <strong>316</strong> <strong>320</strong> <strong>321</strong> <strong>326</strong> <strong>330</strong> <strong>331</strong></td>
+                    </tr>
+                    <tr>
+                        <td>4F</td>
+                        <td id="GXG4F5-6"><u>403</u> <u>406</u> <u>407</u> <strong>410</strong> <u>411</u> <u>414</u> <u>421</u> <u>425</u></td>
+                    </tr>
+                    <tr>
+                        <td>5F</td>
+                        <td id="GXG5F5-6"><u>503</u> <u>506</u> <u>507</u> <u>510</u> <u>511</u> <u>514</u> <u>517</u> <u>521</u> <u>525</u></td>
+                    </tr>
+                    <tr>
+                        <td>6F</td>
+                        <td id="GXG6F5-6"><strong>603</strong> <u>606</u> <u>607</u> <u>610</u> <u>611</u> <u>614</u> <u>617</u> <u>625</u></td>
+                    </tr>
+                    <tr>
+                        <td>7F</td>
+                        <td id="GXG7F5-6"><strong>703</strong> <strong>706</strong> <strong>707</strong> <strong>710</strong> <strong>711</strong> <strong>714</strong> <strong>717</strong> <u>721</u> <u>725</u></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🌇下午第7-8节 -->
+            <h3 class="timeslot-title">🌇下午第7-8节</h3>
+            <table border="1" class="gxg-table">
+                <tbody>
+                    <tr>
+                        <td>1F</td>
+                        <td id="GXG1F7-8"><strong>103</strong> <strong>104</strong> <strong>107</strong> <strong>111</strong> <strong>112</strong> <strong>115</strong> <strong>116</strong> <strong>119</strong> <strong>122</strong> <strong>126</strong> <strong>127</strong> <strong>129</strong></td>
+                    </tr>
+                    <tr>
+                        <td>2F</td>
+                        <td id="GXG2F7-8"><strong>203</strong> <strong>204</strong> <strong>206</strong> <strong>207</strong> <strong>211</strong> <strong>212</strong> <strong>215</strong> <strong>216</strong> <strong>220</strong> <strong>221</strong> <strong>226</strong> <strong>230</strong> <strong>231</strong></td>
+                    </tr>
+                    <tr>
+                        <td>3F</td>
+                        <td id="GXG3F7-8"><strong>303</strong> <strong>304</strong> <strong>306</strong> <strong>307</strong> <strong>311</strong> <strong>312</strong> 315 <strong>316</strong> <strong>320</strong> <strong>321</strong> <strong>326</strong> <strong>330</strong> <strong>331</strong></td>
+                    </tr>
+                    <tr>
+                        <td>4F</td>
+                        <td id="GXG4F7-8">403 406 407 <strong>410</strong> 411 414 421 425</td>
+                    </tr>
+                    <tr>
+                        <td>5F</td>
+                        <td id="GXG5F7-8">503 506 507 510 511 514 517 521 525</td>
+                    </tr>
+                    <tr>
+                        <td>6F</td>
+                        <td id="GXG6F7-8"><strong>603</strong> 606 607 610 611 614 617 625</td>
+                    </tr>
+                    <tr>
+                        <td>7F</td>
+                        <td id="GXG7F7-8"><strong>703</strong> <strong>706</strong> <strong>707</strong> <strong>710</strong> <strong>711</strong> <strong>714</strong> <strong>717</strong> 721 725</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🌃晚上第9-10节 -->
+            <h3 class="timeslot-title">🌃晚上第9-10节</h3>
+            <table border="1" class="gxg-table">
+                <tbody>
+                    <tr>
+                        <td>1F</td>
+                        <td id="GXG1F9-10"><strong>103</strong> <strong>104</strong> <u>106</u> <strong>107</strong> <strong>111</strong> <strong>112</strong> <strong>115</strong> <strong>116</strong> <strong>119</strong> <strong>122</strong> <strong>126</strong> <strong>127</strong> <strong>129</strong></td>
+                    </tr>
+                    <tr>
+                        <td>2F</td>
+                        <td id="GXG2F9-10"><strong>203</strong> <strong>204</strong> <strong>206</strong> <strong>207</strong> <strong>211</strong> <strong>212</strong> <strong>215</strong> <strong>216</strong> <strong>220</strong> <strong>221</strong> <u>225</u> <strong>226</strong> <u>229</u> <strong>230</strong> <strong>231</strong></td>
+                    </tr>
+                    <tr>
+                        <td>3F</td>
+                        <td id="GXG3F9-10"><strong>303</strong> <strong>304</strong> <strong>306</strong> <strong>307</strong> <strong>311</strong> <strong>312</strong> 315 <strong>316</strong> <strong>320</strong> <strong>321</strong> <u>325</u> <strong>326</strong> <u>329</u> <strong>330</strong> <strong>331</strong></td>
+                    </tr>
+                    <tr>
+                        <td>4F</td>
+                        <td id="GXG4F9-10">403 406 407 <strong>410</strong> 411 414 421 425</td>
+                    </tr>
+                    <tr>
+                        <td>5F</td>
+                        <td id="GXG5F9-10">503 506 507 510 511 514 517 521 525</td>
+                    </tr>
+                    <tr>
+                        <td>6F</td>
+                        <td id="GXG6F9-10"><strong>603</strong> 606 607 610 611 614 617 625</td>
+                    </tr>
+                    <tr>
+                        <td>7F</td>
+                        <td id="GXG7F9-10"><strong>703</strong> <strong>706</strong> <strong>707</strong> <strong>710</strong> <strong>711</strong> <strong>714</strong> <strong>717</strong> 721 725</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🌃晚上第11-12节 -->
+            <h3 class="timeslot-title">🌃晚上第11-12节</h3>
+            <table border="1" class="gxg-table">
+                <tbody>
+                    <tr>
+                        <td>1F</td>
+                        <td id="GXG1F11-12"><strong>103</strong> <strong>104</strong> 106 <strong>107</strong> <strong>111</strong> <strong>112</strong> <strong>115</strong> <strong>116</strong> <strong>119</strong> <strong>122</strong> <strong>126</strong> <strong>127</strong> <strong>129</strong></td>
+                    </tr>
+                    <tr>
+                        <td>2F</td>
+                        <td id="GXG2F11-12"><strong>203</strong> <strong>204</strong> <strong>206</strong> <strong>207</strong> <strong>211</strong> <strong>212</strong> <strong>215</strong> <strong>216</strong> <strong>220</strong> <strong>221</strong> 225 <strong>226</strong> 229 <strong>230</strong> <strong>231</strong></td>
+                    </tr>
+                    <tr>
+                        <td>3F</td>
+                        <td id="GXG3F11-12"><strong>303</strong> <strong>304</strong> <strong>306</strong> <strong>307</strong> <strong>311</strong> <strong>312</strong> 315 <strong>316</strong> <strong>320</strong> <strong>321</strong> 325 <strong>326</strong> 329 <strong>330</strong> <strong>331</strong></td>
+                    </tr>
+                    <tr>
+                        <td>4F</td>
+                        <td id="GXG4F11-12">403 406 407 <strong>410</strong> 411 414 421 425</td>
+                    </tr>
+                    <tr>
+                        <td>5F</td>
+                        <td id="GXG5F11-12">503 506 507 510 511 514 517 521 525</td>
+                    </tr>
+                    <tr>
+                        <td>6F</td>
+                        <td id="GXG6F11-12"><strong>603</strong> 606 607 610 611 614 617 <u>621</u> 625</td>
+                    </tr>
+                    <tr>
+                        <td>7F</td>
+                        <td id="GXG7F11-12"><strong>703</strong> <strong>706</strong> <strong>707</strong> <strong>710</strong> <strong>711</strong> <strong>714</strong> <strong>717</strong> 721 725</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🏙昼间第1-8节 -->
+            <h3 class="timeslot-title">🏙昼间第1-8节</h3>
+            <table border="1" class="gxg-table">
+                <tbody>
+                    <tr>
+                        <td>1F</td>
+                        <td id="GXG1F1-8"><strong>103</strong> <strong>104</strong> <strong>107</strong> <strong>111</strong> <strong>112</strong> <strong>115</strong> <strong>116</strong> <strong>119</strong> <strong>122</strong> <strong>126</strong> <strong>127</strong> <strong>129</strong></td>
+                    </tr>
+                    <tr>
+                        <td>2F</td>
+                        <td id="GXG2F1-8"><strong>203</strong> <strong>204</strong> <strong>206</strong> <strong>207</strong> <strong>211</strong> <strong>212</strong> <strong>215</strong> <strong>216</strong> <strong>220</strong> <strong>221</strong> <strong>226</strong> <strong>230</strong> <strong>231</strong></td>
+                    </tr>
+                    <tr>
+                        <td>3F</td>
+                        <td id="GXG3F1-8"><strong>303</strong> <strong>304</strong> <strong>306</strong> <strong>307</strong> <strong>311</strong> <strong>312</strong> <strong>316</strong> <strong>320</strong> <strong>321</strong> <strong>326</strong> <strong>330</strong> <strong>331</strong></td>
+                    </tr>
+                    <tr>
+                        <td>4F</td>
+                        <td id="GXG4F1-8"><strong>410</strong></td>
+                    </tr>
+                    <tr>
+                        <td>5F</td>
+                        <td id="GXG5F1-8">无</td>
+                    </tr>
+                    <tr>
+                        <td>6F</td>
+                        <td id="GXG6F1-8"><strong>603</strong></td>
+                    </tr>
+                    <tr>
+                        <td>7F</td>
+                        <td id="GXG7F1-8"><strong>703</strong> <strong>706</strong> <strong>707</strong> <strong>710</strong> <strong>711</strong> <strong>714</strong> <strong>717</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr style="margin-top: 20px; margin-bottom: 10px;">
+            <p class="info-text" style="text-align: justify">注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>蓝色加粗</strong>表示该教室全天(1-12节)空闲。</p>
+            <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
+        </div>
+
+        <!-- 本部其它教学楼内容 -->
+        <div id="benbuqita" class="tab-content">
+            <div class="emergency-info" id="benbu-emergency-info"><p>今日暂无重要事件通知。</p></div>
+            <!-- 🏙上午第1-2节 -->
+            <h3 class="timeslot-title">🏙上午第1-2节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>基础楼</td>
+                        <td>综合实验楼</td>
+                        <td>地质楼</td>
+                        <td>管理楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="JCL1-2"><strong>217</strong><br><strong>308</strong></td>
+                        <td id="ZHSYL1-2"><strong>708</strong><br><strong>1201</strong></td>
+                        <td id="DZL1-2">无</td>
+                        <td id="GLL1-2"><strong>3110</strong><br><strong>3210</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🏙上午第3-4节 -->
+            <h3 class="timeslot-title">🏙上午第3-4节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>基础楼</td>
+                        <td>综合实验楼</td>
+                        <td>地质楼</td>
+                        <td>管理楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="JCL3-4"><strong>217</strong><br><strong>308</strong></td>
+                        <td id="ZHSYL3-4"><strong>708</strong><br><strong>1201</strong></td>
+                        <td id="DZL3-4">无</td>
+                        <td id="GLL3-4"><strong>3110</strong><br><strong>3210</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🌇下午第5-6节 -->
+            <h3 class="timeslot-title">🌇下午第5-6节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>基础楼</td>
+                        <td>综合实验楼</td>
+                        <td>地质楼</td>
+                        <td>管理楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="JCL5-6"><strong>217</strong><br><strong>308</strong></td>
+                        <td id="ZHSYL5-6"><strong>708</strong><br><strong>1201</strong></td>
+                        <td id="DZL5-6">无</td>
+                        <td id="GLL5-6"><strong>3110</strong><br><strong>3210</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🌇下午第7-8节 -->
+            <h3 class="timeslot-title">🌇下午第7-8节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>基础楼</td>
+                        <td>综合实验楼</td>
+                        <td>地质楼</td>
+                        <td>管理楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="JCL7-8"><strong>217</strong><br><strong>308</strong></td>
+                        <td id="ZHSYL7-8"><strong>708</strong><br><strong>1201</strong></td>
+                        <td id="DZL7-8">无</td>
+                        <td id="GLL7-8"><strong>3110</strong><br><strong>3210</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🌃晚上第9-10节 -->
+            <h3 class="timeslot-title">🌃晚上第9-10节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>基础楼</td>
+                        <td>综合实验楼</td>
+                        <td>地质楼</td>
+                        <td>管理楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="JCL9-10"><strong>217</strong><br><strong>308</strong></td>
+                        <td id="ZHSYL9-10"><strong>708</strong><br><strong>1201</strong></td>
+                        <td id="DZL9-10">无</td>
+                        <td id="GLL9-10"><strong>3110</strong><br><strong>3210</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🌃晚上第11-12节 -->
+            <h3 class="timeslot-title">🌃晚上第11-12节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>基础楼</td>
+                        <td>综合实验楼</td>
+                        <td>地质楼</td>
+                        <td>管理楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="JCL11-12"><strong>217</strong><br><strong>308</strong></td>
+                        <td id="ZHSYL11-12"><strong>708</strong><br><strong>1201</strong></td>
+                        <td id="DZL11-12">无</td>
+                        <td id="GLL11-12"><strong>3110</strong><br><strong>3210</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🏙昼间第1-8节 -->
+            <h3 class="timeslot-title">🏙昼间第1-8节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>基础楼</td>
+                        <td>综合实验楼</td>
+                        <td>地质楼</td>
+                        <td>管理楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="JCL1-8"><strong>217</strong><br><strong>308</strong></td>
+                        <td id="ZHSYL1-8"><strong>708</strong><br><strong>1201</strong></td>
+                        <td id="DZL1-8">无</td>
+                        <td id="GLL1-8"><strong>3110</strong><br><strong>3210</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr style="margin-top: 20px; margin-bottom: 10px;">
+            <p class="info-text" style="text-align: justify">注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>蓝色加粗</strong>表示该教室全天(1-12节)空闲。</p>
+            <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
+        </div>
+
+        <!-- 南校区内容 -->
+        <div id="nanxiaoqu" class="tab-content">
+            <div class="emergency-info" id="nanqu-emergency-info"><p>今日暂无重要事件通知。</p></div>
+            <!-- 🏙上午第1-2节 -->
+            <h3 class="timeslot-title">🏙上午第1-2节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>科技楼</td>
+                        <td>人文楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="KJL1-2" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> <strong>6054</strong> <strong>6058</strong> <strong>6062</strong><br><strong>6001-A自习室A</strong><br><strong>6004自习室B</strong><br><strong>6001-1A自习室C</strong><br><strong>6003自习室D</strong><br><strong>6010自习室E</strong><br><strong>6010-1A自习室F</strong><br><strong>6009自习室G</strong><br><strong>6014自习室H</strong><br><strong>6009-1A自习室I</strong><br><strong>6014-1A自习室J</strong><br><strong>6011自习室K</strong><br><strong>6016自习室L</strong><br><strong>6022-A自习室M</strong><br><strong>6022-1A自习室N</strong><br><strong>6024自习室O</strong><br><strong>6026自习室P</strong><br><strong>6026-A自习室Q</strong><br><strong>6017自习室R</strong><br><strong>6028自习室S</strong><br><strong>6019自习室T</strong></td>
+                        <td id="RWL1-2" style="font-size: 13px"><strong>201</strong> <strong>205</strong> <strong>208</strong> <strong>209</strong> <strong>212</strong> <strong>213</strong> <strong>216</strong> <strong>217</strong> <strong>220</strong> <strong>221</strong> <strong>224</strong> <strong>225</strong> <strong>228</strong> <strong>229</strong> <strong>232</strong> <strong>308</strong> <strong>328</strong> 401 <strong>405</strong> <strong>510</strong> <strong>518</strong> <strong>620</strong> <strong>637</strong> <strong>701</strong> <strong>710</strong> <strong>728</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🏙上午第3-4节 -->
+            <h3 class="timeslot-title">🏙上午第3-4节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>科技楼</td>
+                        <td>人文楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="KJL3-4" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> <strong>6054</strong> <strong>6058</strong> <strong>6062</strong><br><strong>6001-A自习室A</strong><br><strong>6004自习室B</strong><br><strong>6001-1A自习室C</strong><br><strong>6003自习室D</strong><br><strong>6010自习室E</strong><br><strong>6010-1A自习室F</strong><br><strong>6009自习室G</strong><br><strong>6014自习室H</strong><br><strong>6009-1A自习室I</strong><br><strong>6014-1A自习室J</strong><br><strong>6011自习室K</strong><br><strong>6016自习室L</strong><br><strong>6022-A自习室M</strong><br><strong>6022-1A自习室N</strong><br><strong>6024自习室O</strong><br><strong>6026自习室P</strong><br><strong>6026-A自习室Q</strong><br><strong>6017自习室R</strong><br><strong>6028自习室S</strong><br><strong>6019自习室T</strong></td>
+                        <td id="RWL3-4" style="font-size: 13px"><strong>201</strong> <strong>205</strong> <strong>208</strong> <strong>209</strong> <strong>212</strong> <strong>213</strong> <strong>216</strong> <strong>217</strong> <strong>220</strong> <strong>221</strong> <strong>224</strong> <strong>225</strong> <strong>228</strong> <strong>229</strong> <strong>232</strong> <strong>308</strong> <strong>328</strong> 401 <strong>405</strong> <strong>510</strong> <strong>518</strong> <strong>620</strong> <strong>637</strong> <strong>701</strong> <strong>710</strong> <strong>728</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🌇下午第5-6节 -->
+            <h3 class="timeslot-title">🌇下午第5-6节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>科技楼</td>
+                        <td>人文楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="KJL5-6" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> <strong>6054</strong> <strong>6058</strong> <strong>6062</strong><br><strong>6001-A自习室A</strong><br><strong>6004自习室B</strong><br><strong>6001-1A自习室C</strong><br><strong>6003自习室D</strong><br><strong>6010自习室E</strong><br><strong>6010-1A自习室F</strong><br><strong>6009自习室G</strong><br><strong>6014自习室H</strong><br><strong>6009-1A自习室I</strong><br><strong>6014-1A自习室J</strong><br><strong>6011自习室K</strong><br><strong>6016自习室L</strong><br><strong>6022-A自习室M</strong><br><strong>6022-1A自习室N</strong><br><strong>6024自习室O</strong><br><strong>6026自习室P</strong><br><strong>6026-A自习室Q</strong><br><strong>6017自习室R</strong><br><strong>6028自习室S</strong><br><strong>6019自习室T</strong></td>
+                        <td id="RWL5-6" style="font-size: 13px"><strong>201</strong> <strong>205</strong> <strong>208</strong> <strong>209</strong> <strong>212</strong> <strong>213</strong> <strong>216</strong> <strong>217</strong> <strong>220</strong> <strong>221</strong> <strong>224</strong> <strong>225</strong> <strong>228</strong> <strong>229</strong> <strong>232</strong> <strong>308</strong> <strong>328</strong> <strong>405</strong> <strong>510</strong> <strong>518</strong> <strong>620</strong> <strong>637</strong> <strong>701</strong> <strong>710</strong> <strong>728</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🌇下午第7-8节 -->
+            <h3 class="timeslot-title">🌇下午第7-8节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>科技楼</td>
+                        <td>人文楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="KJL7-8" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> <strong>6054</strong> <strong>6058</strong> <strong>6062</strong><br><strong>6001-A自习室A</strong><br><strong>6004自习室B</strong><br><strong>6001-1A自习室C</strong><br><strong>6003自习室D</strong><br><strong>6010自习室E</strong><br><strong>6010-1A自习室F</strong><br><strong>6009自习室G</strong><br><strong>6014自习室H</strong><br><strong>6009-1A自习室I</strong><br><strong>6014-1A自习室J</strong><br><strong>6011自习室K</strong><br><strong>6016自习室L</strong><br><strong>6022-A自习室M</strong><br><strong>6022-1A自习室N</strong><br><strong>6024自习室O</strong><br><strong>6026自习室P</strong><br><strong>6026-A自习室Q</strong><br><strong>6017自习室R</strong><br><strong>6028自习室S</strong><br><strong>6019自习室T</strong></td>
+                        <td id="RWL7-8" style="font-size: 13px"><strong>201</strong> <strong>205</strong> <strong>208</strong> <strong>209</strong> <strong>212</strong> <strong>213</strong> <strong>216</strong> <strong>217</strong> <strong>220</strong> <strong>221</strong> <strong>224</strong> <strong>225</strong> <strong>228</strong> <strong>229</strong> <strong>232</strong> <strong>308</strong> <strong>328</strong> <u>401</u> <strong>405</strong> <strong>510</strong> <strong>518</strong> <strong>620</strong> <strong>637</strong> <strong>701</strong> <strong>710</strong> <strong>728</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🌃晚上第9-10节 -->
+            <h3 class="timeslot-title">🌃晚上第9-10节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>科技楼</td>
+                        <td>人文楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="KJL9-10" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> <strong>6054</strong> <strong>6058</strong> <strong>6062</strong><br><strong>6001-A自习室A</strong><br><strong>6004自习室B</strong><br><strong>6001-1A自习室C</strong><br><strong>6003自习室D</strong><br><strong>6010自习室E</strong><br><strong>6010-1A自习室F</strong><br><strong>6009自习室G</strong><br><strong>6014自习室H</strong><br><strong>6009-1A自习室I</strong><br><strong>6014-1A自习室J</strong><br><strong>6011自习室K</strong><br><strong>6016自习室L</strong><br><strong>6022-A自习室M</strong><br><strong>6022-1A自习室N</strong><br><strong>6024自习室O</strong><br><strong>6026自习室P</strong><br><strong>6026-A自习室Q</strong><br><strong>6017自习室R</strong><br><strong>6028自习室S</strong><br><strong>6019自习室T</strong></td>
+                        <td id="RWL9-10" style="font-size: 13px"><strong>201</strong> <strong>205</strong> <strong>208</strong> <strong>209</strong> <strong>212</strong> <strong>213</strong> <strong>216</strong> <strong>217</strong> <strong>220</strong> <strong>221</strong> <strong>224</strong> <strong>225</strong> <strong>228</strong> <strong>229</strong> <strong>232</strong> <strong>308</strong> <strong>328</strong> 401 <strong>405</strong> <strong>510</strong> <strong>518</strong> <strong>620</strong> <strong>637</strong> <strong>701</strong> <strong>710</strong> <strong>728</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🌃晚上第11-12节 -->
+            <h3 class="timeslot-title">🌃晚上第11-12节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>科技楼</td>
+                        <td>人文楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="KJL11-12" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> <strong>6054</strong> <strong>6058</strong> <strong>6062</strong><br><strong>6001-A自习室A</strong><br><strong>6004自习室B</strong><br><strong>6001-1A自习室C</strong><br><strong>6003自习室D</strong><br><strong>6010自习室E</strong><br><strong>6010-1A自习室F</strong><br><strong>6009自习室G</strong><br><strong>6014自习室H</strong><br><strong>6009-1A自习室I</strong><br><strong>6014-1A自习室J</strong><br><strong>6011自习室K</strong><br><strong>6016自习室L</strong><br><strong>6022-A自习室M</strong><br><strong>6022-1A自习室N</strong><br><strong>6024自习室O</strong><br><strong>6026自习室P</strong><br><strong>6026-A自习室Q</strong><br><strong>6017自习室R</strong><br><strong>6028自习室S</strong><br><strong>6019自习室T</strong></td>
+                        <td id="RWL11-12" style="font-size: 13px"><strong>201</strong> <strong>205</strong> <strong>208</strong> <strong>209</strong> <strong>212</strong> <strong>213</strong> <strong>216</strong> <strong>217</strong> <strong>220</strong> <strong>221</strong> <strong>224</strong> <strong>225</strong> <strong>228</strong> <strong>229</strong> <strong>232</strong> <strong>308</strong> <strong>328</strong> 401 <strong>405</strong> <strong>510</strong> <strong>518</strong> <strong>620</strong> <strong>637</strong> <strong>701</strong> <strong>710</strong> <strong>728</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 🏙昼间第1-8节 -->
+            <h3 class="timeslot-title">🏙昼间第1-8节</h3>
+            <table border="1" class="campus-table">
+                <tbody>
+                    <tr class="building-name-row">
+                        <td>科技楼</td>
+                        <td>人文楼</td>
+                    </tr>
+                    <tr class="classroom-row">
+                        <td id="KJL1-8" style="font-size: 13px"><strong>1062</strong> <strong>1076</strong> <strong>2011</strong> <strong>2037</strong> <strong>2060</strong> <strong>2066</strong> <strong>2080</strong> <strong>3051</strong> <strong>3067</strong> <strong>4002</strong> <strong>4005</strong> <strong>4031</strong> <strong>4042</strong> <strong>5002</strong> <strong>5066</strong> <strong>5068</strong> <strong>6054</strong> <strong>6058</strong> <strong>6062</strong><br><strong>6001-A自习室A</strong><br><strong>6004自习室B</strong><br><strong>6001-1A自习室C</strong><br><strong>6003自习室D</strong><br><strong>6010自习室E</strong><br><strong>6010-1A自习室F</strong><br><strong>6009自习室G</strong><br><strong>6014自习室H</strong><br><strong>6009-1A自习室I</strong><br><strong>6014-1A自习室J</strong><br><strong>6011自习室K</strong><br><strong>6016自习室L</strong><br><strong>6022-A自习室M</strong><br><strong>6022-1A自习室N</strong><br><strong>6024自习室O</strong><br><strong>6026自习室P</strong><br><strong>6026-A自习室Q</strong><br><strong>6017自习室R</strong><br><strong>6028自习室S</strong><br><strong>6019自习室T</strong></td>
+                        <td id="RWL1-8" style="font-size: 13px"><strong>201</strong> <strong>205</strong> <strong>208</strong> <strong>209</strong> <strong>212</strong> <strong>213</strong> <strong>216</strong> <strong>217</strong> <strong>220</strong> <strong>221</strong> <strong>224</strong> <strong>225</strong> <strong>228</strong> <strong>229</strong> <strong>232</strong> <strong>308</strong> <strong>328</strong> <strong>405</strong> <strong>510</strong> <strong>518</strong> <strong>620</strong> <strong>637</strong> <strong>701</strong> <strong>710</strong> <strong>728</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr style="margin-top: 20px; margin-bottom: 10px;">
+            <p class="info-text" style="text-align: justify">注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>蓝色加粗</strong>表示该教室全天(1-12节)空闲。</p>
+            <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
+        </div>
+    </div>
+
+    <p class="info-text">Powered by Tsiaohan Wang <a href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a></p>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+
+
+</body></html>
