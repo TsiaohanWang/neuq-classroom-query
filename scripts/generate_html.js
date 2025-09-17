@@ -13,13 +13,18 @@ const htmlTemplate = `
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no, email=no, address=no">
+    
     <title>东秦空闲教室总表</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maple-mono/dist/maple-mono.css">
+
     <style>
         body {
             max-width: 800px;
             margin: 0px auto 15px;
             padding: 0 10px;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Maple Mono', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-feature-settings: 'cv01', 'cv02', 'cv05', 'cv35', 'cv40', 'cv42', 'cv43', 'cv61', 'cv62', 'cv63', 'ss01', 'ss03', 'ss04', 'ss05', 'ss06';
             line-height: 1.6;
             color: #333;
             background-color: #f9f9f9;
@@ -118,8 +123,9 @@ const htmlTemplate = `
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
-            font-family: monospace;
+            font-family: 'Maple Mono', monospace;
             font-size: 12px;
+            font-feature-settings: 'cv01', 'cv02', 'cv05', 'cv35', 'cv40', 'cv42', 'cv43', 'cv61', 'cv62', 'cv63', 'ss01', 'ss03', 'ss04', 'ss05', 'ss06';
         }
 
         th,
