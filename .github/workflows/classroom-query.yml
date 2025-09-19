@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main, master ]
   schedule:
-    - cron: '0 */6 * * *'  # 每6小时运行一次
+    - cron: '0 */4 * * *'  # 每4小时运行一次
   workflow_dispatch:  # 允许手动触发
 
 # 为工作流设置权限，这是新部署方法所必需的
