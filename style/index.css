@@ -30,28 +30,28 @@
 
 @font-face {
   font-family: "New Computer Modern";
-  src: url("../fonts/NewComputerModern/NewCM10-Regular.otf") format("otf");
+  src: url("../fonts/NewComputerModern/NewCM10-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "New Computer Modern";
-  src: url("../fonts/NewComputerModern/NewCM10-Bold.otf") format("otf");
+  src: url("../fonts/NewComputerModern/NewCM10-Bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "New Computer Modern";
-  src: url("../fonts/NewComputerModern/NewCM10-Italic.otf") format("otf");
+  src: url("../fonts/NewComputerModern/NewCM10-Italic.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "New Computer Modern";
-  src: url("../fonts/NewComputerModern/NewCM10-BoldItalic.otf") format("otf");
+  src: url("../fonts/NewComputerModern/NewCM10-BoldItalic.woff2") format("woff2");
   font-weight: bold;
   font-style: italic;
   font-display: swap;
