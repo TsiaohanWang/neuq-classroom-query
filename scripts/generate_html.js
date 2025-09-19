@@ -11,7 +11,7 @@ const htmlTemplate = `
 <html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" lang="zh-CN">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no, email=no, address=no">
     
@@ -23,7 +23,7 @@ const htmlTemplate = `
         max-width: 800px;
         margin: 0px auto 15px;
         padding: 0 10px;
-        font-family: "Maple Mono", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        font-family: "Maple Mono", "PingFang SC", "Microsoft YaHei", "Segoe UI",
             Roboto, "Helvetica Neue", Arial, sans-serif;
         font-feature-settings: "cv01", "cv02", "cv05", "cv09", "cv35", "cv40", "cv42", "cv43",
             "cv61", "cv62", "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
@@ -222,7 +222,7 @@ const htmlTemplate = `
 
 <body>
 
-    <h1><span id="current-date-placeholder">YYYY/MM/DD</span> 东秦空闲教室总表</h1>
+    <h1><span id="current-date-placeholder">YYYY/MM/DD</span>东秦空闲教室总表</h1>
     <p class="info-text update-time">本空闲教室表更新于 <span id="update-time-placeholder">YYYY/MM/DD HH:MM</span></p>
     <p class="info-text">内容仅供参考，实际请以<a href="https://jwxt.neuq.edu.cn/">教务系统</a>查询结果为准</p>
     <hr>
