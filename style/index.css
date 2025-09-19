@@ -1,0 +1,28 @@
+@font-face {
+  font-family: "Maple Mono";
+  src: url("../fonts/MapleMono-Regular.ttf.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* 优化字体加载，避免文本闪烁 */
+}
+@font-face {
+  font-family: "Maple Mono";
+  src: url("../fonts/MapleMono-Bold.ttf.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Maple Mono";
+  src: url("../fonts/MapleMono-Italic.ttf.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Maple Mono";
+  src: url("../fonts/MapleMono-ExtraBoldItalic.ttf.woff2") format("woff2");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}

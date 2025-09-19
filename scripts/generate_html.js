@@ -16,7 +16,7 @@ const htmlTemplate = `
     <meta name="format-detection" content="telephone=no, email=no, address=no">
     
     <title>东秦空闲教室总表</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maple-mono/dist/maple-mono.css">
+    <link rel="stylesheet" href="../style/index.css">
 
     <style>
         body {
