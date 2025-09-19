@@ -6,16 +6,24 @@ on:
   pull_request:
     branches: [ main, master ]
   schedule:
-    - cron: '0 */6 * * *'  # Run every 6 hours
-  workflow_dispatch:  # Allow manual triggering
+    - cron: '0 */6 * * *'  # 每6小时运行一次
+  workflow_dispatch:  # 允许手动触发
 
+# 为工作流设置权限，这是新部署方法所必需的
 permissions:
-  contents: write
+  contents: read
+  pages: write      # 允许部署到 GitHub Pages
+  id-token: write   # 允许对 OIDC 进行身份验证
+
+# 添加并发设置以确保一次只部署一个版本
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  query-and-deploy:
+  # 这个工作负责构建项目
+  build:
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v4
     
@@ -40,11 +48,25 @@ jobs:
         
     - name: Generate HTML
       run: node scripts/generate_html.js
-        
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+    
+    # 新增步骤：为部署准备 GitHub Pages 构件
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .
-        publish_branch: gh-pages
-        cname: classroom.wxh1104.online
+        # 从根目录上传所有文件
+        path: '.'
+
+  # 这个工作负责部署项目
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build  # 仅在 build 工作成功后运行
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
