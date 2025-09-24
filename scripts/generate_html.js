@@ -6,8 +6,7 @@ const path = require("path");
 const { JSDOM } = require("jsdom");
 
 // 定义HTML样板字符串。这是最终HTML报告的基础结构。
-const htmlTemplate = `
-<!DOCTYPE html>
+const htmlTemplate = `<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -239,8 +238,8 @@ const htmlTemplate = `
             <div class="emergency-info" id="gxg-emergency-info">
                 <!-- 临时信息将由JS填充 -->
             </div>
-            <!-- 🏙上午第1-2节 -->
-            <h3 class="timeslot-title">🏙上午第1-2节</h3>
+            <!-- 上午第1-2节 -->
+            <h3 class="timeslot-title">上午第1-2节</h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -273,8 +272,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🏙上午第3-4节 -->
-            <h3 class="timeslot-title">🏙上午第3-4节</h3>
+            <!-- 上午第3-4节 -->
+            <h3 class="timeslot-title">上午第3-4节</h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -307,8 +306,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🌇下午第5-6节 -->
-            <h3 class="timeslot-title">🌇下午第5-6节</h3>
+            <!-- 下午第5-6节 -->
+            <h3 class="timeslot-title">下午第5-6节</h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -341,8 +340,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🌇下午第7-8节 -->
-            <h3 class="timeslot-title">🌇下午第7-8节</h3>
+            <!-- 下午第7-8节 -->
+            <h3 class="timeslot-title">下午第7-8节</h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -375,8 +374,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🌃晚上第9-10节 -->
-            <h3 class="timeslot-title">🌃晚上第9-10节</h3>
+            <!-- 晚上第9-10节 -->
+            <h3 class="timeslot-title">晚上第9-10节</h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -409,8 +408,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🌃晚上第11-12节 -->
-            <h3 class="timeslot-title">🌃晚上第11-12节</h3>
+            <!-- 晚上第11-12节 -->
+            <h3 class="timeslot-title">晚上第11-12节</h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -443,8 +442,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🏙昼间第1-8节 -->
-            <h3 class="timeslot-title">🏙昼间第1-8节</h3>
+            <!-- 昼间第1-8节 -->
+            <h3 class="timeslot-title">昼间第1-8节</h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -487,8 +486,8 @@ const htmlTemplate = `
             <div class="emergency-info" id="benbu-emergency-info">
                 <!-- 临时信息将由JS填充 -->
             </div>
-            <!-- 🏙上午第1-2节 -->
-            <h3 class="timeslot-title">🏙上午第1-2节</h3>
+            <!-- 上午第1-2节 -->
+            <h3 class="timeslot-title">上午第1-2节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -505,8 +504,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🏙上午第3-4节 -->
-            <h3 class="timeslot-title">🏙上午第3-4节</h3>
+            <!-- 上午第3-4节 -->
+            <h3 class="timeslot-title">上午第3-4节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -523,8 +522,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🌇下午第5-6节 -->
-            <h3 class="timeslot-title">🌇下午第5-6节</h3>
+            <!-- 下午第5-6节 -->
+            <h3 class="timeslot-title">下午第5-6节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -541,8 +540,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🌇下午第7-8节 -->
-            <h3 class="timeslot-title">🌇下午第7-8节</h3>
+            <!-- 下午第7-8节 -->
+            <h3 class="timeslot-title">下午第7-8节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -559,8 +558,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🌃晚上第9-10节 -->
-            <h3 class="timeslot-title">🌃晚上第9-10节</h3>
+            <!-- 晚上第9-10节 -->
+            <h3 class="timeslot-title">晚上第9-10节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -577,8 +576,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🌃晚上第11-12节 -->
-            <h3 class="timeslot-title">🌃晚上第11-12节</h3>
+            <!-- 晚上第11-12节 -->
+            <h3 class="timeslot-title">晚上第11-12节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -595,8 +594,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🏙昼间第1-8节 -->
-            <h3 class="timeslot-title">🏙昼间第1-8节</h3>
+            <!-- 昼间第1-8节 -->
+            <h3 class="timeslot-title">昼间第1-8节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -623,8 +622,8 @@ const htmlTemplate = `
             <div class="emergency-info" id="nanqu-emergency-info">
                 <!-- 临时信息将由JS填充 -->
             </div>
-            <!-- 🏙上午第1-2节 -->
-            <h3 class="timeslot-title">🏙上午第1-2节</h3>
+            <!-- 上午第1-2节 -->
+            <h3 class="timeslot-title">上午第1-2节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -637,8 +636,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🏙上午第3-4节 -->
-            <h3 class="timeslot-title">🏙上午第3-4节</h3>
+            <!-- 上午第3-4节 -->
+            <h3 class="timeslot-title">上午第3-4节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -651,8 +650,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🌇下午第5-6节 -->
-            <h3 class="timeslot-title">🌇下午第5-6节</h3>
+            <!-- 下午第5-6节 -->
+            <h3 class="timeslot-title">下午第5-6节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -665,8 +664,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🌇下午第7-8节 -->
-            <h3 class="timeslot-title">🌇下午第7-8节</h3>
+            <!-- 下午第7-8节 -->
+            <h3 class="timeslot-title">下午第7-8节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -679,8 +678,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🌃晚上第9-10节 -->
-            <h3 class="timeslot-title">🌃晚上第9-10节</h3>
+            <!-- 晚上第9-10节 -->
+            <h3 class="timeslot-title">晚上第9-10节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -693,8 +692,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🌃晚上第11-12节 -->
-            <h3 class="timeslot-title">🌃晚上第11-12节</h3>
+            <!-- 晚上第11-12节 -->
+            <h3 class="timeslot-title">晚上第11-12节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -707,8 +706,8 @@ const htmlTemplate = `
                     </tr>
                 </tbody>
             </table>
-            <!-- 🏙昼间第1-8节 -->
-            <h3 class="timeslot-title">🏙昼间第1-8节</h3>
+            <!-- 昼间第1-8节 -->
+            <h3 class="timeslot-title">昼间第1-8节</h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -770,13 +769,13 @@ const outputHtmlPath = path.join(__dirname, "..", "index.html"); // 输出到主
 // 定义时间段标签与HTML中时间段标题的映射 (用于查找正确的h3标题)
 // 注意：这里的label需要与HTML模板中<h3>标签的文本内容完全一致
 const timeSlotLabels = [
-  "🏙上午第1-2节",
-  "🏙上午第3-4节",
-  "🌇下午第5-6节",
-  "🌇下午第7-8节",
-  "🌃晚上第9-10节",
-  "🌃晚上第11-12节",
-  "🏙昼间第1-8节",
+  "上午第1-2节",
+  "上午第3-4节",
+  "下午第5-6节",
+  "下午第7-8节",
+  "晚上第9-10节",
+  "晚上第11-12节",
+  "昼间第1-8节",
 ];
 
 // 辅助函数：获取当前北京时间并格式化 (YYYY/MM/DD HH:MM)
@@ -992,7 +991,7 @@ function generateFinalHtmlReport() {
   // 步骤 5.1: 填充工学馆选项卡 (id="gongxueguan")
   let previousGxgClassrooms = new Set(); // 用于工学馆的下划线逻辑，存储上一个时间段的空闲教室
 
-  // 遍历预定义的每个时间段标签 (例如 "🏙上午第1-2节")
+  // 遍历预定义的每个时间段标签 (例如 "上午第1-2节")
   timeSlotLabels.forEach((slotLabel) => {
     // 从时间段标签中提取时间段后缀 (例如 "1-2", "3-4")，用于匹配JSON数据中的“空闲时段”字段
     const timeSlotSuffix = slotLabel
@@ -1026,7 +1025,7 @@ function generateFinalHtmlReport() {
             let isBold = allDayFreeGongXueGuan.has(item["名称"]); // 是否全天空闲
             let isUnderlined =
               slotLabel !== timeSlotLabels[0] &&
-              slotLabel !== "🏙昼间第1-8节" &&
+              slotLabel !== "昼间第1-8节" &&
               !previousGxgClassrooms.has(item["名称"]); // 是否新出现
 
             // 根据标记组合最终显示的HTML字符串
@@ -1046,7 +1045,7 @@ function generateFinalHtmlReport() {
       }
     }
     // 更新“上一个时间段”的教室数据，但排除“昼间第1-8节”作为比较基准
-    if (slotLabel !== "🏙昼间第1-8节") {
+    if (slotLabel !== "昼间第1-8节") {
       previousGxgClassrooms = getAllClassroomsFromData(currentSlotDataGxg);
     }
   });
@@ -1097,7 +1096,7 @@ function generateFinalHtmlReport() {
             let isBold = allDaySet.has(item["名称"]);
             let isUnderlined =
               slotLabel !== timeSlotLabels[0] &&
-              slotLabel !== "🏙昼间第1-8节" &&
+              slotLabel !== "昼间第1-8节" &&
               !previousBenbuClassrooms[buildingName].has(item["名称"]);
 
             if (isBold && isUnderlined)
@@ -1113,7 +1112,7 @@ function generateFinalHtmlReport() {
       }
     });
     // 更新“上一个时间段”的教室数据，排除“昼间第1-8节”
-    if (slotLabel !== "🏙昼间第1-8节") {
+    if (slotLabel !== "昼间第1-8节") {
       benbuBuildings.forEach((buildingName) => {
         const currentData = allProcessedClassroomData.filter(
           (item) =>
@@ -1169,7 +1168,7 @@ function generateFinalHtmlReport() {
           let isBold = allDaySet.has(item["名称"]); // 判断是否全天空闲
           let isUnderlined =
             slotLabel !== timeSlotLabels[0] &&
-            slotLabel !== "🏙昼间第1-8节" &&
+            slotLabel !== "昼间第1-8节" &&
             !previousNanxiaoquClassrooms[buildingName].has(item["名称"]); // 判断是否新出现
 
           // 应用加粗和下划线样式
@@ -1229,7 +1228,7 @@ function generateFinalHtmlReport() {
       }
     });
     // 更新“上一个时间段”的教室数据，排除“昼间第1-8节”
-    if (slotLabel !== "🏙昼间第1-8节") {
+    if (slotLabel !== "昼间第1-8节") {
       nanxiaoquBuildings.forEach((buildingName) => {
         const currentData = allProcessedClassroomData.filter(
           (item) =>
