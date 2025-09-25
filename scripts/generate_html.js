@@ -1,12 +1,15 @@
 // 引入Node.js内置的文件系统模块，用于读写文件
-const fs = require("fs");
+const fs = require('fs');
 // 引入Node.js内置的路径处理模块，用于安全地构建和操作文件/目录路径
-const path = require("path");
+const path = require('path');
+// 引入Node.js内置的加密模块，用于计算内容的哈希值
+const crypto = require('crypto');
 // 引入jsdom库，用于在Node.js环境中模拟浏览器DOM，方便地解析和操作HTML字符串
-const { JSDOM } = require("jsdom");
+const { JSDOM } = require('jsdom');
 
 // 定义HTML样板字符串。这是最终HTML报告的基础结构。
-const htmlTemplate = `<!DOCTYPE html>
+const htmlTemplate = `
+<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -190,6 +193,9 @@ const htmlTemplate = `<!DOCTYPE html>
         .info-text.update-time {
         text-align: center;
         font-weight: bold;
+        display: flex; /* 使用flex布局让时间和徽章在同一行 */
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
         }
 
         .info-text a {
@@ -216,13 +222,35 @@ const htmlTemplate = `<!DOCTYPE html>
         font-weight: bold;
         color: #30448c;
         }
+
+        /* 状态徽章样式 */
+        .status-badge {
+            margin-left: 8px;
+            padding: 1px 6px;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 18px;
+            text-transform: uppercase;
+            opacity: 0.67;
+        }
+        .badge-updated {
+            background-color: #28a745; /* 绿色 */
+            color: white;
+        }
+        .badge-not-updated {
+            background-color: #6c757d; /* 灰色 */
+            color: white;
+        }
     </style>
 </head>
 
 <body>
 
     <h1><span id="current-date-placeholder">YYYY/MM/DD</span>东秦空闲教室总表</h1>
-    <p class="info-text update-time">本空闲教室表更新于 <span id="update-time-placeholder">YYYY/MM/DD HH:MM</span></p>
+    <p class="info-text update-time">
+        <span>本空闲教室表更新于 <span id="update-time-placeholder">YYYY/MM/DD HH:MM</span></span>
+        <!-- 状态徽章将由JS在此处动态插入 -->
+    </p>
     <p class="info-text">内容仅供参考，实际请以<a href="https://jwxt.neuq.edu.cn/">教务系统</a>查询结果为准</p>
     <hr>
 
@@ -757,12 +785,7 @@ const processedClassroomJsonPath = path.join(
   "output",
   "processed_classroom_data.json"
 );
-const eventJsonPath = path.join(
-  __dirname,
-  "..",
-  "calendar",
-  "neuq_events.json"
-); // 事件JSON文件路径已更新
+const eventJsonPath = path.join(__dirname, "..", "calendar", "neuq_events.json"); // 事件JSON文件路径已更新
 // 定义输出HTML文件路径
 const outputHtmlPath = path.join(__dirname, "..", "index.html"); // 输出到主目录
 
@@ -849,7 +872,7 @@ function getAllClassroomsFromData(jsonData, buildingFilter = null) {
 }
 
 // 主处理函数：生成最终的HTML报告
-function generateFinalHtmlReport() {
+async function generateFinalHtmlReport() {
   // 步骤 1: 读取已处理的教室JSON数据 (processed_classroom_data.json)
   let allProcessedClassroomData; // 用于存储从JSON文件读取的数据
   try {
@@ -1240,6 +1263,76 @@ function generateFinalHtmlReport() {
       });
     }
   });
+
+  // 步骤 5.5: 计算内容哈希并与线上版本比较，以确定更新状态
+  // 获取核心内容区域的HTML，用于计算哈希值
+  const tabContainer = document.querySelector(".tab-container");
+  const newContentHtml = tabContainer ? tabContainer.outerHTML : "";
+  // 使用MD5算法计算哈希值
+  const newHash = crypto.createHash("md5").update(newContentHtml).digest("hex");
+  console.log(`新生成内容的哈希值: ${newHash}`);
+
+  // 将新计算的哈希值作为一个<meta>标签添加到<head>中
+  const metaTag = document.createElement("meta");
+  metaTag.name = "page-content-hash";
+  metaTag.content = newHash;
+  document.head.appendChild(metaTag);
+
+  let liveHash = null; // 用于存储线上版本的哈希值
+  let badgeStatus = "Updated"; // 默认状态为"Updated"
+  const cnamePath = path.join(__dirname, "..", "CNAME"); // CNAME文件路径
+
+  try {
+    // 检查CNAME文件是否存在
+    if (fs.existsSync(cnamePath)) {
+      const domain = fs.readFileSync(cnamePath, "utf-8").trim(); // 读取域名
+      const url = `https://${domain}`; // 构建URL
+      console.log(`正在从 ${url} 获取当前部署的页面内容...`);
+      // 使用fetch API异步获取线上页面的HTML内容
+      const response = await fetch(url);
+      if (response.ok) { // 如果请求成功
+        const liveHtml = await response.text(); // 获取HTML文本
+        const liveDom = new JSDOM(liveHtml); // 使用jsdom解析线上HTML
+        // 在线上HTML中查找哈希meta标签
+        const liveMetaTag =
+          liveDom.window.document.querySelector('meta[name="page-content-hash"]');
+        if (liveMetaTag) { // 如果找到了
+          liveHash = liveMetaTag.getAttribute("content"); // 提取哈希值
+          console.log(`获取到已部署页面的哈希值: ${liveHash}`);
+        } else {
+          console.log("已部署页面中未找到哈希 meta 标签。");
+        }
+      } else {
+        console.warn(`获取 ${url} 失败，状态码: ${response.status}`);
+      }
+    } else {
+      console.log("CNAME 文件未找到，无法进行比较。");
+    }
+
+    // 比较新旧哈希值
+    if (newHash === liveHash) {
+      badgeStatus = "Not Updated"; // 如果相同，状态设为"Not Updated"
+      console.log("内容无变化。");
+    } else {
+      console.log("内容已更新。");
+    }
+  } catch (error) {
+    console.error("获取或比较已部署页面时发生错误:", error);
+    // 在任何错误情况下，都默认状态为"Updated"，以确保部署总能反映最新尝试
+  }
+
+  // 动态创建并插入状态徽章
+  const updateTimeP = document.querySelector("p.update-time");
+  if (updateTimeP) {
+    const badge = document.createElement("span");
+    badge.id = "status-badge";
+    badge.textContent = badgeStatus;
+    // 根据状态应用不同的CSS类
+    badge.className = `status-badge ${
+      badgeStatus === "Updated" ? "badge-updated" : "badge-not-updated"
+    }`;
+    updateTimeP.appendChild(badge); // 将徽章添加到时间戳的<p>标签中
+  }
 
   // 步骤 6: 将修改后的DOM对象序列化回HTML字符串，并写入到最终的HTML文件中
   const finalHtml = dom.serialize(); // 将DOM对象转换为HTML字符串
