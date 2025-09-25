@@ -27,7 +27,7 @@ const htmlTemplate = `
         padding: 0 10px;
         font-family: "Maple Mono", "PingFang SC", "Microsoft YaHei", "Segoe UI",
             Roboto, "Helvetica Neue", Arial, sans-serif;
-        font-feature-settings: "cv01", "cv02", "cv05", "cv09", "cv35", "cv40", "cv42", "cv43",
+        font-feature-settings: "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43",
             "cv61", "cv62", "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
         line-height: 1.6;
         color: #333;
@@ -97,7 +97,6 @@ const htmlTemplate = `
         from {
             opacity: 0;
         }
-
         to {
             opacity: 1;
         }
@@ -220,13 +219,11 @@ const htmlTemplate = `
         cursor: pointer; /* 提示整个标题区域都可点击 */
         user-select: none; /* 防止点击时选中文字 */
         }
-        /* 为下划线和加粗添加样式 */
-        u {
-        }
-        strong {
-        font-weight: bold;
-        color: #30448c;
-        }
+        /* 为下划线、加粗和删除线添加样式 */
+        u { text-decoration: underline; text-decoration-color: #30448c; text-decoration-thickness: 1.25px; }
+        strong { font-weight: bold; color: green; }
+        del { text-decoration: line-through;
+  text-decoration-color: gray; text-decoration-thickness: 0.75px; }
 
         /* 状态徽章样式 */
         .status-badge {
@@ -554,7 +551,7 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <hr style="margin-top: 20px; margin-bottom: 10px;">
-            <p class="info-text" style="text-align: justify">注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>蓝色加粗</strong>表示该教室全天(1-12节)空闲。</p>
+            <p class="info-text" style="text-align: justify">注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>绿色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。</p>
             <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
         </div>
 
@@ -725,7 +722,7 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <hr style="margin-top: 20px; margin-bottom: 10px;">
-            <p class="info-text" style="text-align: justify">注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>蓝色加粗</strong>表示该教室全天(1-12节)空闲。</p>
+            <p class="info-text" style="text-align: justify">注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>绿色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。</p>
             <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
         </div>
 
@@ -868,7 +865,7 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <hr style="margin-top: 20px; margin-bottom: 10px;">
-            <p class="info-text" style="text-align: justify">注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>蓝色加粗</strong>表示该教室全天(1-12节)空闲。</p>
+            <p class="info-text" style="text-align: justify">注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>绿色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。</p>
             <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
         </div>
     </div>
@@ -1143,101 +1140,125 @@ async function generateFinalHtmlReport() {
   );
   console.log("全天空闲教室计算完毕。");
 
+  // 步骤 4.5: 预处理数据，按时间段和教学楼分组，以便高效查找
+  const dataBySlotAndBuilding = {}; // 创建一个空对象用于存储分组后的数据
+  // 遍历所有时间段标签
+  timeSlotLabels.forEach(label => {
+    // 提取时间段后缀
+    const suffix = label.match(/第(.*?)节/)[1].replace(/[上午下午晚上昼间]/g, '').trim();
+    // 为每个时间段后缀创建一个对象
+    dataBySlotAndBuilding[suffix] = {};
+    // 从总数据中筛选出当前时间段的数据
+    const slotData = allProcessedClassroomData.filter(item => item["空闲时段"] === suffix);
+    // 在当前时间段内，按教学楼进一步分组
+    slotData.forEach(item => {
+        const building = item["教学楼"];
+        if (!dataBySlotAndBuilding[suffix][building]) {
+            dataBySlotAndBuilding[suffix][building] = new Set(); // 如果是该楼栋的第一条数据，则创建一个新的Set
+        }
+        dataBySlotAndBuilding[suffix][building].add(item["名称"]); // 将教室号添加到对应楼栋的Set中
+    });
+  });
+  console.log("数据已按时间段和教学楼进行预处理。");
+
+
   // 步骤 5: 填充每个选项卡（工学馆、本部其它、南校区）的教室数据表格
+  // 定义时间段序列，用于“向前看”的逻辑
+  const sequentialSlots = ["1-2", "3-4", "5-6", "7-8", "9-10", "11-12"];
+  // 定义哪些时间段需要应用删除线逻辑
+  const strikethroughApplicableSlots = ["1-2", "3-4", "5-6", "7-8", "9-10"];
+
   // 步骤 5.1: 填充工学馆选项卡 (id="gongxueguan")
   let previousGxgClassrooms = new Set(); // 用于工学馆的下划线逻辑，存储上一个时间段的空闲教室
 
-  // 遍历预定义的每个时间段标签 (例如 "上午第1-2节")
-  timeSlotLabels.forEach((slotLabel) => {
-    // 从时间段标签中提取时间段后缀 (例如 "1-2", "3-4")，用于匹配JSON数据中的“空闲时段”字段
-    const timeSlotSuffix = slotLabel
-      .match(/第(.*?)节/)[1]
-      .replace(/[上午下午晚上昼间]/g, "")
-      .trim();
-    // 从总数据中筛选出当前时间段、且教学楼为“工学馆”的教室数据
+  // 使用带索引的循环遍历时间段标签
+  for (let i = 0; i < timeSlotLabels.length; i++) {
+    const slotLabel = timeSlotLabels[i];
+    const timeSlotSuffix = slotLabel.match(/第(.*?)节/)[1].replace(/[上午下午晚上昼间]/g, '').trim(); // 提取当前时间段后缀
     const currentSlotDataGxg = allProcessedClassroomData.filter(
       (item) =>
         item["教学楼"] === "工学馆" && item["空闲时段"] === timeSlotSuffix
     );
 
+    // 确定下一个时间段的空闲教室集合，用于删除线逻辑
+    let nextSlotGxgClassrooms = new Set();
+    const sequentialIndex = sequentialSlots.indexOf(timeSlotSuffix); // 查找当前时间段在序列中的位置
+    // 如果当前时间段在序列中，并且不是最后一个
+    if (sequentialIndex > -1 && sequentialIndex < sequentialSlots.length - 1) {
+        const nextSlotSuffix = sequentialSlots[sequentialIndex + 1]; // 获取下一个时间段的后缀
+        // 从预处理的数据中获取下一个时间段工学馆的教室Set
+        nextSlotGxgClassrooms = (dataBySlotAndBuilding[nextSlotSuffix] && dataBySlotAndBuilding[nextSlotSuffix]["工学馆"]) || new Set();
+    }
+
+
     // 遍历工学馆的楼层 (1F到7F)
     for (let floorNum = 1; floorNum <= 7; floorNum++) {
-      const floorStr = `${floorNum}F`; // 例如 "1F"
-      // 构建目标单元格的ID，例如 "GXG1F1-2"
+      const floorStr = `${floorNum}F`;
       const cellId = `GXG${floorStr}${timeSlotSuffix}`;
-      const roomCell = document.getElementById(cellId); // 通过ID获取单元格
+      const roomCell = document.getElementById(cellId);
 
       if (roomCell) {
-        // 如果找到了对应的单元格
-        // 从当前时间段的工学馆数据中，筛选出属于当前楼层的教室
         const roomsForFloor = currentSlotDataGxg
           .filter(
             (item) =>
               item["名称"] && item["名称"].startsWith(floorNum.toString())
-          ) // 通过教室号首数字匹配楼层
+          )
           .map((item) => {
-            // 对每个教室进行处理，以决定是否加粗或加下划线
-            let displayName = item["名称"]; // 默认显示原始教室名
-            let isBold = allDayFreeGongXueGuan.has(item["名称"]); // 是否全天空闲
-            let isUnderlined =
+            let displayName = item["名称"];
+            const isBold = allDayFreeGongXueGuan.has(item["名称"]);
+            const isUnderlined =
               slotLabel !== timeSlotLabels[0] &&
               slotLabel !== "昼间第1-8节" &&
-              !previousGxgClassrooms.has(item["名称"]); // 是否新出现
+              !previousGxgClassrooms.has(item["名称"]);
+            // 判断是否需要删除线：当前时间段适用，且下一个时间段的空闲列表中没有这个教室
+            const isStrikethrough = strikethroughApplicableSlots.includes(timeSlotSuffix) && !nextSlotGxgClassrooms.has(item["名称"]);
 
-            // 根据标记组合最终显示的HTML字符串
-            if (isBold && isUnderlined) {
-              displayName = `<strong><u>${item["名称"]}</u></strong>`;
-            } else if (isBold) {
-              displayName = `<strong>${item["名称"]}</strong>`;
-            } else if (isUnderlined) {
-              displayName = `<u>${item["名称"]}</u>`;
+            // 按优先级组合样式：加粗 > 删除线 > 下划线 (从内到外包裹)
+            let styledName = item["名称"];
+            if (isUnderlined) {
+                styledName = `<u>${styledName}</u>`;
             }
-            return { raw: item["名称"], display: displayName }; // 返回原始名和显示名，用于排序
+            if (isStrikethrough) {
+                styledName = `<del>${styledName}</del>`;
+            }
+            if (isBold) {
+                styledName = `<strong>${styledName}</strong>`;
+            }
+            return { raw: item["名称"], display: styledName };
           })
-          .sort((a, b) => smartSortClassrooms(a.raw, b.raw)) // 使用智能排序函数对教室号排序
-          .map((item) => item.display) // 提取处理后的显示名
-          .join(" "); // 用空格连接同一楼层的教室号
-        roomCell.innerHTML = roomsForFloor || "无"; // 将结果填充到单元格，如果为空则显示"无"
+          .sort((a, b) => smartSortClassrooms(a.raw, b.raw))
+          .map((item) => item.display)
+          .join(" ");
+        roomCell.innerHTML = roomsForFloor || "无";
       }
     }
     // 更新“上一个时间段”的教室数据，但排除“昼间第1-8节”作为比较基准
     if (slotLabel !== "昼间第1-8节") {
       previousGxgClassrooms = getAllClassroomsFromData(currentSlotDataGxg);
     }
-  });
+  }
+
 
   // 步骤 5.2: 填充本部其它教学楼选项卡 (id="benbuqita")
-  const benbuBuildings = ["基础楼", "综合实验楼", "地质楼", "管理楼"]; // 定义本部其它的教学楼列表
-  const benbuBuildingCodes = {
-    基础楼: "JCL",
-    综合实验楼: "ZHSYL",
-    地质楼: "DZL",
-    管理楼: "GLL",
-  }; // 楼栋代码，用于ID
-  let previousBenbuClassrooms = {}; // 初始化对象，按楼栋名存储上一个时间段的空闲教室
-  benbuBuildings.forEach((b) => (previousBenbuClassrooms[b] = new Set())); // 为每个楼栋创建一个空的Set
+  const benbuBuildings = ["基础楼", "综合实验楼", "地质楼", "管理楼"];
+  const benbuBuildingCodes = { "基础楼": "JCL", "综合实验楼": "ZHSYL", "地质楼": "DZL", "管理楼": "GLL" };
+  let previousBenbuClassrooms = {};
+  benbuBuildings.forEach((b) => (previousBenbuClassrooms[b] = new Set()));
 
-  // 遍历每个时间段标签
-  timeSlotLabels.forEach((slotLabel) => {
-    const timeSlotSuffix = slotLabel
-      .match(/第(.*?)节/)[1]
-      .replace(/[上午下午晚上昼间]/g, "")
-      .trim(); // 提取时间段后缀
-    // 遍历本部其它的每个教学楼
+  for (let i = 0; i < timeSlotLabels.length; i++) {
+    const slotLabel = timeSlotLabels[i];
+    const timeSlotSuffix = slotLabel.match(/第(.*?)节/)[1].replace(/[上午下午晚上昼间]/g, '').trim();
+
     benbuBuildings.forEach((buildingName) => {
-      // 构建目标单元格的ID，例如 "JCL1-2"
       const cellId = `${benbuBuildingCodes[buildingName]}${timeSlotSuffix}`;
-      const roomCell = document.getElementById(cellId); // 通过ID获取单元格
-
+      const roomCell = document.getElementById(cellId);
+      
       if (roomCell) {
-        // 如果找到了对应的单元格
-        // 筛选出当前时间段、当前教学楼的教室数据
         const currentSlotDataBuilding = allProcessedClassroomData.filter(
           (item) =>
             item["教学楼"] === buildingName &&
             item["空闲时段"] === timeSlotSuffix
         );
-        // 获取当前教学楼的全天空闲教室集合
         const allDaySet = getAllDaySetForBuilding(buildingName, {
           allDayFreeJiChuLou,
           allDayFreeZongHeShiYanLou,
@@ -1245,29 +1266,36 @@ async function generateFinalHtmlReport() {
           allDayFreeGuanLiLou,
         });
 
-        // 处理教室数据，应用加粗和下划线逻辑
+        let nextSlotBuildingClassrooms = new Set();
+        const sequentialIndex = sequentialSlots.indexOf(timeSlotSuffix);
+        if (sequentialIndex > -1 && sequentialIndex < sequentialSlots.length - 1) {
+            const nextSlotSuffix = sequentialSlots[sequentialIndex + 1];
+            nextSlotBuildingClassrooms = (dataBySlotAndBuilding[nextSlotSuffix] && dataBySlotAndBuilding[nextSlotSuffix][buildingName]) || new Set();
+        }
+
         const roomsForBuilding = currentSlotDataBuilding
           .map((item) => {
-            let displayName = item["名称"];
-            let isBold = allDaySet.has(item["名称"]);
-            let isUnderlined =
+            let styledName = item["名称"];
+            const isBold = allDaySet.has(item["名称"]);
+            const isUnderlined =
               slotLabel !== timeSlotLabels[0] &&
               slotLabel !== "昼间第1-8节" &&
               !previousBenbuClassrooms[buildingName].has(item["名称"]);
+            const isStrikethrough = strikethroughApplicableSlots.includes(timeSlotSuffix) && !nextSlotBuildingClassrooms.has(item["名称"]);
 
-            if (isBold && isUnderlined)
-              displayName = `<strong><u>${item["名称"]}</u></strong>`;
-            else if (isBold) displayName = `<strong>${item["名称"]}</strong>`;
-            else if (isUnderlined) displayName = `<u>${item["名称"]}</u>`;
-            return { raw: item["名称"], display: displayName };
+            if (isUnderlined) styledName = `<u>${styledName}</u>`;
+            if (isStrikethrough) styledName = `<del>${styledName}</del>`;
+            if (isBold) styledName = `<strong>${styledName}</strong>`;
+
+            return { raw: item["名称"], display: styledName };
           })
-          .sort((a, b) => smartSortClassrooms(a.raw, b.raw)) // 智能排序
+          .sort((a, b) => smartSortClassrooms(a.raw, b.raw))
           .map((item) => item.display)
-          .join("<br>"); // 使用<br>换行分隔教室号
-        roomCell.innerHTML = roomsForBuilding || "无"; // 填充单元格
+          .join("<br>");
+        roomCell.innerHTML = roomsForBuilding || "无";
       }
     });
-    // 更新“上一个时间段”的教室数据，排除“昼间第1-8节”
+
     if (slotLabel !== "昼间第1-8节") {
       benbuBuildings.forEach((buildingName) => {
         const currentData = allProcessedClassroomData.filter(
@@ -1279,111 +1307,100 @@ async function generateFinalHtmlReport() {
           getAllClassroomsFromData(currentData);
       });
     }
-  });
+  }
+
 
   // 步骤 5.3: 填充南校区选项卡 (id="nanxiaoqu")
-  const nanxiaoquBuildings = ["科技楼", "人文楼"]; // 定义南校区的教学楼列表
-  const nanxiaoquBuildingCodes = { 科技楼: "KJL", 人文楼: "RWL" }; // 楼栋代码
-  let previousNanxiaoquClassrooms = {}; // 初始化对象，按楼栋名存储上一个时间段的空闲教室
+  const nanxiaoquBuildings = ["科技楼", "人文楼"];
+  const nanxiaoquBuildingCodes = { "科技楼": "KJL", "人文楼": "RWL" };
+  let previousNanxiaoquClassrooms = {};
   nanxiaoquBuildings.forEach(
     (b) => (previousNanxiaoquClassrooms[b] = new Set())
-  ); // 为每个楼栋创建一个空的Set
+  );
 
-  // 遍历每个时间段标签
-  timeSlotLabels.forEach((slotLabel) => {
-    const timeSlotSuffix = slotLabel
-      .match(/第(.*?)节/)[1]
-      .replace(/[上午下午晚上昼间]/g, "")
-      .trim(); // 提取时间段后缀
-    // 遍历南校区的每个教学楼
+  for (let i = 0; i < timeSlotLabels.length; i++) {
+    const slotLabel = timeSlotLabels[i];
+    const timeSlotSuffix = slotLabel.match(/第(.*?)节/)[1].replace(/[上午下午晚上昼间]/g, '').trim();
+
     nanxiaoquBuildings.forEach((buildingName) => {
-      // 构建目标单元格的ID，例如 "KJL1-2"
       const cellId = `${nanxiaoquBuildingCodes[buildingName]}${timeSlotSuffix}`;
-      const roomCell = document.getElementById(cellId); // 通过ID获取单元格
+      const roomCell = document.getElementById(cellId);
 
       if (roomCell) {
-        // 如果找到了对应的单元格
-        // 筛选出当前时间段、当前教学楼的教室数据
         const currentSlotDataBuilding = allProcessedClassroomData.filter(
           (item) =>
             item["教学楼"] === buildingName &&
             item["空闲时段"] === timeSlotSuffix
         );
-        // 获取当前教学楼的全天空闲教室集合
         const allDaySet = getAllDaySetForBuilding(buildingName, {
           allDayFreeKeJiLou,
           allDayFreeRenWenLou,
         });
 
-        // 初始化普通教室和自主学习室（特指科技楼）的数组
+        let nextSlotBuildingClassrooms = new Set();
+        const sequentialIndex = sequentialSlots.indexOf(timeSlotSuffix);
+        if (sequentialIndex > -1 && sequentialIndex < sequentialSlots.length - 1) {
+            const nextSlotSuffix = sequentialSlots[sequentialIndex + 1];
+            nextSlotBuildingClassrooms = (dataBySlotAndBuilding[nextSlotSuffix] && dataBySlotAndBuilding[nextSlotSuffix][buildingName]) || new Set();
+        }
+
         let regularRooms = [];
-        let zizhuRooms = []; // 仅用于科技楼
+        let zizhuRooms = [];
 
         currentSlotDataBuilding.forEach((item) => {
-          let displayName = item["名称"]; // 获取原始教室名
-          let isBold = allDaySet.has(item["名称"]); // 判断是否全天空闲
-          let isUnderlined =
+          let styledName = item["名称"];
+          const isBold = allDaySet.has(item["名称"]);
+          const isUnderlined =
             slotLabel !== timeSlotLabels[0] &&
             slotLabel !== "昼间第1-8节" &&
-            !previousNanxiaoquClassrooms[buildingName].has(item["名称"]); // 判断是否新出现
+            !previousNanxiaoquClassrooms[buildingName].has(item["名称"]);
+          const isStrikethrough = strikethroughApplicableSlots.includes(timeSlotSuffix) && !nextSlotBuildingClassrooms.has(item["名称"]);
 
-          // 应用加粗和下划线样式
-          if (isBold && isUnderlined)
-            displayName = `<strong><u>${item["名称"]}</u></strong>`;
-          else if (isBold) displayName = `<strong>${item["名称"]}</strong>`;
-          else if (isUnderlined) displayName = `<u>${item["名称"]}</u>`;
+          if (isUnderlined) styledName = `<u>${styledName}</u>`;
+          if (isStrikethrough) styledName = `<del>${styledName}</del>`;
+          if (isBold) styledName = `<strong>${styledName}</strong>`;
 
-          // 如果是科技楼，并且教室名称包含“自主学习室”或“自习室”（兼容process_json.js处理后的名称）
           if (
             buildingName === "科技楼" &&
             (item["名称"].includes("自主学习室") ||
               item["名称"].includes("自习室"))
           ) {
-            // 提取自主学习室后的字母用于排序，默认为'Z'以便排在最后
-            // 正则表达式匹配 "自主学习室" 或 "自习室" 结尾的字母
             const letterMatch = item["名称"].match(
               /(?:自主学习室|自习室)([A-Z])$/i
             );
             zizhuRooms.push({
               raw: item["名称"],
-              display: displayName,
+              display: styledName,
               letter: letterMatch ? letterMatch[1].toUpperCase() : "Z",
             });
           } else {
-            // 其他情况（包括人文楼的教室和科技楼的普通教室）都视为普通教室
-            regularRooms.push({ raw: item["名称"], display: displayName });
+            regularRooms.push({ raw: item["名称"], display: styledName });
           }
         });
 
-        let finalRoomsString; // 用于存储最终填充到单元格的HTML字符串
+        let finalRoomsString;
         if (buildingName === "科技楼") {
-          // 科技楼：普通教室排序并用空格连接
           const regularPart = regularRooms
             .sort((a, b) => smartSortClassrooms(a.raw, b.raw))
             .map((item) => item.display)
             .join(" ");
-          // 科技楼：自主学习室按字母排序并用<br>连接
           const zizhuPart = zizhuRooms
-            .sort((a, b) => a.letter.localeCompare(b.letter)) // 按提取的字母排序
+            .sort((a, b) => a.letter.localeCompare(b.letter))
             .map((item) => item.display)
             .join("<br>");
-          // 合并两部分：普通教室在前，然后换行（如果都有内容），再是自主学习室
           finalRoomsString = regularPart;
           if (zizhuPart) {
             finalRoomsString += (regularPart ? "<br>" : "") + zizhuPart;
           }
         } else {
-          // 人文楼
-          // 人文楼：所有教室（此时都在regularRooms里）排序并用空格连接
           finalRoomsString = regularRooms
             .sort((a, b) => smartSortClassrooms(a.raw, b.raw))
             .map((item) => item.display)
-            .join(" "); // 人文楼用空格分隔
+            .join(" ");
         }
-        roomCell.innerHTML = finalRoomsString || "无"; // 填充单元格
+        roomCell.innerHTML = finalRoomsString || "无";
       }
     });
-    // 更新“上一个时间段”的教室数据，排除“昼间第1-8节”
     if (slotLabel !== "昼间第1-8节") {
       nanxiaoquBuildings.forEach((buildingName) => {
         const currentData = allProcessedClassroomData.filter(
@@ -1395,7 +1412,7 @@ async function generateFinalHtmlReport() {
           getAllClassroomsFromData(currentData);
       });
     }
-  });
+  };
 
   // 步骤 5.5: 计算内容哈希并与线上版本比较，以确定更新状态
   // 获取核心内容区域的HTML，用于计算哈希值
@@ -1468,29 +1485,24 @@ async function generateFinalHtmlReport() {
   }
 
   // 步骤 6: 将修改后的DOM对象序列化回HTML字符串，并写入到最终的HTML文件中
-  const finalHtml = dom.serialize(); // 将DOM对象转换为HTML字符串
+  const finalHtml = dom.serialize();
   try {
-    fs.writeFileSync(outputHtmlPath, finalHtml, "utf-8"); // 同步写入文件，使用utf-8编码
-    console.log(`最终HTML报告已成功生成到: ${outputHtmlPath}`); // 输出成功信息
+    fs.writeFileSync(outputHtmlPath, finalHtml, "utf-8");
+    console.log(`最终HTML报告已成功生成到: ${outputHtmlPath}`);
   } catch (error) {
-    console.error(`写入最终HTML文件时发生错误: ${error}`); // 如果写入失败，输出错误信息
+    console.error(`写入最终HTML文件时发生错误: ${error}`);
   }
 }
 
 // 新辅助函数：为特定楼栋计算全天空闲教室
-// allProcessedData: 包含所有已处理教室数据的数组
-// buildingName: 要计算的教学楼名称
 function calculateAllDayFreeClassroomsForBuilding(
   allProcessedData,
   buildingName
 ) {
-  // 定义构成“全天”的独立小节的时间段后缀 (例如 "1-2", "3-4", ..., "11-12")
   const individualSlotSuffixes = ["1-2", "3-4", "5-6", "7-8", "9-10", "11-12"];
-  let commonClassrooms = null; // 初始化用于存储共同空闲教室的Set，初始为null表示尚未处理第一个小节
+  let commonClassrooms = null;
 
-  // 遍历每个独立小节的时间段后缀
   for (const suffix of individualSlotSuffixes) {
-    // 从总数据中筛选出当前教学楼、当前小节的空闲教室，并提取教室名称到Set中
     const currentSlotClassrooms = new Set(
       allProcessedData
         .filter(
@@ -1500,29 +1512,22 @@ function calculateAllDayFreeClassroomsForBuilding(
         .map((item) => item["名称"])
     );
 
-    // 如果是第一个被处理的小节，则commonClassrooms直接设为当前小节的教室
     if (commonClassrooms === null) {
       commonClassrooms = currentSlotClassrooms;
     } else {
-      // 否则，取commonClassrooms与当前小节教室的交集（即只保留在两者中都存在的教室）
       commonClassrooms = new Set(
         [...commonClassrooms].filter((classroom) =>
           currentSlotClassrooms.has(classroom)
         )
       );
     }
-    // 优化：如果任何一个小节处理后，共同空闲教室数量变为0，则后续不可能再有全天空闲教室，可以提前中断循环
     if (commonClassrooms.size === 0) break;
   }
-  // 返回最终在所有独立小节中都出现的教室集合；如果从未处理过（例如没有独立小节数据），则返回空Set
   return commonClassrooms || new Set();
 }
 
 // 新辅助函数：根据教学楼名称，从包含各楼全天空闲教室集合的对象中获取对应楼栋的集合
-// buildingName: 要查询的教学楼名称
-// allDaySets: 一个对象，键是教学楼的内部标识（例如 allDayFreeJiChuLou），值是对应楼栋全天空闲教室的Set
 function getAllDaySetForBuilding(buildingName, allDaySets) {
-  // 使用switch语句根据buildingName返回相应的全天空闲教室Set
   switch (buildingName) {
     case "基础楼":
       return allDaySets.allDayFreeJiChuLou;
@@ -1537,38 +1542,28 @@ function getAllDaySetForBuilding(buildingName, allDaySets) {
     case "人文楼":
       return allDaySets.allDayFreeRenWenLou;
     default:
-      return new Set(); // 如果教学楼名称不匹配，返回空Set
+      return new Set();
   }
 }
 
 // 更智能的教室号排序函数，用于对教室号列表进行排序
-// a, b: 要比较的两个教室号字符串
 function smartSortClassrooms(a, b) {
-  // 正则表达式，用于从教室号中提取主要的数字部分和可能的后缀（如 "自主学习室X" 或 "-X"）
-  // ^(\d+) 匹配开头的连续数字（捕获到组1）
-  // (.*)$ 匹配剩余的所有字符作为后缀（捕获到组2）
   const regex = /^(\d+)(.*)$/;
-  const matchA = String(a).match(regex); // 对教室号a进行匹配 (确保是字符串)
-  const matchB = String(b).match(regex); // 对教室号b进行匹配 (确保是字符串)
+  const matchA = String(a).match(regex);
+  const matchB = String(b).match(regex);
 
-  // 如果两个教室号都能成功匹配到数字前缀
   if (matchA && matchB) {
-    const numA = parseInt(matchA[1]); // 提取教室号a的数字部分并转换为整数
-    const numB = parseInt(matchB[1]); // 提取教室号b的数字部分并转换为整数
-    const suffixA = matchA[2]; // 提取教室号a的后缀部分
-    const suffixB = matchB[2]; // 提取教室号b的后缀部分
+    const numA = parseInt(matchA[1]);
+    const numB = parseInt(matchB[1]);
+    const suffixA = matchA[2];
+    const suffixB = matchB[2];
 
-    // 如果数字部分不同，则直接按数字大小排序
     if (numA !== numB) {
       return numA - numB;
     }
-    // 如果数字部分相同，则按后缀的字典序进行排序
-    // 这可以处理例如 "101" 和 "101A"，或者 "6009自主学习室G" 和 "6009-1A自主学习室I" 的情况
     return suffixA.localeCompare(suffixB);
   }
-  // 如果一个或两个教室号无法按上述规则解析（例如，不是以数字开头），
-  // 则退回到标准的字符串字典序比较。
-  return String(a).localeCompare(String(b)); // 确保比较的是字符串
+  return String(a).localeCompare(String(b));
 }
 
 // 执行主函数，开始生成HTML报告
