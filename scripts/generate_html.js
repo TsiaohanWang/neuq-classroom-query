@@ -249,8 +249,8 @@ const htmlTemplate = `
 
         /* 折叠按钮图标样式 */
         .toggle-icon {
-            margin-right: 8px; /* 图标与文字的间距 */
-            transition: transform 0.2s ease-in-out; /* 为旋转添加平滑过渡效果 */
+            margin-right: 4px; /* 图标与文字的间距 */
+            transition: transform 0.4s ease-in-out; /* 为旋转添加平滑过渡效果 */
         }
         .toggle-icon.collapsed {
             transform: rotate(-90deg); /* 折叠时旋转图标 */
@@ -283,7 +283,7 @@ const htmlTemplate = `
             <!-- 上午第1-2节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 上午第1-2节
             </h3>
@@ -322,7 +322,7 @@ const htmlTemplate = `
             <!-- 上午第3-4节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 上午第3-4节
             </h3>
@@ -361,7 +361,7 @@ const htmlTemplate = `
             <!-- 下午第5-6节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 下午第5-6节
             </h3>
@@ -400,7 +400,7 @@ const htmlTemplate = `
             <!-- 下午第7-8节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 下午第7-8节
             </h3>
@@ -439,7 +439,7 @@ const htmlTemplate = `
             <!-- 晚上第9-10节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 晚上第9-10节
             </h3>
@@ -478,7 +478,7 @@ const htmlTemplate = `
             <!-- 晚上第11-12节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 晚上第11-12节
             </h3>
@@ -517,7 +517,7 @@ const htmlTemplate = `
             <!-- 昼间第1-8节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 昼间第1-8节
             </h3>
@@ -566,7 +566,7 @@ const htmlTemplate = `
             <!-- 上午第1-2节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 上午第1-2节
             </h3>
@@ -589,7 +589,7 @@ const htmlTemplate = `
             <!-- 上午第3-4节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 上午第3-4节
             </h3>
@@ -612,7 +612,7 @@ const htmlTemplate = `
             <!-- 下午第5-6节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 下午第5-6节
             </h3>
@@ -635,7 +635,7 @@ const htmlTemplate = `
             <!-- 下午第7-8节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 下午第7-8节
             </h3>
@@ -658,7 +658,7 @@ const htmlTemplate = `
             <!-- 晚上第9-10节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 晚上第9-10节
             </h3>
@@ -681,7 +681,7 @@ const htmlTemplate = `
             <!-- 晚上第11-12节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 晚上第11-12节
             </h3>
@@ -704,7 +704,7 @@ const htmlTemplate = `
             <!-- 昼间第1-8节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 昼间第1-8节
             </h3>
@@ -737,7 +737,7 @@ const htmlTemplate = `
             <!-- 上午第1-2节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 上午第1-2节
             </h3>
@@ -756,7 +756,7 @@ const htmlTemplate = `
             <!-- 上午第3-4节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 上午第3-4节
             </h3>
@@ -775,7 +775,7 @@ const htmlTemplate = `
             <!-- 下午第5-6节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 下午第5-6节
             </h3>
@@ -794,7 +794,7 @@ const htmlTemplate = `
             <!-- 下午第7-8节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 下午第7-8节
             </h3>
@@ -813,7 +813,7 @@ const htmlTemplate = `
             <!-- 晚上第9-10节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 晚上第9-10节
             </h3>
@@ -832,7 +832,7 @@ const htmlTemplate = `
             <!-- 晚上第11-12节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 晚上第11-12节
             </h3>
@@ -851,7 +851,7 @@ const htmlTemplate = `
             <!-- 昼间第1-8节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12"><path fill="currentColor" d="M1.293 3.293a1 1 0 0 1 1.32-.083l.094.083L6 6.585l3.293-3.292a1 1 0 0 1 1.32-.083l.094.083a1 1 0 0 1 .083 1.32l-.083.094l-4 4a1 1 0 0 1-1.32.083l-.094-.083l-4-4a1 1 0 0 1 0-1.414"/></svg>
                 </span>
                 昼间第1-8节
             </h3>
