@@ -209,11 +209,16 @@ const htmlTemplate = `
 
         /* 时间段标题样式 */
         .timeslot-title {
+        display: flex; /* 使用Flex布局来对齐图标和文本 */
+        align-items: center; /* 垂直居中 */
+        justify-content: center; /* 水平居中 */
         font-size: 20px;
         text-align: center;
         margin-top: 10px;
         margin-bottom: 4px;
         color: #30448c;
+        cursor: pointer; /* 提示整个标题区域都可点击 */
+        user-select: none; /* 防止点击时选中文字 */
         }
         /* 为下划线和加粗添加样式 */
         u {
@@ -241,6 +246,15 @@ const htmlTemplate = `
             background-color: #6c757d; /* 灰色 */
             color: white;
         }
+
+        /* 折叠按钮图标样式 */
+        .toggle-icon {
+            margin-right: 8px; /* 图标与文字的间距 */
+            transition: transform 0.2s ease-in-out; /* 为旋转添加平滑过渡效果 */
+        }
+        .toggle-icon.collapsed {
+            transform: rotate(-90deg); /* 折叠时旋转图标 */
+        }
     </style>
 </head>
 
@@ -267,7 +281,12 @@ const htmlTemplate = `
                 <!-- 临时信息将由JS填充 -->
             </div>
             <!-- 上午第1-2节 -->
-            <h3 class="timeslot-title">上午第1-2节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                上午第1-2节
+            </h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -301,7 +320,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 上午第3-4节 -->
-            <h3 class="timeslot-title">上午第3-4节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                上午第3-4节
+            </h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -335,7 +359,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 下午第5-6节 -->
-            <h3 class="timeslot-title">下午第5-6节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                下午第5-6节
+            </h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -369,7 +398,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 下午第7-8节 -->
-            <h3 class="timeslot-title">下午第7-8节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                下午第7-8节
+            </h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -403,7 +437,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 晚上第9-10节 -->
-            <h3 class="timeslot-title">晚上第9-10节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                晚上第9-10节
+            </h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -437,7 +476,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 晚上第11-12节 -->
-            <h3 class="timeslot-title">晚上第11-12节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                晚上第11-12节
+            </h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -471,7 +515,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 昼间第1-8节 -->
-            <h3 class="timeslot-title">昼间第1-8节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                昼间第1-8节
+            </h3>
             <table border="1" class="gxg-table">
                 <tbody>
                     <tr>
@@ -515,7 +564,12 @@ const htmlTemplate = `
                 <!-- 临时信息将由JS填充 -->
             </div>
             <!-- 上午第1-2节 -->
-            <h3 class="timeslot-title">上午第1-2节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                上午第1-2节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -533,7 +587,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 上午第3-4节 -->
-            <h3 class="timeslot-title">上午第3-4节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                上午第3-4节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -551,7 +610,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 下午第5-6节 -->
-            <h3 class="timeslot-title">下午第5-6节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                下午第5-6节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -569,7 +633,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 下午第7-8节 -->
-            <h3 class="timeslot-title">下午第7-8节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                下午第7-8节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -587,7 +656,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 晚上第9-10节 -->
-            <h3 class="timeslot-title">晚上第9-10节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                晚上第9-10节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -605,7 +679,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 晚上第11-12节 -->
-            <h3 class="timeslot-title">晚上第11-12节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                晚上第11-12节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -623,7 +702,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 昼间第1-8节 -->
-            <h3 class="timeslot-title">昼间第1-8节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                昼间第1-8节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -651,7 +735,12 @@ const htmlTemplate = `
                 <!-- 临时信息将由JS填充 -->
             </div>
             <!-- 上午第1-2节 -->
-            <h3 class="timeslot-title">上午第1-2节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                上午第1-2节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -665,7 +754,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 上午第3-4节 -->
-            <h3 class="timeslot-title">上午第3-4节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                上午第3-4节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -679,7 +773,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 下午第5-6节 -->
-            <h3 class="timeslot-title">下午第5-6节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                下午第5-6节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -693,7 +792,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 下午第7-8节 -->
-            <h3 class="timeslot-title">下午第7-8节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                下午第7-8节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -707,7 +811,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 晚上第9-10节 -->
-            <h3 class="timeslot-title">晚上第9-10节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                晚上第9-10节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -721,7 +830,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 晚上第11-12节 -->
-            <h3 class="timeslot-title">晚上第11-12节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                晚上第11-12节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -735,7 +849,12 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <!-- 昼间第1-8节 -->
-            <h3 class="timeslot-title">昼间第1-8节</h3>
+            <h3 class="timeslot-title" onclick="toggleTable(this)">
+                <span class="toggle-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                </span>
+                昼间第1-8节
+            </h3>
             <table border="1" class="campus-table">
                 <tbody>
                     <tr class="building-name-row">
@@ -772,6 +891,20 @@ const htmlTemplate = `
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
+
+        function toggleTable(headerElement) {
+            const table = headerElement.nextElementSibling;
+            if (table && table.tagName === 'TABLE') {
+                const icon = headerElement.querySelector('.toggle-icon');
+                if (table.style.display === 'none') {
+                    table.style.display = ''; // or 'table'
+                    icon.classList.remove('collapsed');
+                } else {
+                    table.style.display = 'none';
+                    icon.classList.add('collapsed');
+                }
+            }
+        }
     </script>
 
 </body>
@@ -785,7 +918,12 @@ const processedClassroomJsonPath = path.join(
   "output",
   "processed_classroom_data.json"
 );
-const eventJsonPath = path.join(__dirname, "..", "calendar", "neuq_events.json"); // 事件JSON文件路径已更新
+const eventJsonPath = path.join(
+  __dirname,
+  "..",
+  "calendar",
+  "neuq_events.json"
+); // 事件JSON文件路径已更新
 // 定义输出HTML文件路径
 const outputHtmlPath = path.join(__dirname, "..", "index.html"); // 输出到主目录
 
@@ -1264,74 +1402,70 @@ async function generateFinalHtmlReport() {
     }
   });
 
-  // 步骤 5.5: 计算内容哈希并与线上版本比较，以确定更新状态
-  // 获取核心内容区域的HTML，用于计算哈希值
-  const tabContainer = document.querySelector(".tab-container");
-  const newContentHtml = tabContainer ? tabContainer.outerHTML : "";
-  // 使用MD5算法计算哈希值
-  const newHash = crypto.createHash("md5").update(newContentHtml).digest("hex");
-  console.log(`新生成内容的哈希值: ${newHash}`);
-
-  // 将新计算的哈希值作为一个<meta>标签添加到<head>中
-  const metaTag = document.createElement("meta");
-  metaTag.name = "page-content-hash";
-  metaTag.content = newHash;
-  document.head.appendChild(metaTag);
-
-  let liveHash = null; // 用于存储线上版本的哈希值
-  let badgeStatus = "Updated"; // 默认状态为"Updated"
-  const cnamePath = path.join(__dirname, "..", "CNAME"); // CNAME文件路径
-
+  // 步骤 5.5: 计算内容哈希，与线上版本比较，并设置更新状态徽章
+  let badgeHtml = ""; // 初始化徽章HTML为空字符串
   try {
-    // 检查CNAME文件是否存在
-    if (fs.existsSync(cnamePath)) {
-      const domain = fs.readFileSync(cnamePath, "utf-8").trim(); // 读取域名
-      const url = `https://${domain}`; // 构建URL
-      console.log(`正在从 ${url} 获取当前部署的页面内容...`);
-      // 使用fetch API异步获取线上页面的HTML内容
-      const response = await fetch(url);
-      if (response.ok) { // 如果请求成功
-        const liveHtml = await response.text(); // 获取HTML文本
-        const liveDom = new JSDOM(liveHtml); // 使用jsdom解析线上HTML
-        // 在线上HTML中查找哈希meta标签
-        const liveMetaTag =
-          liveDom.window.document.querySelector('meta[name="page-content-hash"]');
-        if (liveMetaTag) { // 如果找到了
-          liveHash = liveMetaTag.getAttribute("content"); // 提取哈希值
-          console.log(`获取到已部署页面的哈希值: ${liveHash}`);
-        } else {
-          console.log("已部署页面中未找到哈希 meta 标签。");
-        }
-      } else {
-        console.warn(`获取 ${url} 失败，状态码: ${response.status}`);
-      }
-    } else {
-      console.log("CNAME 文件未找到，无法进行比较。");
+    // 步骤 5.5.1: 计算新生成页面的内容哈希
+    const tabContainer = document.querySelector(".tab-container");
+    if (!tabContainer) throw new Error(".tab-container 元素未找到");
+
+    const tabContainerHtml = tabContainer.innerHTML;
+    const newHash = crypto
+      .createHash("sha256")
+      .update(tabContainerHtml)
+      .digest("hex");
+    console.log(`新生成内容的哈希值为: ${newHash}`);
+
+    // 将新哈希值写入HTML的meta标签中
+    const metaHashTag = document.querySelector('meta[name="page-hash"]');
+    if (metaHashTag) {
+      metaHashTag.setAttribute("content", newHash);
     }
 
-    // 比较新旧哈希值
-    if (newHash === liveHash) {
-      badgeStatus = "Not Updated"; // 如果相同，状态设为"Not Updated"
-      console.log("内容无变化。");
+    // 步骤 5.5.2: 读取CNAME文件以获取线上页面的URL
+    const cnamePath = path.join(__dirname, "..", "CNAME");
+    if (!fs.existsSync(cnamePath)) {
+      console.warn("CNAME文件未找到，无法比较线上版本。默认状态为 'Updated'。");
+      throw new Error("CNAME not found");
+    }
+    const cnameContent = fs.readFileSync(cnamePath, "utf-8").trim();
+    const liveUrl = `https://${cnameContent}/`;
+    console.log(`正在从线上地址获取旧哈希值: ${liveUrl}`);
+
+    // 步骤 5.5.3: 抓取线上页面的HTML并提取旧哈希值
+    const response = await fetch(liveUrl);
+    if (!response.ok) {
+      throw new Error(`获取线上页面失败，状态码: ${response.status}`);
+    }
+    const liveHtml = await response.text();
+    const liveDom = new JSDOM(liveHtml);
+    const oldMetaHashTag =
+      liveDom.window.document.querySelector('meta[name="page-hash"]');
+    if (!oldMetaHashTag) {
+      throw new Error("在线上页面中未找到哈希meta标签。");
+    }
+    const oldHash = oldMetaHashTag.getAttribute("content");
+    console.log(`获取到的线上内容哈希值为: ${oldHash}`);
+
+    // 步骤 5.5.4: 比较新旧哈希值并生成徽章
+    if (newHash === oldHash) {
+      console.log("内容哈希值相同，状态为 'Not Updated'。");
+      badgeHtml = `<span class="status-badge badge-not-updated">Not Updated</span>`;
     } else {
-      console.log("内容已更新。");
+      console.log("内容哈希值不同，状态为 'Updated'。");
+      badgeHtml = `<span class="status-badge badge-updated">Updated</span>`;
     }
   } catch (error) {
-    console.error("获取或比较已部署页面时发生错误:", error);
-    // 在任何错误情况下，都默认状态为"Updated"，以确保部署总能反映最新尝试
+    console.warn(
+      `无法完成与线上版本的哈希比较: ${error.message}。默认状态为 'Updated'。`
+    );
+    badgeHtml = `<span class="status-badge badge-updated">Updated</span>`;
   }
 
-  // 动态创建并插入状态徽章
-  const updateTimeP = document.querySelector("p.update-time");
-  if (updateTimeP) {
-    const badge = document.createElement("span");
-    badge.id = "status-badge";
-    badge.textContent = badgeStatus;
-    // 根据状态应用不同的CSS类
-    badge.className = `status-badge ${
-      badgeStatus === "Updated" ? "badge-updated" : "badge-not-updated"
-    }`;
-    updateTimeP.appendChild(badge); // 将徽章添加到时间戳的<p>标签中
+  // 步骤 5.5.5: 将生成的徽章HTML填充到页面占位符中
+  const updateTimeSpan = document.querySelector(".update-time > span");
+  if (updateTimeSpan) {
+    updateTimeSpan.insertAdjacentHTML("afterend", badgeHtml);
   }
 
   // 步骤 6: 将修改后的DOM对象序列化回HTML字符串，并写入到最终的HTML文件中
@@ -1345,21 +1479,16 @@ async function generateFinalHtmlReport() {
 }
 
 // 新辅助函数：为特定楼栋计算全天空闲教室
-// allProcessedData: 包含所有已处理教室数据的数组
-// buildingName: 要计算的教学楼名称
 function calculateAllDayFreeClassroomsForBuilding(
-  allProcessedData,
+  allProcessedClassroomData,
   buildingName
 ) {
-  // 定义构成“全天”的独立小节的时间段后缀 (例如 "1-2", "3-4", ..., "11-12")
   const individualSlotSuffixes = ["1-2", "3-4", "5-6", "7-8", "9-10", "11-12"];
-  let commonClassrooms = null; // 初始化用于存储共同空闲教室的Set，初始为null表示尚未处理第一个小节
+  let commonClassrooms = null;
 
-  // 遍历每个独立小节的时间段后缀
   for (const suffix of individualSlotSuffixes) {
-    // 从总数据中筛选出当前教学楼、当前小节的空闲教室，并提取教室名称到Set中
     const currentSlotClassrooms = new Set(
-      allProcessedData
+      allProcessedClassroomData
         .filter(
           (item) =>
             item["教学楼"] === buildingName && item["空闲时段"] === suffix
@@ -1367,29 +1496,22 @@ function calculateAllDayFreeClassroomsForBuilding(
         .map((item) => item["名称"])
     );
 
-    // 如果是第一个被处理的小节，则commonClassrooms直接设为当前小节的教室
     if (commonClassrooms === null) {
       commonClassrooms = currentSlotClassrooms;
     } else {
-      // 否则，取commonClassrooms与当前小节教室的交集（即只保留在两者中都存在的教室）
       commonClassrooms = new Set(
         [...commonClassrooms].filter((classroom) =>
           currentSlotClassrooms.has(classroom)
         )
       );
     }
-    // 优化：如果任何一个小节处理后，共同空闲教室数量变为0，则后续不可能再有全天空闲教室，可以提前中断循环
     if (commonClassrooms.size === 0) break;
   }
-  // 返回最终在所有独立小节中都出现的教室集合；如果从未处理过（例如没有独立小节数据），则返回空Set
   return commonClassrooms || new Set();
 }
 
 // 新辅助函数：根据教学楼名称，从包含各楼全天空闲教室集合的对象中获取对应楼栋的集合
-// buildingName: 要查询的教学楼名称
-// allDaySets: 一个对象，键是教学楼的内部标识（例如 allDayFreeJiChuLou），值是对应楼栋全天空闲教室的Set
 function getAllDaySetForBuilding(buildingName, allDaySets) {
-  // 使用switch语句根据buildingName返回相应的全天空闲教室Set
   switch (buildingName) {
     case "基础楼":
       return allDaySets.allDayFreeJiChuLou;
@@ -1404,38 +1526,28 @@ function getAllDaySetForBuilding(buildingName, allDaySets) {
     case "人文楼":
       return allDaySets.allDayFreeRenWenLou;
     default:
-      return new Set(); // 如果教学楼名称不匹配，返回空Set
+      return new Set();
   }
 }
 
 // 更智能的教室号排序函数，用于对教室号列表进行排序
-// a, b: 要比较的两个教室号字符串
 function smartSortClassrooms(a, b) {
-  // 正则表达式，用于从教室号中提取主要的数字部分和可能的后缀（如 "自主学习室X" 或 "-X"）
-  // ^(\d+) 匹配开头的连续数字（捕获到组1）
-  // (.*)$ 匹配剩余的所有字符作为后缀（捕获到组2）
   const regex = /^(\d+)(.*)$/;
-  const matchA = String(a).match(regex); // 对教室号a进行匹配 (确保是字符串)
-  const matchB = String(b).match(regex); // 对教室号b进行匹配 (确保是字符串)
+  const matchA = String(a).match(regex);
+  const matchB = String(b).match(regex);
 
-  // 如果两个教室号都能成功匹配到数字前缀
   if (matchA && matchB) {
-    const numA = parseInt(matchA[1]); // 提取教室号a的数字部分并转换为整数
-    const numB = parseInt(matchB[1]); // 提取教室号b的数字部分并转换为整数
-    const suffixA = matchA[2]; // 提取教室号a的后缀部分
-    const suffixB = matchB[2]; // 提取教室号b的后缀部分
+    const numA = parseInt(matchA[1]);
+    const numB = parseInt(matchB[1]);
+    const suffixA = matchA[2];
+    const suffixB = matchB[2];
 
-    // 如果数字部分不同，则直接按数字大小排序
     if (numA !== numB) {
       return numA - numB;
     }
-    // 如果数字部分相同，则按后缀的字典序进行排序
-    // 这可以处理例如 "101" 和 "101A"，或者 "6009自主学习室G" 和 "6009-1A自主学习室I" 的情况
     return suffixA.localeCompare(suffixB);
   }
-  // 如果一个或两个教室号无法按上述规则解析（例如，不是以数字开头），
-  // 则退回到标准的字符串字典序比较。
-  return String(a).localeCompare(String(b)); // 确保比较的是字符串
+  return String(a).localeCompare(String(b));
 }
 
 // 执行主函数，开始生成HTML报告
