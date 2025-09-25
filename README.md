@@ -1,6 +1,6 @@
 # 东北大学秦皇岛分校空闲教室总表
 
-本仓库通过部署在 `GitHub Actions` 上的 `Playwright` 测试文件来自动化获取空闲教室信息，并且借助JavaScript脚本生成对应HTML文件，自动发布在 `GitHub Pages` 上。该流程会每6小时自动执行一次。
+本仓库通过部署在 `GitHub Actions` 上的 `Playwright` 测试文件来自动化获取空闲教室信息，并且借助JavaScript脚本生成对应HTML文件，自动发布在 `GitHub Pages` 上。该流程会每3小时自动执行一次。
 
 > 由于未知的原因，目前该项目在`GitHub Actions`上部署的定期执行无法正常生成正确的HTML文件，需要手动触发。
 > 
