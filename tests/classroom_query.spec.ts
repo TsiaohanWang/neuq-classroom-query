@@ -180,48 +180,22 @@ test("登录并按多时间段查询空闲教室测试", async ({ page }) => {
       await todayButton.click();
       console.log(`已为 ${inputFieldName} 选择 "Today"。`);
 
-      // ================= 新增代码: 开始 =================
-      try {
-        // 尝试从 iframe 内部直接读取并打印当前选中的日期
-        // 延迟一小段时间，确保点击后DOM更新
-        await page.waitForTimeout(200); 
-
-        // 定位年份输入框 (通常是 class='yminput' 且 maxlength='4')
-        const yearLocator = datePickerFrame.locator('.yminput[maxlength="4"]');
-        // 定位月份输入框 (通常是 class='yminput' 且 maxlength='2')
-        const monthLocator = datePickerFrame.locator('.yminput[maxlength="2"]');
-        // 定位当前选中的日期 (通常是 <td> 标签，class='Wselday')
-        const dayLocator = datePickerFrame.locator('td.Wselday');
-
-        // 获取年月日的值
-        const year = await yearLocator.inputValue({ timeout: 2000 });
-        const month = await monthLocator.inputValue({ timeout: 2000 });
-        // Wselday 中通常没有直接的文本，而是包含一个a标签或直接是数字
-        const dayText = await dayLocator.textContent({ timeout: 2000 });
-        // 清理可能存在的空白字符
-        const day = dayText?.trim();
-
-        if (year && month && day) {
-          // 格式化月份和日期，确保是两位数
-          const formattedMonth = month.padStart(2, '0');
-          const formattedDay = day.padStart(2, '0');
-          console.log(`[实时读取 iframe] ${inputFieldName} 的日期值为: ${year}-${formattedMonth}-${formattedDay}`);
-        } else {
-          console.warn(`[实时读取 iframe] 未能从 WDatePicker 中完整获取 ${inputFieldName} 的年月日信息。`);
-        }
-      } catch (error) {
-        console.error(`[实时读取 iframe] 从 WDatePicker 读取日期时发生错误:`, error);
-      }
-      // ================= 新增代码: 结束 =================
-
-      // 等待日期值填充到输入框。
+      // ================= 代码修改: 开始 =================
+      // 等待日期值成功填充到主页面的输入框中。
       await page.waitForFunction(
         (selector) =>
           (document.querySelector(selector as string) as HTMLInputElement)
             ?.value !== "",
         dateInputElementSelector,
-        { timeout: 10000 } // 增加值填充等待超时
+        { timeout: 10000 } // 等待值填充的超时时间
       );
+
+      // 从主页面的输入框中获取已经填充好的日期值并打印。
+      // 这是最可靠的方法，避免了在iframe关闭前读取的竞态问题。
+      const selectedDate = await page.locator(dateInputElementSelector).inputValue();
+      console.log(`[读取主输入框] ${inputFieldName} 的值已更新为: ${selectedDate}`);
+      // ================= 代码修改: 结束 =================
+      
       console.log(`${inputFieldName} 输入框已填充日期。`);
       return true;
     } else {
