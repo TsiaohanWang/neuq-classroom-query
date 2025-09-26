@@ -37,6 +37,7 @@ const htmlTemplate = `
         .tab-container {
         width: 100%;
         margin-top: 10px;
+        margin-bottom: 16px;
         background-color: #fff;
         border-radius: 16px;
         box-shadow: 2px 4px 3px 2px rgba(0, 0, 0, 0.06);
@@ -84,7 +85,7 @@ const htmlTemplate = `
 
         .tab-content {
         display: none;
-        padding: 15px;
+        padding: 0 10px 8px 10px;
         border-top: none;
         animation: fadeIn 0.3s;
         }
@@ -100,26 +101,6 @@ const htmlTemplate = `
         to {
             opacity: 1;
         }
-        }
-
-        /* 临时信息通知框样式 */
-        .emergency-info {
-        padding: 4px 10px; /* 调整内边距 */
-        margin-bottom: 10px; /* 与下方内容的间距 */
-        border: 2px dashed rgba(48, 68, 140, 0.3); /* 校色的浅色边框 */
-        border-radius: 8px; /* 圆角 */
-        background-color: rgba(48, 68, 140, 0.08); /* 校色的淡化透明背景 */
-        color: #2c3e50; /* 文字颜色 */
-        text-align: left; /* 文字左对齐 */
-        font-size: 13px; /* 字体大小 */
-        line-height: 1.5; /* 行高 */
-        }
-        .emergency-info p {
-        /* 通知内每条消息的段落样式 */
-        margin: 0 0 5px 0; /* 段落下边距 */
-        }
-        .emergency-info p:last-child {
-        margin-bottom: 0; /* 最后一条消息无下边距 */
         }
 
         /* 表格样式 */
@@ -184,6 +165,7 @@ const htmlTemplate = `
 
         .info-text {
         text-align: center;
+        margin-top: 4px;
         margin-bottom: 4px;
         font-size: 13px;
         color: #6c757d;
@@ -195,6 +177,7 @@ const htmlTemplate = `
         display: flex; /* 使用flex布局让时间和徽章在同一行 */
         justify-content: center; /* 水平居中 */
         align-items: center; /* 垂直居中 */
+        margin-bottom: 12px;
         }
 
         .info-text a {
@@ -219,6 +202,30 @@ const htmlTemplate = `
         cursor: pointer; /* 提示整个标题区域都可点击 */
         user-select: none; /* 防止点击时选中文字 */
         }
+
+        /* 临时信息通知框样式 */
+        .emergency-info {
+        padding: 4px 10px; /* 调整内边距 */
+        margin-bottom: 10px; /* 与下方内容的间距 */
+        border: 2px dashed rgba(48, 68, 140, 0.3); /* 校色的浅色边框 */
+        border-radius: 8px; /* 圆角 */
+        background-color: rgba(48, 68, 140, 0.08); /* 校色的淡化透明背景 */
+        color: #2c3e50; /* 文字颜色 */
+        text-align: left; /* 文字左对齐 */
+        font-size: 13px; /* 字体大小 */
+        line-height: 1.5; /* 行高 */
+        }
+        .emergency-info p {
+        /* 通知内每条消息的段落样式 */
+        margin: 0 0 5px 0; /* 段落下边距 */
+        font-family: "New Computer Modern", "PingFang SC", "Microsoft YaHei", "Segoe UI",
+            Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-feature-settings: normal;
+        }
+        .emergency-info p:last-child {
+        margin-bottom: 0; /* 最后一条消息无下边距 */
+        }
+
         /* 为下划线、加粗和删除线添加样式 */
         u { text-decoration: underline; text-decoration-color: #30448c; text-decoration-thickness: 1.25px; }
         strong { font-weight: bold; color: green; }
@@ -262,7 +269,9 @@ const htmlTemplate = `
         <span>本空闲教室表更新于 <span id="update-time-placeholder">YYYY/MM/DD HH:MM</span></span>
         <!-- 状态徽章将由JS在此处动态插入 -->
     </p>
-    <p class="info-text">内容仅供参考，实际请以<a href="https://jwxt.neuq.edu.cn/">教务系统</a>查询结果为准</p>
+    <div class="emergency-info" id="gxg-emergency-info">
+        <!-- 临时信息将由JS填充 -->
+    </div>
     <hr>
 
     <div class="tab-container">
@@ -274,9 +283,6 @@ const htmlTemplate = `
 
         <!-- 工学馆内容 -->
         <div id="gongxueguan" class="tab-content active">
-            <div class="emergency-info" id="gxg-emergency-info">
-                <!-- 临时信息将由JS填充 -->
-            </div>
             <!-- 上午第1-2节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
@@ -557,9 +563,6 @@ const htmlTemplate = `
 
         <!-- 本部其它教学楼内容 -->
         <div id="benbuqita" class="tab-content">
-            <div class="emergency-info" id="benbu-emergency-info">
-                <!-- 临时信息将由JS填充 -->
-            </div>
             <!-- 上午第1-2节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
@@ -728,9 +731,6 @@ const htmlTemplate = `
 
         <!-- 南校区内容 -->
         <div id="nanxiaoqu" class="tab-content">
-            <div class="emergency-info" id="nanqu-emergency-info">
-                <!-- 临时信息将由JS填充 -->
-            </div>
             <!-- 上午第1-2节 -->
             <h3 class="timeslot-title" onclick="toggleTable(this)">
                 <span class="toggle-icon">
@@ -870,6 +870,7 @@ const htmlTemplate = `
         </div>
     </div>
 
+    <p class="info-text">内容仅供参考，实际请以<a href="https://jwxt.neuq.edu.cn/">教务系统</a>查询结果为准</p>
     <p class="info-text">Powered by Tsiaohan Wang <a href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a></p>
 
     <script>
