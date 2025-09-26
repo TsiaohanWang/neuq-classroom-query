@@ -1,7 +1,10 @@
 # 本地测试需要，暂不提交
-tests/
+/tests/
+/output/
+/index.html
+
 # Playwright
-node_modules/
+/node_modules/
 /test-results/
 /playwright-report/
 /blob-report/

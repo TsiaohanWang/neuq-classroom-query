@@ -915,7 +915,12 @@ const processedClassroomJsonPath = path.join(
   "output",
   "processed_classroom_data.json"
 );
-const eventJsonPath = path.join(__dirname, "..", "calendar", "neuq_events.json"); // 事件JSON文件路径已更新
+const eventJsonPath = path.join(__dirname, "..", "calendar", "neuq_events.json");
+// ================= 新增代码: 开始 =================
+// 定义格言文件的路径
+const quotesJsonPath = path.join(__dirname, "..", "quotes", 'quotes.json');
+// ================= 新增代码: 结束 =================
+
 // 定义输出HTML文件路径
 const outputHtmlPath = path.join(__dirname, "..", "index.html"); // 输出到主目录
 
@@ -1044,7 +1049,24 @@ async function generateFinalHtmlReport() {
     }
   } catch (error) {
     console.error(`读取或解析 ${eventJsonPath} 时发生错误:`, error);
-    // 出错时，eventData 保持为空数组，不中断后续流程，仅影响通知显示
+  }
+
+  // ================= 新增代码: 开始 =================
+  // 步骤 1.6: 读取格言JSON数据
+  let quotes = []; // 默认为空数组，以防文件不存在或读取失败
+  try {
+    if (fs.existsSync(quotesJsonPath)) {
+      const rawQuotesData = fs.readFileSync(quotesJsonPath, "utf-8");
+      quotes = JSON.parse(rawQuotesData);
+      console.log(`成功读取 ${quotes.length} 条格言。`);
+    } else {
+      console.warn(
+        `警告：格言文件 (${quotesJsonPath}) 未找到。将使用默认文本。`
+      );
+    }
+  } catch (error) {
+    console.error(`读取或解析 ${quotesJsonPath} 时发生错误:`, error);
+    // 出错时，quotes 保持为空数组，不中断后续流程
   }
 
   // 步骤 2: 使用JSDOM解析HTML样板字符串，创建一个可操作的DOM对象
@@ -1099,7 +1121,14 @@ async function generateFinalHtmlReport() {
       emergencyHtmlContent += `<p>📢 <strong>${event["名称"]}</strong>将于${event["起始日期"]} ${event["起始时间"]} - ${event["结束日期"]} ${event["结束时间"]}占用<strong>${event["占用教学楼"]}</strong>${occupiedRoomsText}</p>`;
     });
   } else {
-    emergencyHtmlContent = "<p>今日暂无重要事件通知。</p>"; // 如果没有当天事件，显示默认信息
+    // 如果今天没有事件，则显示一条随机格言
+    if (quotes && quotes.length > 0) {
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      emergencyHtmlContent = quotes[randomIndex];
+    } else {
+      // 如果格言文件读取失败或为空，则显示原来的默认文本
+      emergencyHtmlContent = "<p>今日暂无重要事件通知。</p>";
+    }
   }
   // 获取所有选项卡的通知框元素（通过class）
   const emergencyDivs = document.querySelectorAll(".emergency-info");
@@ -1215,15 +1244,9 @@ async function generateFinalHtmlReport() {
 
             // 按优先级组合样式：加粗 > 删除线 > 下划线 (从内到外包裹)
             let styledName = item["名称"];
-            if (isUnderlined) {
-                styledName = `<u>${styledName}</u>`;
-            }
-            if (isStrikethrough) {
-                styledName = `<del>${styledName}</del>`;
-            }
-            if (isBold) {
-                styledName = `<strong>${styledName}</strong>`;
-            }
+            if (isUnderlined) styledName = `<u>${styledName}</u>`;
+            if (isStrikethrough) styledName = `<del>${styledName}</del>`;
+            if (isBold) styledName = `<strong>${styledName}</strong>`;
             return { raw: item["名称"], display: styledName };
           })
           .sort((a, b) => smartSortClassrooms(a.raw, b.raw))
