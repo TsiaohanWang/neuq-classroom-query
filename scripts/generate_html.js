@@ -209,7 +209,7 @@ const htmlTemplate = `
         margin-bottom: 10px; /* 与下方内容的间距 */
         border: 2px dashed rgba(48, 68, 140, 0.3); /* 校色的浅色边框 */
         border-radius: 8px; /* 圆角 */
-        background-color: rgba(48, 68, 140, 0.08); /* 校色的淡化透明背景 */
+        background-color: rgba(48, 68, 140, 0.05); /* 校色的淡化透明背景 */
         color: #2c3e50; /* 文字颜色 */
         text-align: left; /* 文字左对齐 */
         font-size: 13px; /* 字体大小 */
@@ -217,18 +217,15 @@ const htmlTemplate = `
         }
         .emergency-info p {
         /* 通知内每条消息的段落样式 */
-        margin: 0 0 5px 0; /* 段落下边距 */
+        margin: 0;
         font-family: "New Computer Modern", "PingFang SC", "Microsoft YaHei", "Segoe UI",
             Roboto, "Helvetica Neue", Arial, sans-serif;
         font-feature-settings: normal;
         }
-        .emergency-info p:last-child {
-        margin-bottom: 0; /* 最后一条消息无下边距 */
-        }
 
         /* 为下划线、加粗和删除线添加样式 */
         u { text-decoration: underline; text-decoration-color: #30448c; text-decoration-thickness: 1.25px; }
-        strong { font-weight: bold; color: green; }
+        strong { font-weight: bold; color: purple; }
         del { text-decoration: line-through;
   text-decoration-color: gray; text-decoration-thickness: 0.75px; }
 
@@ -243,7 +240,7 @@ const htmlTemplate = `
             opacity: 0.67;
         }
         .badge-updated {
-            background-color: #28a745; /* 绿色 */
+            background-color: #2876a7;
             color: white;
         }
         .badge-not-updated {
@@ -557,7 +554,7 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <hr style="margin-top: 20px; margin-bottom: 10px;">
-            <p class="info-text" style="text-align: justify">注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>绿色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。</p>
+            <p class="info-text" style="text-align: justify">注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。</p>
             <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
         </div>
 
@@ -725,7 +722,7 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <hr style="margin-top: 20px; margin-bottom: 10px;">
-            <p class="info-text" style="text-align: justify">注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>绿色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。</p>
+            <p class="info-text" style="text-align: justify">注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。</p>
             <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
         </div>
 
@@ -865,7 +862,7 @@ const htmlTemplate = `
                 </tbody>
             </table>
             <hr style="margin-top: 20px; margin-bottom: 10px;">
-            <p class="info-text" style="text-align: justify">注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>绿色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。</p>
+            <p class="info-text" style="text-align: justify">注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。</p>
             <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
         </div>
     </div>
