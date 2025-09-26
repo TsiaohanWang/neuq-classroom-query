@@ -2,9 +2,23 @@ import { test, expect } from "@playwright/test"; // 导入 Playwright 测试框�
 import * as fs from "fs"; // 引入Node.js内置的文件系统模块，用于后续将查询结果写入JSON文件
 import * as path from "path"; // 引入Node.js内置的路径处理模块，用于安全地构建文件路径
 
+// 在当前文件中所有测试开始前，配置测试上下文的默认时区为北京时间。
+// 这确保了浏览器内部获取的所有时间都将基于 'Asia/Shanghai' 时区。
+test.use({
+  timezoneId: 'Asia/Shanghai',
+});
+
 // 定义一个名为 '登录并按多时间段查询空闲教室测试' 的测试用例
 // async ({ page }) 表示这是一个异步测试函数，它接收一个 Playwright 的 Page 对象作为参数，用于与浏览器页面交互
 test("登录并按多时间段查询空闲教室测试", async ({ page }) => {
+  // 在所有导航和操作开始前，将页面的时钟固定在当前时刻。
+  // new Date() 会获取脚本执行到此处的当前时间。
+  // 由于上面的 test.use() 配置，这个时间在浏览器中将被解释为北京时间。
+  // 这可以防止在测试执行期间因时间变化（例如跨过午夜）导致的不确定性。
+  const now = new Date();
+  await page.clock.install({ time: now });
+  console.log(`已将浏览器虚拟时间固定为当前北京时间: ${now.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}`);
+
   // 为此测试用例设置总超时时间（毫秒）。
   // 由于涉及多次网络请求和页面交互，需要比默认值更长的时间以避免因超时而失败。
   // [可调参数]: 600000 - 如果测试仍然超时，可以根据实际网络和服务器响应情况调整此值。
@@ -165,6 +179,41 @@ test("登录并按多时间段查询空闲教室测试", async ({ page }) => {
       // 增加按钮可见性超时
       await todayButton.click();
       console.log(`已为 ${inputFieldName} 选择 "Today"。`);
+
+      // ================= 新增代码: 开始 =================
+      try {
+        // 尝试从 iframe 内部直接读取并打印当前选中的日期
+        // 延迟一小段时间，确保点击后DOM更新
+        await page.waitForTimeout(200); 
+
+        // 定位年份输入框 (通常是 class='yminput' 且 maxlength='4')
+        const yearLocator = datePickerFrame.locator('.yminput[maxlength="4"]');
+        // 定位月份输入框 (通常是 class='yminput' 且 maxlength='2')
+        const monthLocator = datePickerFrame.locator('.yminput[maxlength="2"]');
+        // 定位当前选中的日期 (通常是 <td> 标签，class='Wselday')
+        const dayLocator = datePickerFrame.locator('td.Wselday');
+
+        // 获取年月日的值
+        const year = await yearLocator.inputValue({ timeout: 2000 });
+        const month = await monthLocator.inputValue({ timeout: 2000 });
+        // Wselday 中通常没有直接的文本，而是包含一个a标签或直接是数字
+        const dayText = await dayLocator.textContent({ timeout: 2000 });
+        // 清理可能存在的空白字符
+        const day = dayText?.trim();
+
+        if (year && month && day) {
+          // 格式化月份和日期，确保是两位数
+          const formattedMonth = month.padStart(2, '0');
+          const formattedDay = day.padStart(2, '0');
+          console.log(`[实时读取 iframe] ${inputFieldName} 的日期值为: ${year}-${formattedMonth}-${formattedDay}`);
+        } else {
+          console.warn(`[实时读取 iframe] 未能从 WDatePicker 中完整获取 ${inputFieldName} 的年月日信息。`);
+        }
+      } catch (error) {
+        console.error(`[实时读取 iframe] 从 WDatePicker 读取日期时发生错误:`, error);
+      }
+      // ================= 新增代码: 结束 =================
+
       // 等待日期值填充到输入框。
       await page.waitForFunction(
         (selector) =>
