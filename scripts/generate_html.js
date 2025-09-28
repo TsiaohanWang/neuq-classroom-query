@@ -556,6 +556,7 @@ const htmlTemplate = `
             <hr style="margin-top: 20px; margin-bottom: 10px;">
             <p class="info-text" style="text-align: justify">注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。</p>
             <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
+            <p class="info-text" style="text-align: justify">注：因节假日调休时，由于教务系统可能未更新，本空教室表无法正常显示。</p>
         </div>
 
         <!-- 本部其它教学楼内容 -->
@@ -724,6 +725,7 @@ const htmlTemplate = `
             <hr style="margin-top: 20px; margin-bottom: 10px;">
             <p class="info-text" style="text-align: justify">注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。</p>
             <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
+            <p class="info-text" style="text-align: justify">注：因节假日调休时，由于教务系统可能未更新，本空教室表无法正常显示。</p>
         </div>
 
         <!-- 南校区内容 -->
@@ -864,6 +866,7 @@ const htmlTemplate = `
             <hr style="margin-top: 20px; margin-bottom: 10px;">
             <p class="info-text" style="text-align: justify">注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。</p>
             <p class="info-text" style="text-align: justify">注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。</p>
+            <p class="info-text" style="text-align: justify">注：因节假日调休时，由于教务系统可能未更新，本空教室表无法正常显示。</p>
         </div>
     </div>
 

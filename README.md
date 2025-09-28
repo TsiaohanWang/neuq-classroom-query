@@ -18,6 +18,8 @@
 
 对于可能占用教室的校园事件，将其记录在 `/calendar/neuq_events.json` 中。`/scripts/generate_html.js`在生成HTML文件时会读取该文件，检查是否有当日发生的事件。
 
+因节假日调休时，由于教务系统可能未更新，本空教室表无法正常显示。
+
 由于东秦教务系统网站时有变动，可能会导致Playwright自动化运行失效，**请以教务系统实际查询结果为准**。
 
 本项目的诞生离不开Gemini和GitHub Copilot的协助。
