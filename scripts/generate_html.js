@@ -159,24 +159,56 @@ function populateClassroomDataForDay(document, dayOffset, allClassroomData) {
                 const cellId = `day-${dayOffset}-${config.code}${timeSlotSuffix}`;
                 const roomCell = document.getElementById(cellId);
                 if (roomCell) {
-                    let regularRooms = [], zizhuRooms = [];
-                    currentSlotDataBuilding.forEach(item => {
-                         if (buildingName === "科技楼" && (item["名称"].includes("自主学习室") || item["名称"].includes("自习室"))) {
-                            zizhuRooms.push(item);
-                         } else {
-                            regularRooms.push(item);
-                         }
-                    });
-                     const styledRegular = formatAndStyleRooms(regularRooms).sort((a,b)=>smartSortClassrooms(a.raw,b.raw)).map(r=>r.display).join("<br>");
-                     const styledZizhu = formatAndStyleRooms(zizhuRooms).sort((a,b)=>smartSortClassrooms(a.raw,b.raw)).map(r=>r.display).join("<br>");
-                     let finalHtml = styledRegular;
-                     if(styledZizhu) finalHtml += (finalHtml ? "<br>" : "") + styledZizhu;
+                    let finalHtml = "";
+
+                    if (buildingName === "科技楼") {
+                        let regularRooms = [];
+                        let zizhuRooms = [];
+
+                        currentSlotDataBuilding.forEach(item => {
+                            if (item["名称"].includes("自习室")) {
+                                const letterMatch = item["名称"].match(/自习室([A-Z])$/i);
+                                zizhuRooms.push({ ...item, letter: letterMatch ? letterMatch[1].toUpperCase() : "Z" });
+                            } else {
+                                regularRooms.push(item);
+                            }
+                        });
+
+                        const styledRegularPart = formatAndStyleRooms(regularRooms)
+                            .sort((a, b) => smartSortClassrooms(a.raw, b.raw))
+                            .map(item => item.display)
+                            .join(" ");
+                        
+                        // 先对带有 'letter' 属性的原始数组进行排序
+                        const sortedZizhuRooms = zizhuRooms.sort((a, b) => a.letter.localeCompare(b.letter));
+                        
+                        // 然后将排好序的数组传递给格式化函数
+                        const styledZizhuPart = formatAndStyleRooms(sortedZizhuRooms)
+                            .map(item => item.display)
+                            .join("<br>");
+                        
+                        finalHtml = styledRegularPart;
+                        if (styledZizhuPart) {
+                            finalHtml += (finalHtml ? "<br>" : "") + styledZizhuPart;
+                        }
+                    
+                    } else if (buildingName === "人文楼") {
+                        finalHtml = formatAndStyleRooms(currentSlotDataBuilding)
+                            .sort((a, b) => smartSortClassrooms(a.raw, b.raw))
+                            .map(item => item.display)
+                            .join(" ");
+                    
+                    } else { 
+                        finalHtml = formatAndStyleRooms(currentSlotDataBuilding)
+                            .sort((a, b) => smartSortClassrooms(a.raw, b.raw))
+                            .map(item => item.display)
+                            .join("<br>");
+                    }
                     roomCell.innerHTML = finalHtml || "无";
                 }
             }
         });
         
-        // 更新上一时段的数据，用于下次循环的下划线判断
         if (timeSlotSuffix !== "1-8") {
             buildings.forEach(b => {
                 previousClassrooms[b] = getAllClassroomsFromData(allClassroomData.filter(item => item["教学楼"] === b && item["空闲时段"] === timeSlotSuffix));
@@ -184,6 +216,7 @@ function populateClassroomDataForDay(document, dayOffset, allClassroomData) {
         }
     });
 }
+
 
 // --- 3. 主处理函数 ---
 async function generateFinalHtmlReport() {
@@ -197,7 +230,7 @@ async function generateFinalHtmlReport() {
         return;
     }
 
-    // 2. 读取事件和格言数据 (只需读取一次)
+    // 2. 读取事件和格言数据
     let eventData = [], quotes = [];
     try {
         if (fs.existsSync(eventJsonPath)) eventData = JSON.parse(fs.readFileSync(eventJsonPath, 'utf-8'));
@@ -222,12 +255,11 @@ async function generateFinalHtmlReport() {
 
     // 5. 填充全局的、仅限今日的事件/格言信息
     console.log("\n--- 开始填充全局 Emergency Info Box ---");
-    const todayDateStr = getBeijingDateString(0); // 获取今天的日期 YYYY/MM/DD
+    const todayDateStr = getBeijingDateString(0);
     const todayDateObj = parseDateString(todayDateStr);
-    const emergencyInfoDiv = document.querySelector(".emergency-info"); // 定位唯一的info框
+    const emergencyInfoDiv = document.querySelector(".emergency-info");
 
     if (emergencyInfoDiv) {
-        // 筛选出今天的活动事件
         const todayActiveEvents = eventData.filter(event => {
             try {
                 const start = parseDateString(event["起始日期"]);

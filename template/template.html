@@ -258,10 +258,9 @@
 
         /* 临时信息通知框样式 */
         .emergency-info {
-            padding: 4px 10px;
+            padding: 3px 8px 5px 8px;
             /* 调整内边距 */
-            margin-top: 12px;
-            margin-bottom: 10px;
+            margin: 10px auto;
             border: 2px dashed rgba(48, 68, 140, 0.3);
             /* 校色的浅色边框 */
             border-radius: 8px;
@@ -281,9 +280,9 @@
         .emergency-info p {
             /* 通知内每条消息的段落样式 */
             margin: 0;
-            font-family: "New Computer Modern", "PingFang SC", "Microsoft YaHei", "Segoe UI",
-                Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: "New Computer Modern", "Noto Serif SC", "Source Han Serif CN", "思源宋体 CN", "Songti SC", "SimSun", serif;
             font-feature-settings: normal;
+            text-align: justify;
         }
 
         /* 为下划线、加粗和删除线添加样式 */
@@ -359,13 +358,31 @@
     <div class="date-switcher">
         <button id="prev-day-btn" class="date-switcher-btn" onclick="changeDay(-1)" disabled>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M15.41 7.41L14 6l-6 6l6 6l1.41-1.41L10.83 12z" />
+                <g fill="none" stroke="currentColor" stroke-dasharray="12" stroke-dashoffset="12" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="2">
+                    <path d="M5 12l7 -7M5 12l7 7">
+                        <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="12;0" />
+                    </path>
+                    <path d="M11 12l7 -7M11 12l7 7">
+                        <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.3s" dur="0.3s"
+                            values="12;0" />
+                    </path>
+                </g>
             </svg>
         </button>
         <div id="date-display" class="date-display">今天 (MM/DD)</div>
         <button id="next-day-btn" class="date-switcher-btn" onclick="changeDay(1)">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M8.59 16.59L10 18l6-6l-6-6l-1.41 1.41L13.17 12z" />
+                <g fill="none" stroke="currentColor" stroke-dasharray="12" stroke-dashoffset="12" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="2">
+                    <path d="M19 12l-7 -7M19 12l-7 7">
+                        <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="12;0" />
+                    </path>
+                    <path d="M13 12l-7 -7M13 12l-7 7">
+                        <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.3s" dur="0.3s"
+                            values="12;0" />
+                    </path>
+                </g>
             </svg>
         </button>
     </div>
@@ -374,7 +391,7 @@
     <div id="days-wrapper">
         <!-- Day 0 (Today) -->
         <div id="day-0-content" class="day-content active">
-            
+
             <div class="tab-container">
                 <div class="tab-buttons">
                     <button class="tab-button active" onclick="openTab(event, 'day-0-gongxueguan')">工学馆</button>
@@ -947,7 +964,7 @@
 
         <!-- Day 1 (Tomorrow) -->
         <div id="day-1-content" class="day-content">
-            
+
             <div class="tab-container">
                 <div class="tab-buttons">
                     <button class="tab-button active" onclick="openTab(event, 'day-1-gongxueguan')">工学馆</button>
@@ -1520,7 +1537,7 @@
 
         <!-- Day 2 -->
         <div id="day-2-content" class="day-content">
-            
+
             <div class="tab-container">
                 <div class="tab-buttons">
                     <button class="tab-button active" onclick="openTab(event, 'day-2-gongxueguan')">工学馆</button>
@@ -2093,7 +2110,7 @@
 
         <!-- Day 3 -->
         <div id="day-3-content" class="day-content">
-            
+
             <div class="tab-container">
                 <div class="tab-buttons">
                     <button class="tab-button active" onclick="openTab(event, 'day-3-gongxueguan')">工学馆</button>
@@ -2666,7 +2683,7 @@
 
         <!-- Day 4 -->
         <div id="day-4-content" class="day-content">
-            
+
             <div class="tab-container">
                 <div class="tab-buttons">
                     <button class="tab-button active" onclick="openTab(event, 'day-4-gongxueguan')">工学馆</button>
@@ -3239,7 +3256,7 @@
 
         <!-- Day 5 -->
         <div id="day-5-content" class="day-content">
-            
+
             <div class="tab-container">
                 <div class="tab-buttons">
                     <button class="tab-button active" onclick="openTab(event, 'day-5-gongxueguan')">工学馆</button>
@@ -3812,7 +3829,7 @@
 
         <!-- Day 6 -->
         <div id="day-6-content" class="day-content">
-            
+
             <div class="tab-container">
                 <div class="tab-buttons">
                     <button class="tab-button active" onclick="openTab(event, 'day-6-gongxueguan')">工学馆</button>
