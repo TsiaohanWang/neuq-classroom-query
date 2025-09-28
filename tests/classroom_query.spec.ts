@@ -51,7 +51,7 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
   await page.waitForTimeout(interactionDelay);
 
   const passwordInput = page.locator("#password");
-  console.log("正在填写密码...");
+  console.log(`[Day ${dayOffset}] 正在填写密码...`);
 
   const password = process.env.YOUR_NEUQ_PASSWORD;
   if (!password) {
@@ -247,25 +247,31 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
 }
 
 
-// 主测试函数，现在它负责编排为期7天的抓取任务
-test("查询未来7天空闲教室", async ({ browser }) => {
-  // 增加总体的超时时间，因为现在要执行7次完整的流程
-  test.setTimeout(3600000); // 1小时超时
+// 使用循环动态生成多个独立的测试用例，以便Playwright可以并行执行它们
+const totalDaysToQuery = 7; // 查询今天 + 未来6天
 
-  const totalDaysToQuery = 7; // 查询今天 + 未来6天
+for (let dayOffset = 0; dayOffset < totalDaysToQuery; dayOffset++) {
+  // 为每一天创建一个独立的 `test` 块
+  test(`查询 Day ${dayOffset} 的空闲教室`, async ({ browser }) => {
+    // 每个测试用例现在都更小，可以为其设置一个更合理的超时时间
+    // 例如，每个测试用例超时 5 分钟
+    test.setTimeout(300000); 
 
-  // 循环执行7次，每次抓取一天的数据
-  for (let dayOffset = 0; dayOffset < totalDaysToQuery; dayOffset++) {
     console.log(`\n====================================================`);
-    console.log(`开始获取 第 ${dayOffset} 天 (今天 + ${dayOffset} 天) 的数据`);
+    console.log(`开始执行 Day ${dayOffset} (今天 + ${dayOffset} 天) 的数据抓取任务`);
     console.log(`====================================================`);
+    
     try {
+      // 调用核心逻辑函数，传入当前的日期偏移量
       await fetchDataForDay(dayOffset, browser);
+      console.log(`\n====================================================`);
+      console.log(`Day ${dayOffset} 的数据抓取任务成功完成`);
+      console.log(`====================================================`);
     } catch (error) {
-      console.error(`\n!!!!!! 获取第 ${dayOffset} 天数据时发生严重错误，将继续下一天。!!!!!!`);
+      console.error(`\n!!!!!! Day ${dayOffset} 数据抓取任务发生严重错误 !!!!!!`);
       console.error(error);
+      // 让测试失败，以便在报告中清晰地看到
+      throw error; 
     }
-  }
-
-  console.log("\n所有日期的查询任务已全部执行完毕。");
-});
+  });
+}

@@ -46,7 +46,7 @@
   await page.waitForTimeout(interactionDelay);
 
   const passwordInput = page.locator("#password");
-  console.log("正在填写密码...");
+  console.log(`[Day ${dayOffset}] 正在填写密码...`);
 
   const password = process.env.YOUR_NEUQ_PASSWORD;
   if (!password) {
