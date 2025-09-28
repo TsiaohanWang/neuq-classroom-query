@@ -57,4 +57,8 @@
   font-display: swap;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+@font-face {
+  font-family: "Source Han Serif";
+  src: url("../fonts/SourceHanSerif/SourceHanSerifSC-VF.otf.woff2") format("woff2");
+  font-display: swap;
+}
