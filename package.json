@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@types/node": "^22.15.29",
-    "@vercel/analytics": "^1.5.0",
     "jsdom": "^26.1.0",
     "playwright": "^1.52.0"
   },
