@@ -34,7 +34,7 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
   const usernameInput = page.locator("#username");
   await usernameInput.waitFor({ state: "visible", timeout: 100000 });
   console.log(`[Day ${dayOffset}] 登录页面已加载。正在填写用户名...`);
-  
+
 
   /* 若本地测试Playwright，从这里开始的部分需要被替换，详见README */
   const username = process.env.YOUR_NEUQ_USERNAME;
@@ -59,7 +59,7 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
   await page.waitForTimeout(interactionDelay);
   /* 若本地测试Playwright，到这里结束的部分需要被替换，详见README */
 
-  
+
 
   const loginButton = page.locator('button.submitBtn[type="submit"]');
   console.log(`[Day ${dayOffset}] 正在点击登录按钮...`);
@@ -136,52 +136,52 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
     await page.waitForTimeout(operationDelay);
 
     try {
-        await page.locator("#freeRoomList").locator('[title="点击改变每页数据量"]').first().click({ timeout: 15000 });
-        await page.locator("#freeRoomList").locator('select.pgbar-selbox[title="每页数据量"]').first().selectOption({ value: "1000" });
-        await page.locator("#freeRoomList").locator('.pgbar-go[name="gogo"]').first().click();
-        
-        console.log(`[Day ${dayOffset}] 已设置每页1000条，等待数据重载...`);
-        await page.waitForFunction(
-            (selector) => {
-              const element = document.querySelector(selector as string);
-              return element && element.innerHTML.trim() !== "" && element.innerHTML.trim() !== "...";
-            },
-            "#freeRoomList",
-            { timeout: 30000 }
-        );
+      await page.locator("#freeRoomList").locator('[title="点击改变每页数据量"]').first().click({ timeout: 15000 });
+      await page.locator("#freeRoomList").locator('select.pgbar-selbox[title="每页数据量"]').first().selectOption({ value: "1000" });
+      await page.locator("#freeRoomList").locator('.pgbar-go[name="gogo"]').first().click();
+
+      console.log(`[Day ${dayOffset}] 已设置每页1000条，等待数据重载...`);
+      await page.waitForFunction(
+        (selector) => {
+          const element = document.querySelector(selector as string);
+          return element && element.innerHTML.trim() !== "" && element.innerHTML.trim() !== "...";
+        },
+        "#freeRoomList",
+        { timeout: 30000 }
+      );
     } catch (error) {
-        // 如果连设置分页都失败，说明页面可能有问题，这是一个致命错误
-        console.error(`[Day ${dayOffset}] 为时间段 ${slot.fileSuffix} 设置分页时发生致命错误。`);
-        await page.screenshot({ path: `error_day_${dayOffset}_slot_${slot.fileSuffix}_pagination.png`, fullPage: true });
-        throw error; // 抛出错误，让外层捕获并终止
+      // 如果连设置分页都失败，说明页面可能有问题，这是一个致命错误
+      console.error(`[Day ${dayOffset}] 为时间段 ${slot.fileSuffix} 设置分页时发生致命错误。`);
+      await page.screenshot({ path: `error_day_${dayOffset}_slot_${slot.fileSuffix}_pagination.png`, fullPage: true });
+      throw error; // 抛出错误，让外层捕获并终止
     }
-    
+
     await page.waitForTimeout(operationDelay);
 
     // --- 解析并保存结果 ---
     const tableElement = page.locator("#freeRoomList").locator("table").first();
     if (!await tableElement.isVisible({ timeout: 15000 })) {
-        console.warn(`[Day ${dayOffset}] 时间段 ${slot.fileSuffix}: 未找到结果表格。`);
-        continue; // 如果只是某个时间段没数据，可以继续下一个时间段
+      console.warn(`[Day ${dayOffset}] 时间段 ${slot.fileSuffix}: 未找到结果表格。`);
+      continue; // 如果只是某个时间段没数据，可以继续下一个时间段
     }
-    
+
     console.log(`[Day ${dayOffset}] 正在解析表格数据...`);
     const jsonData: Array<Record<string, string>> = await tableElement.evaluate((table) => {
-        const data: Array<Record<string, string>> = [];
-        const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.innerText.trim());
-        const rows = table.querySelectorAll('tbody tr');
-        rows.forEach(row => {
-            const rowData: Record<string, string> = {};
-            const cells = row.querySelectorAll('td');
-            cells.forEach((cell, index) => {
-                const headerName = headers[index] || `column${index + 1}`;
-                rowData[headerName] = cell.innerText.trim();
-            });
-            if (Object.keys(rowData).length > 0) {
-                data.push(rowData);
-            }
+      const data: Array<Record<string, string>> = [];
+      const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.innerText.trim());
+      const rows = table.querySelectorAll('tbody tr');
+      rows.forEach(row => {
+        const rowData: Record<string, string> = {};
+        const cells = row.querySelectorAll('td');
+        cells.forEach((cell, index) => {
+          const headerName = headers[index] || `column${index + 1}`;
+          rowData[headerName] = cell.innerText.trim();
         });
-        return data;
+        if (Object.keys(rowData).length > 0) {
+          data.push(rowData);
+        }
+      });
+      return data;
     });
 
     if (jsonData.length > 0) {
@@ -218,17 +218,17 @@ test("查询未来7天空闲教室", async ({ browser }) => {
     console.log(`开始获取 第 ${dayOffset} 天 (今天 + ${dayOffset} 天) 的数据`);
     console.log(`====================================================`);
     try {
-        await fetchDataForDay(dayOffset, browser);
+      await fetchDataForDay(dayOffset, browser);
     } catch (error) {
-        // ==================== 逻辑修改: 发生致命错误时终止脚本 ====================
-        console.error(`\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
-        console.error(`           FATAL ERROR on Day ${dayOffset} - ABORTING CI/CD RUN`);
-        console.error(`!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
-        console.error(`\n错误详情 (Error Details):\n`, error);
-        
-        // 使用非零退出码终止整个进程，这将使CI/CD作业失败
-        process.exit(1);
-        // =======================================================================
+      // ==================== 逻辑修改: 发生致命错误时终止脚本 ====================
+      console.error(`\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
+      console.error(`           FATAL ERROR on Day ${dayOffset} - ABORTING CI/CD RUN`);
+      console.error(`!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
+      console.error(`\n错误详情 (Error Details):\n`, error);
+
+      // 使用非零退出码终止整个进程，这将使CI/CD作业失败
+      process.exit(1);
+      // =======================================================================
     }
   }
 
