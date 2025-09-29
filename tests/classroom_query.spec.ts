@@ -15,7 +15,6 @@ test.use({
  */
 async function fetchDataForDay(dayOffset: number, browser: Browser) {
   // 1. 创建一个全新的、隔离的浏览器上下文 (等同于一个全新的隐身窗口)
-  // 这确保了每次循环的会话、缓存、Cookie都是完全独立的。
   const context = await browser.newContext();
   const page = await context.newPage();
 
@@ -26,14 +25,13 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
   await page.clock.install({ time: targetDate });
   console.log(`已将浏览器虚拟时间设置为 Day ${dayOffset}: ${targetDate.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}`);
 
-  // 定义操作延迟
-  const operationDelay = 1500;
-  const interactionDelay = 750;
+  // 定义统一的操作间隔，确保每步操作之间至少有2秒的缓冲
+  const actionDelay = 2000;
 
   // --- 登录流程 ---
   console.log(`[Day ${dayOffset}] 正在导航到登录页面...`);
   await page.goto("https://jwxt.neuq.edu.cn/");
-  await page.waitForTimeout(operationDelay);
+  await page.waitForTimeout(actionDelay);
 
   const usernameInput = page.locator("#username");
   await usernameInput.waitFor({ state: "visible", timeout: 100000 });
@@ -43,42 +41,39 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
   /* 若本地测试Playwright，从这里开始的部分需要被替换，详见README */
   const username = process.env.YOUR_NEUQ_USERNAME;
   if (!username) {
-    throw new Error(
-      "环境变量 YOUR_NEUQ_USERNAME 未设置！请在 GitHub Secrets 中配置。"
-    );
+    throw new Error("环境变量 YOUR_NEUQ_USERNAME 未设置！请在 GitHub Secrets 中配置。");
   }
-  await usernameInput.fill(username); // 使用环境变量中的值
-  await page.waitForTimeout(interactionDelay);
+  await usernameInput.fill(username);
+  await page.waitForTimeout(actionDelay);
 
   const passwordInput = page.locator("#password");
   console.log(`[Day ${dayOffset}] 正在填写密码...`);
 
   const password = process.env.YOUR_NEUQ_PASSWORD;
   if (!password) {
-    throw new Error(
-      "环境变量 YOUR_NEUQ_PASSWORD 未设置！请在 GitHub Secrets 中配置。"
-    );
+    throw new Error("环境变量 YOUR_NEUQ_PASSWORD 未设置！请在 GitHub Secrets 中配置。");
   }
   await passwordInput.fill(password); // 使用环境变量中的值
-  await page.waitForTimeout(interactionDelay);
+  await page.waitForTimeout(actionDelay);
   /* 若本地测试Playwright，到这里结束的部分需要被替换，详见README */
 
   
-
+  
   const loginButton = page.locator('button.submitBtn[type="submit"]');
   console.log(`[Day ${dayOffset}] 正在点击登录按钮...`);
   await loginButton.click();
-  await page.waitForTimeout(operationDelay);
+  await page.waitForTimeout(actionDelay);
 
   // --- 导航到空闲教室查询页面 ---
   const freeClassroomURL = "https://jwxt.neuq.edu.cn/eams/classroom/apply/free.action";
   console.log(`[Day ${dayOffset}] 正在导航到空闲教室查询页面...`);
   await page.goto(freeClassroomURL);
+  await page.waitForTimeout(actionDelay);
 
   const queryForm = page.locator("#actionForm");
   await queryForm.waitFor({ state: "visible", timeout: 30000 });
   console.log(`[Day ${dayOffset}] 空闲教室查询页面已加载。`);
-  await page.waitForTimeout(operationDelay);
+  await page.waitForTimeout(actionDelay); // <--- 加载后额外等待
 
   // 定义要查询的时间段
   const timeSlots = [
@@ -91,11 +86,11 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
     { begin: "11", end: "12", fileSuffix: "11-12" },
   ];
 
-  // 辅助函数：在WDatePicker中选择“今天”（对于虚拟时间而言的“今天”）
+  // 辅助函数：在WDatePicker中选择“今天”
   async function selectTodayInDatePicker(dateInputElementSelector: string, inputFieldName: string) {
     console.log(`[Day ${dayOffset}] 正在点击 ${inputFieldName} 输入框...`);
     await page.locator(dateInputElementSelector).click();
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(actionDelay);
 
     let datePickerFrame = page.frameLocator("iframe#_my97DP");
     let isFrameVisible = await datePickerFrame.locator("body").isVisible({ timeout: 5000 });
@@ -114,6 +109,7 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
     const todayButton = datePickerFrame.locator('input[type="button"][value="Today"]');
     if (await todayButton.isVisible({ timeout: 10000 })) {
       await todayButton.click();
+      await page.waitForTimeout(actionDelay);
       console.log(`[Day ${dayOffset}] 已为 ${inputFieldName} 选择 "Today"。`);
       await page.waitForFunction(
         (selector) => (document.querySelector(selector as string) as HTMLInputElement)?.value !== "",
@@ -134,18 +130,18 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
   const dateBeginSuccess = await selectTodayInDatePicker("#dateBegin", "起始日期");
   if (!dateBeginSuccess) {
     console.error(`[Day ${dayOffset}] 设置 '起始日期' 失败。跳过此日。`);
-    await context.close(); // 确保关闭上下文
+    await context.close();
     return;
   }
-  await page.waitForTimeout(interactionDelay);
+  await page.waitForTimeout(actionDelay);
 
   const dateEndSuccess = await selectTodayInDatePicker("#dateEnd", "结束日期");
   if (!dateEndSuccess) {
     console.error(`[Day ${dayOffset}] 设置 '结束日期' 失败。跳过此日。`);
-    await context.close(); // 确保关闭上下文
+    await context.close();
     return;
   }
-  await page.waitForTimeout(operationDelay);
+  await page.waitForTimeout(actionDelay);
 
   // --- 遍历时间段并抓取数据 ---
   for (const slot of timeSlots) {
@@ -153,29 +149,31 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
     const timeBeginInput = page.locator('input[name="timeBegin"]');
     const timeEndInput = page.locator('input[name="timeEnd"]');
     await timeBeginInput.fill(slot.begin);
+    await page.waitForTimeout(actionDelay);
     await timeEndInput.fill(slot.end);
-    await page.waitForTimeout(interactionDelay);
+    await page.waitForTimeout(actionDelay);
 
     const queryButton = page.locator('input[type="button"][value="查询"]');
     console.log(`[Day ${dayOffset}] 正在点击 "查询" 按钮...`);
     await queryButton.click();
-    await page.waitForTimeout(operationDelay);
+    await page.waitForTimeout(actionDelay);
 
     // 设置每页显示1000条
     try {
       const changePageSizeLink = page.locator("#freeRoomList").locator('[title="点击改变每页数据量"]').first();
       await changePageSizeLink.waitFor({ state: "visible", timeout: 15000 });
       await changePageSizeLink.click();
-      await page.waitForTimeout(interactionDelay);
+      await page.waitForTimeout(actionDelay);
 
       const pageSizeSelect = page.locator("#freeRoomList").locator('select.pgbar-selbox[title="每页数据量"]').first();
       await pageSizeSelect.waitFor({ state: "visible", timeout: 10000 });
       await pageSizeSelect.selectOption({ value: "1000" });
-      await page.waitForTimeout(interactionDelay);
+      await page.waitForTimeout(actionDelay);
 
       const goButton = page.locator("#freeRoomList").locator('.pgbar-go[name="gogo"]').first();
       await goButton.waitFor({ state: "visible", timeout: 10000 });
       await goButton.click();
+      await page.waitForTimeout(actionDelay);
 
       console.log(`[Day ${dayOffset}] 已设置每页1000条，等待数据重载...`);
       await page.waitForFunction(
@@ -191,7 +189,7 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
       continue;
     }
 
-    await page.waitForTimeout(operationDelay);
+    await page.waitForTimeout(actionDelay);
 
     // --- 解析并保存结果 ---
     const resultsDiv = page.locator("#freeRoomList");
@@ -221,9 +219,8 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
     }
 
     if (jsonData.length > 0) {
-      // --- 写入文件到对应日期的目录 ---
       const outputFileName = `classroom_results_${slot.fileSuffix}.json`;
-      const outputDirectory = `output-day-${dayOffset}`; // 动态目录名
+      const outputDirectory = `output-day-${dayOffset}`;
       const fullOutputDirectoryPath = path.join(__dirname, "..", outputDirectory);
 
       if (!fs.existsSync(fullOutputDirectoryPath)) {
@@ -238,31 +235,27 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
       console.log(`[Day ${dayOffset}] 时间段 ${slot.fileSuffix}: 未解析到数据，不生成文件。`);
     }
 
-    await page.waitForTimeout(operationDelay);
+    await page.waitForTimeout(actionDelay);
   }
 
-  // 3. 抓取完一天的数据后，关闭当前的浏览器上下文，释放资源
   console.log(`\n[Day ${dayOffset}] 当天数据抓取完毕，正在关闭浏览器会话...`);
   await context.close();
 }
 
 
 // 使用循环动态生成多个独立的测试用例，以便Playwright可以并行执行它们
-const totalDaysToQuery = 7; // 查询今天 + 未来6天
+const totalDaysToQuery = 7;
 
 for (let dayOffset = 0; dayOffset < totalDaysToQuery; dayOffset++) {
-  // 为每一天创建一个独立的 `test` 块
   test(`查询 Day ${dayOffset} 的空闲教室`, async ({ browser }) => {
-    // 每个测试用例现在都更小，可以为其设置一个更合理的超时时间
-    // 例如，每个测试用例超时 5 分钟
-    test.setTimeout(300000); 
+    // 增加每个测试的超时时间，以适应增加的固定延迟
+    test.setTimeout(600000); // 每个测试用例超时10分钟
 
     console.log(`\n====================================================`);
     console.log(`开始执行 Day ${dayOffset} (今天 + ${dayOffset} 天) 的数据抓取任务`);
     console.log(`====================================================`);
     
     try {
-      // 调用核心逻辑函数，传入当前的日期偏移量
       await fetchDataForDay(dayOffset, browser);
       console.log(`\n====================================================`);
       console.log(`Day ${dayOffset} 的数据抓取任务成功完成`);
@@ -270,7 +263,6 @@ for (let dayOffset = 0; dayOffset < totalDaysToQuery; dayOffset++) {
     } catch (error) {
       console.error(`\n!!!!!! Day ${dayOffset} 数据抓取任务发生严重错误 !!!!!!`);
       console.error(error);
-      // 让测试失败，以便在报告中清晰地看到
       throw error; 
     }
   });
