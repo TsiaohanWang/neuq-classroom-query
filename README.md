@@ -39,7 +39,7 @@
   const username = process.env.YOUR_NEUQ_USERNAME;
   if (!username) {
     throw new Error(
-      "环境变量 YOUR_NEUQ_USERNAME 未设置！请在 GitHub Secrets 中配置。"
+      "环境变量 YOUR_NEUQ_USERNAME 未设置！"
     );
   }
   await usernameInput.fill(username); // 使用环境变量中的值
@@ -51,7 +51,7 @@
   const password = process.env.YOUR_NEUQ_PASSWORD;
   if (!password) {
     throw new Error(
-      "环境变量 YOUR_NEUQ_PASSWORD 未设置！请在 GitHub Secrets 中配置。"
+      "环境变量 YOUR_NEUQ_PASSWORD 未设置！"
     );
   }
   await passwordInput.fill(password); // 使用环境变量中的值
