@@ -6,7 +6,7 @@
     "test:classroom": "playwright test tests/classroom_query.spec.ts",
     "process": "node scripts/process_json.js",
     "generate": "node scripts/generate_html.js",
-    "build": "npm test:classroom && npm run process && npm run generate"
+    "build": "npm run test:classroom && npm run process && npm run generate"
   },
   "dependencies": {
     "@types/node": "^22.15.29",
