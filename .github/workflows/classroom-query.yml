@@ -39,8 +39,8 @@ jobs:
         
     - name: Run Playwright test
       env:
-        YOUR_NEUQ_USERNAME: ${{ secrets.NEUQ_USERNAME }}
-        YOUR_NEUQ_PASSWORD: ${{ secrets.NEUQ_PASSWORD }}
+        YOUR_NEUQ_USERNAME: ${{ secrets.YOUR_NEUQ_USERNAME }}
+        YOUR_NEUQ_PASSWORD: ${{ secrets.YOUR_NEUQ_PASSWORD }}
       run: npx playwright test tests/classroom_query.spec.ts --project=chromium
         
     - name: Process JSON
