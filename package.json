@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "NEUQ classroom availability query and deploy automation",
   "scripts": {
-    "install": "npm install && npx playwright install --with-deps",
+    "test": "playwright test",
     "test:classroom": "playwright test tests/classroom_query.spec.ts",
     "process": "node scripts/process_json.js",
-    "generate": "node scripts/generate_html.js",
-    "build": "npm run test:classroom && npm run process && npm run generate"
+    "generate": "node scripts/generate_html.js"
   },
   "dependencies": {
     "@types/node": "^22.15.29",
