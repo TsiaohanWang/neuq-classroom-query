@@ -1,37 +1,135 @@
 [
-  "<p><i>欲买桂花同载酒，终不似，少年游。</i></p>",
-  "<p><i>一鸣从此始，相望青云端。</i></p>",
-  "<p><i>明朝且做莫思量，如何过得今宵去！</i></p>",
-  "<p><i>天若有情天亦老，人间正道是沧桑。</i></p>",
-  "<p><i>平生不会相思，才会相思，便害相思。</i></p>",
-  "<p><i>经传之文，贤圣之语，古今言殊，四方谈异也。</i></p>",
-  "<p><i>满纸荒唐言，一把辛酸泪。都云作者痴，谁解其中味！</i></p>",
-  "<p><i>人生如逆旅，我亦是行人。</i></p>",
-  "<p style=\"font-size: small;\"><i>有一天那个孩子长大了，会想起童年的事，会想起那些晃动的树影儿，会想起他自己的妈妈。他会跑去看看那棵树。但他不会知道那棵树是谁种的，是怎么种的。</i></p>",
-  "<p style=\"font-size: small;\"><i>生命本身，这是所有的人平等享有的，一切音乐、绘画、诗歌都是为它创造的。对了，他一定要加入到那些探求者、不安于现状者、生命给予者，那些重新使他树立信念的人们中间去。</i></p>",
-  "<p><i>上帝不许诺光荣与福乐，但上帝保佑你的希望。人不可以逃避苦难，亦不可以放弃希望——恰是在这样的意义上，上帝存在。</i></p>",
-  "<p><i>人不管走到哪一步，总得找点乐子，想一点办法，老是愁眉苦脸的，干吗呢！</i></p>",
-  "<p><i>黑夜给了我黑色的眼睛<br>我却用它寻找光明</i></p>",
+  {
+    "paragraph": "<p><i>欲买桂花同载酒，终不似，少年游。</i></p>",
+    "description": "出自宋代刘过的《唐多令·芦叶满汀洲》。"
+  },
+  {
+    "paragraph": "<p><i>一鸣从此始，相望青云端。</i></p>",
+    "description": "出自唐代刘禹锡的《送韦秀才道冲赴制举》。"
+  },
+  {
+    "paragraph": "<p><i>明朝且做莫思量，如何过得今宵去！</i></p>",
+    "description": "出自宋代周紫芝的《踏莎行·情似游丝》。"
+  },
+  {
+    "paragraph": "<p><i>仰天大笑出门去，我辈岂是蓬蒿人。</i></p>",
+    "description": "出自唐代李白的《南陵别儿童入京》。"
+  },
+  {
+    "paragraph": "<p><i>天若有情天亦老，人间正道是沧桑。</i></p>",
+    "description": "出自近现代毛泽东的《七律·人民解放军占领南京》。"
+  },
+  {
+    "paragraph": "<p><i>平生不会相思，才会相思，便害相思。</i></p>",
+    "description": "出自元代徐再思的《蟾宫曲·春情》。"
+  },
+  {
+    "paragraph": "<p><i>经传之文，贤圣之语，古今言殊，四方谈异也。</i></p>",
+    "description": "出自东汉王充的《论衡·卷三十·自纪篇》。"
+  },
+  {
+    "paragraph": "<p><i>满纸荒唐言，一把辛酸泪。都云作者痴，谁解其中味！</i></p>",
+    "description": "出自清代曹雪芹的《红楼梦》。"
+  },
+  {
+    "paragraph": "<p><i>眼看他起朱楼，眼看他宴宾客，眼看他楼塌了！</i></p>",
+    "description": "出自清初孔尚任的《桃花扇·续四十出·余韵》。"
+  },
+  {
+    "paragraph": "<p style=\"font-size: small;\"><i>原来姹紫嫣红开遍，似这般都付与断井颓垣。良辰美景奈何天，赏心乐事谁家院！朝飞暮卷，云霞翠轩；雨丝风片，烟波画船，锦屏人忒看的这韶光贱！</i></p>",
+    "description": "出自明代汤显祖的《皂罗袍·原来姹紫嫣红开遍》。"
+  },
+  {
+    "paragraph": "<p><i>人生如逆旅，我亦是行人。</i></p>",
+    "description": "出自宋代苏轼的《临江仙·送钱穆父》"
+  },
+  {
+    "paragraph": "<p><i>从来如此，便对么？</i></p>",
+    "description": "出自近现代鲁迅的《狂人日记》。"
+  },
+  {
+    "paragraph": "<p style=\"font-size: small;\"><i>有一天那个孩子长大了，会想起童年的事，会想起那些晃动的树影儿，会想起他自己的妈妈。他会跑去看看那棵树。但他不会知道那棵树是谁种的，是怎么种的。</i></p>",
+    "description": "出自史铁生的《合欢树》。"
+  },
+  {
+    "paragraph": "<p><i>上帝不许诺光荣与福乐，但上帝保佑你的希望。人不可以逃避苦难，亦不可以放弃希望——恰是在这样的意义上，上帝存在。</i></p>",
+    "description": "出自史铁生的《病隙碎笔》。"
+  },
+  {
+    "paragraph": "<p style=\"font-size: small;\"><i>生命本身，这是所有的人平等享有的，一切音乐、绘画、诗歌都是为它创造的。对了，他一定要加入到那些探求者、不安于现状者、生命给与者，那些重新使他树立信念的人们中间去。</i></p>",
+    "description": "出自〔英〕泰德·阿兰 / 塞德奈·戈登（Ted Allan / Sydney Gordon）的《手术刀就是武器——白求恩大夫的故事》，巫宁坤译。"
+  },
+  {
+    "paragraph": "<p><i>人不管走到哪一步，总得找点乐子，想一点办法，老是愁眉苦脸的，干吗呢！</i></p>",
+    "description": "出自汪曾祺的《生活是很好玩的》。"
+  },
+  {
+    "paragraph": "<p><i>黑夜给了我黑色的眼睛<br>我却用它寻找光明</i></p>",
+    "description": "出自顾城的《一代人》。"
+  },
 
-  "<p lang=\"en\"><i>To be or not to be, that is the question.</i></p>",
-  "<p lang=\"en\" style=\"font-size: small;\"><i>Three passions, simple but overwhelmingly strong, have governed my life: the longing for love, the search for knowledge, and unbearable pity for the suffering of mankind.</i></p>",
-  "<p lang=\"en\" style=\"font-size: smaller;\"><i>Infantile love follows the principle: “I love because I am loved.” Mature love follows the principle: “I am loved because I love.” Immature love says: “I love you because I need you.” Mature love says: “I need you because I love you.”</i></p>",
-  "<p lang=\"en\"><i>It was the best of times, it was the worst of times...</i></p>",
-  "<p lang=\"en\"><i>For you, a thousand times over.</i></p>",
+  {
+    "paragraph": "<p lang=\"en\"><i>To be or not to be, that is the question.</i></p>",
+    "description": "出自〔英〕莎士比亚的《哈姆雷特》（Hamlet）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\" style=\"font-size: small;\"><i>Three passions, simple but overwhelmingly strong, have governed my life: the longing for love, the search for knowledge, and unbearable pity for the suffering of mankind.</i></p>",
+    "description": "出自〔英〕伯特兰·罗素（Bertrand Russell）的《我为何而活》（What I Have Lived For）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\" style=\"font-size: smaller;\"><i>Infantile love follows the principle: “I love because I am loved.” Mature love follows the principle: “I am loved because I love.” Immature love says: “I love you because I need you.” Mature love says: “I need you because I love you.”</i></p>",
+    "description": "出自〔美〕艾里希·弗罗姆（Erich Fromm）的《爱的艺术》（The Art of Loving）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>It was the best of times, it was the worst of times...</i></p>",
+    "description": "出自〔英〕查尔斯·狄更斯（Charles Dickens）的《双城记》（A Tale of Two Cities）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>For you, a thousand times over.</i></p>",
+    "description": "出自〔美〕卡勒德·胡赛尼（Khaled Hosseini）的《追风筝的人》（The Kite Runner）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>And therefore never send to know for whom the bell tolls; It tolls for thee.</i></p>",
+    "description": "出自〔英〕约翰·多恩（John Donne）的《紧急时刻的祷告》（Devotions upon Emergent Occasions）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>...the good life for man is the life spent in seeking for the good life for man...</i></p>",
+    "description": "出自〔苏格兰〕阿拉斯代尔·麦金泰尔（Alasdair MacIntyre）的《德性之后》（After Virtue）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>The arc of the moral universe is long but it bends toward justice.</i></p>",
+    "description": "出自〔美〕马丁·路德·金（Martin Luther King Jr.）的《我有一个梦想》（I Have a Dream）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>We are called to be architects of the future, not its victims.</i></p>",
+    "description": "出自〔美〕R·巴特（R. Buckminster Fuller）的《宇宙的设计者》（The Designer's Manifesto）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\" style=\"font-size: small;\"><i>Courage doesn't always roar. Sometimes courage is the little voice at the end of the day that says I'll try again tomorrow.</i></p>",
+    "description": "出自〔美〕玛雅·安吉罗（Maya Angelou）的《我知道笼中鸟为何歌唱》（I Know Why the Caged Bird Sings）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>Activism is my rent for living on the planet.</i></p>",
+    "description": "出自〔美〕阿尔·戈尔（Al Gore）的《不愿沉默的声音》（The Assault on Reason）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>No man or woman is worth your tears, and the one who is, won’t make you cry.</i></p>",
+    "description": "出自〔英〕奥斯卡·王尔德（Oscar Wilde）的《道林·格雷的画像》（The Picture of Dorian Gray）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>There is only one heroism in the world: to see the world as it is and to love it.</i></p>",
+    "description": "出自〔美〕雷·布拉德伯里（Ray Bradbury）的《华氏451度》（Fahrenheit 451）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>The philosophers have only interpreted the world, in various ways. The point, however, is to change it.</i></p>",
+    "description": "出自〔德〕卡尔·马克思（Karl Marx）的《费尔巴哈提纲》（Theses on Feuerbach）。"
+  },
+  "<p lang=\"en\"><i>The past is Death's, the future is thine own.</i></p>",
+  "<p lang=\"en\"><i>Then God said, “Let there be light,” and there was light.</i></p>",
   "<p lang=\"en\"><i>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.</i></p>",
   "<p lang=\"en\"><i>Do not stand at my grave and weep,<br>I am not there, I do not sleep.</i></p>",
   "<p lang=\"en\" style=\"font-size: small;\"><i>Two roads diverged in a wood, and I—<br>I took the one less travelled by,<br>And that has made all the difference.</i></p>",
-  "<p lang=\"en\"><i>And therefore never send to know for whom the bell tolls; It tolls for thee.</i></p>",
-  "<p lang=\"en\"><i>...the good life for man is the life spent in seeking for the good life for man...</i></p>",
-  "<p lang=\"en\"><i>The arc of the moral universe is long but it bends toward justice.</i></p>",
-  "<p lang=\"en\"><i>We are called to be architects of the future, not its victims.</i></p>",
-  "<p lang=\"en\" style=\"font-size: small;\"><i>Courage doesn't always roar. Sometimes courage is the little voice at the end of the day that says I'll try again tomorrow.</i></p>",
-  "<p lang=\"en\"><i>Activism is my rent for living on the planet.</i></p>",
-  "<p lang=\"en\"><i>No man or woman is worth your tears, and the one who is, won’t make you cry.</i></p>",
-  "<p lang=\"en\"><i>There is only one heroism in the world: to see the world as it is and to love it.</i></p>",
-  "<p lang=\"en\"><i>The philosophers have only interpreted the world, in various ways. The point, however, is to change it.</i></p>",
-  "<p lang=\"en\"><i>The past is Death's, the future is thine own.</i></p>",
-  "<p lang=\"en\"><i>Then God said, “Let there be light,” and there was light.</i></p>",
+  "<p lang=\"en\" style=\"font-size: small;\"><i>Don’t bear me ill will, speech, that I borrow weighty words,<br>then labor heavily so that they may seem light.</i></p>",
 
   "<p lang=\"fr\"><i>Ô Liberté, que de crimes on commet en ton nom!</i></p>",
   "<p lang=\"fr\" style=\"font-size: small;\"><i>Voici mon secret. Il est très simple: on ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.</i></p>",
@@ -49,9 +147,11 @@
   "<p lang=\"ja\"><i>ねこは、白いねことたくさんの子ねこを、自分よりもすきなくらいでした。</i></p>",
 
   "<p lang=\"el\">γνῶθι σεαυτόν</p>",
+  "<p lang=\"el\"><i>ἈΝΆΓΚΗ</i></p>",
 
   "<p lang=\"la\"><i>Per aspera ad astra</i></p>",
   "<p lang=\"la\"><i>VENI VIDI VICI</i></p>",
+  "<p lang=\"la\"><i>TIMUIT QUO SOSPITE VINCI / RERUM MAGNA PARENS ET MORIENTE MORI</i></p>",
 
   "<p><i>El Psy Kongroo</i></p>",
   "<p>.-- .... .- - / .... .- - .... / --. --- -.. / .-- .-. --- ..- --. .... -</p>"
