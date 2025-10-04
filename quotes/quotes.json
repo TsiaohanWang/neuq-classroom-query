@@ -68,6 +68,7 @@
     "description": "出自顾城的《一代人》。"
   },
 
+
   {
     "paragraph": "<p lang=\"en\"><i>To be or not to be, that is the question.</i></p>",
     "description": "出自〔英〕莎士比亚的《哈姆雷特》（Hamlet）。"
@@ -98,61 +99,145 @@
   },
   {
     "paragraph": "<p lang=\"en\"><i>The arc of the moral universe is long but it bends toward justice.</i></p>",
-    "description": "出自〔美〕马丁·路德·金（Martin Luther King Jr.）的《我有一个梦想》（I Have a Dream）。"
+    "description": "出自〔美〕马丁·路德·金（Martin Luther King Jr.）。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>We are called to be architects of the future, not its victims.</i></p>",
-    "description": "出自〔美〕R·巴特（R. Buckminster Fuller）的《宇宙的设计者》（The Designer's Manifesto）。"
+    "description": "出自〔美〕巴克敏斯特·富勒（Buckminster Fuller）。"
   },
   {
     "paragraph": "<p lang=\"en\" style=\"font-size: small;\"><i>Courage doesn't always roar. Sometimes courage is the little voice at the end of the day that says I'll try again tomorrow.</i></p>",
-    "description": "出自〔美〕玛雅·安吉罗（Maya Angelou）的《我知道笼中鸟为何歌唱》（I Know Why the Caged Bird Sings）。"
+    "description": "出自〔美〕玛丽·安妮·拉德马赫（Mary Anne Radmacher）。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>Activism is my rent for living on the planet.</i></p>",
-    "description": "出自〔美〕阿尔·戈尔（Al Gore）的《不愿沉默的声音》（The Assault on Reason）。"
+    "description": "出自〔美〕艾丽斯·沃克（Alice Walker）。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>No man or woman is worth your tears, and the one who is, won’t make you cry.</i></p>",
-    "description": "出自〔英〕奥斯卡·王尔德（Oscar Wilde）的《道林·格雷的画像》（The Picture of Dorian Gray）。"
+    "description": "出自〔巴西〕保罗·科埃略（葡萄牙语：Paulo Coelho）的《牧羊少年奇幻之旅》（葡萄牙语：O Alquimista）。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>There is only one heroism in the world: to see the world as it is and to love it.</i></p>",
-    "description": "出自〔美〕雷·布拉德伯里（Ray Bradbury）的《华氏451度》（Fahrenheit 451）。"
+    "description": "出自〔法〕罗曼·罗兰（法语：Romain Rolland）。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>The philosophers have only interpreted the world, in various ways. The point, however, is to change it.</i></p>",
-    "description": "出自〔德〕卡尔·马克思（Karl Marx）的《费尔巴哈提纲》（Theses on Feuerbach）。"
+    "description": "出自〔德〕卡尔·马克思（德语：Karl Marx）的《关于费尔巴哈的提纲》（Theses on Feuerbach）。"
   },
-  "<p lang=\"en\"><i>The past is Death's, the future is thine own.</i></p>",
-  "<p lang=\"en\"><i>Then God said, “Let there be light,” and there was light.</i></p>",
-  "<p lang=\"en\"><i>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.</i></p>",
-  "<p lang=\"en\"><i>Do not stand at my grave and weep,<br>I am not there, I do not sleep.</i></p>",
-  "<p lang=\"en\" style=\"font-size: small;\"><i>Two roads diverged in a wood, and I—<br>I took the one less travelled by,<br>And that has made all the difference.</i></p>",
-  "<p lang=\"en\" style=\"font-size: small;\"><i>Don’t bear me ill will, speech, that I borrow weighty words,<br>then labor heavily so that they may seem light.</i></p>",
+  {
+    "paragraph": "<p lang=\"en\"><i>The past is Death's, the future is thine own.</i></p>",
+    "description": "出自〔英〕珀西·比希·雪莱（Percy Bysshe Shelley）的《伊斯兰的叛乱》（The Revolt of Islam）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>Then God said, “Let there be light,” and there was light.</i></p>",
+    "description": "出自《圣经·创世纪》（Genesis）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.</i></p>",
+    "description": "出自〔威尔士〕迪伦·托马斯（Dylan Thomas）的《不要温和地走入那良夜》（Do Not Go Gentle into That Good Night）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>Do not stand at my grave and weep,<br>I am not there, I do not sleep.</i></p>",
+    "description": "出自〔美〕玛丽·伊丽莎白·弗莱（Mary Elizabeth Frye）的《别站在我的坟前哭泣》（Do Not Stand at My Grave and Weep）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\" style=\"font-size: small;\"><i>Two roads diverged in a wood, and I—<br>I took the one less travelled by,<br>And that has made all the difference.</i></p>",
+    "description": "出自〔美〕罗伯特·弗罗斯特（Robert Frost）的《未选择的路》（The Road Not Taken）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\" style=\"font-size: small;\"><i>Don’t bear me ill will, speech, that I borrow weighty words,<br>then labor heavily so that they may seem light.</i></p>",
+    "description": "出自〔波兰〕维斯拉瓦·辛波斯卡（波兰语：Wisława Szymborska）的《在一颗小星星下》（Under One Small Star）。"
+  },
 
-  "<p lang=\"fr\"><i>Ô Liberté, que de crimes on commet en ton nom!</i></p>",
-  "<p lang=\"fr\" style=\"font-size: small;\"><i>Voici mon secret. Il est très simple: on ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.</i></p>",
-  "<p lang=\"fr\"><i>Et j'irai loin, bien loin, comme un bohémien,<br>Par la Nature, – heureux comme avec une femme.</i></p>",
 
-  "<p lang=\"de\"><i>Jugend ist Trunkenheit ohne Wein.</i></p>",
-  "<p lang=\"de\" style=\"font-size: small;\"><i>Wer viel einst zu verkünden hat, schweigt viel in sich hinein. Wer einst den Blitz zu zünden hat, muß lange Wolke sein.</i></p>",
-  "<p lang=\"de\"><i>Wir müssen wissen, wir werden wissen.</i></p>",
+  {
+    "paragraph": "<p lang=\"fr\"><i>Ô Liberté, que de crimes on commet en ton nom!</i></p>",
+    "description": "出自〔法〕玛丽-让娜·罗兰（法语：Marie-Jeanne Roland）。"
+  },
+  {
+    "paragraph": "<p lang=\"fr\" style=\"font-size: small;\"><i>Voici mon secret. Il est très simple: on ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.</i></p>",
+    "description": "出自〔法〕安东尼·德·圣埃克苏佩里（Antoine de Saint-Exupéry）的《小王子》（法语：Le Petit Prince）。"
+  },
+  {
+    "paragraph": "<p lang=\"fr\"><i>Et j'irai loin, bien loin, comme un bohémien,<br>Par la Nature, – heureux comme avec une femme.</i></p>",
+    "description": "出自〔法〕阿蒂尔·兰波（Arthur Rimbaud）的《感受》（法语：Sensation）。"
+  },
 
-  "<p lang=\"ru\"><i>Имя твоё неизвестно, подвиг твой бессмертен</i></p>",
 
-  "<p lang=\"ja\"><i>君たちはどう生きるか</i></p>",
-  "<p lang=\"ja\"><i>露の世は 露の世ながら さりながら。</i></p>",
-  "<p lang=\"ja\"><i>しかし人間の憎悪や歪みを知り尽くした目だった。真の冷徹さともいうべき鈍い光が宿っていた。</i></p>",
-  "<p lang=\"ja\"><i>ねこは、白いねことたくさんの子ねこを、自分よりもすきなくらいでした。</i></p>",
+  {
+    "paragraph": "<p lang=\"de\"><i>Jugend ist Trunkenheit ohne Wein.</i></p>",
+    "description": "出自〔德〕约翰·沃尔夫冈·冯·歌德（德语：Johann Wolfgang von Goethe）。"
+  },
+  {
+    "paragraph": "<p lang=\"de\" style=\"font-size: small;\"><i>Wer viel einst zu verkünden hat, schweigt viel in sich hinein. Wer einst den Blitz zu zünden hat, muß lange Wolke sein.</i></p>",
+    "description": "出自〔德〕弗里德里希·尼采（Friedrich Nietzsche）。",
+    "translation": "谁终将声震人间，必长久深自缄默；谁终将点燃闪电，必长久如云漂泊。"
+  },
+  {
+    "paragraph": "<p lang=\"de\"><i>Wir müssen wissen, wir werden wissen.</i></p>",
+    "description": "出自〔德〕大卫·希尔伯特（德语：David Hilbert)。"
+  },
 
-  "<p lang=\"el\">γνῶθι σεαυτόν</p>",
-  "<p lang=\"el\"><i>ἈΝΆΓΚΗ</i></p>",
+  
+  {
+    "paragraph": "<p lang=\"ru\"><i>Имя твоё неизвестно, подвиг твой бессмертен</i></p>",
+    "description": "俄罗斯莫斯科的无名烈士墓（俄语：Могила Неизвестного Солдата）铭文。",
+    "translation": "你的名字无人知晓，你的功绩永世长存。"
+  },
 
-  "<p lang=\"la\"><i>Per aspera ad astra</i></p>",
-  "<p lang=\"la\"><i>VENI VIDI VICI</i></p>",
-  "<p lang=\"la\"><i>TIMUIT QUO SOSPITE VINCI / RERUM MAGNA PARENS ET MORIENTE MORI</i></p>",
+  {
+    "paragraph": "<p lang=\"ja\"><i>君たちはどう生きるか</i></p>",
+    "description": "〔日〕吉野源三郎（日语：吉野 源三郎）的《你想活出怎样的人生》日语原标题。"
+  },
+  {
+    "paragraph": "<p lang=\"ja\"><i>露の世は 露の世ながら さりながら。</i></p>",
+    "description": "出自〔日〕小林一茶（日语：小林 一茶）。",
+    "translation": "我知这世界，本如露水般短暂。然而，然而。"
+  },
+  {
+    "paragraph": "<p lang=\"ja\"><i>しかし人間の憎悪や歪みを知り尽くした目だった。真の冷徹さともいうべき鈍い光が宿っていた。</i></p>",
+    "description": "出自〔日〕东野圭吾（日语：東野 圭吾）的《白夜行》（日语：白夜行）。"
+  },
+  {
+    "paragraph": "<p lang=\"ja\"><i>ねこは、白いねことたくさんの子ねこを、自分よりもすきなくらいでした。</i></p>",
+    "description": "出自〔日〕佐野洋子（日语：佐野 洋子）的《活了一百万次的猫》（日语：１００万回生きたねこ）。"
+  },
 
-  "<p><i>El Psy Kongroo</i></p>",
-  "<p>.-- .... .- - / .... .- - .... / --. --- -.. / .-- .-. --- ..- --. .... -</p>"
+
+  {
+    "paragraph": "<p lang=\"el\">γνῶθι σεαυτόν</p>",
+    "description": "相传是刻在德尔斐的阿波罗神庙的三句箴言之一。",
+    "translation": "认识你自己。"
+  },
+  {
+    "paragraph": "<p lang=\"el\"><i>ἈΝΆΓΚΗ</i></p>",
+    "description": "希腊语“命运”。〔法〕维克多·雨果（Victor Hugo）在《巴黎圣母院》中提到自己曾在巴黎圣母院中某处墙壁看到此词。"
+  },
+
+
+  {
+    "paragraph": "<p lang=\"la\"><i>Per aspera ad astra</i></p>",
+    "description": "拉丁谚语“循此苦旅，以达天际”。"
+  },
+  {
+    "paragraph": "<p lang=\"la\"><i>VENI VIDI VICI</i></p>",
+    "description": "出自〔罗马〕盖乌斯·尤利乌斯·凯撒（拉丁语：Gaius Iulius Caesar）。",
+    "translation": "我来，我见，我征服。"
+  },
+  {
+    "paragraph": "<p lang=\"la\"><i>TIMUIT QUO SOSPITE VINCI / RERUM MAGNA PARENS ET MORIENTE MORI</i></p>",
+    "description": "〔意〕拉斐尔（拉丁语：Raphael）的墓志铭。"
+  },
+
+  
+  {
+    "paragraph": "<p><i>El Psy Kongroo</i></p>",
+    "description": "出自游戏和动画《命运石之门》（Steins;Gate）中主角冈部伦太郎（日语：岡部 倫太郎）的口头禅。"
+  },
+  {
+    "paragraph": "<p>.-- .... .- - / .... .- - .... / --. --- -.. / .-- .-. --- ..- --. .... -</p>",
+    "description": "〔美〕塞缪尔·莫尔斯（Samuel Morse）于1844年5月24日在美国华盛顿国会大厦发送至巴尔的摩的第一条电报内容（莫尔斯电码形式），出自《圣经》。",
+    "translation": "What hath God wrought（上帝行了何等的大事）"
+  }
 ]
