@@ -94,6 +94,10 @@
     "description": "出自〔美〕艾里希·弗罗姆（Erich Fromm）的《爱的艺术》（The Art of Loving）。"
   },
   {
+    "paragraph": "<p lang=\"en\"><i>Call me Ishmael.</i></p>",
+    "description": "出自〔美〕赫尔曼·梅尔维尔（Herman Melville）的《白鲸》（Moby-Dick）。"
+  },
+  {
     "paragraph": "<p lang=\"en\"><i>It was the best of times, it was the worst of times...</i></p>",
     "description": "出自〔英〕查尔斯·狄更斯（Charles Dickens）的《双城记》（A Tale of Two Cities）。"
   },
@@ -192,7 +196,11 @@
   },
   {
     "paragraph": "<p lang=\"de\"><i>Wir müssen wissen, wir werden wissen.</i></p>",
-    "description": "出自〔德〕大卫·希尔伯特（德语：David Hilbert)。"
+    "description": "出自〔德〕大卫·希尔伯特（德语：David Hilbert）。"
+  },
+  {
+    "paragraph": "<p lang=\"de\" style=\"font-size: small;\"><i>Ein neues Lied, ein besseres Lied,<br>O Freunde, will ich Euch dichten!</i></p>",
+    "description": "出自〔德〕海因里希·海涅（德语：Heinrich Heine）的《德国——一个冬天的童话》（德语：Deutschland. Ein Wintermärchen）。"
   },
 
   
@@ -210,6 +218,11 @@
     "paragraph": "<p lang=\"ja\"><i>露の世は 露の世ながら さりながら。</i></p>",
     "description": "出自〔日〕小林一茶（日语：小林 一茶）。",
     "translation": "我知这世界，本如露水般短暂。然而，然而。"
+  },
+  {
+    "paragraph": "生死の去来するは 棚頭の傀儡たり 一線断ゆる時 落落磊磊",
+    "description": "出自〔日〕月庵宗光（日语：月菴宗光）。",
+    "translation": "生死去来，棚头傀儡。一线断时，落落磊磊。"
   },
   {
     "paragraph": "<p lang=\"ja\"><i>しかし人間の憎悪や歪みを知り尽くした目だった。真の冷徹さともいうべき鈍い光が宿っていた。</i></p>",
