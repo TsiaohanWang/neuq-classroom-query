@@ -40,7 +40,7 @@
     "description": "出自清初孔尚任的《桃花扇·续四十出·余韵》。"
   },
   {
-    "paragraph": "<p style=\"font-size: small;\"><i>原来姹紫嫣红开遍，似这般都付与断井颓垣。良辰美景奈何天，赏心乐事谁家院！朝飞暮卷，云霞翠轩；雨丝风片，烟波画船，锦屏人忒看的这韶光贱！</i></p>",
+    "paragraph": "<p style=\"font-size: 80%;\"><i>原来姹紫嫣红开遍，似这般都付与断井颓垣。良辰美景奈何天，赏心乐事谁家院！朝飞暮卷，云霞翠轩；雨丝风片，烟波画船，锦屏人忒看的这韶光贱！</i></p>",
     "description": "出自明代汤显祖的《皂罗袍·原来姹紫嫣红开遍》。"
   },
   {
@@ -52,15 +52,15 @@
     "description": "出自近现代鲁迅的《狂人日记》。"
   },
   {
-    "paragraph": "<p style=\"font-size: small;\"><i>有一天那个孩子长大了，会想起童年的事，会想起那些晃动的树影儿，会想起他自己的妈妈。他会跑去看看那棵树。但他不会知道那棵树是谁种的，是怎么种的。</i></p>",
+    "paragraph": "<p style=\"font-size: 80%;\"><i>有一天那个孩子长大了，会想起童年的事，会想起那些晃动的树影儿，会想起他自己的妈妈。他会跑去看看那棵树。但他不会知道那棵树是谁种的，是怎么种的。</i></p>",
     "description": "出自史铁生的《合欢树》。"
   },
   {
-    "paragraph": "<p><i>上帝不许诺光荣与福乐，但上帝保佑你的希望。人不可以逃避苦难，亦不可以放弃希望——恰是在这样的意义上，上帝存在。</i></p>",
+    "paragraph": "<p style=\"font-size: 80%;\"><i>上帝不许诺光荣与福乐，但上帝保佑你的希望。人不可以逃避苦难，亦不可以放弃希望——恰是在这样的意义上，上帝存在。</i></p>",
     "description": "出自史铁生的《病隙碎笔》。"
   },
   {
-    "paragraph": "<p style=\"font-size: small;\"><i>生命本身，这是所有的人平等享有的，一切音乐、绘画、诗歌都是为它创造的。对了，他一定要加入到那些探求者、不安于现状者、生命给与者，那些重新使他树立信念的人们中间去。</i></p>",
+    "paragraph": "<p style=\"font-size: 80%;\"><i>生命本身，这是所有的人平等享有的，一切音乐、绘画、诗歌都是为它创造的。对了，他一定要加入到那些探求者、不安于现状者、生命给与者，那些重新使他树立信念的人们中间去。</i></p>",
     "description": "出自〔英〕泰德·阿兰 / 塞德奈·戈登（Ted Allan / Sydney Gordon）的《手术刀就是武器——白求恩大夫的故事》，巫宁坤译。"
   },
   {
@@ -70,6 +70,10 @@
   {
     "paragraph": "<p><i>黑夜给了我黑色的眼睛<br>我却用它寻找光明</i></p>",
     "description": "出自顾城的《一代人》。"
+  },
+  {
+    "paragraph": "<p><i>我有一所房子，面朝大海，春暖花开</i></p>",
+    "description": "出自海子的《面朝大海，春暖花开》。"
   },
   {
     "paragraph": "<p><i>这短短的一生，我们最终都会失去。你不妨大胆一些，爱一个人，攀一座山，追一个梦。</i></p>",
@@ -82,15 +86,15 @@
     "description": "出自〔英〕莎士比亚（Shakespeare）的《哈姆雷特》（Hamlet）。"
   },
   {
-    "paragraph": "<p lang=\"en\" style =\"font-size: small;\"><i>But what experience and history teach is this — that peoples and governments never have learned anything from history, or acted on principles deduced from it.</i></p>",
+    "paragraph": "<p lang=\"en\" style =\"font-size: 80%;\"><i>But what experience and history teach is this — that peoples and governments never have learned anything from history, or acted on principles deduced from it.</i></p>",
     "description": "出自〔德〕黑格尔（Hegel）的《历史哲学》（The Philosophy of History）。"
   },
   {
-    "paragraph": "<p lang=\"en\" style=\"font-size: small;\"><i>Three passions, simple but overwhelmingly strong, have governed my life: the longing for love, the search for knowledge, and unbearable pity for the suffering of mankind.</i></p>",
+    "paragraph": "<p lang=\"en\" style=\"font-size: 80%;\"><i>Three passions, simple but overwhelmingly strong, have governed my life: the longing for love, the search for knowledge, and unbearable pity for the suffering of mankind.</i></p>",
     "description": "出自〔英〕伯特兰·罗素（Bertrand Russell）的《我为何而活》（What I Have Lived For）。"
   },
   {
-    "paragraph": "<p lang=\"en\" style=\"font-size: smaller;\"><i>Infantile love follows the principle: “I love because I am loved.” Mature love follows the principle: “I am loved because I love.” Immature love says: “I love you because I need you.” Mature love says: “I need you because I love you.”</i></p>",
+    "paragraph": "<p lang=\"en\" style=\"font-size: 80%;\"><i>Infantile love follows the principle: “I love because I am loved.” Mature love follows the principle: “I am loved because I love.” Immature love says: “I love you because I need you.” Mature love says: “I need you because I love you.”</i></p>",
     "description": "出自〔美〕艾里希·弗罗姆（Erich Fromm）的《爱的艺术》（The Art of Loving）。"
   },
   {
@@ -122,7 +126,7 @@
     "description": "出自〔美〕巴克敏斯特·富勒（Buckminster Fuller）。"
   },
   {
-    "paragraph": "<p lang=\"en\" style=\"font-size: small;\"><i>Courage doesn't always roar. Sometimes courage is the little voice at the end of the day that says I'll try again tomorrow.</i></p>",
+    "paragraph": "<p lang=\"en\" style=\"font-size: 80%;\"><i>Courage doesn't always roar. Sometimes courage is the little voice at the end of the day that says I'll try again tomorrow.</i></p>",
     "description": "出自〔美〕玛丽·安妮·拉德马赫（Mary Anne Radmacher）。"
   },
   {
@@ -154,6 +158,10 @@
     "description": "出自第32任美国总统富兰克林·德拉诺·罗斯福（Franklin Delano Roosevelt）1933年3月12日炉边谈话（Fireside Chat）。"
   },
   {
+    "paragraph": "<p lang=\"en\"><i>Daisy, Daisy, give me your answer do.</i></p>",
+    "description": "出自英国作曲家哈利·戴克尔（Harry Dacre）于1892年创作的歌曲〈Daisy Bell〉。"
+  },
+  {
     "paragraph": "<p lang=\"en\"><i>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.</i></p>",
     "description": "出自〔威尔士〕迪伦·托马斯（Dylan Thomas）的《不要温和地走入那良夜》（Do Not Go Gentle into That Good Night）。"
   },
@@ -162,12 +170,20 @@
     "description": "出自〔美〕玛丽·伊丽莎白·弗莱（Mary Elizabeth Frye）的《别站在我的坟前哭泣》（Do Not Stand at My Grave and Weep）。"
   },
   {
-    "paragraph": "<p lang=\"en\" style=\"font-size: small;\"><i>Two roads diverged in a wood, and I—<br>I took the one less travelled by,<br>And that has made all the difference.</i></p>",
+    "paragraph": "<p lang=\"en\" style=\"font-size: 80%;\"><i>Two roads diverged in a wood, and I—<br>I took the one less travelled by,<br>And that has made all the difference.</i></p>",
     "description": "出自〔美〕罗伯特·弗罗斯特（Robert Frost）的《未选择的路》（The Road Not Taken）。"
   },
   {
-    "paragraph": "<p lang=\"en\" style=\"font-size: small;\"><i>Don’t bear me ill will, speech, that I borrow weighty words,<br>then labor heavily so that they may seem light.</i></p>",
+    "paragraph": "<p lang=\"en\" style=\"font-size: 80%;\"><i>Don’t bear me ill will, speech, that I borrow weighty words,<br>then labor heavily so that they may seem light.</i></p>",
     "description": "出自〔波兰〕维斯拉瓦·辛波斯卡（波兰语：Wisława Szymborska）的《在一颗小星星下》（Under One Small Star）。"
+  },
+  {
+    "paragraph": "<p><i>You smiled and talked to me of nothing and I felt that for this I had been waiting long.</i></p>",
+    "description": "出自〔印〕罗宾德拉纳特·泰戈尔（Rabindranath Tagore）的《飞鸟集》（Stray Birds）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\" style=\"font-size: 80%;\"><i>There were lots of things I wanted to make up to you when you returned from Vietnam.<br>But you didn’t.</i></p>",
+    "description": "出自署名为 Merrill Glass 的一位美国妇女所作的诗《But You Didn't》。"
   },
 
 
@@ -176,7 +192,7 @@
     "description": "出自〔法〕玛丽-让娜·罗兰（法语：Marie-Jeanne Roland）。"
   },
   {
-    "paragraph": "<p lang=\"fr\" style=\"font-size: small;\"><i>Voici mon secret. Il est très simple: on ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.</i></p>",
+    "paragraph": "<p lang=\"fr\" style=\"font-size: 80%;\"><i>Voici mon secret. Il est très simple: on ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.</i></p>",
     "description": "出自〔法〕安东尼·德·圣埃克苏佩里（Antoine de Saint-Exupéry）的《小王子》（法语：Le Petit Prince）。"
   },
   {
@@ -190,7 +206,7 @@
     "description": "出自〔德〕约翰·沃尔夫冈·冯·歌德（德语：Johann Wolfgang von Goethe）。"
   },
   {
-    "paragraph": "<p lang=\"de\" style=\"font-size: small;\"><i>Wer viel einst zu verkünden hat, schweigt viel in sich hinein. Wer einst den Blitz zu zünden hat, muß lange Wolke sein.</i></p>",
+    "paragraph": "<p lang=\"de\" style=\"font-size: 80%;\"><i>Wer viel einst zu verkünden hat, schweigt viel in sich hinein. Wer einst den Blitz zu zünden hat, muß lange Wolke sein.</i></p>",
     "description": "出自〔德〕弗里德里希·尼采（Friedrich Nietzsche）。",
     "translation": "谁终将声震人间，必长久深自缄默；谁终将点燃闪电，必长久如云漂泊。"
   },
@@ -199,11 +215,11 @@
     "description": "出自〔德〕大卫·希尔伯特（德语：David Hilbert）。"
   },
   {
-    "paragraph": "<p lang=\"de\" style=\"font-size: small;\"><i>Ein neues Lied, ein besseres Lied,<br>O Freunde, will ich Euch dichten!</i></p>",
+    "paragraph": "<p lang=\"de\" style=\"font-size: 80%;\"><i>Ein neues Lied, ein besseres Lied,<br>O Freunde, will ich Euch dichten!</i></p>",
     "description": "出自〔德〕海因里希·海涅（德语：Heinrich Heine）的《德国——一个冬天的童话》（德语：Deutschland. Ein Wintermärchen）。"
   },
 
-  
+
   {
     "paragraph": "<p lang=\"ru\"><i>Имя твоё неизвестно, подвиг твой бессмертен</i></p>",
     "description": "俄罗斯莫斯科的无名烈士墓（俄语：Могила Неизвестного Солдата）铭文。",
@@ -215,12 +231,12 @@
     "description": "〔日〕吉野源三郎（日语：吉野 源三郎）的《你想活出怎样的人生》日语原标题。"
   },
   {
-    "paragraph": "<p lang=\"ja\"><i>露の世は 露の世ながら さりながら。</i></p>",
+    "paragraph": "<p lang=\"ja\"><i>露の世は 露の世ながら さりながら</i></p>",
     "description": "出自〔日〕小林一茶（日语：小林 一茶）。",
     "translation": "我知这世界，本如露水般短暂。然而，然而。"
   },
   {
-    "paragraph": "生死の去来するは 棚頭の傀儡たり 一線断ゆる時 落落磊磊",
+    "paragraph": "<p lang=\"ja\"><i>生死の去来するは 棚頭の傀儡たり 一線断ゆる時 落落磊磊</i></p>",
     "description": "出自〔日〕月庵宗光（日语：月菴宗光）。",
     "translation": "生死去来，棚头傀儡。一线断时，落落磊磊。"
   },
@@ -262,10 +278,14 @@
   
   {
     "paragraph": "<p><i>El Psy Kongroo</i></p>",
-    "description": "出自游戏和动画《命运石之门》（Steins;Gate）中主角冈部伦太郎（日语：岡部 倫太郎）的口头禅。"
+    "description": "出自游戏和动画《命运石之门》（Steins;Gate）中主角冈部伦太郎（日语：岡部 倫太郎）。"
   },
   {
-    "paragraph": "<p>.-- .... .- - / .... .- - .... / --. --- -.. / .-- .-. --- ..- --. .... -</p>",
+    "paragraph": "<p style=\"font-size: 70%;\"><code>main() { printf(&unix[\"\\021%six\\012\\0\"],(unix)[\"have\"]+\"fun\"-0x60);}</code></p>",
+    "description": "出自美国贝尔实验室的 David Korn 于1987年国际C语言混乱代码大赛（IOCCC, The International Obfuscated C Code Contest）中的 Best one liner 获奖作品。"
+  },
+  {
+    "paragraph": "<p style=\"font-size: 80%;\"><code>.-- .... .- - / .... .- - .... / --. --- -.. / .-- .-. --- ..- --. .... -</code></p>",
     "description": "〔美〕塞缪尔·莫尔斯（Samuel Morse）于1844年5月24日在美国华盛顿国会大厦发送至巴尔的摩的第一条电报内容（莫尔斯电码形式），出自《圣经》。",
     "translation": "What hath God wrought（上帝行了何等的大事）"
   }
