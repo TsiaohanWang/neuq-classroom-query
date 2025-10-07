@@ -259,22 +259,18 @@
         /* 临时信息通知框样式 */
         .emergency-info {
             padding: 3px 8px 4px 6px;
-            /* 调整内边距 */
             margin: 8px auto;
             border: 1.5px dashed rgba(48, 68, 140, 0.3);
-            /* 校色的浅色边框 */
             border-radius: 8px;
-            /* 圆角 */
             background-color: rgba(48, 68, 140, 0.05);
-            /* 校色的淡化透明背景 */
             color: #2c3e50;
-            /* 文字颜色 */
-            text-align: left;
-            /* 文字左对齐 */
             font-size: 13px;
-            /* 字体大小 */
             line-height: 1.4;
-            /* 行高 */
+            /* 新增: 使用 Flex 布局实现子元素居中 */
+            display: flex;
+            justify-content: center;
+            flex-direction: column; /* 如果有多行P，让它们垂直排列 */
+            align-items: center;   /* 确保交叉轴也居中 */
         }
 
         .emergency-info p {
@@ -282,7 +278,10 @@
             margin: 0;
             font-family: "New Computer Modern", "Source Han Serif", "Songti SC", "SimSun", serif;
             font-feature-settings: normal;
+            /* 内部文本两端对齐 */
             text-align: justify;
+            /* 新增: 限制最大宽度，这样段落本身才能在flex容器中居中 */
+            max-width: 100%; 
         }
 
         /* 为下划线、加粗和删除线添加样式 */
@@ -321,7 +320,11 @@
 
         .badge-not-updated {
             background-color: #6c757d;
-            /* 灰色 */
+            color: white;
+        }
+
+        .badge-not-found {
+            background-color: #cd2d2d;
             color: white;
         }
 

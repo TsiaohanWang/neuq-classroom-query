@@ -385,7 +385,8 @@ async function generateFinalHtmlReport() {
         });
       } else if (quotes.length > 0) {
         console.log("  今日无事件，选择一条随机格言。");
-        const randomQuoteObject = quotes[Math.floor(Math.random() * quotes.length)];
+        const randomQuoteObject =
+          quotes[Math.floor(Math.random() * quotes.length)];
         emergencyHtml = randomQuoteObject.paragraph;
       } else {
         emergencyHtml = "<p>今日暂无重要事件通知。</p>";
@@ -448,13 +449,22 @@ async function generateFinalHtmlReport() {
   metaTag.content = newHash;
   document.head.appendChild(metaTag);
 
+  const addStatusBadge = (text, className) => {
+    const badge = document.createElement("span");
+    badge.className = `status-badge ${className}`;
+    badge.textContent = text;
+    document.querySelector("p.update-time")?.appendChild(badge);
+  };
+
   try {
     const cnamePath = path.join(baseDir, "CNAME");
     if (fs.existsSync(cnamePath)) {
       const domain = fs.readFileSync(cnamePath, "utf-8").trim();
       console.log(`  正在从 https://${domain} 获取线上版本...`);
       const response = await fetch(`https://${domain}`);
+
       if (response.ok) {
+        // 成功获取到页面 (状态码 2xx)
         const liveHtml = await response.text();
         const liveDom = new JSDOM(liveHtml);
         const liveMeta = liveDom.window.document.querySelector(
@@ -463,26 +473,27 @@ async function generateFinalHtmlReport() {
         const liveHash = liveMeta ? liveMeta.content : null;
         console.log(`  线上版本哈希: ${liveHash} | 新版本哈希: ${newHash}`);
 
-        const badge = document.createElement("span");
-        badge.className = "status-badge";
         if (newHash === liveHash) {
-          badge.classList.add("badge-not-updated");
-          badge.textContent = "Not Updated";
+          addStatusBadge("Not Updated", "badge-not-updated");
           console.log("  内容无变化。");
         } else {
-          badge.classList.add("badge-updated");
-          badge.textContent = "Updated";
+          addStatusBadge("Updated", "badge-updated");
           console.log("  内容已更新。");
         }
-        document.querySelector("p.update-time")?.appendChild(badge);
       } else {
+        // 获取页面失败 (例如 404, 500等)
         console.warn(`  ! 获取线上版本失败，状态码: ${response.status}`);
+        // 按照要求，显示 NotFound 状态
+        addStatusBadge("Not Found", "badge-not-found");
       }
     } else {
       console.log("  - 未找到 CNAME 文件，跳过比较。");
     }
   } catch (e) {
-    console.error(`  ✖ 比较线上版本时出错: ${e.message}`);
+    // 捕获 fetch 本身的网络错误 (例如 DNS 解析失败)
+    console.error(`  ✖ 比较线上版本时发生网络错误: ${e.message}`);
+    // 同样显示 NotFound 状态
+    addStatusBadge("Not Found", "badge-not-found");
   }
 
   // 8. 将最终的DOM序列化并写入 index.html
