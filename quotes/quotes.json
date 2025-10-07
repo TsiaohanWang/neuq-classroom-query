@@ -4,6 +4,10 @@
     "description": "出自宋代刘过的《唐多令·芦叶满汀洲》。"
   },
   {
+    "paragraph": "<p><i>沧海客归珠有泪，章台人去骨遗香。</i></p>",
+    "description": "出自宋代宋祁的《落花》。"
+  },
+  {
     "paragraph": "<p><i>一鸣从此始，相望青云端。</i></p>",
     "description": "出自唐代刘禹锡的《送韦秀才道冲赴制举》。"
   },
@@ -67,11 +71,19 @@
     "paragraph": "<p><i>黑夜给了我黑色的眼睛<br>我却用它寻找光明</i></p>",
     "description": "出自顾城的《一代人》。"
   },
+  {
+    "paragraph": "<p><i>这短短的一生，我们最终都会失去。你不妨大胆一些，爱一个人，攀一座山，追一个梦。</i></p>",
+    "description": "出自动画电影《大鱼海棠》。"
+  },
 
 
   {
     "paragraph": "<p lang=\"en\"><i>To be or not to be, that is the question.</i></p>",
-    "description": "出自〔英〕莎士比亚的《哈姆雷特》（Hamlet）。"
+    "description": "出自〔英〕莎士比亚（Shakespeare）的《哈姆雷特》（Hamlet）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\" style =\"font-size: small;\"><i>But what experience and history teach is this — that peoples and governments never have learned anything from history, or acted on principles deduced from it.</i></p>",
+    "description": "出自〔德〕黑格尔（Hegel）的《历史哲学》（The Philosophy of History）。"
   },
   {
     "paragraph": "<p lang=\"en\" style=\"font-size: small;\"><i>Three passions, simple but overwhelmingly strong, have governed my life: the longing for love, the search for knowledge, and unbearable pity for the suffering of mankind.</i></p>",
@@ -132,6 +144,10 @@
   {
     "paragraph": "<p lang=\"en\"><i>Then God said, “Let there be light,” and there was light.</i></p>",
     "description": "出自《圣经·创世纪》（Genesis）。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>It is your problem no less than it is mine. Together we cannot fail.</i></p>",
+    "description": "出自第32任美国总统富兰克林·德拉诺·罗斯福（Franklin Delano Roosevelt）1933年3月12日炉边谈话（Fireside Chat）。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.</i></p>",
