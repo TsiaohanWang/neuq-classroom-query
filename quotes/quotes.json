@@ -16,6 +16,10 @@
     "description": "出自宋代周紫芝的《踏莎行·情似游丝》。"
   },
   {
+    "paragraph": "<p><i>人生如逆旅，我亦是行人。</i></p>",
+    "description": "出自宋代苏轼的《临江仙·送钱穆父》"
+  },
+  {
     "paragraph": "<p><i>仰天大笑出门去，我辈岂是蓬蒿人。</i></p>",
     "description": "出自唐代李白的《南陵别儿童入京》。"
   },
@@ -44,8 +48,8 @@
     "description": "出自明代汤显祖的《皂罗袍·原来姹紫嫣红开遍》。"
   },
   {
-    "paragraph": "<p><i>人生如逆旅，我亦是行人。</i></p>",
-    "description": "出自宋代苏轼的《临江仙·送钱穆父》"
+    "paragraph": "<p style=\"font-size: 70%;\"><i>战士战死了的时候，苍蝇们所首先发见的是他的缺点和伤痕，嘬着，营营地叫着，以为得意，以为比死了的战士更英雄。但是战士已经战死了，不再来挥去他们。于是乎苍蝇们即更其营营地叫，自以为倒是不朽的声音，因为它们的完全，远在战士之上。</i></p>",
+    "description": "出自近现代鲁迅的《战士和苍蝇》。"
   },
   {
     "paragraph": "<p><i>从来如此，便对么？</i></p>",
@@ -64,6 +68,10 @@
     "description": "出自〔英〕泰德·阿兰 / 塞德奈·戈登（Ted Allan / Sydney Gordon）的《手术刀就是武器——白求恩大夫的故事》，巫宁坤译。"
   },
   {
+    "paragraph": "<p><i>这短短的一生，我们最终都会失去。你不妨大胆一些，爱一个人，攀一座山，追一个梦。</i></p>",
+    "description": "出自动画电影《大鱼海棠》。"
+  },
+  {
     "paragraph": "<p><i>人不管走到哪一步，总得找点乐子，想一点办法，老是愁眉苦脸的，干吗呢！</i></p>",
     "description": "出自汪曾祺的《生活是很好玩的》。"
   },
@@ -74,10 +82,6 @@
   {
     "paragraph": "<p><i>我有一所房子，面朝大海，春暖花开</i></p>",
     "description": "出自海子的《面朝大海，春暖花开》。"
-  },
-  {
-    "paragraph": "<p><i>这短短的一生，我们最终都会失去。你不妨大胆一些，爱一个人，攀一座山，追一个梦。</i></p>",
-    "description": "出自动画电影《大鱼海棠》。"
   },
 
 
@@ -162,11 +166,11 @@
     "description": "出自英国作曲家哈利·戴克尔（Harry Dacre）于1892年创作的歌曲〈Daisy Bell〉。"
   },
   {
-    "paragraph": "<p lang=\"en\"><i>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.</i></p>",
+    "paragraph": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.</i></p>",
     "description": "出自〔威尔士〕迪伦·托马斯（Dylan Thomas）的《不要温和地走入那良夜》（Do Not Go Gentle into That Good Night）。"
   },
   {
-    "paragraph": "<p lang=\"en\"><i>Do not stand at my grave and weep,<br>I am not there, I do not sleep.</i></p>",
+    "paragraph": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Do not stand at my grave and weep,<br>I am not there, I do not sleep.</i></p>",
     "description": "出自〔美〕玛丽·伊丽莎白·弗莱（Mary Elizabeth Frye）的《别站在我的坟前哭泣》（Do Not Stand at My Grave and Weep）。"
   },
   {
@@ -178,7 +182,7 @@
     "description": "出自〔波兰〕维斯拉瓦·辛波斯卡（波兰语：Wisława Szymborska）的《在一颗小星星下》（Under One Small Star）。"
   },
   {
-    "paragraph": "<p><i>You smiled and talked to me of nothing and I felt that for this I had been waiting long.</i></p>",
+    "paragraph": "<p lang=\"en\" style=\"font-size: 90%;\"><i>You smiled and talked to me of nothing and I felt that for this I had been waiting long.</i></p>",
     "description": "出自〔印〕罗宾德拉纳特·泰戈尔（Rabindranath Tagore）的《飞鸟集》（Stray Birds）。"
   },
   {
@@ -192,11 +196,11 @@
     "description": "出自〔法〕玛丽-让娜·罗兰（法语：Marie-Jeanne Roland）。"
   },
   {
-    "paragraph": "<p lang=\"fr\" style=\"font-size: 80%;\"><i>Voici mon secret. Il est très simple: on ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.</i></p>",
+    "paragraph": "<p lang=\"fr\" style=\"font-size: 90%;\"><i>Voici mon secret. Il est très simple: on ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.</i></p>",
     "description": "出自〔法〕安东尼·德·圣埃克苏佩里（Antoine de Saint-Exupéry）的《小王子》（法语：Le Petit Prince）。"
   },
   {
-    "paragraph": "<p lang=\"fr\"><i>Et j'irai loin, bien loin, comme un bohémien,<br>Par la Nature, – heureux comme avec une femme.</i></p>",
+    "paragraph": "<p lang=\"fr\" style=\"font-size: 90%;\"><i>Et j'irai loin, bien loin, comme un bohémien,<br>Par la Nature, – heureux comme avec une femme.</i></p>",
     "description": "出自〔法〕阿蒂尔·兰波（Arthur Rimbaud）的《感受》（法语：Sensation）。"
   },
 
@@ -215,7 +219,7 @@
     "description": "出自〔德〕大卫·希尔伯特（德语：David Hilbert）。"
   },
   {
-    "paragraph": "<p lang=\"de\" style=\"font-size: 80%;\"><i>Ein neues Lied, ein besseres Lied,<br>O Freunde, will ich Euch dichten!</i></p>",
+    "paragraph": "<p lang=\"de\" style=\"font-size: 90%;\"><i>Ein neues Lied, ein besseres Lied,<br>O Freunde, will ich Euch dichten!</i></p>",
     "description": "出自〔德〕海因里希·海涅（德语：Heinrich Heine）的《德国——一个冬天的童话》（德语：Deutschland. Ein Wintermärchen）。"
   },
 
@@ -241,7 +245,7 @@
     "translation": "生死去来，棚头傀儡。一线断时，落落磊磊。"
   },
   {
-    "paragraph": "<p lang=\"ja\"><i>しかし人間の憎悪や歪みを知り尽くした目だった。真の冷徹さともいうべき鈍い光が宿っていた。</i></p>",
+    "paragraph": "<p lang=\"ja\" style=\"font-size: 90%;\"><i>しかし人間の憎悪や歪みを知り尽くした目だった。真の冷徹さともいうべき鈍い光が宿っていた。</i></p>",
     "description": "出自〔日〕东野圭吾（日语：東野 圭吾）的《白夜行》（日语：白夜行）。"
   },
   {
@@ -271,7 +275,7 @@
     "translation": "我来，我见，我征服。"
   },
   {
-    "paragraph": "<p lang=\"la\"><i>TIMUIT QUO SOSPITE VINCI / RERUM MAGNA PARENS ET MORIENTE MORI</i></p>",
+    "paragraph": "<p lang=\"la\" style=\"font-size: 90%;\"><i>TIMUIT QUO SOSPITE VINCI / RERUM MAGNA PARENS ET MORIENTE MORI</i></p>",
     "description": "〔意〕拉斐尔（拉丁语：Raphael）的墓志铭。"
   },
 

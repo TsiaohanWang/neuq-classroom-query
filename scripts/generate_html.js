@@ -385,8 +385,9 @@ async function generateFinalHtmlReport() {
         });
       } else if (quotes.length > 0) {
         console.log("  今日无事件，选择一条随机格言。");
-        const randomQuoteObject =
-          quotes[Math.floor(Math.random() * quotes.length)];
+        // 使用 crypto 模块生成一个加密安全的随机索引
+        const randomIndex = crypto.randomInt(quotes.length);
+        const randomQuoteObject = quotes[randomIndex];
         emergencyHtml = randomQuoteObject.paragraph;
       } else {
         emergencyHtml = "<p>今日暂无重要事件通知。</p>";
