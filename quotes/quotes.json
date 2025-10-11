@@ -1,15 +1,27 @@
 [
   {
+    "paragraph": "<p><i>经传之文，贤圣之语，古今言殊，四方谈异也。</i></p>",
+    "description": "出自东汉王充的《论衡·卷三十·自纪篇》。"
+  },
+  {
+    "paragraph": "<p><i>仰天大笑出门去，我辈岂是蓬蒿人。</i></p>",
+    "description": "出自唐代李白的《南陵别儿童入京》。"
+  },
+  {
+    "paragraph": "<p><i>天生我材必有用，千金散尽还复来。</i></p>",
+    "description": "出自唐代李白的《将进酒》。"
+  },
+  {
+    "paragraph": "<p><i>一鸣从此始，相望青云端。</i></p>",
+    "description": "出自唐代刘禹锡的《送韦秀才道冲赴制举》。"
+  },
+  {
     "paragraph": "<p><i>欲买桂花同载酒，终不似，少年游。</i></p>",
     "description": "出自宋代刘过的《唐多令·芦叶满汀洲》。"
   },
   {
     "paragraph": "<p><i>沧海客归珠有泪，章台人去骨遗香。</i></p>",
     "description": "出自宋代宋祁的《落花》。"
-  },
-  {
-    "paragraph": "<p><i>一鸣从此始，相望青云端。</i></p>",
-    "description": "出自唐代刘禹锡的《送韦秀才道冲赴制举》。"
   },
   {
     "paragraph": "<p><i>明朝且做莫思量，如何过得今宵去！</i></p>",
@@ -20,20 +32,12 @@
     "description": "出自宋代苏轼的《临江仙·送钱穆父》"
   },
   {
-    "paragraph": "<p><i>仰天大笑出门去，我辈岂是蓬蒿人。</i></p>",
-    "description": "出自唐代李白的《南陵别儿童入京》。"
-  },
-  {
-    "paragraph": "<p><i>天若有情天亦老，人间正道是沧桑。</i></p>",
-    "description": "出自近现代毛泽东的《七律·人民解放军占领南京》。"
-  },
-  {
     "paragraph": "<p><i>平生不会相思，才会相思，便害相思。</i></p>",
     "description": "出自元代徐再思的《蟾宫曲·春情》。"
   },
   {
-    "paragraph": "<p><i>经传之文，贤圣之语，古今言殊，四方谈异也。</i></p>",
-    "description": "出自东汉王充的《论衡·卷三十·自纪篇》。"
+    "paragraph": "<p style=\"font-size: 80%;\"><i>原来姹紫嫣红开遍，似这般都付与断井颓垣。良辰美景奈何天，赏心乐事谁家院！朝飞暮卷，云霞翠轩；雨丝风片，烟波画船，锦屏人忒看的这韶光贱！</i></p>",
+    "description": "出自明代汤显祖的《皂罗袍·原来姹紫嫣红开遍》。"
   },
   {
     "paragraph": "<p><i>满纸荒唐言，一把辛酸泪。都云作者痴，谁解其中味！</i></p>",
@@ -44,16 +48,28 @@
     "description": "出自清初孔尚任的《桃花扇·续四十出·余韵》。"
   },
   {
-    "paragraph": "<p style=\"font-size: 80%;\"><i>原来姹紫嫣红开遍，似这般都付与断井颓垣。良辰美景奈何天，赏心乐事谁家院！朝飞暮卷，云霞翠轩；雨丝风片，烟波画船，锦屏人忒看的这韶光贱！</i></p>",
-    "description": "出自明代汤显祖的《皂罗袍·原来姹紫嫣红开遍》。"
+    "paragraph": "<p style=\"font-size: 70%;\"><i>古今之成大事业、大学问者，必经过三种之境界：“昨夜西风凋碧树。独上高楼，望尽天涯路。”此第一境也。“衣带渐宽终不悔，为伊消得人憔悴。”此第二境也。“众里寻他千百度，回头蓦见，那人正在灯火阑珊处。”此第三境也。</i></p>",
+    "description": "出自近现代王国维的《人间词话》。"
   },
   {
     "paragraph": "<p style=\"font-size: 70%;\"><i>战士战死了的时候，苍蝇们所首先发见的是他的缺点和伤痕，嘬着，营营地叫着，以为得意，以为比死了的战士更英雄。但是战士已经战死了，不再来挥去他们。于是乎苍蝇们即更其营营地叫，自以为倒是不朽的声音，因为它们的完全，远在战士之上。</i></p>",
     "description": "出自近现代鲁迅的《战士和苍蝇》。"
   },
   {
+    "paragraph": "<p><i>悲剧将人生的有价值的东西毁灭给人看，喜剧将那无价值的撕破给人看。</i></p>",
+    "description": "出自近现代鲁迅的《再论雷峰塔的倒掉》。"
+  },
+  {
     "paragraph": "<p><i>从来如此，便对么？</i></p>",
     "description": "出自近现代鲁迅的《狂人日记》。"
+  },
+  {
+    "paragraph": "<p><i>待到山花烂漫时，她在丛中笑。</i></p>",
+    "description": "出自近现代毛泽东的《卜算子·咏梅》。"
+  },
+  {
+    "paragraph": "<p><i>天若有情天亦老，人间正道是沧桑。</i></p>",
+    "description": "出自近现代毛泽东的《七律·人民解放军占领南京》。"
   },
   {
     "paragraph": "<p style=\"font-size: 80%;\"><i>有一天那个孩子长大了，会想起童年的事，会想起那些晃动的树影儿，会想起他自己的妈妈。他会跑去看看那棵树。但他不会知道那棵树是谁种的，是怎么种的。</i></p>",
@@ -68,10 +84,6 @@
     "description": "出自〔英〕泰德·阿兰 / 塞德奈·戈登（Ted Allan / Sydney Gordon）的《手术刀就是武器——白求恩大夫的故事》，巫宁坤译。"
   },
   {
-    "paragraph": "<p><i>这短短的一生，我们最终都会失去。你不妨大胆一些，爱一个人，攀一座山，追一个梦。</i></p>",
-    "description": "出自动画电影《大鱼海棠》。"
-  },
-  {
     "paragraph": "<p><i>人不管走到哪一步，总得找点乐子，想一点办法，老是愁眉苦脸的，干吗呢！</i></p>",
     "description": "出自汪曾祺的《生活是很好玩的》。"
   },
@@ -83,131 +95,185 @@
     "paragraph": "<p><i>我有一所房子，面朝大海，春暖花开</i></p>",
     "description": "出自海子的《面朝大海，春暖花开》。"
   },
+  {
+    "paragraph": "<p><i>这短短的一生，我们最终都会失去。你不妨大胆一些，爱一个人，攀一座山，追一个梦。</i></p>",
+    "description": "出自动画电影《大鱼海棠》。"
+  },
 
 
   {
     "paragraph": "<p lang=\"en\"><i>To be or not to be, that is the question.</i></p>",
-    "description": "出自〔英〕莎士比亚（Shakespeare）的《哈姆雷特》（Hamlet）。"
+    "description": "出自〔英〕莎士比亚（Shakespeare）的《哈姆雷特》（Hamlet）。",
+    "translation": "生存还是毁灭，这是个问题。"
   },
   {
     "paragraph": "<p lang=\"en\" style =\"font-size: 80%;\"><i>But what experience and history teach is this — that peoples and governments never have learned anything from history, or acted on principles deduced from it.</i></p>",
-    "description": "出自〔德〕黑格尔（Hegel）的《历史哲学》（The Philosophy of History）。"
+    "description": "出自〔德〕黑格尔（Hegel）的《历史哲学》（The Philosophy of History）。",
+    "translation": "但经验和历史所教导我们的，是人民和政府从未从历史中学到任何东西，亦未根据历史得出的原则行事。"
   },
   {
     "paragraph": "<p lang=\"en\" style=\"font-size: 80%;\"><i>Three passions, simple but overwhelmingly strong, have governed my life: the longing for love, the search for knowledge, and unbearable pity for the suffering of mankind.</i></p>",
-    "description": "出自〔英〕伯特兰·罗素（Bertrand Russell）的《我为何而活》（What I Have Lived For）。"
+    "description": "出自〔英〕伯特兰·罗素（Bertrand Russell）的《我为何而活》（What I Have Lived For）。",
+    "translation": "对爱情的渴望，对知识的追求，以及对人类苦难不可遏制的同情，这三种纯洁而无比强烈的感情支配着我的一生。"
   },
   {
-    "paragraph": "<p lang=\"en\" style=\"font-size: 80%;\"><i>Infantile love follows the principle: “I love because I am loved.” Mature love follows the principle: “I am loved because I love.” Immature love says: “I love you because I need you.” Mature love says: “I need you because I love you.”</i></p>",
-    "description": "出自〔美〕艾里希·弗罗姆（Erich Fromm）的《爱的艺术》（The Art of Loving）。"
+    "paragraph": "<p lang=\"en\" style=\"font-size: 75%;\"><i>Infantile love follows the principle: “I love because I am loved.” Mature love follows the principle: “I am loved because I love.” Immature love says: “I love you because I need you.” Mature love says: “I need you because I love you.”</i></p>",
+    "description": "出自〔美〕艾里希·弗罗姆（Erich Fromm）的《爱的艺术》（The Art of Loving）。",
+    "translation": "幼稚的爱遵循这样的原则：“我爱是因为我被爱。”成熟的爱遵循这样的原则：“我被爱是因为我爱。”不成熟的爱说：“我爱你是因为我需要你。”成熟的爱说：“我需要你因为我爱你。”"
+  },
+  {
+    "paragraph": "<p lang=\"en\" style=\"font-size: 75%;\"><i>And I'm standing on the edge of some crazy cliff. What I have to do, I have to catch everybody if they start to go over the cliff - I mean if they're running and they don't look where they're going I have to come out from somewhere and catch them.</i></p>",
+    "description": "出自〔美〕J.D.塞林格（J.D. Salinger）的《麦田里的守望者》（The Catcher in the Rye）。",
+    "translation": "我呢，就站在那混账的悬崖边。我的职务是在那儿守望，要是有哪个孩子往悬崖边奔来，我就把他捉住——我是说孩子们都在狂奔，也不知道自己是在往哪儿跑，我得从什么地方出来，把他们捉住。"
+  },
+  {
+    "paragraph": "<p lang=\"en\" style=\"font-size: 65%;\"><i>Working at the edge of the development of human society is to work on the brink of the unknown. Much of what is done will one day prove to have been of little avail. That is no excuse for the failure to act in accordance with our best understanding, in recognition of its limits but with faith in the ultimate result of the creative evolution in which it is our privilege to cooperate.</i></p>",
+    "description": "出自第2任联合国秘书长达格·哈马舍尔德（瑞典语：Dag Hammarskjöld）1960年于芝加哥大学法学院（University of Chicago Law School）发表的演讲《The Development of a Constitutional Framework for International Cooperation》。",
+    "translation": "在人类社会发展的前沿工作，就是在未知的边缘工作。许多所做之事，有朝一日可能被证明收效甚微。但这不能成为我们不依据自己最佳理解去行动的借口，我们应认识到其局限性，但也要对我们有幸参与其中的创造性演进的最终结果抱有信念。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>Call me Ishmael.</i></p>",
-    "description": "出自〔美〕赫尔曼·梅尔维尔（Herman Melville）的《白鲸》（Moby-Dick）。"
+    "description": "出自〔美〕赫尔曼·梅尔维尔（Herman Melville）的《白鲸》（Moby-Dick）。",
+    "translation": "叫我以实玛利。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>It was the best of times, it was the worst of times...</i></p>",
-    "description": "出自〔英〕查尔斯·狄更斯（Charles Dickens）的《双城记》（A Tale of Two Cities）。"
+    "description": "出自〔英〕查尔斯·狄更斯（Charles Dickens）的《双城记》（A Tale of Two Cities）。",
+    "translation": "这是最好的时代，这是最坏的时代……"
   },
   {
     "paragraph": "<p lang=\"en\"><i>For you, a thousand times over.</i></p>",
-    "description": "出自〔美〕卡勒德·胡赛尼（Khaled Hosseini）的《追风筝的人》（The Kite Runner）。"
+    "description": "出自〔美〕卡勒德·胡赛尼（Khaled Hosseini）的《追风筝的人》（The Kite Runner）。",
+    "translation": "为你，千千万万遍。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>And therefore never send to know for whom the bell tolls; It tolls for thee.</i></p>",
-    "description": "出自〔英〕约翰·多恩（John Donne）的《紧急时刻的祷告》（Devotions upon Emergent Occasions）。"
+    "description": "出自〔英〕约翰·多恩（John Donne）的《紧急时刻的祷告》（Devotions upon Emergent Occasions）。",
+    "translation": "所以不要问丧钟为谁而鸣；它为你而鸣。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>...the good life for man is the life spent in seeking for the good life for man...</i></p>",
-    "description": "出自〔苏格兰〕阿拉斯代尔·麦金泰尔（Alasdair MacIntyre）的《德性之后》（After Virtue）。"
+    "description": "出自〔苏格兰〕阿拉斯代尔·麦金泰尔（Alasdair MacIntyre）的《德性之后》（After Virtue）。",
+    "translation": "一个人的美好生活，就是为美好生活而奋斗的生活。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>The arc of the moral universe is long but it bends toward justice.</i></p>",
-    "description": "出自〔美〕马丁·路德·金（Martin Luther King Jr.）。"
+    "description": "出自〔美〕马丁·路德·金（Martin Luther King Jr.）。",
+    "translation": "道德宇宙的弧线虽长，但它终将指向正义。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>We are called to be architects of the future, not its victims.</i></p>",
-    "description": "出自〔美〕巴克敏斯特·富勒（Buckminster Fuller）。"
+    "description": "出自〔美〕巴克敏斯特·富勒（Buckminster Fuller）。",
+    "translation": "我们生来是未来的设计师，而非其受害者。"
   },
   {
     "paragraph": "<p lang=\"en\" style=\"font-size: 80%;\"><i>Courage doesn't always roar. Sometimes courage is the little voice at the end of the day that says I'll try again tomorrow.</i></p>",
-    "description": "出自〔美〕玛丽·安妮·拉德马赫（Mary Anne Radmacher）。"
+    "description": "出自〔美〕玛丽·安妮·拉德马赫（Mary Anne Radmacher）。",
+    "translation": "勇气并不总是震天动地。有时勇气是一天结束后悄声对自己说“明天我再试一次”。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>Activism is my rent for living on the planet.</i></p>",
-    "description": "出自〔美〕艾丽斯·沃克（Alice Walker）。"
+    "description": "出自〔美〕艾丽斯·沃克（Alice Walker）。",
+    "translation": "投身行动是我为在这个星球上生活而支付的租金。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>No man or woman is worth your tears, and the one who is, won’t make you cry.</i></p>",
-    "description": "出自〔巴西〕保罗·科埃略（葡萄牙语：Paulo Coelho）的《牧羊少年奇幻之旅》（葡萄牙语：O Alquimista）。"
+    "description": "出自〔巴西〕保罗·科埃略（葡萄牙语：Paulo Coelho）的《牧羊少年奇幻之旅》（葡萄牙语：O Alquimista）。",
+    "translation": "没有人值得你流泪，而值得你流泪的人不会让你哭泣。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>There is only one heroism in the world: to see the world as it is and to love it.</i></p>",
-    "description": "出自〔法〕罗曼·罗兰（法语：Romain Rolland）。"
+    "description": "出自〔法〕罗曼·罗兰（法语：Romain Rolland）。",
+    "translation": "世上只有一种英雄主义——认清生活的真相后依然热爱生活。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>The philosophers have only interpreted the world, in various ways. The point, however, is to change it.</i></p>",
-    "description": "出自〔德〕卡尔·马克思（德语：Karl Marx）的《关于费尔巴哈的提纲》（Theses on Feuerbach）。"
+    "description": "出自〔德〕卡尔·马克思（德语：Karl Marx）的《关于费尔巴哈的提纲》（Theses on Feuerbach）。",
+    "translation": "哲学家们只是用不同的方式解释世界，问题在于改变世界。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>The past is Death's, the future is thine own.</i></p>",
-    "description": "出自〔英〕珀西·比希·雪莱（Percy Bysshe Shelley）的《伊斯兰的叛乱》（The Revolt of Islam）。"
+    "description": "出自〔英〕珀西·比希·雪莱（Percy Bysshe Shelley）的《伊斯兰的叛乱》（The Revolt of Islam）。",
+    "translation": "过去属于死神，未来属于你自己。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>Then God said, “Let there be light,” and there was light.</i></p>",
-    "description": "出自《圣经·创世纪》（Genesis）。"
+    "description": "出自《圣经·创世纪》（Genesis）。",
+    "translation": "然后上帝说：“要有光”，就有了光。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>It is your problem no less than it is mine. Together we cannot fail.</i></p>",
-    "description": "出自第32任美国总统富兰克林·德拉诺·罗斯福（Franklin Delano Roosevelt）1933年3月12日炉边谈话（Fireside Chat）。"
+    "description": "出自第32任美国总统富兰克林·德拉诺·罗斯福（Franklin Delano Roosevelt）1933年3月12日炉边谈话（Fireside Chat）。",
+    "translation": "这不仅是我的问题，也是你们的。我们携手共进，必定不会失败。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>Art is a lie that makes us realize truth, at least the truth that is given us to understand.</i></p>",
+    "description": "出自〔西〕巴勃罗·毕加索（西班牙语：Pablo Picasso）。",
+    "translation": "艺术是个谎言，却是个说真话的谎言，至少它是我们能理解的真实。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>Daisy, Daisy, give me your answer do.</i></p>",
-    "description": "出自英国作曲家哈利·戴克尔（Harry Dacre）于1892年创作的歌曲〈Daisy Bell〉。"
+    "description": "出自英国作曲家哈利·戴克尔（Harry Dacre）于1892年创作的歌曲〈Daisy Bell〉。",
+    "translation": "黛西，黛西，给我你的答复。"
   },
   {
     "paragraph": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.</i></p>",
-    "description": "出自〔威尔士〕迪伦·托马斯（Dylan Thomas）的《不要温和地走入那良夜》（Do Not Go Gentle into That Good Night）。"
+    "description": "出自〔威尔士〕迪伦·托马斯（Dylan Thomas）的《不要温和地走入那良夜》（Do Not Go Gentle into That Good Night）。",
+    "translation": "不要温和地走入那良夜。/ 怒斥、怒斥那光明的消歇。"
   },
   {
     "paragraph": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Do not stand at my grave and weep,<br>I am not there, I do not sleep.</i></p>",
-    "description": "出自〔美〕玛丽·伊丽莎白·弗莱（Mary Elizabeth Frye）的《别站在我的坟前哭泣》（Do Not Stand at My Grave and Weep）。"
+    "description": "出自〔美〕玛丽·伊丽莎白·弗莱（Mary Elizabeth Frye）的《别站在我的坟前哭泣》（Do Not Stand at My Grave and Weep）。",
+    "translation": "莫要站在我的坟前哭泣，/ 我不在那里，我没有睡去。"
   },
   {
     "paragraph": "<p lang=\"en\" style=\"font-size: 80%;\"><i>Two roads diverged in a wood, and I—<br>I took the one less travelled by,<br>And that has made all the difference.</i></p>",
-    "description": "出自〔美〕罗伯特·弗罗斯特（Robert Frost）的《未选择的路》（The Road Not Taken）。"
+    "description": "出自〔美〕罗伯特·弗罗斯特（Robert Frost）的《未选择的路》（The Road Not Taken）。",
+    "translation": "林中分出两条路，而我—— / 我选择了人迹更少的一条，从此改变了我一生的道路。"
   },
   {
     "paragraph": "<p lang=\"en\" style=\"font-size: 80%;\"><i>Don’t bear me ill will, speech, that I borrow weighty words,<br>then labor heavily so that they may seem light.</i></p>",
-    "description": "出自〔波兰〕维斯拉瓦·辛波斯卡（波兰语：Wisława Szymborska）的《在一颗小星星下》（Under One Small Star）。"
+    "description": "出自〔波兰〕维斯拉瓦·辛波斯卡（波兰语：Wisława Szymborska）的《在一颗小星星下》（Under One Small Star）。",
+    "translation": "噢，言语，别怪我借用了沉重的字眼，/ 又劳心费神地使它们看似轻松。"
   },
   {
     "paragraph": "<p lang=\"en\" style=\"font-size: 90%;\"><i>You smiled and talked to me of nothing and I felt that for this I had been waiting long.</i></p>",
-    "description": "出自〔印〕罗宾德拉纳特·泰戈尔（Rabindranath Tagore）的《飞鸟集》（Stray Birds）。"
+    "description": "出自〔印〕罗宾德拉纳特·泰戈尔（Rabindranath Tagore）的《飞鸟集》（Stray Birds）。",
+    "translation": "你微微地笑着，不同我说什么话。而我觉得，为了这个，我已等待得久了。"
   },
   {
-    "paragraph": "<p lang=\"en\" style=\"font-size: 80%;\"><i>There were lots of things I wanted to make up to you when you returned from Vietnam.<br>But you didn’t.</i></p>",
-    "description": "出自署名为 Merrill Glass 的一位美国妇女所作的诗《But You Didn't》。"
+    "paragraph": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Was it a vision, or a waking dream?<br>Fled is that music: —do I wake or sleep?</i></p>",
+    "description": "出自〔英〕约翰·济慈（John Keats）的《夜莺颂》（Ode to a Nightingale）。",
+    "translation": "那是幻象，还是清醒的梦？/ 音乐已逝——我究竟是清醒，还是睡着？"
+  },
+  {
+    "paragraph": "<p lang=\"en\" style=\"font-size: 85%;\"><i>There were lots of things I wanted to make up to you when you returned from Vietnam.<br>But you didn’t.</i></p>",
+    "description": "出自署名为 Merrill Glass 的一位美国妇女所作的诗《但是你没有》（But You Didn't）。",
+    "translation": "等你从越南回来，我有很多事想补偿你。/ 但是你没有。"
   },
 
 
   {
     "paragraph": "<p lang=\"fr\"><i>Ô Liberté, que de crimes on commet en ton nom!</i></p>",
-    "description": "出自〔法〕玛丽-让娜·罗兰（法语：Marie-Jeanne Roland）。"
+    "description": "出自〔法〕玛丽-让娜·罗兰（法语：Marie-Jeanne Roland）。",
+    "translation": "自由啊，几多罪恶假汝之名以行！"
   },
   {
     "paragraph": "<p lang=\"fr\" style=\"font-size: 90%;\"><i>Voici mon secret. Il est très simple: on ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.</i></p>",
-    "description": "出自〔法〕安东尼·德·圣埃克苏佩里（Antoine de Saint-Exupéry）的《小王子》（法语：Le Petit Prince）。"
+    "description": "出自〔法〕安东尼·德·圣埃克苏佩里（Antoine de Saint-Exupéry）的《小王子》（法语：Le Petit Prince）。",
+    "translation": "这就是我的秘密。它很简单：只有用心才能看得清。重要的东西，眼睛是看不见的。"
   },
   {
     "paragraph": "<p lang=\"fr\" style=\"font-size: 90%;\"><i>Et j'irai loin, bien loin, comme un bohémien,<br>Par la Nature, – heureux comme avec une femme.</i></p>",
-    "description": "出自〔法〕阿蒂尔·兰波（Arthur Rimbaud）的《感受》（法语：Sensation）。"
+    "description": "出自〔法〕阿蒂尔·兰波（Arthur Rimbaud）的《感受》（法语：Sensation）。",
+    "translation": "我将远去，到很远的地方，就像波西米亚人，/ 与自然相伴——快乐得如同身边有位女郎。"
   },
 
 
   {
     "paragraph": "<p lang=\"de\"><i>Jugend ist Trunkenheit ohne Wein.</i></p>",
-    "description": "出自〔德〕约翰·沃尔夫冈·冯·歌德（德语：Johann Wolfgang von Goethe）。"
+    "description": "出自〔德〕约翰·沃尔夫冈·冯·歌德（德语：Johann Wolfgang von Goethe）。",
+    "translation": "青春即是无酒自醉。"
   },
   {
     "paragraph": "<p lang=\"de\" style=\"font-size: 80%;\"><i>Wer viel einst zu verkünden hat, schweigt viel in sich hinein. Wer einst den Blitz zu zünden hat, muß lange Wolke sein.</i></p>",
@@ -216,11 +282,13 @@
   },
   {
     "paragraph": "<p lang=\"de\"><i>Wir müssen wissen, wir werden wissen.</i></p>",
-    "description": "出自〔德〕大卫·希尔伯特（德语：David Hilbert）。"
+    "description": "出自〔德〕大卫·希尔伯特（德语：David Hilbert）。",
+    "translation": "我们必须知晓，我们必将知晓。"
   },
   {
     "paragraph": "<p lang=\"de\" style=\"font-size: 90%;\"><i>Ein neues Lied, ein besseres Lied,<br>O Freunde, will ich Euch dichten!</i></p>",
-    "description": "出自〔德〕海因里希·海涅（德语：Heinrich Heine）的《德国——一个冬天的童话》（德语：Deutschland. Ein Wintermärchen）。"
+    "description": "出自〔德〕海因里希·海涅（德语：Heinrich Heine）的《德国——一个冬天的童话》（德语：Deutschland. Ein Wintermärchen）。",
+    "translation": "一首新歌，一首更美的歌，/ 哦，朋友们，我要为你们谱写！"
   },
 
 
@@ -246,11 +314,13 @@
   },
   {
     "paragraph": "<p lang=\"ja\" style=\"font-size: 90%;\"><i>しかし人間の憎悪や歪みを知り尽くした目だった。真の冷徹さともいうべき鈍い光が宿っていた。</i></p>",
-    "description": "出自〔日〕东野圭吾（日语：東野 圭吾）的《白夜行》（日语：白夜行）。"
+    "description": "出自〔日〕东野圭吾（日语：東野 圭吾）的《白夜行》（日语：白夜行）。",
+    "translation": "那是一双看尽人性丑恶的眼睛，一种堪称真正冷静清澈的光静静地栖息其中。"
   },
   {
     "paragraph": "<p lang=\"ja\"><i>ねこは、白いねことたくさんの子ねこを、自分よりもすきなくらいでした。</i></p>",
-    "description": "出自〔日〕佐野洋子（日语：佐野 洋子）的《活了一百万次的猫》（日语：１００万回生きたねこ）。"
+    "description": "出自〔日〕佐野洋子（日语：佐野 洋子）的《活了一百万次的猫》（日语：１００万回生きたねこ）。",
+    "translation": "那猫喜欢白猫和小猫们，胜过喜欢自己。"
   },
 
 
@@ -271,12 +341,13 @@
   },
   {
     "paragraph": "<p lang=\"la\"><i>VENI VIDI VICI</i></p>",
-    "description": "出自〔罗马〕盖乌斯·尤利乌斯·凯撒（拉丁语：Gaius Iulius Caesar）。",
+    "description": "出自〔古罗马〕盖乌斯·尤利乌斯·凯撒（拉丁语：Gaius Iulius Caesar）。",
     "translation": "我来，我见，我征服。"
   },
   {
-    "paragraph": "<p lang=\"la\" style=\"font-size: 90%;\"><i>TIMUIT QUO SOSPITE VINCI / RERUM MAGNA PARENS ET MORIENTE MORI</i></p>",
-    "description": "〔意〕拉斐尔（拉丁语：Raphael）的墓志铭。"
+    "paragraph": "<p lang=\"la\" style=\"font-size: 90%;\"><i>TIMUIT QUO SOSPITE VINCI<br>RERUM MAGNA PARENS ET MORIENTE MORI</i></p>",
+    "description": "〔意〕拉斐尔（拉丁语：Raphael）的墓志铭。",
+    "translation": "他活着的时候，万物之母害怕自己会被超越；/ 他逝去时，她又害怕自己随之枯亡。"
   },
 
   
