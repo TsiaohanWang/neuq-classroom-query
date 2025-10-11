@@ -363,5 +363,9 @@
     "paragraph": "<p style=\"font-size: 80%;\"><code>.-- .... .- - / .... .- - .... / --. --- -.. / .-- .-. --- ..- --. .... -</code></p>",
     "description": "〔美〕塞缪尔·莫尔斯（Samuel Morse）于1844年5月24日在美国华盛顿国会大厦发送至巴尔的摩的第一条电报内容（莫尔斯电码形式），出自《圣经》。",
     "translation": "What hath God wrought（上帝行了何等的大事）"
+  },
+  {
+    "paragraph": "<p style=\"font-family: 'Swell Braille', 'Apple Braille', 'SimBraille', sans-serif;\">Louis Braille</p>",
+    "description": "布莱叶盲文“Louis Braille”（路易·布莱叶，布莱叶盲文发明者）。"
   }
 ]
