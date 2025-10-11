@@ -32,7 +32,7 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
   await page.waitForTimeout(operationDelay);
 
   const usernameInput = page.locator("#username");
-  await usernameInput.waitFor({ state: "visible", timeout: 100000 });
+  await usernameInput.waitFor({ state: "visible", timeout: 150000 });
   console.log(`[Day ${dayOffset}] 登录页面已加载。正在填写用户名...`);
 
 
@@ -92,7 +92,7 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
     await page.waitForTimeout(interactionDelay);
 
     let datePickerFrame = page.frameLocator('iframe[src*="My97DatePicker.htm"]');
-    let isFrameVisible = await datePickerFrame.locator("body").isVisible({ timeout: 5000 });
+    let isFrameVisible = await datePickerFrame.locator("body").isVisible({ timeout: 15000 });
 
     if (!isFrameVisible) {
       // 这是一个致命错误，直接抛出异常
@@ -100,13 +100,13 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
     }
 
     const todayButton = datePickerFrame.locator('input[type="button"][value="Today"]');
-    if (await todayButton.isVisible({ timeout: 10000 })) {
+    if (await todayButton.isVisible({ timeout: 15000 })) {
       await todayButton.click();
       console.log(`[Day ${dayOffset}] 已为 ${inputFieldName} 选择 "Today"。`);
       await page.waitForFunction(
         (selector) => (document.querySelector(selector as string) as HTMLInputElement)?.value !== "",
         dateInputElementSelector,
-        { timeout: 10000 }
+        { timeout: 15000 }
       );
       const selectedDate = await page.locator(dateInputElementSelector).inputValue();
       console.log(`[Day ${dayOffset}] [读取主输入框] ${inputFieldName} 的值已更新为: ${selectedDate}`);
@@ -136,7 +136,7 @@ async function fetchDataForDay(dayOffset: number, browser: Browser) {
     await page.waitForTimeout(operationDelay);
 
     try {
-      await page.locator("#freeRoomList").locator('[title="点击改变每页数据量"]').first().click({ timeout: 15000 });
+      await page.locator("#freeRoomList").locator('[title="点击改变每页数据量"]').first().click({ timeout: 30000 });
       await page.locator("#freeRoomList").locator('select.pgbar-selbox[title="每页数据量"]').first().selectOption({ value: "1000" });
       await page.locator("#freeRoomList").locator('.pgbar-go[name="gogo"]').first().click();
 
