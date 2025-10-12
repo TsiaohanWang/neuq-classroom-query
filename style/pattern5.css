@@ -1,11 +1,36 @@
-/* pattern5.css - 第五种背景样式 */
+/* pattern5.css - Fifth background style */
 
-/* 亮色模式 */
+/* Light Mode Variables */
+:root {
+  --s: 50px; /* control the size */
+  --c1: #f9f9f9;
+  --c2: #eeeeee;
+  --c3: #f4f4f4;
+}
+
+/* Dark Mode Variables */
+html.dark {
+  --c1: #0e0e0e;
+  --c2: #181818;
+  --c3: #141414;
+}
+
+/* Solid background for overscroll areas */
 html {
-  --s: 50px; /* control the size*/
-  --c1: #fafafa;
-  --c2: #f0f0f0;
-  --c3: #fefefe;
+  background-color: var(--c1);
+}
+
+/* Fixed background applied to pseudo-element */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
 
   --_g: conic-gradient(at 50% 25%, #0000 75%, var(--c1) 0);
 
@@ -15,11 +40,4 @@ html {
     repeating-linear-gradient(135deg, var(--c2) 0 12.5%, var(--c3) 0 25%);
   background-size: calc(4 * var(--s)) calc(4 * var(--s));
   background-attachment: fixed;
-}
-
-/* 暗色模式 */
-html.dark {
-  --c1: #121212;
-  --c2: #0a0a0a;
-  --c3: #141414;
 }

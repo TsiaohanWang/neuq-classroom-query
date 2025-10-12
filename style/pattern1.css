@@ -1,11 +1,36 @@
-/* pattern1.css - 第一种背景样式 */
+/* pattern1.css - First background style */
 
-/* 亮色模式 */
-html {
-  --s: 150px; /* control the size*/
+/* Light Mode Variables */
+:root {
+  --s: 150px; /* control the size */
   --c1: #f9f9f9;
   --c2: #eeeeee;
   --c3: #f4f4f4;
+}
+
+/* Dark Mode Variables */
+html.dark {
+  --c1: #0e0e0e;
+  --c2: #181818;
+  --c3: #141414;
+}
+
+/* Solid background for overscroll areas */
+html {
+  background-color: var(--c1);
+}
+
+/* Fixed background applied to pseudo-element */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
 
   --_g: 0 120deg, #0000 0;
 
@@ -41,13 +66,6 @@ html {
       var(--c2) 0 240deg,
       var(--c3) 0
     );
-  background-size: calc(var(--s) * sqrt(3)) var(--s);
+  background-size: calc(var(--s) * 1.732) var(--s);
   background-attachment: fixed;
-}
-
-/* 暗色模式 */
-html.dark {
-  --c1: #0e0e0e;
-  --c2: #181818;
-  --c3: #141414;
 }
