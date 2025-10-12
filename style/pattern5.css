@@ -1,0 +1,25 @@
+/* pattern5.css - 第五种背景样式 */
+
+/* 亮色模式 */
+html {
+  --s: 50px; /* control the size*/
+  --c1: #fafafa;
+  --c2: #f0f0f0;
+  --c3: #fefefe;
+
+  --_g: conic-gradient(at 50% 25%, #0000 75%, var(--c1) 0);
+
+  background: var(--_g), var(--_g) var(--s) var(--s),
+    var(--_g) calc(2 * var(--s)) calc(2 * var(--s)),
+    var(--_g) calc(3 * var(--s)) calc(3 * var(--s)),
+    repeating-linear-gradient(135deg, var(--c2) 0 12.5%, var(--c3) 0 25%);
+  background-size: calc(4 * var(--s)) calc(4 * var(--s));
+  background-attachment: fixed;
+}
+
+/* 暗色模式 */
+html.dark {
+  --c1: #121212;
+  --c2: #0a0a0a;
+  --c3: #141414;
+}

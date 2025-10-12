@@ -9,16 +9,26 @@
     <title>东秦空闲教室总表</title>
 
     <script>
-        // This script runs immediately to prevent a "flash of the wrong theme".
-        // It checks the user's system preference and adds the 'dark' class to the <html> tag if needed.
+        // 立即运行此脚本以防止主题闪烁
+        // 检查系统偏好并为 <html> 标签添加 'dark' 类
         (function () {
             try {
                 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                     document.documentElement.classList.add('dark');
                 }
             } catch (e) {
-                // Older browsers might not support matchMedia
+                // 旧版浏览器可能不支持 matchMedia
             }
+        })();
+
+        // 随机选择并加载一个背景样式表
+        (function () {
+            const patterns = ['pattern1.css', 'pattern2.css', 'pattern3.css', 'pattern4.css', 'pattern5.css'];
+            const chosenPattern = patterns[Math.floor(Math.random() * patterns.length)];
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = '../style/' + chosenPattern;
+            document.head.appendChild(link);
         })();
     </script>
 
@@ -30,14 +40,14 @@
             --text-color-primary: #333;
             --text-color-secondary: #6c757d;
             --text-color-header: #343a40;
-            --container-bg: #fff;
+            --container-bg: rgba(255, 255, 255, 0.5);
             --container-shadow: 2px 4px 3px 2px rgba(0, 0, 0, 0.06);
             --tab-bg: #f0f0f0;
             --tab-border: #d8d8d8;
             --tab-text: #888;
             --tab-text-hover: #000;
             --tab-hover-bg: #e5e5e5;
-            --tab-active-bg: #fff;
+            --tab-active-bg: rgba(255, 255, 255, 0.75);
             --theme-color-primary: #30448c;
             --theme-color-secondary: #2876a7;
             --table-border: #e0e0e0;
@@ -55,14 +65,14 @@
             --text-color-primary: #ccc;
             --text-color-secondary: #888;
             --text-color-header: #ccc;
-            --container-bg: #1e1e1e;
+            --container-bg: rgba(30, 30, 30, 0.5);
             --container-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.5);
             --tab-bg: #2a2a2a;
             --tab-border: #444;
             --tab-text: #aaa;
             --tab-text-hover: #fff;
             --tab-hover-bg: #3a3a3a;
-            --tab-active-bg: #1e1e1e;
+            --tab-active-bg: rgba(30, 30, 30, 0.75);
             --theme-color-primary: #879ad5;
             --theme-color-secondary: #5da4d1;
             --table-border: #444;
@@ -86,7 +96,6 @@
                 "cv61", "cv62", "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
             line-height: 1.6;
             color: var(--text-color-primary);
-            background-color: var(--bg-color);
             transition: background-color 0.3s, color 0.3s;
         }
 
@@ -150,6 +159,8 @@
             margin-top: 10px;
             margin-bottom: 16px;
             background-color: var(--container-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 16px;
             box-shadow: var(--container-shadow);
             overflow: hidden;
@@ -322,6 +333,8 @@
             border: 1.5px dashed var(--info-box-border);
             border-radius: 8px;
             background-color: var(--info-box-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: var(--info-box-text);
             font-size: 13px;
             line-height: 1.4;

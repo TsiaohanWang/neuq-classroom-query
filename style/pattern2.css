@@ -1,0 +1,37 @@
+/* pattern2.css - 第二种背景样式 */
+
+/* 亮色模式 */
+html {
+  --s: 150px; /* control the size*/
+  --c1: #f9f9f9;
+  --c2: #f0f0f0;
+  --c3: #f5f5f5;
+
+  --_g: var(--c3) 0 120deg, #0000 0;
+  
+  background: conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)),
+    conic-gradient(from 120deg at 50% calc(200% / 3), var(--_g)),
+    conic-gradient(
+      from 60deg at calc(200% / 3),
+      var(--c3) 60deg,
+      var(--c2) 0 120deg,
+      #0000 0
+    ),
+    conic-gradient(from 180deg at calc(100% / 3), var(--c1) 60deg, var(--_g)),
+    linear-gradient(
+      90deg,
+      var(--c1) calc(100% / 6),
+      var(--c2) 0 50%,
+      var(--c1) 0 calc(500% / 6),
+      var(--c2) 0
+    );
+  background-size: calc(1.732 * var(--s)) var(--s);
+  background-attachment: fixed;
+}
+
+/* 暗色模式 */
+html.dark {
+  --c1: #0e0e0e;
+  --c2: #141414;
+  --c3: #181818;
+}
