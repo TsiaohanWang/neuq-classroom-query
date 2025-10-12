@@ -20,19 +20,11 @@
                 // 旧版浏览器可能不支持 matchMedia
             }
         })();
-
-        // 随机选择并加载一个背景样式表
-        (function () {
-            const patterns = ['pattern1.css', 'pattern2.css', 'pattern3.css', 'pattern4.css', 'pattern5.css'];
-            const chosenPattern = patterns[Math.floor(Math.random() * patterns.length)];
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = '../style/' + chosenPattern;
-            document.head.appendChild(link);
-        })();
     </script>
 
     <link rel="stylesheet" href="../style/index.css">
+
+    <!-- 背景样式表将由JS在此处动态插入 -->
 
     <style>
         :root {

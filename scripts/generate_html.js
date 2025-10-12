@@ -302,6 +302,36 @@ async function generateFinalHtmlReport() {
     return; // 无法继续，终止脚本
   }
 
+  // 1.5. 服务器端随机选择背景并替换占位符
+  console.log("--- 开始随机选择并注入背景样式表 ---");
+  try {
+    const patterns = [
+      "pattern1.css",
+      "pattern2.css",
+      "pattern3.css",
+      "pattern4.css",
+      "pattern5.css",
+    ];
+    // 使用加密安全的随机数生成器
+    const chosenPattern = patterns[crypto.randomInt(patterns.length)];
+    console.log(`  ✔ 已随机选择背景: ${chosenPattern}`);
+
+    const placeholder = "<!-- 背景样式表将由JS在此处动态插入 -->";
+    const stylesheetLink = `<link rel="stylesheet" href="../style/${chosenPattern}">`;
+
+    // 在将模板内容交给 JSDOM 解析之前，先进行字符串替换
+    if (htmlTemplate.includes(placeholder)) {
+      htmlTemplate = htmlTemplate.replace(placeholder, stylesheetLink);
+      console.log("  ✔ 已成功将背景样式表链接注入HTML模板。");
+    } else {
+      console.warn(
+        "  ! 警告: 在HTML模板中未找到背景样式表的占位符 '<!-- 背景样式表将由JS在此处动态插入 -->'。"
+      );
+    }
+  } catch (error) {
+    console.error(`  ✖ 处理随机背景时出错: ${error.message}`);
+  }
+
   // 2. 读取事件和格言数据
   let eventData = [],
     quotes = [];

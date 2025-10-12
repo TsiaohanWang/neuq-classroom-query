@@ -120,7 +120,6 @@
     "description": "出自动画电影《大鱼海棠》。"
   },
 
-
   {
     "paragraph": "<p lang=\"en\"><i>To be or not to be, that is the question.</i></p>",
     "description": "出自〔英〕莎士比亚（Shakespeare）的《哈姆雷特》（Hamlet）。",
@@ -237,8 +236,13 @@
     "translation": "艺术是个谎言，却是个说真话的谎言，至少它是我们能理解的真实。"
   },
   {
+    "paragraph": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Every sha-la-la-la / Every wo-o-wo-o / Still shines<br>Every shing-a-ling-a-ling / That they're starting to sing / So fine</i></p>",
+    "description": "出自卡朋特乐队（Carpenters）演唱的歌曲《昨日重现》（Yesterday Once More）。",
+    "translation": "每段旋律 / 每个音符 / 依旧闪亮 / 每个迷人的音节 / 重新又响起 / 感觉多么美妙"
+  },
+  {
     "paragraph": "<p lang=\"en\"><i>Daisy, Daisy, give me your answer do.</i></p>",
-    "description": "出自英国作曲家哈利·戴克尔（Harry Dacre）于1892年创作的歌曲〈Daisy Bell〉。",
+    "description": "出自英国作曲家哈利·戴克尔（Harry Dacre）于1892年创作的歌曲《Daisy Bell》。",
     "translation": "黛西，黛西，给我你的答复。"
   },
   {
@@ -277,7 +281,6 @@
     "translation": "等你从越南回来，我有很多事想补偿你。/ 但是你没有。"
   },
 
-
   {
     "paragraph": "<p lang=\"fr\"><i>Ô Liberté, que de crimes on commet en ton nom!</i></p>",
     "description": "出自〔法〕玛丽-让娜·罗兰（法语：Marie-Jeanne Roland）。",
@@ -293,7 +296,11 @@
     "description": "出自〔法〕阿蒂尔·兰波（Arthur Rimbaud）的《感受》（法语：Sensation）。",
     "translation": "我将远去，到很远的地方，就像波西米亚人，/ 与自然相伴——快乐得如同身边有位女郎。"
   },
-
+  {
+    "paragraph": "<p lang=\"fr\" style=\"font-size: 90%;\"><i>Vrai ou faux, ce qu'on dit des hommes tient souvent autant de place dans leur vie et souvent dans leur destinée que ce qu'ils font.</i></p>",
+    "description": "出自〔法〕维克多·雨果（法语：Victor Hugo）的《悲惨世界》（法语：Les Misérables）。",
+    "translation": "无论真假，人们对一个人的议论，常常比他本人的作为更能影响他的生活，特别是他的命运。"
+  },
 
   {
     "paragraph": "<p lang=\"de\"><i>Jugend ist Trunkenheit ohne Wein.</i></p>",
@@ -320,7 +327,6 @@
     "description": "出自〔捷克〕弗兰兹·卡夫卡（德语：Franz Kafka）。",
     "translation": "在你与世界的斗争中，站在世界一边。"
   },
-
 
   {
     "paragraph": "<p lang=\"ru\"><i>Имя твоё неизвестно, подвиг твой бессмертен</i></p>",
@@ -353,7 +359,6 @@
     "translation": "那猫喜欢白猫和小猫们，胜过喜欢自己。"
   },
 
-
   {
     "paragraph": "<p lang=\"el\">γνῶθι σεαυτόν</p>",
     "description": "相传是刻在德尔斐的阿波罗神庙的三句箴言之一。",
@@ -363,7 +368,6 @@
     "paragraph": "<p lang=\"el\"><i>ἈΝΆΓΚΗ</i></p>",
     "description": "希腊语“命运”。〔法〕维克多·雨果（Victor Hugo）在《巴黎圣母院》中提到自己曾在巴黎圣母院中某处墙壁看到此词。"
   },
-
 
   {
     "paragraph": "<p lang=\"la\"><i>Per aspera ad astra</i></p>",
@@ -379,7 +383,6 @@
     "description": "〔意〕拉斐尔（拉丁语：Raphael）的墓志铭。",
     "translation": "他活着的时候，万物之母害怕自己会被超越；/ 他逝去时，她又害怕自己随之枯亡。"
   },
-
 
   {
     "paragraph": "<p><i>El Psy Kongroo</i></p>",
