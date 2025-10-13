@@ -386,37 +386,41 @@ async function generateFinalHtmlReport() {
   console.log("\n--- 开始填充全局 Emergency Info Box ---");
   const emergencyInfoDiv = document.querySelector(".emergency-info");
   if (emergencyInfoDiv) {
-    const todayDateStr = getBeijingDateString(0);
-    const todayDateObj = parseDateString(todayDateStr);
     let emergencyHtml = "";
-    if (todayDateObj) {
-      const todayActiveEvents = eventData.filter((event) => {
-        if (!event || !event["起始日期"] || !event["结束日期"]) return false;
+    try {
+      const todayDateStr = getBeijingDateString(0); // 获取今天的日期 YYYY/MM/DD
+      const todayDateObj = parseDateString(todayDateStr);
+
+      // 筛选出当前处于“活动时期”的事件
+      const activeEvents = eventData.filter((event) => {
+        // 健壮性检查：确保事件对象和必要的字段存在
+        if (!event || !event.start || !event.end || !event.content) {
+            console.warn("  ! 发现格式不完整的事件对象，已跳过:", event);
+            return false;
+        }
         try {
-          const start = parseDateString(event["起始日期"]);
-          const end = parseDateString(event["结束日期"]);
-          return start && end && todayDateObj >= start && todayDateObj <= end;
-        } catch {
-          return false;
+          // 解析事件的起始和结束日期
+          const startDate = parseDateString(event.start);
+          const endDate = parseDateString(event.end);
+          
+          // 计算活动时期的起始日（即事件开始日期的前一天）
+          const activityStartDate = new Date(startDate);
+          activityStartDate.setDate(startDate.getDate() - 1);
+
+          // 检查今天是否在 [活动起始日, 事件结束日] 的闭区间内
+          return todayDateObj >= activityStartDate && todayDateObj <= endDate;
+        } catch (e) {
+            console.error(`  ✖ 解析事件日期时出错，已跳过该事件: ${event.content}`, e);
+            return false;
         }
       });
 
-      if (todayActiveEvents.length > 0) {
-        console.log(`  发现 ${todayActiveEvents.length} 条今日活动事件。`);
-        todayActiveEvents.forEach((event) => {
-          let rooms = event["是否占用全体教室"]
-            ? "全体教室。"
-            : `<strong>${event["占用教室"] || "未知"}</strong>教室。`;
-          emergencyHtml += `<p>📢 <strong>${
-            event["名称"] || "无标题事件"
-          }</strong>将于${event["起始日期"]} ${event["起始时间"]} - ${
-            event["结束日期"]
-          } ${event["结束时间"]}占用<strong>${
-            event["占用教学楼"] || "未知楼宇"
-          }</strong>${rooms}</p>`;
-        });
+      if (activeEvents.length > 0) {
+        console.log(`  发现 ${activeEvents.length} 条当前活动事件。`);
+        // 将所有活动事件的 content 字段拼接起来
+        emergencyHtml = activeEvents.map(event => event.content).join('');
       } else if (quotes.length > 0) {
-        console.log("  今日无事件，选择一条随机格言。");
+        console.log("  今日无活动事件，选择一条随机格言。");
         // 使用 crypto 模块生成一个加密安全的随机索引
         const randomIndex = crypto.randomInt(quotes.length);
         const randomQuoteObject = quotes[randomIndex];
@@ -424,9 +428,11 @@ async function generateFinalHtmlReport() {
       } else {
         emergencyHtml = "<p>今日暂无重要事件通知。</p>";
       }
-    } else {
-      emergencyHtml = "<p>无法获取当前日期，无法显示事件信息。</p>";
+    } catch (error) {
+        console.error(`  ✖ 处理 Emergency Info Box 时发生错误: ${error.message}`);
+        emergencyHtml = "<p>加载事件信息时出错。</p>";
     }
+
     emergencyInfoDiv.innerHTML = emergencyHtml;
     console.log("✔ 全局 Emergency Info Box 填充完毕。");
   } else {

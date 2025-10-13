@@ -21,8 +21,7 @@
 }
 @font-face {
   font-family: "Maple Mono";
-  src: url("../fonts/MapleMono/MapleMono-Italic[wght].woff2")
-    format("woff2");
+  src: url("../fonts/MapleMono/MapleMono-Italic[wght].woff2") format("woff2");
   font-weight: 900;
   font-style: italic;
   font-display: swap;
@@ -51,7 +50,8 @@
 }
 @font-face {
   font-family: "New Computer Modern";
-  src: url("../fonts/NewComputerModern/NewCM10-BoldItalic.woff2") format("woff2");
+  src: url("../fonts/NewComputerModern/NewCM10-BoldItalic.woff2")
+    format("woff2");
   font-weight: bold;
   font-style: italic;
   font-display: swap;
@@ -59,7 +59,8 @@
 
 @font-face {
   font-family: "Source Han Serif";
-  src: url("../fonts/SourceHanSerif/SourceHanSerifSC-VF.otf.woff2") format("woff2");
+  src: url("../fonts/SourceHanSerif/SourceHanSerifSC-VF.otf.woff2")
+    format("woff2");
   font-display: swap;
 }
 
