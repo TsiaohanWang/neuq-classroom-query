@@ -29,9 +29,9 @@
     <style>
         :root {
             --bg-color: #f9f9f9;
-            --text-color-primary: #333;
-            --text-color-secondary: #6c757d;
-            --text-color-header: #343a40;
+            --text-color-primary: #474747;
+            --text-color-secondary: #7b7b7b;
+            --text-color-header: #3f3f3f;
             --container-bg: rgba(255, 255, 255, 0.5);
             --container-shadow: 2px 4px 3px 2px rgba(0, 0, 0, 0.06);
             --tab-bg: #f0f0f0;
@@ -40,15 +40,15 @@
             --tab-text-hover: #000;
             --tab-hover-bg: #e5e5e5;
             --tab-active-bg: rgba(255, 255, 255, 0.75);
-            --theme-color-primary: #30448c;
-            --theme-color-secondary: #2876a7;
+            --theme-color-primary: #777;
+            --theme-color-secondary: #888;
             --table-border: #e0e0e0;
-            --table-header-bg: #f8f9fa;
-            --info-box-border: rgba(48, 68, 140, 0.3);
-            --info-box-bg: rgba(48, 68, 140, 0.05);
-            --info-box-text: #2c3e50;
-            --link-color: #30448c;
-            --strong-color: purple;
+            --table-header-bg: #f7f7f7;
+            --info-box-border: rgba(137, 137, 137, 0.3);
+            --info-box-bg: rgba(138, 138, 138, 0.05);
+            --info-box-text: #4f4f4f;
+            --link-color: #727272;
+            --strong-color: rgb(76, 76, 76);
             --del-color: gray;
         }
 
@@ -65,15 +65,15 @@
             --tab-text-hover: #fff;
             --tab-hover-bg: #3a3a3a;
             --tab-active-bg: rgba(30, 30, 30, 0.75);
-            --theme-color-primary: #879ad5;
-            --theme-color-secondary: #5da4d1;
+            --theme-color-primary: #d1d1d1;
+            --theme-color-secondary: #c8c8c8;
             --table-border: #444;
             --table-header-bg: #2c2c2c;
-            --info-box-border: rgba(135, 154, 213, 0.3);
-            --info-box-bg: rgba(135, 154, 213, 0.08);
+            --info-box-border: rgba(213, 213, 213, 0.3);
+            --info-box-bg: rgba(213, 213, 213, 0.08);
             --info-box-text: #ccc;
-            --link-color: #6184eb;
-            --strong-color: #a880c8;
+            --link-color: #cbcbcb;
+            --strong-color: #a4a4a4;
             --del-color: #888;
         }
 
@@ -374,8 +374,8 @@
         }
 
         .badge-updated {
-            background-color: var(--theme-color-secondary);
-            color: white;
+            background-color: var(--text-color-secondary);
+            color: var(--bg-color);
         }
 
         .badge-not-updated {
@@ -384,8 +384,8 @@
         }
 
         .badge-not-found {
-            background-color: #cd2d2d;
-            color: white;
+            background-color: var(--text-color-secondary);
+            color: var(--bg-color);
         }
 
         /* 折叠按钮图标样式 */
@@ -757,7 +757,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -931,7 +931,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -1077,7 +1077,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -1375,7 +1375,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -1549,7 +1549,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -1695,7 +1695,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -1993,7 +1993,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -2167,7 +2167,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -2313,7 +2313,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -2611,7 +2611,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -2785,7 +2785,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -2931,7 +2931,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -3229,7 +3229,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -3403,7 +3403,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -3549,7 +3549,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -3847,7 +3847,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -4021,7 +4021,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -4167,7 +4167,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -4465,7 +4465,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -4639,7 +4639,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -4785,7 +4785,7 @@
                     </table>
                     <hr style="margin-top: 20px; margin-bottom: 10px;">
                     <p class="info-text" style="text-align: justify">
-                        注：<u>蓝色下划线</u>表示该教室在上一时段未处于空闲，<strong>紫色加粗</strong>表示该教室全天(1-12节)空闲，<del>灰色删除线</del>表示该教室将于下一时段被占用。
+                        注：<u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示该教室全天(1-12节)空闲，<del>删除线</del>表示该教室将于下一时段被占用。
                     </p>
                     <p class="info-text" style="text-align: justify">
                         注：本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
@@ -4799,7 +4799,8 @@
     </div>
 
     <p class="info-text">内容仅供参考，实际请以<a href="https://jwxt.neuq.edu.cn/">教务系统</a>查询结果为准</p>
-    <p class="info-text">Powered by Tsiaohan Wang <a
+    <p class="info-text">Powered by <a href="https://github.com/copilot">Copilot</a>, <a
+            href="https://gemini.google.com/">Gemini</a> & Tsiaohan Wang <a
             href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a></p>
 
     <script>
