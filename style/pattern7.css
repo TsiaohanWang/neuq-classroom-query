@@ -1,0 +1,68 @@
+/* pattern7.css - Seventh background style */
+
+/* Light Mode Variables */
+:root {
+  --s: 36px; /* control the size */
+  --c1: #f9f9f9;
+  --c2: #eeeeee;
+  --c3: #f4f4f4;
+  --c4: #f0f0f0;
+}
+
+/* Dark Mode Variables */
+html.dark {
+  --c1: #0e0e0e;
+  --c2: #181818;
+  --c3: #141414;
+  --c4: #1e1e1e;
+}
+
+/* Solid background for overscroll areas on html */
+html {
+  background-color: var(--c1);
+}
+
+/* Fixed background pattern applied to body's pseudo-element */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+
+  --g1: conic-gradient(
+    at calc(250% / 3) calc(50% / 3),
+    var(--c2) 60deg,
+    #0000 0 300deg,
+    var(--c1) 0
+  );
+  --g2: conic-gradient(at calc(50% / 3) 50%, #0000 75%, var(--c1) 0);
+  --g3: conic-gradient(at calc(100% / 3) 50%, #0000 75%, var(--c2) 0);
+  --g4: conic-gradient(
+    from 59deg at calc(200% / 3) calc(249% / 9),
+    var(--c3) 61deg,
+    #0000 62deg
+  );
+  --g5: conic-gradient(
+    from 60deg at 50% calc(250% / 3),
+    var(--c4) 60deg,
+    var(--c1) 0 120deg,
+    #0000 0
+  );
+
+  --_p: calc(9 * tan(30deg) * var(--s));
+
+  background: var(--g1) calc(-1 * var(--s)) 0,
+    var(--g1) calc(2 * var(--s)) var(--_p), var(--g2),
+    var(--g2) calc(3 * var(--s)) var(--_p), var(--g3),
+    var(--g3) calc(3 * var(--s)) var(--_p), var(--g4),
+    var(--g4) calc(3 * var(--s)) var(--_p), var(--g5) calc(3 * var(--s)) 0,
+    var(--g5) 0 var(--_p), var(--c3);
+
+  background-size: calc(6 * var(--s)) calc(2 * var(--_p));
+  background-attachment: fixed;
+}

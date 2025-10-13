@@ -1,0 +1,53 @@
+/* pattern6.css - Sixth background style */
+
+/* Light Mode Variables */
+:root {
+  --s: 150px; /* control the size*/
+  --c1: #f9f9f9;
+  --c2: #eeeeee;
+  --c3: #f4f4f4;
+  --c4: #e6e6e6;
+}
+
+/* Dark Mode Variables */
+html.dark {
+  --c1: #0e0e0e;
+  --c2: #181818;
+  --c3: #141414;
+  --c4: #1e1e1e;
+}
+
+/* Solid background for overscroll areas */
+html {
+  background-color: var(--c1);
+}
+
+/* Fixed background applied to pseudo-element */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+
+  background: conic-gradient(
+      from 45deg at 75% 75%,
+      var(--c3) 90deg,
+      var(--c1) 0 180deg,
+      #0000 0
+    ),
+    conic-gradient(from -45deg at 25% 25%, var(--c3) 90deg, #0000 0),
+    conic-gradient(from -45deg at 50% 100%, #0000 180deg, var(--c3) 0),
+    conic-gradient(
+      from -45deg,
+      var(--c1) 90deg,
+      var(--c2) 0 225deg,
+      var(--c4) 0
+    );
+  background-size: var(--s) var(--s);
+  background-attachment: fixed;
+}

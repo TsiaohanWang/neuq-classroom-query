@@ -311,6 +311,8 @@ async function generateFinalHtmlReport() {
       "pattern3.css",
       "pattern4.css",
       "pattern5.css",
+      "pattern6.css",
+      "pattern7.css",
     ];
     // 使用加密安全的随机数生成器
     const chosenPattern = patterns[crypto.randomInt(patterns.length)];
