@@ -65,6 +65,12 @@
 }
 
 @font-face {
+  font-family: "LXGW Wenkai";
+  src: url("../fonts/LXGWWenkai/LXGWWenKai-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Swell Braille";
   src: url("../fonts/SwellBraille/swell-braille.woff2") format("woff2");
   font-display: swap;

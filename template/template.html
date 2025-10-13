@@ -344,6 +344,17 @@
             max-width: 100%;
         }
 
+        /* 应用于格言的斜体专用字体 */
+        i {
+            font-family: "New Computer Modern", "LXGW Wenkai", serif;
+            font-style: italic;
+        }
+
+        /* 当父元素语言为中文时 i 显示为正体 */
+        p:lang(zh) i {
+            font-style: normal;
+        }
+
         /* 为下划线、加粗和删除线添加样式 */
         u {
             text-decoration: underline;
