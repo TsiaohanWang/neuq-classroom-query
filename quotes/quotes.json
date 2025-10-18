@@ -116,6 +116,10 @@
     "description": "出自汪曾祺的《生活是很好玩的》。"
   },
   {
+    "paragraph": "<p lang=\"zh\"><i>人类一思考，上帝就发笑。</i></p>",
+    "description": "犹太谚语。"
+  },
+  {
     "paragraph": "<p lang=\"zh\"><i>黑夜给了我黑色的眼睛<br>我却用它寻找光明</i></p>",
     "description": "出自顾城的《一代人》。"
   },
@@ -261,6 +265,11 @@
     "paragraph": "<p lang=\"en\"><i>Daisy, Daisy, give me your answer do.</i></p>",
     "description": "出自英国作曲家哈利·戴克尔（Harry Dacre）于1892年创作的歌曲《Daisy Bell》。",
     "translation": "黛西，黛西，给我你的答复。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>Fly me to the moon And let me play among the stars</i></p>",
+    "description": "出自美国作曲家巴特·霍华德（Bart Howard）创作的歌曲《带我飞向月球》（Fly Me to the Moon）。",
+    "translation": "带我飞向月球，让我在群星之间演奏。"
   },
   {
     "paragraph": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.</i></p>",
