@@ -257,6 +257,11 @@
     "translation": "艺术是个谎言，却是个说真话的谎言，至少它是我们能理解的真实。"
   },
   {
+    "paragraph": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Money is the McMansion in Sarasota that starts falling apart after 10 years. Power is the old stone building that stands for centuries.</i></p>",
+    "description": "出自 Netflix 电视连续剧《纸牌屋》（House of Cards）第一季。",
+    "translation": "金钱是那虚有其表的豪宅，十年光景便会分崩离析；权力是那根基稳固的石砌建筑，能矗立数个世纪。"
+  },
+  {
     "paragraph": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Every sha-la-la-la / Every wo-o-wo-o / Still shines<br>Every shing-a-ling-a-ling / That they're starting to sing / So fine</i></p>",
     "description": "出自卡朋特乐队（Carpenters）演唱的歌曲《昨日重现》（Yesterday Once More）。",
     "translation": "每段旋律 / 每个音符 / 依旧闪亮 / 每个迷人的音节 / 重新又响起 / 感觉多么美妙"
@@ -354,6 +359,16 @@
     "translation": "在你与世界的斗争中，站在世界一边。"
   },
 
+  {
+    "paragraph": "<p lang=\"ru\"><i>Если жизнь тебя обманет,<br>Не печалься, не сердись!</i></p>",
+    "description": "出自〔俄〕亚历山大·普希金（俄语：Александр Пушкин）的《假如生活欺骗了你》（俄语：Если жизнь тебя обманет）。",
+    "translation": "假如生活欺骗了你，/ 不要悲伤，不要心急！"
+  },
+  {
+    "paragraph": "<p lang=\"ru\" style=\"font-size: 70%;\"><i>Но тут уж начинается новая история, история постепенного обновления человека, история постепенного перерождения его, постепенного перехода из одного мира в другой, знакомства с новою, доселе совершенно неведомою действительностью. Это могло бы составить тему нового рассказа, — но теперешний рассказ наш окончен.</i></p>",
+    "description": "出自〔俄〕费奥多尔·陀思妥耶夫斯基（俄语：Федор Достоевский）的《罪与罚》（俄语：Преступлéние и наказáние）。",
+    "translation": "然于此发端的，将是一段崭新的历程：关于此人如何渐获新生、脱胎换骨，如何从一方世界迈入另一方世界，去探识那迄今为止全然未知的现实之境。这固然足以成就一部新的鸿篇，但吾辈当下所述，至此已然终篇。"
+  },
   {
     "paragraph": "<p lang=\"ru\"><i>Имя твоё неизвестно, подвиг твой бессмертен</i></p>",
     "description": "俄罗斯莫斯科的无名烈士墓（俄语：Могила Неизвестного Солдата）铭文。",
