@@ -166,6 +166,11 @@
     "translation": "我呢，就站在那混账的悬崖边。我的职务是在那儿守望，要是有哪个孩子往悬崖边奔来，我就把他捉住——我是说孩子们都在狂奔，也不知道自己是在往哪儿跑，我得从什么地方出来，把他们捉住。"
   },
   {
+    "paragraph": "<p lang=\"en\" style=\"font-size: 65%;\"><i>Yesterday has already vanished among the shadows of the past; to-morrow has not yet emerged from the future. You have found an intermediate space, where the business of life does not intrude; where the passing moment lingers, and becomes truly the present; a spot where Father Time, when he thinks nobody is watching him, sits down by the wayside to take breath. O that he would fall asleep, and let mortals live on without growing older!</i></p>",
+    "description": "出自〔美〕纳撒尼尔·霍桑（Nathaniel Hawthorne）的《幽魂》（The Haunted Mind）。",
+    "translation": "昨日已逝，隐于过往的阴影；明日未至，仍孕育于未来之中。你寻得一处两者之间的所在，那里，俗世的纷扰无法侵入；那里，飞逝的瞬间得以逗留，成为真正的当下；在那里，时间老人以为无人注视，便会于路旁坐下，稍作喘息。噢，愿他能就此沉沉睡去，让凡人长生，岁月无增！"
+  },
+  {
     "paragraph": "<p lang=\"en\" style=\"font-size: 65%;\"><i>Working at the edge of the development of human society is to work on the brink of the unknown. Much of what is done will one day prove to have been of little avail. That is no excuse for the failure to act in accordance with our best understanding, in recognition of its limits but with faith in the ultimate result of the creative evolution in which it is our privilege to cooperate.</i></p>",
     "description": "出自第2任联合国秘书长达格·哈马舍尔德（瑞典语：Dag Hammarskjöld）1960年于芝加哥大学法学院（University of Chicago Law School）发表的演讲《The Development of a Constitutional Framework for International Cooperation》。",
     "translation": "在人类社会发展的前沿工作，就是在未知的边缘工作。许多所做之事，有朝一日可能被证明收效甚微。但这不能成为我们不依据自己最佳理解去行动的借口，我们应认识到其局限性，但也要对我们有幸参与其中的创造性演进的最终结果抱有信念。"
@@ -281,6 +286,11 @@
     "translation": "带我飞向月球，让我在群星之间演奏。"
   },
   {
+    "paragraph": "<p lang=\"en\" style=\"font-size: 85%;\"><i>The will to keep living... The resolve to change fate.<br>Let's call this power...<br>\"Determination.\"</i></p>",
+    "description": "出自电子游戏《传说之下》（Undertale）。",
+    "translation": "生存的意志……改变命运的决定。让我们称这种力量为……“决心”。"
+  },
+  {
     "paragraph": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.</i></p>",
     "description": "出自〔威尔士〕迪伦·托马斯（Dylan Thomas）的《不要温和地走入那良夜》（Do Not Go Gentle into That Good Night）。",
     "translation": "不要温和地走入那良夜。/ 怒斥、怒斥那光明的消歇。"
@@ -322,18 +332,23 @@
   },
 
   {
-    "paragraph": "<p lang=\"fr\"><i>Ô Liberté, que de crimes on commet en ton nom!</i></p>",
+    "paragraph": "<p lang=\"fr\"><i>Ô Liberté, que de crimes on commet en ton nom　!</i></p>",
     "description": "出自〔法〕玛丽-让娜·罗兰（法语：Marie-Jeanne Roland）。",
     "translation": "自由啊，几多罪恶假汝之名以行！"
   },
   {
-    "paragraph": "<p lang=\"fr\" style=\"font-size: 90%;\"><i>Voici mon secret. Il est très simple: on ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.</i></p>",
-    "description": "出自〔法〕安东尼·德·圣埃克苏佩里（Antoine de Saint-Exupéry）的《小王子》（法语：Le Petit Prince）。",
+    "paragraph": "<p lang=\"fr\" style=\"font-size: 90%;\"><i>Voici mon secret. Il est très simple : on ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.</i></p>",
+    "description": "出自〔法〕安东尼·德·圣埃克苏佩里（法语：Antoine de Saint-Exupéry）的《小王子》（法语：Le Petit Prince）。",
     "translation": "这就是我的秘密。它很简单：只有用心才能看得清。重要的东西，眼睛是看不见的。"
   },
   {
+    "paragraph": "<p lang=\"fr\" style=\"font-size: 80%;\"><i>Mes chers frères, n’oubliez jamais, quand vous entendrez vanter le progrès des lumières, que la plus belle des ruses du diable est de vous persuader qu’il n’existe pas　!</i></p>",
+    "description": "出自〔法〕夏尔·波德莱尔（法语：Charles Baudelaire）的《慷慨的赌徒》（法语：Le Joueur généreux）。",
+    "translation": "我亲爱的兄弟们，永远不要忘记：当你听到人们称颂启蒙与进步之时，魔鬼最巧妙的诡计，便是让你相信他并不存在！"
+  },
+  {
     "paragraph": "<p lang=\"fr\" style=\"font-size: 90%;\"><i>Et j'irai loin, bien loin, comme un bohémien,<br>Par la Nature, – heureux comme avec une femme.</i></p>",
-    "description": "出自〔法〕阿蒂尔·兰波（Arthur Rimbaud）的《感受》（法语：Sensation）。",
+    "description": "出自〔法〕阿蒂尔·兰波（法语：Arthur Rimbaud）的《感受》（法语：Sensation）。",
     "translation": "我将远去，到很远的地方，就像波西米亚人，/ 与自然相伴——快乐得如同身边有位女郎。"
   },
   {
@@ -348,7 +363,7 @@
     "translation": "青春即是无酒自醉。"
   },
   {
-    "paragraph": "<p lang=\"de\" style=\"font-size: 80%;\"><i>Wer viel einst zu verkünden hat, schweigt viel in sich hinein. Wer einst den Blitz zu zünden hat, muß lange Wolke sein.</i></p>",
+    "paragraph": "<p lang=\"de\" style=\"font-size: 85%;\"><i>Wer viel einst zu verkünden hat, schweigt viel in sich hinein. Wer einst den Blitz zu zünden hat, muß lange Wolke sein.</i></p>",
     "description": "出自〔德〕弗里德里希·尼采（Friedrich Nietzsche）。",
     "translation": "谁终将声震人间，必长久深自缄默；谁终将点燃闪电，必长久如云漂泊。"
   },
