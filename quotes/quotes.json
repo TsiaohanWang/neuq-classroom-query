@@ -112,6 +112,14 @@
     "description": "出自〔英〕泰德·阿兰 / 塞德奈·戈登（Ted Allan / Sydney Gordon）的《手术刀就是武器——白求恩大夫的故事》，巫宁坤译。"
   },
   {
+    "paragraph": "<p lang=\"zh\" style=\"font-size: 90%;\"><i>世上每个人都是被上帝咬过一口的苹果，都是有缺陷的人。有的人缺陷比较大，是因为上帝特别喜欢他的芬芳。</i></p>",
+    "description": "出自佚名的《风筝一样的故事》。"
+  },
+  {
+    "paragraph": "<p lang=\"zh\" style=\"font-size: 90%;\"><i>吾言即是万人声 褒貶毀誉委世評<br>請看百年青史上 正邪曲直自分明</i></p>",
+    "description": "出自〔日〕斋藤隆夫（日语：斎藤 隆夫）发表《反军演说》（日语：反軍演説）后所作汉诗。"
+  },
+  {
     "paragraph": "<p lang=\"zh\" style=\"font-size: 90%;\"><i>人不管走到哪一步，总得找点乐子，想一点办法，老是愁眉苦脸的，干吗呢！</i></p>",
     "description": "出自汪曾祺的《生活是很好玩的》。"
   },
@@ -259,6 +267,11 @@
     "paragraph": "<p lang=\"en\"><i>It is your problem no less than it is mine. Together we cannot fail.</i></p>",
     "description": "出自第32任美国总统富兰克林·德拉诺·罗斯福（Franklin Delano Roosevelt）1933年3月12日炉边谈话（Fireside Chat）。",
     "translation": "这不仅是我的问题，也是你们的。我们携手共进，必定不会失败。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>I have nothing to offer but blood, toil, tears and sweat.</i></p>",
+    "description": "出自前英国首相温斯顿·丘吉尔（Winston Churchill）1940年5月13日对下议院的演讲。",
+    "translation": "我能奉献的只有鲜血、辛劳、泪水和汗水。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>Art is a lie that makes us realize truth, at least the truth that is given us to understand.</i></p>",
