@@ -140,6 +140,10 @@
     "description": "犹太谚语。"
   },
   {
+    "paragraph": "<p lang=\"zh\" style=\"font-size: 60%;\">1918 年，在普朗克 60 岁生日的庆祝会上，爱因斯坦发表了题为《探索的动机》的著名演讲。他认为，科学工作者大体可以分为三类：第一类人从事科研是为了挑战自己的智力；第二类是出于纯粹的功利目的；而第三类则是为了探寻自然界的客观规律。第三类科学工作者“把世界体系及其构成作为感情生活的支点，以便由此找到他在个人经验的狭小范围内所不能找到的宁静和安定”。在爱因斯坦看来，虽然前两类人中包含很多成果卓著的科学家，但第三类才是科学家队伍中的中坚和灵魂，离开了他们，科学的殿堂就无法存在。</p>",
+    "description": "出自《普通高中教科书·物理选择性必修 第三册》。"
+  },
+  {
     "paragraph": "<p lang=\"zh\">黑夜给了我黑色的眼睛<br>我却用它寻找光明</p>",
     "description": "出自顾城的《一代人》。"
   },
@@ -245,6 +249,11 @@
     "paragraph": "<p lang=\"en\"><i>Activism is my rent for living on the planet.</i></p>",
     "description": "出自〔美〕艾丽斯·沃克（Alice Walker）。",
     "translation": "投身行动是我为在这个星球上生活而支付的租金。"
+  },
+  {
+    "paragraph": "<p lang=\"en\"><i>The Cosmos is all that is or ever was or ever will be.</i></p>",
+    "description": "出自〔美〕卡尔·萨根（Carl Sagan）的《宇宙的边疆》（The Shores of the Cosmic Ocean）。",
+    "translation": "宇宙现在是这样，过去是这样，将来也永远是这样。"
   },
   {
     "paragraph": "<p lang=\"en\"><i>No man or woman is worth your tears, and the one who is, won’t make you cry.</i></p>",
