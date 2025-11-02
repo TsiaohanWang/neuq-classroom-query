@@ -706,6 +706,85 @@
         </defs>
     </svg>
 
+    <script>
+        let currentDay = 0;
+        const totalDays = 7; // Today + next 6 days
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateDateDisplay();
+        });
+
+        function changeDay(offset) {
+            const newDay = currentDay + offset;
+
+            if (newDay >= 0 && newDay < totalDays) {
+                document.getElementById('day-' + currentDay + '-content').classList.remove('active');
+
+                currentDay = newDay;
+
+                document.getElementById('day-' + currentDay + '-content').classList.add('active');
+                updateDateDisplay();
+            }
+        }
+
+        function updateDateDisplay() {
+            const today = new Date();
+            const targetDate = new Date();
+            targetDate.setDate(today.getDate() + currentDay);
+
+            const year = targetDate.getFullYear();
+            const month = (targetDate.getMonth() + 1).toString().padStart(2, '0');
+            const day = targetDate.getDate().toString().padStart(2, '0');
+
+            // 更新 H1 大标题
+            document.getElementById('current-date-placeholder').textContent = `${year}/${month}/${day}`;
+
+            // 更新日期切换器中间的文本
+            let displayLabel = '';
+            if (currentDay === 0) {
+                displayLabel = `今天 (${month}/${day})`;
+            } else if (currentDay === 1) {
+                displayLabel = `明天 (${month}/${day})`;
+            } else {
+                const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+                displayLabel = `${weekdays[targetDate.getDay()]} (${month}/${day})`;
+            }
+            document.getElementById('date-display').textContent = displayLabel;
+
+            // 更新按钮的禁用状态
+            document.getElementById('prev-day-btn').disabled = (currentDay === 0);
+            document.getElementById('next-day-btn').disabled = (currentDay === totalDays - 1);
+        }
+
+        function openTab(evt, tabName) {
+            const tabContainer = evt.currentTarget.closest('.tab-container');
+            if (!tabContainer) return;
+
+            Array.from(tabContainer.getElementsByClassName("tab-content")).forEach(tc => tc.classList.remove("active"));
+            Array.from(tabContainer.getElementsByClassName("tab-button")).forEach(tb => tb.classList.remove("active"));
+
+            const targetTab = document.getElementById(tabName);
+            if (targetTab) {
+                targetTab.classList.add("active");
+            }
+            evt.currentTarget.classList.add("active");
+        }
+
+        function toggleTable(headerElement) {
+            const table = headerElement.nextElementSibling;
+            if (table && table.tagName === 'TABLE') {
+                const icon = headerElement.querySelector('.toggle-icon');
+                if (table.style.display === 'none') {
+                    table.style.display = '';
+                    icon.classList.remove('collapsed');
+                } else {
+                    table.style.display = 'none';
+                    icon.classList.add('collapsed');
+                }
+            }
+        }
+    </script>
+
     <h1><span id="current-date-placeholder">YYYY/MM/DD</span><svg width="2.2em" height="1.75em"
             style="display: inline-block; vertical-align: -0.5em;">
             <use href="#icon-neuq-emblem-core"></use>
@@ -4899,85 +4978,6 @@
             </svg>Copilot</a> & TsiaohanWang</p>
     <p class="info-text" style="font-size: 80%;"><a href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a>
     </p>
-
-    <script>
-        let currentDay = 0;
-        const totalDays = 7; // Today + next 6 days
-
-        document.addEventListener('DOMContentLoaded', function () {
-            updateDateDisplay();
-        });
-
-        function changeDay(offset) {
-            const newDay = currentDay + offset;
-
-            if (newDay >= 0 && newDay < totalDays) {
-                document.getElementById('day-' + currentDay + '-content').classList.remove('active');
-
-                currentDay = newDay;
-
-                document.getElementById('day-' + currentDay + '-content').classList.add('active');
-                updateDateDisplay();
-            }
-        }
-
-        function updateDateDisplay() {
-            const today = new Date();
-            const targetDate = new Date();
-            targetDate.setDate(today.getDate() + currentDay);
-
-            const year = targetDate.getFullYear();
-            const month = (targetDate.getMonth() + 1).toString().padStart(2, '0');
-            const day = targetDate.getDate().toString().padStart(2, '0');
-
-            // 更新 H1 大标题
-            document.getElementById('current-date-placeholder').textContent = `${year}/${month}/${day}`;
-
-            // 更新日期切换器中间的文本
-            let displayLabel = '';
-            if (currentDay === 0) {
-                displayLabel = `今天 (${month}/${day})`;
-            } else if (currentDay === 1) {
-                displayLabel = `明天 (${month}/${day})`;
-            } else {
-                const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-                displayLabel = `${weekdays[targetDate.getDay()]} (${month}/${day})`;
-            }
-            document.getElementById('date-display').textContent = displayLabel;
-
-            // 更新按钮的禁用状态
-            document.getElementById('prev-day-btn').disabled = (currentDay === 0);
-            document.getElementById('next-day-btn').disabled = (currentDay === totalDays - 1);
-        }
-
-        function openTab(evt, tabName) {
-            const tabContainer = evt.currentTarget.closest('.tab-container');
-            if (!tabContainer) return;
-
-            Array.from(tabContainer.getElementsByClassName("tab-content")).forEach(tc => tc.classList.remove("active"));
-            Array.from(tabContainer.getElementsByClassName("tab-button")).forEach(tb => tb.classList.remove("active"));
-
-            const targetTab = document.getElementById(tabName);
-            if (targetTab) {
-                targetTab.classList.add("active");
-            }
-            evt.currentTarget.classList.add("active");
-        }
-
-        function toggleTable(headerElement) {
-            const table = headerElement.nextElementSibling;
-            if (table && table.tagName === 'TABLE') {
-                const icon = headerElement.querySelector('.toggle-icon');
-                if (table.style.display === 'none') {
-                    table.style.display = '';
-                    icon.classList.remove('collapsed');
-                } else {
-                    table.style.display = 'none';
-                    icon.classList.add('collapsed');
-                }
-            }
-        }
-    </script>
 
 </body>
 
