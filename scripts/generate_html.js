@@ -306,6 +306,7 @@ async function generateFinalHtmlReport() {
   console.log("--- 开始随机选择并注入背景样式表 ---");
   try {
     const patterns = [
+      "pattern0.css",
       "pattern1.css",
       "pattern2.css",
       "pattern3.css",
