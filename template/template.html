@@ -432,6 +432,8 @@
             border: 1px solid var(--tab-border);
             border-radius: 12px;
             background-color: var(--container-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             box-shadow: var(--container-shadow);
             overflow: hidden;
             transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
@@ -440,14 +442,16 @@
         .collapsible-toggle {
             width: 100%;
             padding: 6px 6px 6px 10px;
-            background-color: transparent;
+            background-color: var(--container-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: none;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 12px;
-            color: var(--text-color-secondary);
+            color: var(--text-color-primary);
             font-family: inherit;
         }
 
@@ -464,6 +468,8 @@
         }
 
         .collapsible-content {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-in-out;
@@ -5045,13 +5051,18 @@
         </button>
         <div class="collapsible-content">
             <div class="credits-inner">
-                <p>Created by <a href="https://gemini.google.com/">
+                <p>由 <a href="https://gemini.google.com/">
                         <svg width="1em" height="1em" style="display: inline-block; vertical-align: -0.18em;">
                             <use href="#icon-gemini"></use>
-                        </svg>Gemini</a>, <a href="https://github.com/copilot">
+                        </svg>Gemini</a> 和 <a href="https://github.com/copilot">
                         <svg width="1em" height="1em" style="display: inline-block; vertical-align: -0.15em;">
                             <use href="#icon-copilot"></use>
-                        </svg>Copilot</a>.</p>
+                        </svg>Copilot</a> 创建</p>
+
+                <p>感谢 @<a href="https://github.com/subframe7536">subframe7536</a> 制作的等宽字体 <a
+                        href="https://font.subf.dev/zh-cn/">Maple Mono</a></p>
+
+                <p>以及 @<a href="https://gemini.google.com/">urongda</a> 提供的矢量校徽</p>
             </div>
         </div>
     </div>
