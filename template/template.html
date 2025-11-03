@@ -426,12 +426,74 @@
             border-top: 1px solid var(--tab-border);
             margin: 12px 0;
         }
+
+        .collapsible-container {
+            margin: 10px 0 10px;
+            border: 1px solid var(--tab-border);
+            border-radius: 12px;
+            background-color: var(--container-bg);
+            box-shadow: var(--container-shadow);
+            overflow: hidden;
+            transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .collapsible-toggle {
+            width: 100%;
+            padding: 6px 6px 6px 10px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-color-secondary);
+            font-family: inherit;
+        }
+
+        .collapsible-toggle:hover {
+            color: var(--text-color-primary);
+        }
+
+        .collapsible-toggle .toggle-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .collapsible-container.expanded .toggle-icon {
+            transform: rotate(90deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+
+        .collapsible-container.expanded .collapsible-content {
+            max-height: max-content;
+        }
+
+        .credits-inner {
+            padding: 10px 10px 12px 10px;
+            border-top: 1px solid var(--tab-border);
+            margin: 0px;
+        }
+
+        .credits-inner p {
+            margin: 0;
+            font-size: 14px;
+            text-align: center;
+            color: var(--text-color-secondary);
+        }
+
+        .credits-inner a {
+            color: var(--link-color);
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- 将所有SVG图标统一放在这里，并用 <defs> 包裹 -->
     <svg width="0" height="0" style="position:absolute">
         <defs>
             <symbol id="icon-neuq-emblem-full" viewBox="0 0 88 88">
@@ -781,6 +843,13 @@
                     table.style.display = 'none';
                     icon.classList.add('collapsed');
                 }
+            }
+        }
+
+        function toggleCredits(button) {
+            const container = button.closest('.collapsible-container');
+            if (container) {
+                container.classList.toggle('expanded');
             }
         }
     </script>
@@ -4963,19 +5032,30 @@
         中的教室也不会予以显示。
     </p>
     <p class="info-text" style="text-align: justify; font-size: 75%;">
-        [INFO] 因节假日调休时，教务系统未更新会导致本表无法显示当日正确的教室信息，请使用未来一周内对应信息作为参考（例如，若调休日上周三课程，那么就参考未来一周内周三那天的空教室表）。</p>
+        [WARN] 因节假日调休时，教务系统未更新会导致本表无法显示当日正确的教室信息，请使用未来一周内对应信息作为参考（例如，若调休日上周三课程，那么就参考未来一周内周三那天的空教室表）。</p>
     <p class="info-text" style="text-align: justify; font-size: 75%;">
-        内容仅供参考，实际请以<a href="https://jwxt.neuq.edu.cn/">教务系统</a>查询结果为准。</p>
+        [WARN] 内容仅供参考，实际请以<a href="https://jwxt.neuq.edu.cn/">教务系统</a>查询结果为准。</p>
 
-    <hr>
+    <div class="collapsible-container">
+        <button class="collapsible-toggle" onclick="toggleCredits(this)">
+            <span class="toggle-text">Credits</span>
+            <svg class="toggle-icon" width="12" height="12">
+                <use href="#icon-chevron-down"></use>
+            </svg>
+        </button>
+        <div class="collapsible-content">
+            <div class="credits-inner">
+                <p>Created by <a href="https://gemini.google.com/">
+                        <svg width="1em" height="1em" style="display: inline-block; vertical-align: -0.18em;">
+                            <use href="#icon-gemini"></use>
+                        </svg>Gemini</a>, <a href="https://github.com/copilot">
+                        <svg width="1em" height="1em" style="display: inline-block; vertical-align: -0.15em;">
+                            <use href="#icon-copilot"></use>
+                        </svg>Copilot</a>.</p>
+            </div>
+        </div>
+    </div>
 
-    <p class="info-text" style="font-size: 70%;">Created by <a href="https://gemini.google.com/">
-            <svg width="1em" height="1em" style="display: inline-block; vertical-align: -0.15em;">
-                <use href="#icon-gemini"></use>
-            </svg>Gemini</a>, <a href="https://github.com/copilot">
-            <svg width="1em" height="1em" style="display: inline-block; vertical-align: -0.125em;">
-                <use href="#icon-copilot"></use>
-            </svg>Copilot</a> & TsiaohanWang</p>
     <p class="info-text" style="font-size: 80%;"><a href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a>
     </p>
 
