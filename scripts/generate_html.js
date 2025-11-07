@@ -425,7 +425,7 @@ async function generateFinalHtmlReport() {
         // 使用 crypto 模块生成一个加密安全的随机索引
         const randomIndex = crypto.randomInt(quotes.length);
         const randomQuoteObject = quotes[randomIndex];
-        emergencyHtml = randomQuoteObject.paragraph;
+        emergencyHtml = randomQuoteObject.content;
       } else {
         emergencyHtml = "<p>今日暂无重要事件通知。</p>";
       }
