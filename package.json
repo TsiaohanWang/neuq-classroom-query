@@ -1,19 +1,19 @@
 {
-  "name": "classroom-query-and-deploy-automation",
-  "version": "1.0.0",
+  "name": "neuq-classroom-query",
+  "version": "2.0.0",
   "description": "NEUQ classroom availability query and deploy automation",
   "scripts": {
-    "test": "playwright test",
-    "test:classroom": "playwright test tests/classroom_query.spec.ts",
+    "fetch": "node scripts/fetch_data.js",
     "process": "node scripts/process_json.js",
     "generate": "node scripts/generate_html.js"
   },
   "dependencies": {
     "@types/node": "^22.15.29",
+    "axios": "^1.13.2",
+    "axios-cookiejar-support": "^6.0.4",
+    "cheerio": "^1.1.2",
+    "crypto-js": "^4.2.0",
     "jsdom": "^26.1.0",
-    "playwright": "^1.52.0"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.55.1"
+    "tough-cookie": "^5.1.2"
   }
 }

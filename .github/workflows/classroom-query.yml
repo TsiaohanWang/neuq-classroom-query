@@ -35,13 +35,12 @@ jobs:
     - name: Install dependencies
       run: |
         npm install
-        npx playwright install chromium
         
-    - name: Run Playwright test
+    - name: Fetch Classroom Data
       env:
         YOUR_NEUQ_USERNAME: ${{ secrets.YOUR_NEUQ_USERNAME }}
         YOUR_NEUQ_PASSWORD: ${{ secrets.YOUR_NEUQ_PASSWORD }}
-      run: npx playwright test tests/classroom_query.spec.ts --project=chromium
+      run: node scripts/fetch_data.js
         
     - name: Process JSON
       run: node scripts/process_json.js
@@ -49,7 +48,6 @@ jobs:
     - name: Generate HTML
       run: node scripts/generate_html.js
     
-    # 新增步骤：为部署准备 GitHub Pages 构件
     - name: Setup Pages
       uses: actions/configure-pages@v5
       
