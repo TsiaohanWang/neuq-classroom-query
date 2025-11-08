@@ -22,6 +22,7 @@
         })();
     </script>
 
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../style/index.css">
 
     <!-- 背景样式表将由JS在此处动态插入 -->
@@ -587,18 +588,18 @@
 
     <script>
         // 异步加载并注入 SVG icons
-        (function() {
-            fetch('/assets/icons.svg')
-                .then(function(response) {
+        (function () {
+            fetch('/assets/icons/icons.svg')
+                .then(function (response) {
                     return response.text();
                 })
-                .then(function(svgText) {
+                .then(function (svgText) {
                     var div = document.createElement('div');
                     div.style.display = 'none';
                     div.innerHTML = svgText;
                     document.body.insertBefore(div, document.body.firstChild);
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error('Failed to load SVG icons:', error);
                 });
         })();
@@ -4824,7 +4825,7 @@
 
                 <p class="info-text">以及 @<a href="https://github.com/subframe7536">subframe7536</a> 制作的 <a
                         href="https://font.subf.dev/zh-cn/">Maple Mono</a> 字体</p>
-                
+
                 <p class="info-text">和 @<a href="https://github.com/lxgw">LXGW</a> 制作的<a
                         href="https://github.com/lxgw/LxgwWenKai">霞鹜文楷</a>字体</p>
 
@@ -4833,7 +4834,8 @@
         </div>
     </div>
 
-    <p class="info-text" style="font-size: 80%;">Ver2.0.0 <a href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a>
+    <p class="info-text" style="font-size: 80%;">Ver2.0.0 <a
+            href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a>
     </p>
 
 </body>
