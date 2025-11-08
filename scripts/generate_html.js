@@ -9,9 +9,9 @@ const { JSDOM } = require("jsdom");
 
 // --- 1. 定义文件和目录路径 ---
 const baseDir = path.join(__dirname, ".."); // 项目根目录
-const templatePath = path.join(baseDir, "template", "template.html"); // HTML模板文件路径
-const eventJsonPath = path.join(baseDir, "calendar", "neuq_events.json"); // 事件文件路径
-const quotesJsonPath = path.join(baseDir, "quotes", "quotes.json"); // 格言文件路径
+const templatePath = path.join(baseDir, "assets", "template", "template.html"); // HTML模板文件路径
+const eventJsonPath = path.join(baseDir, "assets", "calendar", "neuq_events.json"); // 事件文件路径
+const quotesJsonPath = path.join(baseDir, "assets", "quotes", "quotes.json"); // 格言文件路径
 const outputHtmlPath = path.join(baseDir, "index.html"); // 最终输出的HTML文件路径
 const totalDays = 7; // 总共处理的天数
 
