@@ -56,13 +56,13 @@ html.dark {
 
 body {
   max-width: 800px;
-  margin: 0px auto 15px;
+  margin: 0px auto 10px;
   padding: 0 10px;
   font-family: "Maple Mono", "PingFang SC", "Microsoft YaHei", "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
   font-feature-settings: "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43",
     "cv61", "cv62", "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
-  line-height: 1.6;
+  line-height: 1.35;
   color: var(--text-color-primary);
   background-color: transparent;
   transition: color 0.3s;
@@ -304,13 +304,12 @@ h1 {
   padding: 3px 8px 4px 6px;
   margin: 8px auto;
   border: 1px solid var(--info-box-border);
-  border-radius: 8px;
+  border-radius: 10px;
   background-color: var(--info-box-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   color: var(--info-box-text);
   font-size: 13px;
-  line-height: 1.4;
   display: flex;
   justify-content: center;
   flex-direction: column;
