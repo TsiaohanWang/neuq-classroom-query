@@ -31,7 +31,7 @@
 
 html.dark {
   --bg-color: #121212;
-  --text-color-primary: #ccc;
+  --text-color-primary: #bbb;
   --text-color-secondary: #888;
   --text-color-header: #ccc;
   --container-bg: rgba(30, 30, 30, 0.5);
@@ -49,8 +49,8 @@ html.dark {
   --info-box-border: rgba(213, 213, 213, 0.3);
   --info-box-bg: rgba(213, 213, 213, 0.08);
   --info-box-text: #ccc;
-  --link-color: #cbcbcb;
-  --strong-color: #a4a4a4;
+  --link-color: #c8c8c8;
+  --strong-color: #ddd;
   --del-color: #888;
 }
 
