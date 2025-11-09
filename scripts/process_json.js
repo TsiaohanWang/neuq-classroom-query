@@ -7,7 +7,7 @@ const path = require("path");
  */
 function loadBlacklist() {
   // 定义黑名单文件的路径，相对于当前脚本的位置
-  const blacklistPath = path.join(__dirname, "..", "blacklist", "blacklist.json");
+  const blacklistPath = path.join(__dirname, "..", "assets", "blacklist", "blacklist.json");
   try {
     if (fs.existsSync(blacklistPath)) {
       const rawData = fs.readFileSync(blacklistPath, "utf-8");
