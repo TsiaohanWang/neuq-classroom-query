@@ -519,11 +519,17 @@
   },
 
   {
+    "content": "<p lang=\"da\"><i>\"Men han har jo ikke noget paa,\" sagde et lille Barn.</i></p>",
+    "description": "出自〔丹麦〕汉斯·克里斯蒂安·安徒生（丹麦语：Hans Christian Andersen）的《皇帝的新装》（丹麦语：Keiserens nye Klæder）。",
+    "translation": "“但是他什么都没穿啊！”一个小孩说道。"
+  },
+
+  {
     "content": "<p><i>El Psy Kongroo</i></p>",
     "description": "出自游戏和动画《命运石之门》（Steins;Gate）中主角冈部伦太郎（日语：岡部 倫太郎）。"
   },
   {
-    "content": "<p style=\"font-size: 70%;\"><code>main() { printf(&unix[\"\\021%six\\012\\0\"],(unix)[\"have\"]+\"fun\"-0x60);}</code></p>",
+    "content": "<code style=\"font-size: 70%;\">main() { printf(&unix[\"\\021%six\\012\\0\"],(unix)[\"have\"]+\"fun\"-0x60);}</code>",
     "description": "出自美国贝尔实验室的 David Korn 于1987年国际C语言混乱代码大赛（IOCCC, The International Obfuscated C Code Contest）中的 Best one liner 获奖作品。"
   },
   {
