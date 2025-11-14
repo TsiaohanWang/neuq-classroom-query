@@ -112,15 +112,23 @@
     "description": "出自史铁生的《病隙碎笔》。"
   },
   {
-    "content": "<p lang=\"zh\" style=\"font-size: 80%;\">生命本身，这是所有的人平等享有的，一切音乐、绘画、诗歌都是为它创造的。对了，他一定要加入到那些探求者、不安于现状者、生命给与者，那些重新使他树立信念的人们中间去。</p>",
-    "description": "出自〔英〕泰德·阿兰 / 塞德奈·戈登（Ted Allan / Sydney Gordon）的《手术刀就是武器——白求恩大夫的故事》，巫宁坤译。"
+    "content": "<p lang=\"zh\">如果睡梦中我们可以梦见自己在睡觉，那么醒时我们能不能从更清醒的现实中苏醒呢？</p>",
+    "description": "出自〔安哥拉〕若泽·爱德华多·阿瓜卢萨（葡萄牙语：José Eduardo Agualusa）的《遗忘通论》（葡萄牙语：Teoria Geral do Esquecimento）。"
+  },
+  {
+    "content": "<p lang=\"zh\" style=\"font-size: 80%;\">随着时代的推移，社会的进化和基因的置换，我们最后把道德感与血液的颜色和眼泪的咸淡混为一谈，仿佛这还不够，我们还把眼睛变成了朝向灵魂的镜子，结果它往往毫无保留地展示出我们嘴上试图否认的东西。</p>",
+    "description": "出自〔葡〕若泽·萨拉马戈（葡萄牙语：José Saramago）的《失明症漫记》（葡萄牙语：Ensaio sobre a Cegueira），范维信译。"
+  },
+  {
+    "content": "<p lang=\"zh-Hant\" style=\"font-size: 70%;\">在你死後，我沒能為你舉行葬禮，導致我的人生成了一場葬禮。<br>就在你被防水布包裹、被垃圾車載走以後，<br>在無法原諒的水柱從噴水池裡躍然而出之後，<br>到處都亮起了寺院燈火。<br>在春天盛開的花朵裡；在雪花裡；在日復一日的黑夜裡；在那些你用飲料空瓶插著蠟燭的火苗裡。</p>",
+    "description": "出自〔韩〕韩江（韩语：한강）的《少年来了》（韩语：소년이 온다），尹嘉玄译。"
   },
   {
     "content": "<p lang=\"zh\" style=\"font-size: 90%;\">世上每个人都是被上帝咬过一口的苹果，都是有缺陷的人。有的人缺陷比较大，是因为上帝特别喜欢他的芬芳。</p>",
     "description": "出自佚名的《风筝一样的故事》。"
   },
   {
-    "content": "<p lang=\"zh\" style=\"font-size: 90%;\">吾言即是万人声 褒貶毀誉委世評<br>請看百年青史上 正邪曲直自分明</p>",
+    "content": "<p lang=\"zh-Hant\" style=\"font-size: 90%;\">吾言即是万人声 褒貶毀誉委世評<br>請看百年青史上 正邪曲直自分明</p>",
     "description": "出自〔日〕斋藤隆夫（日语：斎藤 隆夫）发表《反军演说》（日语：反軍演説）后所作汉诗。"
   },
   {
@@ -219,6 +227,11 @@
     "content": "<p lang=\"en\"><i>The scar had not pained Harry for nineteen years. All was well.</i></p>",
     "description": "出自〔英〕J. K. 罗琳（J. K. Rowling）的《哈利·波特与死亡圣器》（Harry Potter and the Deathly Hallows）。",
     "translation": "伤疤已经十九年没有疼过了，一切太平。"
+  },
+  {
+    "content": "<p lang=\"en\"><i>The struggle itself toward the heights is enough to fill a man's heart. One must imagine Sisyphus happy.</i></p>",
+    "description": "出自〔法〕阿尔贝·加缪（法语：Albert Camus）的《西西弗神话》（法语：Le Mythe de Sisyphe）。",
+    "translation": "他爬上山顶所要进行的斗争本身就足以使一个人心里感到充实。应该认为，西西弗是幸福的。"
   },
   {
     "content": "<p lang=\"en\"><i>And therefore never send to know for whom the bell tolls; It tolls for thee.</i></p>",
@@ -329,6 +342,11 @@
     "content": "<p lang=\"en\" style=\"font-size: 85%;\"><i>The will to keep living... The resolve to change fate.<br>Let's call this power...<br>\"Determination.\"</i></p>",
     "description": "出自电子游戏《传说之下》（Undertale）。",
     "translation": "生存的意志……改变命运的决定。让我们称这种力量为……“决心”。"
+  },
+  {
+    "content": "<p lang=\"en\">War. War never changes.</p>",
+    "description": "出自电子游戏《辐射》系列（Fallout series）。",
+    "translation": "战争。战争从未改变。"
   },
   {
     "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.</i></p>",
