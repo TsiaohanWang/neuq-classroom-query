@@ -124,6 +124,10 @@
     "description": "出自〔韩〕韩江（韩语：한강）的《少年来了》（韩语：소년이 온다），尹嘉玄译。"
   },
   {
+    "content": "<p lang=\"zh\" style=\"font-size: 65%;\">我们背负着无形的枷锁，肩负着生死攸关的责任。也许病人鲜活的生命就握在我们手中，但死神总是最后的胜者。就算你是完美的，这个世界却不是。秘诀在于，支撑我们继续下去的秘诀在于，明白打从发牌的那刻起，你已必输无疑，你会手滑，你会判断失误，但即便如此也要拼尽全力为病人奋战到底。你永远无法到达完美的境地，但通过不懈的努力奋斗和追求，你能看见那无限接近完美的渐进曲线。</p>",
+    "description": "出自〔美〕保罗·卡拉尼什（Paul Kalanithi）的《当呼吸化为空气》（When Breath Becomes Air）。"
+  },
+  {
     "content": "<p lang=\"zh\" style=\"font-size: 90%;\">世上每个人都是被上帝咬过一口的苹果，都是有缺陷的人。有的人缺陷比较大，是因为上帝特别喜欢他的芬芳。</p>",
     "description": "出自佚名的《风筝一样的故事》。"
   },
@@ -463,6 +467,12 @@
     "content": "<p lang=\"de\"><i>Im Kampf zwischen Dir und der Welt, sekundiere der Welt.</i></p>",
     "description": "出自〔捷克〕弗兰兹·卡夫卡（德语：Franz Kafka）。",
     "translation": "在你与世界的斗争中，站在世界一边。"
+  },
+
+  {
+    "content": "<p lang=\"es\" style=\"font-size: 80%;\"><i>—Es más fácil imaginar la muerte de una persona que la de cien o mil —murmuró el Barón—. Multiplicado, el sufrimiento se vuelve abstracto. No es fácil conmoverse por cosas abstractas.</i></p>",
+    "description": "出自〔秘鲁〕马里奥·巴尔加斯·略萨（西班牙语：Mario Vargas Llosa）的《世界末日之战》（西班牙语：La guerra del fin del mundo）。",
+    "translation": "“想象一个人的死比想象一百人或一千人的死容易，”男爵小声说，“死的人多了，悲痛就抽象了。被抽象的事情感动不容易。”"
   },
 
   {
