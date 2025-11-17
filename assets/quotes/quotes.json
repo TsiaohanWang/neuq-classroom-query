@@ -104,6 +104,10 @@
     "description": "出自近现代毛泽东的《七律·人民解放军占领南京》。"
   },
   {
+    "content": "<p lang=\"zh\">春天到了，百花竞放，西花厅的海棠花又盛开了。看花的主人已经走了，走了12年了，离开了我们，他不再回来了。</p>",
+    "description": "出自邓颖超的《从西花厅海棠花忆起》。"
+  },
+  {
     "content": "<p lang=\"zh\" style=\"font-size: 80%;\">有一天那个孩子长大了，会想起童年的事，会想起那些晃动的树影儿，会想起他自己的妈妈。他会跑去看看那棵树。但他不会知道那棵树是谁种的，是怎么种的。</p>",
     "description": "出自史铁生的《合欢树》。"
   },
@@ -178,7 +182,7 @@
     "translation": "生存还是毁灭，这是个问题。"
   },
   {
-    "content": "<p lang=\"en\" style =\"font-size: 80%;\"><i>But what experience and history teach is this — that peoples and governments never have learned anything from history, or acted on principles deduced from it.</i></p>",
+    "content": "<p lang=\"en\" style=\"font-size: 80%;\"><i>But what experience and history teach is this — that peoples and governments never have learned anything from history, or acted on principles deduced from it.</i></p>",
     "description": "出自〔德〕黑格尔（Hegel）的《历史哲学》（The Philosophy of History）。",
     "translation": "但经验和历史所教导我们的，是人民和政府从未从历史中学到任何东西，亦未根据历史得出的原则行事。"
   },
@@ -278,6 +282,16 @@
     "translation": "“我们将在没有黑暗的地方相见，”奥布莱恩曾对他说。"
   },
   {
+    "content": "<p lang=\"en\"><i>The creatures outside looked from pig to man, and from man to pig, and from pig to man again; but already it was impossible to say which was which.</i></p>",
+    "description": "出自〔英〕乔治·奥威尔（George Orwell）的《动物农场》（Animal Farm）。",
+    "translation": "敢情动物们从窗外朝里望，目光从猪移到人，再从人移到猪，又重新从猪移到人，要分清哪张脸是猪的，哪张脸是人的，已经不可能了。"
+  },
+  {
+    "content": "<p lang=\"en\" style=\"font-size: 70%;\"><i>When the long winter nights come on and the wolves follow their meat into the lower valleys, he may be seen running at the head of the pack through the pale moonlight or glimmering borealis, leaping gigantic above his fellows, his great throat a-bellow as he sings a song of the younger world, which is the song of the pack.</i></p>",
+    "description": "出自〔美〕杰克·伦敦（Jack London）的《野性的呼唤》（The Call of the Wild）。",
+    "translation": "当漫长的冬夜来临，狼群追逐着猎物进入地势较低的山谷时，人们或许能看到他领着狼群，在苍白的月光或微光闪烁的北极光下奔驰。他巨大的身躯一跃而起，超越了同伴，喉中发出洪亮的咆哮，吟唱着一首来自远古世界的歌，那也正是整个狼群的歌。"
+  },
+  {
     "content": "<p lang=\"en\"><i>No man or woman is worth your tears, and the one who is, won’t make you cry.</i></p>",
     "description": "出自〔巴西〕保罗·科埃略（葡萄牙语：Paulo Coelho）的《牧羊少年奇幻之旅》（葡萄牙语：O Alquimista）。",
     "translation": "没有人值得你流泪，而值得你流泪的人不会让你哭泣。"
@@ -363,7 +377,7 @@
     "translation": "莫要站在我的坟前哭泣，/ 我不在那里，我没有睡去。"
   },
   {
-    "content": "<p lang=\"en\" style =\"font-size: 60%;\"><i>Seven times have I despised my soul: / The first time when I saw her being meek that she might attain height. / The second time when I saw her limping before the crippled. / The third time when she was given to choose between the hard and the easy, and she chose the easy. / The fourth time when she committed a wrong, and comforted herself that others also commit wrong. / The fifth time when she forbore for weakness, and attributed her patience to strength. / The sixth time when she despised the ugliness of a face, and knew not that it was one of her own masks. / And the seventh time when she sang a song of praise, and deemed it a virtue.</i></p>",
+    "content": "<p lang=\"en\" style=\"font-size: 60%;\"><i>Seven times have I despised my soul: / The first time when I saw her being meek that she might attain height. / The second time when I saw her limping before the crippled. / The third time when she was given to choose between the hard and the easy, and she chose the easy. / The fourth time when she committed a wrong, and comforted herself that others also commit wrong. / The fifth time when she forbore for weakness, and attributed her patience to strength. / The sixth time when she despised the ugliness of a face, and knew not that it was one of her own masks. / And the seventh time when she sang a song of praise, and deemed it a virtue.</i></p>",
     "description": "出自〔美〕纪伯伦的《我曾七次鄙视自己的灵魂》（Seven Times Have I Despised My Soul）。",
     "translation": "我曾经七次鄙视自己的灵魂 / 第一次是当她本可以进取，却故作谦卑；/ 第二次是当她杞人忧天，未病呻吟；/ 第三次是当她舍难求易，放宽自己；/ 第四次是当她宽慰自己人非圣贤，孰能无过；/ 第五次是当她明知自己的不足，却顺其自然；/ 第六次是当她看不起某张嘴脸，却不知自己也有一样的表现；/ 第七次是当她歌功颂德时，却不以之鞭策自己。"
   },
@@ -393,12 +407,12 @@
     "translation": "等你从越南回来，我有很多事想补偿你。/ 但是你没有。"
   },
   {
-    "content": "<p lang=\"en\" style =\"font-size: 70%;\"><i>And the game was over and the player woke up from the dream. And the player began a new dream. And the player dreamed again, dreamed better. And the player was the universe. And the player was love.<br>You are the player.<br>Wake up.</i></p>",
+    "content": "<p lang=\"en\" style=\"font-size: 70%;\"><i>And the game was over and the player woke up from the dream. And the player began a new dream. And the player dreamed again, dreamed better. And the player was the universe. And the player was love.<br>You are the player.<br>Wake up.</i></p>",
     "description": "出自朱利安·高夫（Julian Gough）为《我的世界》（Minecraft）创作的长文《终末之诗》（End Poem）。",
     "translation": "曲终人散，黄粱一梦。玩家开始了新的梦境。玩家再次做起了梦，更好的梦。玩家就是宇宙。玩家就是爱。/ 你就是那个玩家。/ 醒来吧。"
   },
   {
-    "content": "<p lang=\"en\" style =\"font-size: 70%;\"><i>In all 556 seeds were yielded by 15 plants, and of these there were:<br>&nbsp;&nbsp;315 round and yellow,<br>&nbsp;&nbsp;101 angular and yellow,<br>&nbsp;&nbsp;108 round and green,<br>&nbsp;&nbsp;&nbsp;32 angular and green.</i></p>",
+    "content": "<p lang=\"en\" style=\"font-size: 70%;\"><i>In all 556 seeds were yielded by 15 plants, and of these there were:<br>&nbsp;&nbsp;315 round and yellow,<br>&nbsp;&nbsp;101 angular and yellow,<br>&nbsp;&nbsp;108 round and green,<br>&nbsp;&nbsp;&nbsp;32 angular and green.</i></p>",
     "description": "出自〔奥地利〕格雷戈尔·孟德尔（Gregor Mendel）的《植物杂交之实验》（德语：Versuche über Pflanzen-Hybriden）。",
     "translation": "总共15株植物产生了556粒种子，其中：315粒圆形黄色；101粒有棱角黄色；108粒圆形绿色；32粒有棱角绿色。"
   },
@@ -441,38 +455,6 @@
     "content": "<p lang=\"fr\"><i>Le vent se lève !… Il faut tenter de vivre !</i></p>",
     "description": "出自〔法〕保罗·瓦莱里（法语：Paul Valéry）的《海上的风》（法语：Le Cimetière marin）。",
     "translation": "纵使疾风起，人生不言弃！"
-  },
-
-  {
-    "content": "<p lang=\"de\"><i>Jugend ist Trunkenheit ohne Wein.</i></p>",
-    "description": "出自〔德〕约翰·沃尔夫冈·冯·歌德（德语：Johann Wolfgang von Goethe）。",
-    "translation": "青春即是无酒自醉。"
-  },
-  {
-    "content": "<p lang=\"de\" style=\"font-size: 85%;\"><i>Wer viel einst zu verkünden hat, schweigt viel in sich hinein. Wer einst den Blitz zu zünden hat, muß lange Wolke sein.</i></p>",
-    "description": "出自〔德〕弗里德里希·尼采（Friedrich Nietzsche）。",
-    "translation": "谁终将声震人间，必长久深自缄默；谁终将点燃闪电，必长久如云漂泊。"
-  },
-  {
-    "content": "<p lang=\"de\"><i>Wir müssen wissen, wir werden wissen.</i></p>",
-    "description": "出自〔德〕大卫·希尔伯特（德语：David Hilbert）。",
-    "translation": "我们必须知晓，我们必将知晓。"
-  },
-  {
-    "content": "<p lang=\"de\" style=\"font-size: 90%;\"><i>Ein neues Lied, ein besseres Lied,<br>O Freunde, will ich Euch dichten!</i></p>",
-    "description": "出自〔德〕海因里希·海涅（德语：Heinrich Heine）的《德国——一个冬天的童话》（德语：Deutschland. Ein Wintermärchen）。",
-    "translation": "一首新歌，一首更美的歌，/ 哦，朋友们，我要为你们谱写！"
-  },
-  {
-    "content": "<p lang=\"de\"><i>Im Kampf zwischen Dir und der Welt, sekundiere der Welt.</i></p>",
-    "description": "出自〔捷克〕弗兰兹·卡夫卡（德语：Franz Kafka）。",
-    "translation": "在你与世界的斗争中，站在世界一边。"
-  },
-
-  {
-    "content": "<p lang=\"es\" style=\"font-size: 80%;\"><i>—Es más fácil imaginar la muerte de una persona que la de cien o mil —murmuró el Barón—. Multiplicado, el sufrimiento se vuelve abstracto. No es fácil conmoverse por cosas abstractas.</i></p>",
-    "description": "出自〔秘鲁〕马里奥·巴尔加斯·略萨（西班牙语：Mario Vargas Llosa）的《世界末日之战》（西班牙语：La guerra del fin del mundo）。",
-    "translation": "“想象一个人的死比想象一百人或一千人的死容易，”男爵小声说，“死的人多了，悲痛就抽象了。被抽象的事情感动不容易。”"
   },
 
   {
@@ -529,6 +511,38 @@
     "content": "<p lang=\"ja\">日々私たちが過ごしている日常は、実は、奇跡の連続なのかもしれない。</p>",
     "description": "出自日本漫画家新井圭一（日语：あらゐ けいいち）创作的漫画《日常》。",
     "translation": "我们所经历的每个平凡的日常，也许就是连续发生的奇迹。"
+  },
+
+  {
+    "content": "<p lang=\"de\"><i>Jugend ist Trunkenheit ohne Wein.</i></p>",
+    "description": "出自〔德〕约翰·沃尔夫冈·冯·歌德（德语：Johann Wolfgang von Goethe）。",
+    "translation": "青春即是无酒自醉。"
+  },
+  {
+    "content": "<p lang=\"de\" style=\"font-size: 85%;\"><i>Wer viel einst zu verkünden hat, schweigt viel in sich hinein. Wer einst den Blitz zu zünden hat, muß lange Wolke sein.</i></p>",
+    "description": "出自〔德〕弗里德里希·尼采（Friedrich Nietzsche）。",
+    "translation": "谁终将声震人间，必长久深自缄默；谁终将点燃闪电，必长久如云漂泊。"
+  },
+  {
+    "content": "<p lang=\"de\"><i>Wir müssen wissen, wir werden wissen.</i></p>",
+    "description": "出自〔德〕大卫·希尔伯特（德语：David Hilbert）。",
+    "translation": "我们必须知晓，我们必将知晓。"
+  },
+  {
+    "content": "<p lang=\"de\" style=\"font-size: 90%;\"><i>Ein neues Lied, ein besseres Lied,<br>O Freunde, will ich Euch dichten!</i></p>",
+    "description": "出自〔德〕海因里希·海涅（德语：Heinrich Heine）的《德国——一个冬天的童话》（德语：Deutschland. Ein Wintermärchen）。",
+    "translation": "一首新歌，一首更美的歌，/ 哦，朋友们，我要为你们谱写！"
+  },
+  {
+    "content": "<p lang=\"de\"><i>Im Kampf zwischen Dir und der Welt, sekundiere der Welt.</i></p>",
+    "description": "出自〔捷克〕弗兰兹·卡夫卡（德语：Franz Kafka）。",
+    "translation": "在你与世界的斗争中，站在世界一边。"
+  },
+
+  {
+    "content": "<p lang=\"es\" style=\"font-size: 80%;\"><i>—Es más fácil imaginar la muerte de una persona que la de cien o mil —murmuró el Barón—. Multiplicado, el sufrimiento se vuelve abstracto. No es fácil conmoverse por cosas abstractas.</i></p>",
+    "description": "出自〔秘鲁〕马里奥·巴尔加斯·略萨（西班牙语：Mario Vargas Llosa）的《世界末日之战》（西班牙语：La guerra del fin del mundo）。",
+    "translation": "“想象一个人的死比想象一百人或一千人的死容易，”男爵小声说，“死的人多了，悲痛就抽象了。被抽象的事情感动不容易。”"
   },
 
   {
