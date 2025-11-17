@@ -421,11 +421,30 @@ async function generateFinalHtmlReport() {
         // 将所有活动事件的 content 字段拼接起来
         emergencyHtml = activeEvents.map(event => event.content).join('');
       } else if (quotes.length > 0) {
-        console.log("  今日无活动事件，选择一条随机格言。");
-        // 使用 crypto 模块生成一个加密安全的随机索引
-        const randomIndex = crypto.randomInt(quotes.length);
-        const randomQuoteObject = quotes[randomIndex];
-        emergencyHtml = randomQuoteObject.content;
+        console.log("  今日无事件，准备选择一条格言...");
+        const numQuotes = quotes.length;
+        const msInDay = 1000 * 60 * 60 * 24;
+        const daysSinceEpoch = Math.floor(Date.now() / msInDay);
+        const baseIndex = daysSinceEpoch % numQuotes;
+        console.log(`  基准日期索引为: ${baseIndex}`);
+        // 围绕基准索引构建一个包含7个候选索引的“候选池”
+        const candidatePool = [];
+        const range = 3; // 向前和向后各取3个索引
+        for (let i = -range; i <= range; i++) {
+            let candidateIndex = baseIndex + i;
+            candidateIndex = ((candidateIndex % numQuotes) + numQuotes) % numQuotes;
+            // 避免因格言总数小于7而导致重复索引
+            if (!candidatePool.includes(candidateIndex)) {
+                candidatePool.push(candidateIndex);
+            }
+        }
+        console.log(`  候选索引池为: [${candidatePool.join(', ')}]`);
+        // 从候选池中随机选择一个最终索引
+        const finalRandomIndexInPool = crypto.randomInt(candidatePool.length);
+        const finalQuoteIndex = candidatePool[finalRandomIndexInPool];
+        console.log(`  最终随机选中的索引为: ${finalQuoteIndex}`);
+        const chosenQuoteObject = quotes[finalQuoteIndex];
+        emergencyHtml = chosenQuoteObject.content;
       } else {
         emergencyHtml = "<p>今日暂无重要事件通知。</p>";
       }

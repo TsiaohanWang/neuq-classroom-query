@@ -1,11 +1,12 @@
 {
   "name": "neuq-classroom-query",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "NEUQ classroom availability query and deploy automation",
   "scripts": {
     "fetch": "node scripts/fetch_data.js",
     "process": "node scripts/process_json.js",
-    "generate": "node scripts/generate_html.js"
+    "generate": "node scripts/generate_html.js",
+    "deploy": "npm run fetch && npm run process && npm run generate"
   },
   "dependencies": {
     "@types/node": "^22.15.29",

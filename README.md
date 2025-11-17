@@ -12,7 +12,7 @@
 
 `/scripts/generate_html.js` 会将 `/output/processed_classroom_data.json` 转换为对应的 `/index.html`。然后将该 HTML 文件发布在 Cloudflare Pages 上。
 
-对于可能占用教室的校园事件，将其记录在 `/calendar/neuq_events.json` 中。`/scripts/generate_html.js` 在生成 HTML 文件时会读取该文件，检查是否有当日发生的事件。
+对于可能占用教室的校园事件，将其记录在 `/calendar/neuq_events.json` 中。`/scripts/generate_html.js` 在生成 HTML 文件时会读取该文件，检查是否有当日发生的事件。若没有事件会按规则选取一条格言。
 
 因节假日调休时，由于教务系统可能未更新，本空教室表无法正常显示。
 
@@ -39,10 +39,10 @@
 
 若要部署到 GitHub Actions 中自动化执行，请在仓库设置中添加两个 Repository secrets： `YOUR_NEUQ_USERNAME` 设为你的学号； `YOUR_NEUQ_PASSWORD` 设为你的密码。
 
-若你想要将页面发布到网络上，请将 `/CNAME`文件内容改为自己的域名。
+请将 `/CNAME` 文件内容改为你将要发布网页的域名。
 
-若要部署到 Cloudflare Pages 或其他托管平台，请在构建命令中使用：
+若要部署到 Cloudflare Pages 或其他 CI/CD 平台，除了要像上面一样设置两个密钥外，还需要在构建命令中使用：
 
 ```
-npm install && npm run fetch && npm run process && npm run generate
+npm install && npm run deploy
 ```
