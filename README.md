@@ -6,13 +6,13 @@
 
 本表定期更新可能占用教室的校园事件。
 
-本项目通过 `/scripts/fetch_data.js` 文件向东秦教务系统发送请求，查询空闲教室信息，并将结果保存为JSON格式储存于 `/output` 中。
+本项目通过 `scripts/fetch_data.js` 文件向东秦教务系统发送请求，查询空闲教室信息，并将结果保存为JSON格式储存于 `output/` 中。
 
-查询结果随后会被 `/scripts/process_json.js` 处理，对数据进行筛选和合并，存储在 `/output-day-x/processed_classroom_data.json` 中。
+查询结果随后会被 `scripts/process_json.js` 处理，对数据进行筛选和合并，存储在 `output-day-x/processed_classroom_data.json` 中。
 
-`/scripts/generate_html.js` 会将 `/output/processed_classroom_data.json` 转换为对应的 `/index.html`。然后将该 HTML 文件发布在 Cloudflare Pages 上。
+`scripts/generate_html.js` 会将 `output/processed_classroom_data.json` 转换为对应的 `index.html`。然后将该 HTML 文件发布在 Cloudflare Pages 上。
 
-对于可能占用教室的校园事件，将其记录在 `/calendar/neuq_events.json` 中。`/scripts/generate_html.js` 在生成 HTML 文件时会读取该文件，检查是否有当日发生的事件。若没有事件会按规则选取一条格言。
+对于可能占用教室的校园事件，将其记录在 `calendar/neuq_events.json` 中。`scripts/generate_html.js` 在生成 HTML 文件时会读取该文件，检查是否有当日发生的事件。若没有事件会按规则选取一条格言。
 
 因节假日调休时，由于教务系统可能未更新，本空教室表无法正常显示。
 
@@ -24,11 +24,11 @@
 
 ## 本地测试
 
-本地测试时，需要修改 `/scripts/fetch_data.js` 中的部分代码。
+本地测试时，需要修改 `scripts/fetch_data.js` 中的部分代码。
 
 首先找到这里：
 
-```javascript
+```js
     const username = process.env.YOUR_NEUQ_USERNAME;
     const password = process.env.YOUR_NEUQ_PASSWORD;
 ```
@@ -37,12 +37,23 @@
 
 ## 自动化部署
 
-若要部署到 GitHub Actions 中自动化执行，请在仓库设置中添加两个 Repository secrets： `YOUR_NEUQ_USERNAME` 设为你的学号； `YOUR_NEUQ_PASSWORD` 设为你的密码。
+若要部署到 GitHub Actions 中自动化执行，请在仓库设置中添加两个 Repository secrets： `YOUR_NEUQ_USERNAME` 设为你的学号； `YOUR_NEUQ_PASSWORD` 设为你的密码。并且找到 `.github/workflows/classroom-query.yml`，将下面的内容取消注释：
 
-请将 `/CNAME` 文件内容改为你将要发布网页的域名。
+```yml
+on:
+#   push:
+#     branches: [ main, master ]
+#   pull_request:
+#     branches: [ main, master ]
+#   schedule:
+#     - cron: '0 */2 * * *'  # 每 2 小时运行一次
+  workflow_dispatch:  # 允许手动触发
+```
+
+请将 `CNAME` 文件内容改为你将要发布网页的域名。
 
 若要部署到 Cloudflare Pages 或其他 CI/CD 平台，除了要像上面一样设置两个密钥外，还需要在构建命令中使用：
 
-```
+```bash
 npm install && npm run deploy
 ```
