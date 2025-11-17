@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@types/node':
         specifier: ^22.15.29
-        version: 22.19.0
+        version: 22.19.1
       axios:
         specifier: ^1.13.2
         version: 1.13.2
@@ -63,8 +63,8 @@ packages:
     resolution: {integrity: sha512-Vd/9EVDiu6PPJt9yAh6roZP6El1xHrdvIVGjyBsHR0RYwNHgL7FJPyIIW4fANJNG6FtyZfvlRPpFI4ZM/lubvw==}
     engines: {node: '>=18'}
 
-  '@types/node@22.19.0':
-    resolution: {integrity: sha512-xpr/lmLPQEj+TUnHmR+Ab91/glhJvsqcjB+yY0Ix9GO70H6Lb4FHH5GeqdOE5btAx7eIMwuHkp4H2MSkLcqWbA==}
+  '@types/node@22.19.1':
+    resolution: {integrity: sha512-LCCV0HdSZZZb34qifBsyWlUmok6W7ouER+oQIGBScS8EsZsQbrtFTUrDX4hOl+CS6p7cnNC4td+qrSVGSCTUfQ==}
 
   agent-base@7.1.4:
     resolution: {integrity: sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==}
@@ -226,11 +226,11 @@ packages:
   htmlparser2@10.0.0:
     resolution: {integrity: sha512-TwAZM+zE5Tq3lrEHvOlvwgj1XLWQCtaaibSN11Q+gGBAS7Y1uZSWwXXRe4iF6OXnaq1riyQAPFOBtYc77Mxq0g==}
 
-  http-cookie-agent@7.0.2:
-    resolution: {integrity: sha512-aHaES6SOFtnSlmWu0yEaaQvu+QexUG2gscSAvMhJ7auzW8r/jYOgGrzuAm9G9nHbksuhz7Lw4zOwDHmfQaxZvw==}
+  http-cookie-agent@7.0.3:
+    resolution: {integrity: sha512-EeZo7CGhfqPW6R006rJa4QtZZUpBygDa2HZH3DJqsTzTjyRE6foDBVQIv/pjVsxHC8z2GIdbB1Hvn9SRorP3WQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
-      tough-cookie: ^4.0.0 || ^5.0.0
+      tough-cookie: ^4.0.0 || ^5.0.0 || ^6.0.0
       undici: ^7.0.0
     peerDependenciesMeta:
       undici:
@@ -404,7 +404,7 @@ snapshots:
 
   '@csstools/css-tokenizer@3.0.4': {}
 
-  '@types/node@22.19.0':
+  '@types/node@22.19.1':
     dependencies:
       undici-types: 6.21.0
 
@@ -415,7 +415,7 @@ snapshots:
   axios-cookiejar-support@6.0.4(axios@1.13.2)(tough-cookie@5.1.2)(undici@7.16.0):
     dependencies:
       axios: 1.13.2
-      http-cookie-agent: 7.0.2(tough-cookie@5.1.2)(undici@7.16.0)
+      http-cookie-agent: 7.0.3(tough-cookie@5.1.2)(undici@7.16.0)
       tough-cookie: 5.1.2
     transitivePeerDependencies:
       - undici
@@ -593,7 +593,7 @@ snapshots:
       domutils: 3.2.2
       entities: 6.0.1
 
-  http-cookie-agent@7.0.2(tough-cookie@5.1.2)(undici@7.16.0):
+  http-cookie-agent@7.0.3(tough-cookie@5.1.2)(undici@7.16.0):
     dependencies:
       agent-base: 7.1.4
       tough-cookie: 5.1.2
