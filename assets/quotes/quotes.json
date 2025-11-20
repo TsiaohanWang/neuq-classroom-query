@@ -337,36 +337,6 @@
     "translation": "有时能治愈，常常是帮助，总是去安慰。"
   },
   {
-    "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Money is the McMansion in Sarasota that starts falling apart after 10 years. Power is the old stone building that stands for centuries.</i></p>",
-    "description": "出自 Netflix 电视连续剧《纸牌屋》（House of Cards）第一季。",
-    "translation": "金钱是那虚有其表的豪宅，十年光景便会分崩离析；权力是那根基稳固的石砌建筑，能矗立数个世纪。"
-  },
-  {
-    "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Every sha-la-la-la / Every wo-o-wo-o / Still shines<br>Every shing-a-ling-a-ling / That they're starting to sing / So fine</i></p>",
-    "description": "出自卡朋特乐队（Carpenters）演唱的歌曲《昨日重现》（Yesterday Once More）。",
-    "translation": "每段旋律 / 每个音符 / 依旧闪亮 / 每个迷人的音节 / 重新又响起 / 感觉多么美妙"
-  },
-  {
-    "content": "<p lang=\"en\"><i>Daisy, Daisy, give me your answer do.</i></p>",
-    "description": "出自英国作曲家哈利·戴克尔（Harry Dacre）于1892年创作的歌曲《Daisy Bell》。",
-    "translation": "黛西，黛西，给我你的答复。"
-  },
-  {
-    "content": "<p lang=\"en\"><i>Fly me to the moon And let me play among the stars</i></p>",
-    "description": "出自美国作曲家巴特·霍华德（Bart Howard）创作的歌曲《带我飞向月球》（Fly Me to the Moon）。",
-    "translation": "带我飞向月球，让我在群星之间演奏。"
-  },
-  {
-    "content": "<p lang=\"en\" style=\"font-size: 85%;\"><i>The will to keep living... The resolve to change fate.<br>Let's call this power...<br>\"Determination.\"</i></p>",
-    "description": "出自电子游戏《传说之下》（Undertale）。",
-    "translation": "生存的意志……改变命运的决定。让我们称这种力量为……“决心”。"
-  },
-  {
-    "content": "<p lang=\"en\"><i>War. War never changes.</i></p>",
-    "description": "出自电子游戏《辐射》系列（Fallout series）。",
-    "translation": "战争。战争从未改变。"
-  },
-  {
     "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Do not go gentle into that good night.<br>Rage, rage against the dying of the light.</i></p>",
     "description": "出自〔威尔士〕迪伦·托马斯（Dylan Thomas）的《不要温和地走入那良夜》（Do Not Go Gentle into That Good Night）。",
     "translation": "不要温和地走入那良夜。/ 怒斥、怒斥那光明的消歇。"
@@ -405,6 +375,46 @@
     "content": "<p lang=\"en\" style=\"font-size: 85%;\"><i>There were lots of things I wanted to make up to you when you returned from Vietnam.<br>But you didn’t.</i></p>",
     "description": "出自署名为 Merrill Glass 的一位美国妇女所作的诗《但是你没有》（But You Didn't）。",
     "translation": "等你从越南回来，我有很多事想补偿你。/ 但是你没有。"
+  },
+  {
+    "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>You see things; and you say 'Why?' But I dream things that never were; and I say 'Why not?'</i></p>",
+    "description": "出自〔英〕萧伯纳（George Bernard Shaw）的《回到玛土撒拉》（Back to Methuselah）。",
+    "translation": "你看见已有的事，问‘为什么？’但我梦想从未有过的事，问‘为什么不？’"
+  },
+  {
+    "content": "<p lang=\"en\" style=\"font-size: 80%;\"><b>IRENE.</b> When we dead awaken.<br><b>PROFESSOR RUBEK.</b> <i>[Shakes his head mournfully.]</i> What do we really see then?<br><b>IRENE.</b> We see that we have never lived.</p>",
+    "description": "出自〔挪威〕亨里克·易卜生（挪威语：Henrik Ibsen）的《当我们死人醒来时》（When We Dead Awaken）。",
+    "translation": "艾琳：当我们死人醒来时。/ 鲁贝克教授：[凄然摇头。]那时我们究竟会看见什么？/ 艾琳：我们会看见，我们从未活过。"
+  },
+  {
+    "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Money is the McMansion in Sarasota that starts falling apart after 10 years. Power is the old stone building that stands for centuries.</i></p>",
+    "description": "出自 Netflix 电视连续剧《纸牌屋》（House of Cards）第一季。",
+    "translation": "金钱是那虚有其表的豪宅，十年光景便会分崩离析；权力是那根基稳固的石砌建筑，能矗立数个世纪。"
+  },
+  {
+    "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Every sha-la-la-la / Every wo-o-wo-o / Still shines<br>Every shing-a-ling-a-ling / That they're starting to sing / So fine</i></p>",
+    "description": "出自卡朋特乐队（Carpenters）演唱的歌曲《昨日重现》（Yesterday Once More）。",
+    "translation": "每段旋律 / 每个音符 / 依旧闪亮 / 每个迷人的音节 / 重新又响起 / 感觉多么美妙"
+  },
+  {
+    "content": "<p lang=\"en\"><i>Daisy, Daisy, give me your answer do.</i></p>",
+    "description": "出自英国作曲家哈利·戴克尔（Harry Dacre）于1892年创作的歌曲《Daisy Bell》。",
+    "translation": "黛西，黛西，给我你的答复。"
+  },
+  {
+    "content": "<p lang=\"en\"><i>Fly me to the moon And let me play among the stars</i></p>",
+    "description": "出自美国作曲家巴特·霍华德（Bart Howard）创作的歌曲《带我飞向月球》（Fly Me to the Moon）。",
+    "translation": "带我飞向月球，让我在群星之间演奏。"
+  },
+  {
+    "content": "<p lang=\"en\" style=\"font-size: 85%;\"><i>The will to keep living... The resolve to change fate.<br>Let's call this power...<br>\"Determination.\"</i></p>",
+    "description": "出自电子游戏《传说之下》（Undertale）。",
+    "translation": "生存的意志……改变命运的决定。让我们称这种力量为……“决心”。"
+  },
+  {
+    "content": "<p lang=\"en\"><i>War. War never changes.</i></p>",
+    "description": "出自电子游戏《辐射》系列（Fallout series）。",
+    "translation": "战争。战争从未改变。"
   },
   {
     "content": "<p lang=\"en\" style=\"font-size: 70%;\"><i>And the game was over and the player woke up from the dream. And the player began a new dream. And the player dreamed again, dreamed better. And the player was the universe. And the player was love.<br>You are the player.<br>Wake up.</i></p>",

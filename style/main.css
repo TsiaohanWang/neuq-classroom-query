@@ -344,7 +344,7 @@ u {
   text-decoration-thickness: 1.25px;
 }
 
-strong {
+strong, b {
   font-weight: bold;
   color: var(--strong-color);
 }
