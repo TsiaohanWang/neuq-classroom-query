@@ -297,6 +297,11 @@
     "translation": "没有人值得你流泪，而值得你流泪的人不会让你哭泣。"
   },
   {
+    "content": "<p lang=\"en\"><i>Behind every man now alive stand thirty ghosts, for that is the ratio by which the dead outnumber the living.</i></p>",
+    "description": "出自〔英〕阿瑟·克拉克（Arthur Clarke）的《2001：太空漫游》（2001: A Space Odyssey）。",
+    "translation": "在每一个活人身后，都立着三十个鬼魂，这是死去的人与活人的比例。"
+  },
+  {
     "content": "<p lang=\"en\"><i>There is only one heroism in the world: to see the world as it is and to love it.</i></p>",
     "description": "出自〔法〕罗曼·罗兰（法语：Romain Rolland）。",
     "translation": "世上只有一种英雄主义——认清生活的真相后依然热爱生活。"
@@ -390,6 +395,11 @@
     "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Money is the McMansion in Sarasota that starts falling apart after 10 years. Power is the old stone building that stands for centuries.</i></p>",
     "description": "出自 Netflix 电视连续剧《纸牌屋》（House of Cards）第一季。",
     "translation": "金钱是那虚有其表的豪宅，十年光景便会分崩离析；权力是那根基稳固的石砌建筑，能矗立数个世纪。"
+  },
+  {
+    "content": "<p lang=\"en\"><i>In case I don't see you, good afternoon, good evening, and good night.</i></p>",
+    "description": "出自电影《楚门的世界》（The Truman Show）。",
+    "translation": "如果再也不能见到你，祝你早安，午安，晚安。"
   },
   {
     "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Every sha-la-la-la / Every wo-o-wo-o / Still shines<br>Every shing-a-ling-a-ling / That they're starting to sing / So fine</i></p>",
@@ -558,6 +568,11 @@
     "content": "<p lang=\"es\" style=\"font-size: 80%;\"><i>—Es más fácil imaginar la muerte de una persona que la de cien o mil —murmuró el Barón—. Multiplicado, el sufrimiento se vuelve abstracto. No es fácil conmoverse por cosas abstractas.</i></p>",
     "description": "出自〔秘鲁〕马里奥·巴尔加斯·略萨（西班牙语：Mario Vargas Llosa）的《世界末日之战》（西班牙语：La guerra del fin del mundo）。",
     "translation": "“想象一个人的死比想象一百人或一千人的死容易，”男爵小声说，“死的人多了，悲痛就抽象了。被抽象的事情感动不容易。”"
+  },
+  {
+    "content": "<p lang=\"es\" style=\"font-size: 80%;\"><i>Muchos años después, frente al pelotón de fusilamiento, el coronel Aureliano Buendía había de recordar aquella tarde remota en que su padre lo llevó a conocer el hielo.</i></p>",
+    "description": "出自〔哥伦比亚〕加西亚·马尔克斯（西班牙语：García Márquez）的《百年孤独》（西班牙语：Cien años de soledad）。",
+    "translation": "多年以后，面对行刑队，奥雷连诺上校将会回想起父亲带他去见识冰块的那个遥远的下午。"
   },
 
   {
