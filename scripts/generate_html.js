@@ -396,14 +396,14 @@ async function generateFinalHtmlReport() {
       const activeEvents = eventData.filter((event) => {
         // 健壮性检查：确保事件对象和必要的字段存在
         if (!event || !event.start || !event.end || !event.content) {
-            console.warn("  ! 发现格式不完整的事件对象，已跳过:", event);
-            return false;
+          console.warn("  ! 发现格式不完整的事件对象，已跳过:", event);
+          return false;
         }
         try {
           // 解析事件的起始和结束日期
           const startDate = parseDateString(event.start);
           const endDate = parseDateString(event.end);
-          
+
           // 计算活动时期的起始日（即事件开始日期的前一天）
           const activityStartDate = new Date(startDate);
           activityStartDate.setDate(startDate.getDate() - 1);
@@ -411,15 +411,18 @@ async function generateFinalHtmlReport() {
           // 检查今天是否在 [活动起始日, 事件结束日] 的闭区间内
           return todayDateObj >= activityStartDate && todayDateObj <= endDate;
         } catch (e) {
-            console.error(`  ✖ 解析事件日期时出错，已跳过该事件: ${event.content}`, e);
-            return false;
+          console.error(
+            `  ✖ 解析事件日期时出错，已跳过该事件: ${event.content}`,
+            e
+          );
+          return false;
         }
       });
 
       if (activeEvents.length > 0) {
         console.log(`  发现 ${activeEvents.length} 条当前活动事件。`);
         // 将所有活动事件的 content 字段拼接起来
-        emergencyHtml = activeEvents.map(event => event.content).join('');
+        emergencyHtml = activeEvents.map((event) => event.content).join("");
       } else if (quotes.length > 0) {
         console.log("  今日无事件，准备选择一条格言...");
         const numQuotes = quotes.length;
@@ -431,14 +434,15 @@ async function generateFinalHtmlReport() {
         const candidatePool = [];
         const range = 3; // 向前和向后各取3个索引
         for (let i = -range; i <= range; i++) {
-            let candidateIndex = baseIndex + i;
-            candidateIndex = ((candidateIndex % numQuotes) + numQuotes) % numQuotes;
-            // 避免因格言总数小于7而导致重复索引
-            if (!candidatePool.includes(candidateIndex)) {
-                candidatePool.push(candidateIndex);
-            }
+          let candidateIndex = baseIndex + i;
+          candidateIndex =
+            ((candidateIndex % numQuotes) + numQuotes) % numQuotes;
+          // 避免因格言总数小于7而导致重复索引
+          if (!candidatePool.includes(candidateIndex)) {
+            candidatePool.push(candidateIndex);
+          }
         }
-        console.log(`  候选索引池为: [${candidatePool.join(', ')}]`);
+        console.log(`  候选索引池为: [${candidatePool.join(", ")}]`);
         // 从候选池中随机选择一个最终索引
         const finalRandomIndexInPool = crypto.randomInt(candidatePool.length);
         const finalQuoteIndex = candidatePool[finalRandomIndexInPool];
@@ -449,8 +453,8 @@ async function generateFinalHtmlReport() {
         emergencyHtml = "<p>今日暂无重要事件通知。</p>";
       }
     } catch (error) {
-        console.error(`  ✖ 处理 Emergency Info Box 时发生错误: ${error.message}`);
-        emergencyHtml = "<p>加载事件信息时出错。</p>";
+      console.error(`  ✖ 处理 Emergency Info Box 时发生错误: ${error.message}`);
+      emergencyHtml = "<p>加载事件信息时出错。</p>";
     }
 
     emergencyInfoDiv.innerHTML = emergencyHtml;
@@ -496,16 +500,27 @@ async function generateFinalHtmlReport() {
   }
 
   // 7. 计算内容哈希并与线上版本比较
-  console.log("\n--- 开始计算内容哈希并与线上版本比较 ---");
-  const todayTabContainer = document.querySelector(
-    "#day-0-content .tab-container"
-  );
-  const newContentHtml = todayTabContainer ? todayTabContainer.outerHTML : "";
-  const newHash = crypto.createHash("md5").update(newContentHtml).digest("hex");
+  console.log("\n--- 开始计算每日内容哈希并与线上版本比较 ---");
 
+  // 为每一天计算独立的哈希值
+  const dailyHashes = {};
+  for (let dayOffset = 0; dayOffset < totalDays; dayOffset++) {
+    const dayTabContainer = document.querySelector(
+      `#day-${dayOffset}-content .tab-container`
+    );
+    const dayContentHtml = dayTabContainer ? dayTabContainer.outerHTML : "";
+    const dayHash = crypto
+      .createHash("md5")
+      .update(dayContentHtml)
+      .digest("hex");
+    dailyHashes[dayOffset] = dayHash;
+    console.log(`  Day ${dayOffset} 哈希: ${dayHash}`);
+  }
+
+  // 存储为JSON格式的meta标签
   const metaTag = document.createElement("meta");
   metaTag.name = "page-content-hash";
-  metaTag.content = newHash;
+  metaTag.content = JSON.stringify(dailyHashes);
   document.head.appendChild(metaTag);
 
   const addStatusBadge = (text, className) => {
@@ -529,21 +544,45 @@ async function generateFinalHtmlReport() {
         const liveMeta = liveDom.window.document.querySelector(
           'meta[name="page-content-hash"]'
         );
-        const liveHash = liveMeta ? liveMeta.content : null;
-        console.log(`  线上版本哈希: ${liveHash} | 新版本哈希: ${newHash}`);
+        const liveHashContent = liveMeta ? liveMeta.content : null;
+        let liveHashes = {};
+        try {
+          liveHashes = liveHashContent ? JSON.parse(liveHashContent) : {};
+        } catch (e) {
+          console.warn(`  ! 解析线上版本哈希失败: ${e.message}`);
+          liveHashes = {};
+        }
 
-        if (newHash === liveHash) {
-          addStatusBadge("Not Updated", "badge-not-updated");
+        // 比较哈希，找出更新的天数
+        const updatedDays = [];
+        for (let dayOffset = 0; dayOffset < totalDays; dayOffset++) {
+          const newDayHash = dailyHashes[dayOffset];
+          const liveDayHash = liveHashes[dayOffset.toString()];
+          if (newDayHash !== liveDayHash) {
+            updatedDays.push(dayOffset);
+          }
+        }
+
+        console.log(`  线上版本哈希: ${JSON.stringify(liveHashes)}`);
+        console.log(`  新版本哈希: ${JSON.stringify(dailyHashes)}`);
+
+        // 生成对应的badge
+        if (updatedDays.length === 0) {
+          addStatusBadge("NOT UPDATED", "badge-not-updated");
           console.log("  内容无变化。");
+        } else if (updatedDays.length === totalDays) {
+          addStatusBadge("ALL UPDATED", "badge-updated");
+          console.log(`  所有天数都已更新。`);
         } else {
-          addStatusBadge("Updated", "badge-updated");
-          console.log("  内容已更新。");
+          const daysText = updatedDays.map((d) => `DAY ${d}`).join(", ");
+          addStatusBadge(`${daysText} UPDATED`, "badge-updated");
+          console.log(`  更新的天数: ${daysText}`);
         }
       } else {
         // 获取页面失败 (例如 404, 500等)
         console.warn(`  ! 获取线上版本失败，状态码: ${response.status}`);
         // 按照要求，显示 NotFound 状态
-        addStatusBadge("Not Found", "badge-not-found");
+        addStatusBadge("NOT FOUND", "badge-not-found");
       }
     } else {
       console.log("  - 未找到 CNAME 文件，跳过比较。");
@@ -552,7 +591,7 @@ async function generateFinalHtmlReport() {
     // 捕获 fetch 本身的网络错误 (例如 DNS 解析失败)
     console.error(`  ✖ 比较线上版本时发生网络错误: ${e.message}`);
     // 同样显示 NotFound 状态
-    addStatusBadge("Not Found", "badge-not-found");
+    addStatusBadge("NOT FOUND", "badge-not-found");
   }
 
   // 8. 将最终的DOM序列化并写入 index.html
