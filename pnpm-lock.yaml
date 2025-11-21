@@ -9,13 +9,13 @@ importers:
   .:
     dependencies:
       '@types/node':
-        specifier: ^22.15.29
+        specifier: ^22.19.1
         version: 22.19.1
       axios:
         specifier: ^1.13.2
         version: 1.13.2
       axios-cookiejar-support:
-        specifier: ^6.0.4
+        specifier: ^6.0.5
         version: 6.0.5(axios@1.13.2)(tough-cookie@5.1.2)(undici@7.16.0)
       cheerio:
         specifier: ^1.1.2
