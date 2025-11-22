@@ -574,7 +574,7 @@ async function generateFinalHtmlReport() {
           addStatusBadge("ALL UPDATED", "badge-updated");
           console.log(`  所有天数都已更新。`);
         } else {
-          const daysText = updatedDays.map((d) => `DAY ${d}`).join(", ");
+          const daysText = updatedDays.map((d) => `DAY${d}`).join(",");
           addStatusBadge(`${daysText} UPDATED`, "badge-updated");
           console.log(`  更新的天数: ${daysText}`);
         }
