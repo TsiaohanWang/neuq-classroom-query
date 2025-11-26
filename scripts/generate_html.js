@@ -448,10 +448,37 @@ async function generateFinalHtmlReport() {
           }
         }
         console.log(`  候选索引池为: [${candidatePool.join(", ")}]`);
-        // 从候选池中随机选择一个最终索引
-        const finalRandomIndexInPool = crypto.randomInt(candidatePool.length);
-        const finalQuoteIndex = candidatePool[finalRandomIndexInPool];
-        console.log(`  最终随机选中的索引为: ${finalQuoteIndex}`);
+        // 使用正态分布选择索引
+        function getNormallyDistributedRandomNumber(mean, stdDev) {
+          let u = 0,
+            v = 0;
+          while (u === 0) u = Math.random(); // 转换 [0,1) 为 (0,1)
+          while (v === 0) v = Math.random();
+          let z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+          return z * stdDev + mean;
+        }
+        const poolSize = candidatePool.length;
+        const mean = Math.floor(poolSize / 2); // 中心索引
+        const stdDev = 1.5; // 标准差
+        let selectedPoolIndex = -1;
+        let attempts = 0;
+        while (
+          (selectedPoolIndex < 0 || selectedPoolIndex >= poolSize) &&
+          attempts < 100
+        ) {
+          const randomVal = getNormallyDistributedRandomNumber(mean, stdDev);
+          selectedPoolIndex = Math.round(randomVal);
+          attempts++;
+        }
+        if (selectedPoolIndex < 0 || selectedPoolIndex >= poolSize) {
+          console.warn("  ! 正态分布生成索引失败，回退到中心索引。");
+          selectedPoolIndex = mean;
+        }
+        const finalQuoteIndex = candidatePool[selectedPoolIndex];
+        console.log(
+          `  最终正态分布选中的 Pool 索引: ${selectedPoolIndex} (Mean: ${mean}, StdDev: ${stdDev})`
+        );
+        console.log(`  最终选中的格言索引: ${finalQuoteIndex}`);
         const chosenQuoteObject = quotes[finalQuoteIndex];
         emergencyHtml = chosenQuoteObject.content;
       } else {
@@ -568,8 +595,8 @@ async function generateFinalHtmlReport() {
           }
         }
 
-        console.log(`  线上版本哈希: ${JSON.stringify(liveHashes)}`);
-        console.log(`  新版本哈希: ${JSON.stringify(dailyHashes)}`);
+        console.log(`  线上版本哈希: \n${JSON.stringify(liveHashes, null, 2)}`);
+        console.log(`  新版本哈希: \n${JSON.stringify(dailyHashes, null, 2)}`);
 
         // 生成对应的badge
         if (updatedDays.length === 0) {
