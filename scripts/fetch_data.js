@@ -11,13 +11,12 @@ const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 class NEUQJWXTClient {
     constructor() {
         const jar = new CookieJar();
-
         this.client = wrapper(axios.create({
             jar,
-            baseURL: "/eams",  // 通过Cloudflare Pages Functions代理
-            timeout: 30000,
+            baseURL: "http://jwxt.neuq.edu.cn/eams/",
+            timeout: 45000, 
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
             }
         }));
     }
