@@ -3,12 +3,12 @@ export async function onRequest(context) {
     const url = new URL(request.url);
     
     // 只处理特定路径
-    if (!url.pathname.startsWith('/api/')) {
+    if (!url.pathname.startsWith('/')) {
         return new Response('Not Found', { status: 404 });
     }
     
     // 构建目标URL
-    const targetUrl = `https://jwxt.neuq.edu.cn${url.pathname.replace('/api', '')}${url.search}`;
+    const targetUrl = `https://jwxt.neuq.edu.cn${url.pathname.replace('/', '')}${url.search}`;
     
     // 修改请求头
     const headers = new Headers(request.headers);

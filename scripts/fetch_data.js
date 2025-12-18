@@ -14,7 +14,7 @@ class NEUQJWXTClient {
 
         this.client = wrapper(axios.create({
             jar,
-            baseURL: "/api/eams",  // 通过Cloudflare Pages Functions代理
+            baseURL: "/eams",  // 通过Cloudflare Pages Functions代理
             timeout: 30000,
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
