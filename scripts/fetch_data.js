@@ -5,25 +5,19 @@ const cheerio = require("cheerio");
 const CryptoJS = require("crypto-js");
 const fs = require("fs");
 const path = require("path");
-const dns = require('dns');
 
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 class NEUQJWXTClient {
     constructor() {
         const jar = new CookieJar();
-        dns.setServers(['8.8.8.8', '1.1.1.1', '114.114.114.114', '223.5.5.5']);
 
         this.client = wrapper(axios.create({
             jar,
-            baseURL: "https://jwxt.neuq.edu.cn/eams",
-            timeout: 20000, 
+            baseURL: "/api/eams",  // 通过Cloudflare Pages Functions代理
+            timeout: 30000,
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
-            },
-            family: 4,
-            lookup: (hostname, options, callback) => {
-                dns.lookup(hostname, { ...options, family: 4, hints: dns.ADDRCONFIG }, callback);
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
             }
         }));
     }
