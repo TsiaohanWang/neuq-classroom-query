@@ -550,8 +550,13 @@
   },
   {
     "content": "<p lang=\"de\" style=\"font-size: 85%;\"><i>Wer viel einst zu verkünden hat, schweigt viel in sich hinein. Wer einst den Blitz zu zünden hat, muß lange Wolke sein.</i></p>",
-    "description": "出自〔德〕弗里德里希·尼采（Friedrich Nietzsche）。",
+    "description": "出自〔德〕弗里德里希·尼采（德语：Friedrich Nietzsche）。",
     "translation": "谁终将声震人间，必长久深自缄默；谁终将点燃闪电，必长久如云漂泊。"
+  },
+  {
+    "content": "<p lang=\"de\" style=\"font-size: 80%;\"><i>Wer unter Menschen zu leben hat, darf keine Individualität, sofern sie doch einmal von der Natur gesetzt und gegeben ist, unbedingt verwerfen; auch nicht die schlechteste, erbärmlichste oder lächerlichste.</i></p>",
+    "description": "出自〔德〕亚瑟·叔本华（德语：Arthur Schopenhauer）《人生智慧箴言》（德语：Aphorismen zur Lebensweisheit）。",
+    "translation": "谁要是生活在人群中，就不应该绝对地拒绝和摒弃任何一个人——只要这个人是大自然定下和给出的作品，哪怕这是个最卑劣、最可鄙、最可笑的人。"
   },
   {
     "content": "<p lang=\"de\"><i>Wir müssen wissen, wir werden wissen.</i></p>",
