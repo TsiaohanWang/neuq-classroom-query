@@ -130,7 +130,7 @@ body {
   background-color: var(--container-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-radius: 16px;
+  border-radius: 10px;
   border: 1px solid var(--info-box-border);
   box-shadow: var(--container-shadow);
   overflow: hidden;

@@ -402,19 +402,24 @@
     "translation": "如果再也不能见到你，祝你早安，午安，晚安。"
   },
   {
-    "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Every sha-la-la-la / Every wo-o-wo-o / Still shines<br>Every shing-a-ling-a-ling / That they're starting to sing / So fine</i></p>",
+    "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>♪Every sha-la-la-la / Every wo-o-wo-o / Still shines♪<br>♪Every shing-a-ling-a-ling / That they're starting to sing / So fine♪</i></p>",
     "description": "出自卡朋特乐队（Carpenters）演唱的歌曲《昨日重现》（Yesterday Once More）。",
     "translation": "每段旋律 / 每个音符 / 依旧闪亮 / 每个迷人的音节 / 重新又响起 / 感觉多么美妙"
   },
   {
-    "content": "<p lang=\"en\"><i>Daisy, Daisy, give me your answer do.</i></p>",
+    "content": "<p lang=\"en\"><i>♪Daisy, Daisy, give me your answer do♪</i></p>",
     "description": "出自英国作曲家哈利·戴克尔（Harry Dacre）于1892年创作的歌曲《Daisy Bell》。",
     "translation": "黛西，黛西，给我你的答复。"
   },
   {
-    "content": "<p lang=\"en\"><i>Fly me to the moon And let me play among the stars</i></p>",
+    "content": "<p lang=\"en\"><i>♪Fly me to the moon And let me play among the stars♪</i></p>",
     "description": "出自美国作曲家巴特·霍华德（Bart Howard）创作的歌曲《带我飞向月球》（Fly Me to the Moon）。",
     "translation": "带我飞向月球，让我在群星之间演奏。"
+  },
+  {
+    "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>♪Hey Jude, don't make it bad♪<br>♪Take a sad song and make it better♪</i></p>",
+    "description": "出自英国摇滚乐队披头士（The Beatles）演唱的歌曲《嘿，朱迪》（Hey Jude）。",
+    "translation": "嘿，朱迪，别难过 / 纵使是忧伤的歌，也总能欢快地唱"
   },
   {
     "content": "<p lang=\"en\" style=\"font-size: 85%;\"><i>The will to keep living... The resolve to change fate.<br>Let's call this power...<br>\"Determination.\"</i></p>",
