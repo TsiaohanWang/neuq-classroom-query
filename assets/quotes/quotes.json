@@ -292,6 +292,11 @@
     "translation": "当漫长的冬夜来临，狼群追逐着猎物进入地势较低的山谷时，人们或许能看到他领着狼群，在苍白的月光或微光闪烁的北极光下奔驰。他巨大的身躯一跃而起，超越了同伴，喉中发出洪亮的咆哮，吟唱着一首来自远古世界的歌，那也正是整个狼群的歌。"
   },
   {
+    "content": "<p lang=\"en\"><i>Fairy tales are more than true: not because they tell us that dragons exist, but because they tell us dragons can be beaten.</i></p>",
+    "description": "出自〔英〕尼尔·盖曼（Neil Gaiman）的《鬼妈妈》（Coraline）。",
+    "translation": "童话比现实更真实：并非因为它们告诉我们恶龙存在，而是因为它们告诉我们恶龙可以被战胜。"
+  },
+  {
     "content": "<p lang=\"en\"><i>No man or woman is worth your tears, and the one who is, won’t make you cry.</i></p>",
     "description": "出自〔巴西〕保罗·科埃略（葡萄牙语：Paulo Coelho）的《牧羊少年奇幻之旅》（葡萄牙语：O Alquimista）。",
     "translation": "没有人值得你流泪，而值得你流泪的人不会让你哭泣。"
@@ -380,6 +385,11 @@
     "content": "<p lang=\"en\" style=\"font-size: 85%;\"><i>There were lots of things I wanted to make up to you when you returned from Vietnam.<br>But you didn’t.</i></p>",
     "description": "出自署名为 Merrill Glass 的一位美国妇女所作的诗《但是你没有》（But You Didn't）。",
     "translation": "等你从越南回来，我有很多事想补偿你。/ 但是你没有。"
+  },
+  {
+    "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>THEN THEY CAME for me,<br>and by that time no one was left to speak up.</i></p>",
+    "description": "出自〔德〕马丁·尼莫勒（德语：Martin Niemöller）的《起初他们……》（德语：Zuerst kamen sie...）。",
+    "translation": "最后当他们来抓我时，/ 再也没有人站起来为我说话了。"
   },
   {
     "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>You see things; and you say 'Why?' But I dream things that never were; and I say 'Why not?'</i></p>",
@@ -546,6 +556,11 @@
     "content": "<p lang=\"ja\">日々私たちが過ごしている日常は、実は、奇跡の連続なのかもしれない。</p>",
     "description": "出自日本漫画家新井圭一（日语：あらゐ けいいち）创作的漫画《日常》。",
     "translation": "我们所经历的每个平凡的日常，也许就是连续发生的奇迹。"
+  },
+  {
+    "content": "<p lang=\"ja\" style=\"font-size: 70%;\"><b>シンジ</b>「じゃあ僕の夢はどこ？」<br><b>レイ</b>「それは現実の続き」<br><b>シンジ</b>「僕の現実はどこ？」<br><b>レイ</b>「それは夢の終わりよ」</p>",
+    "description": "出自日本动画电影《新世纪福音战士剧场版：Air/真心为你》（日语：新世紀エヴァンゲリオン劇場版 Air/まごころを、君に）。",
+    "translation": "真嗣：“那么，我的梦在哪里？”/ 丽：“那是现实的延续。”/ 真嗣：“我的现实在哪里？”/ 丽：“那是梦的终结。”"
   },
 
   {
