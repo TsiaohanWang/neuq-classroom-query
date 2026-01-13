@@ -112,7 +112,7 @@
     "description": "出自近现代毛泽东的《七律·人民解放军占领南京》。"
   },
   {
-    "content": "<p lang=\"zh\">春天到了，百花竞放，西花厅的海棠花又盛开了。看花的主人已经走了，走了12年了，离开了我们，他不再回来了。</p>",
+    "content": "<p lang=\"zh\" style=\"font-size: 85%;\">春天到了，百花竞放，西花厅的海棠花又盛开了。看花的主人已经走了，走了12年了，离开了我们，他不再回来了。</p>",
     "description": "出自邓颖超的《从西花厅海棠花忆起》。"
   },
   {
@@ -122,6 +122,10 @@
   {
     "content": "<p lang=\"zh\" style=\"font-size: 85%;\">上帝不许诺光荣与福乐，但上帝保佑你的希望。人不可以逃避苦难，亦不可以放弃希望——恰是在这样的意义上，上帝存在。</p>",
     "description": "出自史铁生的《病隙碎笔》。"
+  },
+  {
+    "content": "<p lang=\"zh\" style=\"font-size: 90%;\">不幸的是，你知道的太多了，思考的太多了，因此才有了这种不能为周围人所理解的苦恼……</p>",
+    "description": "出自路遥的《平凡的世界》。"
   },
   {
     "content": "<p lang=\"zh\" style=\"font-size: 75%;\">我们的父母是恒星，我们回家，他们永远是在的；我们的朋友是行星，有的时候来，有的时候去，但是他们也是天空中的星；那么流星我把它看为哪一种人呢？我把它看为在我们生命中擦肩而过的，一些可能你今生再也不会碰到的人，我将他们叫做流星。</p>",
@@ -394,6 +398,11 @@
     "translation": "那是幻象，还是清醒的梦？/ 音乐已逝——我究竟是清醒，还是睡着？"
   },
   {
+    "content": "<p lang=\"en\" style=\"font-size: 65%;\"><i>I'm nobody! Who are you?<br>Are you nobody, too?<br>Then there's a pair of us — don't tell!<br>They'd banish us, you know.</i></p>",
+    "description": "出自〔美〕艾米莉·狄金森（Emily Dickinson）的《我是无名之辈，你呢？》（I'm Nobody! Who are you?）。",
+    "translation": "我是个无名之辈，你呢？/ 你也是无名之辈吗？/ 那我们可是天生一对。嘘！别告诉别人！/ 你知道，他们会把我们赶出去的。"
+  },
+  {
     "content": "<p lang=\"en\" style=\"font-size: 85%;\"><i>There were lots of things I wanted to make up to you when you returned from Vietnam.<br>But you didn’t.</i></p>",
     "description": "出自署名为 Merrill Glass 的一位美国妇女所作的诗《但是你没有》（But You Didn't）。",
     "translation": "等你从越南回来，我有很多事想补偿你。/ 但是你没有。"
@@ -457,6 +466,11 @@
     "content": "<p lang=\"en\" style=\"font-size: 70%;\"><i>And the game was over and the player woke up from the dream. And the player began a new dream. And the player dreamed again, dreamed better. And the player was the universe. And the player was love.<br>You are the player.<br>Wake up.</i></p>",
     "description": "出自朱利安·高夫（Julian Gough）为电子游戏《我的世界》（Minecraft）创作的长文《终末之诗》（End Poem）。",
     "translation": "曲终人散，黄粱一梦。玩家开始了新的梦境。玩家再次做起了梦，更好的梦。玩家就是宇宙。玩家就是爱。/ 你就是那个玩家。/ 醒来吧。"
+  },
+  {
+    "content": "<p lang=\"en\" style=\"font-size: 80%;\"><i>A man goes into a shop and asks \"You don't have any meat?\" \"No,\" replies the sales lady, \"We don't have any fish. It's the store across the street that doesn't have any meat.\"</i></p>",
+    "description": "出自美国中情局《呈报给中央情报局副局长的苏联笑话》（Soviet Jokes for the DDCI）。",
+    "translation": "一个人走进一家商店问：“你们这儿没有肉吗？”“不，”女售货员回答，“我们这儿是没有鱼。街对面那家才是没有肉的店。”"
   },
   {
     "content": "<p lang=\"en\" style=\"font-size: 60%;\"><i>Moreover, finding some Truths, and not commonly-believed Opinions, to arise from my Meditations upon these neglected Papers, I proceeded further, to consider what benefit the knowledg of the same would bring to the World; that I might not engage my self in idle, and useless Speculations: but, ... present the World with some real Fruit from those airy Blossoms.</i></p>",
