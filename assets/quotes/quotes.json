@@ -1,5 +1,9 @@
 [
   {
+    "content": "<p lang=\"zh\">知我者，谓我心忧，不知我者，谓我何求。</p>",
+    "description": "出自先秦《诗经·国风·王风·黍离》。"
+  },
+  {
     "content": "<p lang=\"zh\">经传之文，贤圣之语，古今言殊，四方谈异也。</p>",
     "description": "出自东汉王充的《论衡·卷三十·自纪篇》。"
   },
@@ -105,11 +109,15 @@
   },
   {
     "content": "<p lang=\"zh\">待到山花烂漫时，她在丛中笑。</p>",
-    "description": "出自近现代毛泽东的《卜算子·咏梅》。"
+    "description": "出自毛泽东的《卜算子·咏梅》。"
   },
   {
     "content": "<p lang=\"zh\">天若有情天亦老，人间正道是沧桑。</p>",
-    "description": "出自近现代毛泽东的《七律·人民解放军占领南京》。"
+    "description": "出自毛泽东的《七律·人民解放军占领南京》。"
+  },
+  {
+    "content": "<p lang=\"zh\">愿相会于中华腾飞世界时。</p>",
+    "description": "出自周恩来。"
   },
   {
     "content": "<p lang=\"zh\" style=\"font-size: 85%;\">春天到了，百花竞放，西花厅的海棠花又盛开了。看花的主人已经走了，走了12年了，离开了我们，他不再回来了。</p>",
@@ -198,6 +206,11 @@
     "translation": "生存还是毁灭，这是个问题。"
   },
   {
+    "content": "<p lang=\"en\"><i>Shall I compare thee to a summer's day?</i></p>",
+    "description": "出自〔英〕莎士比亚（Shakespeare）的第十八首十四行诗（Sonnet 18）。",
+    "translation": "我能否将你比作夏日？"
+  },
+  {
     "content": "<p lang=\"en\" style=\"font-size: 80%;\"><i>But what experience and history teach is this — that peoples and governments never have learned anything from history, or acted on principles deduced from it.</i></p>",
     "description": "出自〔德〕黑格尔（Hegel）的《历史哲学》（The Philosophy of History）。",
     "translation": "但经验和历史所教导我们的，是人民和政府从未从历史中学到任何东西，亦未根据历史得出的原则行事。"
@@ -211,6 +224,16 @@
     "content": "<p lang=\"en\" style=\"font-size: 75%;\"><i>Infantile love follows the principle: “I love because I am loved.” Mature love follows the principle: “I am loved because I love.” Immature love says: “I love you because I need you.” Mature love says: “I need you because I love you.”</i></p>",
     "description": "出自〔美〕艾里希·弗罗姆（Erich Fromm）的《爱的艺术》（The Art of Loving）。",
     "translation": "幼稚的爱遵循这样的原则：“我爱是因为我被爱。”成熟的爱遵循这样的原则：“我被爱是因为我爱。”不成熟的爱说：“我爱你是因为我需要你。”成熟的爱说：“我需要你因为我爱你。”"
+  },
+  {
+    "content": "<p lang=\"en\"><i>Into a house where a heart is hard cometh there not always a bitter wind?</i></p>",
+    "description": "出自〔爱尔兰〕奥斯卡·王尔德（Oscar Wilde）的《星孩》（The Star-Child）。",
+    "translation": "进入一座心肠坚硬的房子，岂不总会吹来刺骨寒风？"
+  },
+  {
+    "content": "<p lang=\"en\" style=\"font-size: 75%;\"><i>A map of the world that does not include Utopia is not worth even glancing at, for it leaves out the one country at which Humanity is always landing. And when Humanity lands there, it looks out, and, seeing a better country, sets sail. Progress is the realisation of Utopias.</i></p>",
+    "description": "出自〔爱尔兰〕奥斯卡·王尔德（Oscar Wilde）的《社会主义下人的灵魂》（The Soul of Man Under Socialism）。",
+    "translation": "一张没有乌托邦的世界地图根本不值一顾，因为它缺少一个人类终将登陆的国度。当人类在那里登陆后，四处眺望，又会找到一个更好的国度，于是再次起航。所谓进步，就是去实现乌托邦。"
   },
   {
     "content": "<p lang=\"en\" style=\"font-size: 75%;\"><i>And I'm standing on the edge of some crazy cliff. What I have to do, I have to catch everybody if they start to go over the cliff - I mean if they're running and they don't look where they're going I have to come out from somewhere and catch them.</i></p>",
@@ -423,6 +446,11 @@
     "translation": "艾琳：当我们死人醒来时。/ 鲁贝克教授：[凄然摇头。]那时我们究竟会看见什么？/ 艾琳：我们会看见，我们从未活过。"
   },
   {
+    "content": "<p lang=\"en\" style=\"font-size: 70%;\"><i>I don't say he's a great man. Willy Loman never made a lot of money. His name was never in the paper. He's not the finest character that ever lived. But he's a human being, and a terrible thing is happening to him. So attention must be paid. He's not to be allowed to fall into his grave like an old dog. Attention, attention must be finally paid to such a person.</i></p>",
+    "description": "出自〔美〕阿瑟·米勒（Arthur Miller）的《推销员之死》（Death of a Salesman）。",
+    "translation": "我没说他是个伟大的人。威利·洛曼从没赚过大钱。他的名字也从没上过报纸。他不是那种世界上最好的人。但他是一个人，而可怕的事情正在发生在他身上。所以必须有人关注他。不能让他像一条老狗那样死在坟墓里。必须关注，一定要对这样的人予以关注。"
+  },
+  {
     "content": "<p lang=\"en\" style=\"font-size: 90%;\"><i>Money is the McMansion in Sarasota that starts falling apart after 10 years. Power is the old stone building that stands for centuries.</i></p>",
     "description": "出自 Netflix 电视连续剧《纸牌屋》（House of Cards）第一季。",
     "translation": "金钱是那虚有其表的豪宅，十年光景便会分崩离析；权力是那根基稳固的石砌建筑，能矗立数个世纪。"
@@ -546,11 +574,11 @@
 
   {
     "content": "<p lang=\"ja\">君たちはどう生きるか</p>",
-    "description": "〔日〕吉野源三郎（日语：吉野 源三郎）的《你想活出怎样的人生》日语原标题。"
+    "description": "〔日〕吉野源三郎（日语：吉野源三郎）的《你想活出怎样的人生》日语原标题。"
   },
   {
     "content": "<p lang=\"ja\">露の世は 露の世ながら さりながら</p>",
-    "description": "出自〔日〕小林一茶（日语：小林 一茶）。",
+    "description": "出自〔日〕小林一茶（日语：小林一茶）。",
     "translation": "我知这世界，本如露水般短暂。然而，然而。"
   },
   {
@@ -559,23 +587,28 @@
     "translation": "生死去来，棚头傀儡。一线断时，落落磊磊。"
   },
   {
-    "content": "<p lang=\"ja\" style=\"font-size: 90%;\">しかし人間の憎悪や歪みを知り尽くした目だった。真の冷徹さともいうべき鈍い光が宿っていた。</p>",
-    "description": "出自〔日〕东野圭吾（日语：東野 圭吾）的《白夜行》（日语：白夜行）。",
-    "translation": "那是一双看尽人性丑恶的眼睛，一种堪称真正冷静清澈的光静静地栖息其中。"
+    "content": "<p lang=\"ja\" style=\"font-size: 85%;\">なにがしあわせかわからないです。ほんとうにどんなつらいことでもそれがただしいみちを進む中でのできごとなら、峠の上りも下りもみんなほんとうの幸福に近づく一あしずつですから。</p>",
+    "description": "出自〔日〕宫泽贤治（日语：宮沢賢治）的《银河铁道之夜》（日语：銀河鉄道の夜）。",
+    "translation": "其实我们并不清楚什么是幸福。但只要你走在正确的道路上，无论经历多么痛苦的事，上坡也好，下坡也罢，都是一步步接近真正幸福的脚步。"
   },
   {
     "content": "<p lang=\"ja\">国境の長いトンネルを抜けると雪国であった。夜の底が白くなった。</p>",
-    "description": "出自〔日〕川端康成（日语：川端 康成）的《雪国》（日语：雪国）。",
+    "description": "出自〔日〕川端康成（日语：川端康成）的《雪国》（日语：雪国）。",
     "translation": "穿过长长的国境隧道，便是雪国。夜空下，大地一片莹白。"
+  },
+    {
+    "content": "<p lang=\"ja\" style=\"font-size: 90%;\">しかし人間の憎悪や歪みを知り尽くした目だった。真の冷徹さともいうべき鈍い光が宿っていた。</p>",
+    "description": "出自〔日〕东野圭吾（日语：東野圭吾）的《白夜行》（日语：白夜行）。",
+    "translation": "那是一双看尽人性丑恶的眼睛，一种堪称真正冷静清澈的光静静地栖息其中。"
   },
   {
     "content": "<p lang=\"ja\" style=\"font-size: 65%;\">「昔の世界は男と女ではなく、男男と男女と女女によって成立していた。つまり今の二人ぶんの素材でひとりの人間ができていたんだ。それでみんな満足して、こともなく暮らしていた。ところが神様が刃物を使って全員を半分に割ってしまった。きれいにまっぷたつに。その結果、世の中は男と女だけになり、人々はあるべき残りの半身をもとめて、右往左往しながら人生を送るようになった」</p>",
-    "description": "出自〔日〕村上春树（日语：村上 春樹）的《海边的卡夫卡》（日语：海辺のカフカ）。",
+    "description": "出自〔日〕村上春树（日语：村上春樹）的《海边的卡夫卡》（日语：海辺のカフカ）。",
     "translation": "“过去的世界不是由男人和女人构成的，而是由男男、男女和女女构成的。也就是说，当时的一个人是用现在两个人的材料做成的。因此，大家都很满足，过着无忧无虑的生活。然而，神明却用刀把所有人都分成了两半。整整齐齐地一分为二。结果，世界就只剩下男人和女人，人们为了寻找自己应有的另一半，开始了迷茫奔波的人生。”"
   },
   {
     "content": "<p lang=\"ja\">ねこは、白いねことたくさんの子ねこを、自分よりもすきなくらいでした。</p>",
-    "description": "出自〔日〕佐野洋子（日语：佐野 洋子）的《活了一百万次的猫》（日语：１００万回生きたねこ）。",
+    "description": "出自〔日〕佐野洋子（日语：佐野洋子）的《活了一百万次的猫》（日语：１００万回生きたねこ）。",
     "translation": "那猫喜欢白猫和小猫们，胜过喜欢自己。"
   },
   {
@@ -620,6 +653,11 @@
     "translation": "在你与世界的斗争中，站在世界一边。"
   },
 
+  {
+    "content": "<p lang=\"es\" style=\"font-size: 80%;\"><i>Mire vuestra merced, respondio Sancho, que aquellos que alli se parecen no son Gigantes, sino molinos de viento, y lo que en ellos parecen braços, son las aspas, que bolteadas del viento, hazen andar la piedra del molino.</i></p>",
+    "description": "出自〔西〕米格尔·德·塞万提斯（西班牙语：Miguel de Cervantes）的《堂吉诃德》（西班牙语：Don Quijote de la Mancha）。",
+    "translation": "“老爷您瞧，”桑丘答道，“那边看起来像巨人的东西，其实不是巨人，而是风车；它们上面那些像长胳膊的，是风车的翼板，给风吹动了就能带动石磨转动。”"
+  },
   {
     "content": "<p lang=\"es\" style=\"font-size: 80%;\"><i>—Es más fácil imaginar la muerte de una persona que la de cien o mil —murmuró el Barón—. Multiplicado, el sufrimiento se vuelve abstracto. No es fácil conmoverse por cosas abstractas.</i></p>",
     "description": "出自〔秘鲁〕马里奥·巴尔加斯·略萨（西班牙语：Mario Vargas Llosa）的《世界末日之战》（西班牙语：La guerra del fin del mundo）。",
