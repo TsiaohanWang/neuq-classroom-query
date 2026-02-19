@@ -164,10 +164,6 @@
     "description": "出自〔美〕保罗·卡拉尼什（Paul Kalanithi）的《当呼吸化为空气》（When Breath Becomes Air）。"
   },
   {
-    "content": "<p lang=\"zh\" style=\"font-size: 90%;\">世上每个人都是被上帝咬过一口的苹果，都是有缺陷的人。有的人缺陷比较大，是因为上帝特别喜欢他的芬芳。</p>",
-    "description": "出自佚名的《风筝一样的故事》。"
-  },
-  {
     "content": "<p lang=\"zh-Hant\" style=\"font-size: 90%;\">吾言即是万人声 褒貶毀誉委世評<br>請看百年青史上 正邪曲直自分明</p>",
     "description": "出自〔日〕斋藤隆夫（日语：斎藤 隆夫）发表《反军演说》（日语：反軍演説）后所作汉诗。"
   },
@@ -206,6 +202,10 @@
   {
     "content": "<p lang=\"zh\" style=\"font-size: 90%;\">这短短的一生，我们最终都会失去。你不妨大胆一些，爱一个人，攀一座山，追一个梦。</p>",
     "description": "出自动画电影《大鱼海棠》。"
+  },
+  {
+    "content": "<p lang=\"zh\">♪我仍然在无人问津的阴雨霉湿之地♪<br>♪和着雨音 唱着没有听众的歌曲♪</p>",
+    "description": "出自COP投稿、乐正绫演唱的VOCALOID中文歌曲《世末歌者》。"
   },
   {
     "content":"<p lang=\"zh\">十 百 千 万 亿 兆 京 垓 秭 穰 沟 涧 正 载 极<br>恒河沙 阿僧秪 那由他 不可思议 无量数</p>",
@@ -260,6 +260,11 @@
     "content": "<p lang=\"en\" style=\"font-size: 65%;\"><i>Yesterday has already vanished among the shadows of the past; to-morrow has not yet emerged from the future. You have found an intermediate space, where the business of life does not intrude; where the passing moment lingers, and becomes truly the present; a spot where Father Time, when he thinks nobody is watching him, sits down by the wayside to take breath. O that he would fall asleep, and let mortals live on without growing older!</i></p>",
     "description": "出自〔美〕纳撒尼尔·霍桑（Nathaniel Hawthorne）的《幽魂》（The Haunted Mind）。",
     "translation": "昨日已逝，隐于过往的阴影；明日未至，仍孕育于未来之中。你寻得一处两者之间的所在，那里，俗世的纷扰无法侵入；那里，飞逝的瞬间得以逗留，成为真正的当下；在那里，时间老人以为无人注视，便会于路旁坐下，稍作喘息。噢，愿他能就此沉沉睡去，让凡人长生，岁月无增！"
+  },
+  {
+    "content": "<p lang=\"en\" style=\"font-size: 70%;\"><i>No history is mute. No matter how much they burn it, break it and lie about it, human history refuses to shut its mouth. Despite deafness and ignorance, the time that was continues to tick inside the time that is.</i></p>",
+    "description": "出自〔乌拉圭〕爱德华多·加莱亚诺（西班牙语：Eduardo Galeano）的《颠倒看世界》（西班牙语：Patas Arriba: la Escuela del Mundo al Revés）。",
+    "translation": "历史从未哑言。无论他们怎样焚烧、摧残、歪曲，人类历史都拒绝缄口。尽管有聋聩与无知，往昔的时光仍在当下的时光里滴答作响。"
   },
   {
     "content": "<p lang=\"en\" style=\"font-size: 65%;\"><i>Working at the edge of the development of human society is to work on the brink of the unknown. Much of what is done will one day prove to have been of little avail. That is no excuse for the failure to act in accordance with our best understanding, in recognition of its limits but with faith in the ultimate result of the creative evolution in which it is our privilege to cooperate.</i></p>",
