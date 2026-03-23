@@ -196,6 +196,10 @@
     "description": "出自海子的《面朝大海，春暖花开》。"
   },
   {
+    "content": "<p lang=\"zh\" style=\"font-size: 80%;\">含着泪 我一读再读<br>却不得不承认<br>青春是一本太仓促的书</p>",
+    "description": "出自席慕容的《青春》。"
+  },
+  {
     "content": "<p lang=\"zh\" style=\"font-size: 90%;\">我摔了一跟头比这厉害，不说摔出点儿国际水平，起码也摔入世界先进行列。</p>",
     "description": "出自姜昆、梁左创作，姜昆、唐杰忠表演的相声《虎口遐想》台词。"
   },
@@ -560,6 +564,11 @@
     "content": "<p lang=\"fr\" style=\"font-size: 90%;\"><i>Vrai ou faux, ce qu'on dit des hommes tient souvent autant de place dans leur vie et souvent dans leur destinée que ce qu'ils font.</i></p>",
     "description": "出自〔法〕维克多·雨果（法语：Victor Hugo）的《悲惨世界》（法语：Les Misérables）。",
     "translation": "无论真假，人们对一个人的议论，常常比他本人的作为更能影响他的生活，特别是他的命运。"
+  },
+  {
+    "content": "<p lang=\"fr\" style=\"font-size: 90%;\"><i>Nous sommes des enfants, mais des enfants progressifs, pleins de force et de courage.</i></p>",
+    "description": "出自〔法〕埃瓦里斯特·伽罗瓦（法语：Évariste Galois）。",
+    "translation": "我们是孩子，但我们精力充沛，勇往直前。"
   },
   {
     "content": "<p lang=\"fr\" style=\"font-size: 75%;\"><i>Je n’ai qu’une passion, celle de la lumière, au nom de l’humanité qui a tant souffert et qui a droit au bonheur. Ma protestation enflammée n’est que le cri de mon âme. Qu’on ose donc me traduire en cour d’assises et que l’enquête ait lieu au grand jour !</i></p>",
