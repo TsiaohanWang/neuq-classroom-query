@@ -192,6 +192,10 @@
     "description": "出自顾城的《一代人》。"
   },
   {
+    "content": "<p lang=\"zh\">卑鄙是卑鄙者的通行证 / 高尚是高尚者的墓志铭</p>",
+    "description": "出自北岛的《回答》。"
+  },
+  {
     "content": "<p lang=\"zh\">我有一所房子，面朝大海，春暖花开</p>",
     "description": "出自海子的《面朝大海，春暖花开》。"
   },
@@ -224,6 +228,11 @@
     "content": "<p lang=\"en\"><i>To be or not to be, that is the question.</i></p>",
     "description": "出自〔英〕莎士比亚（Shakespeare）的《哈姆雷特》（Hamlet）。",
     "translation": "生存还是毁灭，这是个问题。"
+  },
+  {
+    "content": "<p lang=\"en\"><i>Love all, trust a few, do wrong to none.</i></p>",
+    "description": "出自〔英〕莎士比亚（Shakespeare）的《终成眷属》（All's Well That Ends Well）。",
+    "translation": "爱所有人，信任少数人，不负任何人。"
   },
   {
     "content": "<p lang=\"en\"><i>Shall I compare thee to a summer's day?</i></p>",
