@@ -9,6 +9,243 @@
     <title>东秦空闲教室总表</title>
 
     <script>
+        const LINK_URL = "https://neuq.tsiao.io";
+        const LINK_TEXT = "前往新网站";
+        const POPUP_TITLE = "🔔公告";
+        const POPUP_MESSAGE = "由于本域名到期续费受阻，本站将不再更新数据。请前往新网站查看后续最新的空闲教室信息。";
+        const CLOSE_BUTTON_TEXT = "暂不跳转";
+    </script>
+    <style id="custom-modal-style">
+        .cm-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, .55);
+            backdrop-filter: blur(4px);
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            animation: cmFadeIn .25s ease-out;
+        }
+
+        .cm-overlay.closing {
+            opacity: 0;
+            transition: opacity .2s ease;
+        }
+
+        .cm-card {
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+            padding: 2rem 1.6rem 1.8rem;
+            background: #fff;
+            border-radius: 1.5rem;
+            text-align: center;
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, .35);
+            animation: cmSlideUp .25s ease-out;
+        }
+
+        .cm-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 .6rem;
+            color: #0f172a;
+        }
+
+        .cm-card p {
+            font-size: .95rem;
+            color: #475569;
+            line-height: 1.55;
+            margin: 0 0 1.5rem;
+            text-align: justify;
+            white-space: pre-line;
+        }
+
+        .cm-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .7rem;
+            justify-content: center;
+        }
+
+        .cm-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            min-width: 130px;
+            padding: .65rem 1.2rem;
+            border-radius: 2.5rem;
+            font-size: .9rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform .15s, box-shadow .15s, background .15s;
+        }
+
+        .cm-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .cm-btn:active {
+            transform: translateY(0);
+        }
+
+        .cm-btn-primary {
+            background: #3b82f6;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, .35);
+            text-decoration: none;
+        }
+
+        .cm-btn-primary:hover {
+            background: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, .4);
+        }
+
+        .cm-btn-ghost {
+            background: #f1f5f9;
+            color: #334155;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .06);
+        }
+
+        .cm-btn-ghost:hover {
+            background: #e2e8f0;
+        }
+
+        .cm-close {
+            position: absolute;
+            top: .6rem;
+            right: 1rem;
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: #94a3b8;
+            cursor: pointer;
+            line-height: 1;
+            transition: color .15s;
+            background: none;
+            border: none;
+            padding: .3rem;
+        }
+
+        .cm-close:hover {
+            color: #ef4444;
+        }
+
+        @keyframes cmFadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes cmSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        html.dark .cm-card {
+            background: #1e1e2e;
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, .6);
+        }
+
+        html.dark .cm-card h3 {
+            color: #e2e8f0;
+        }
+
+        html.dark .cm-card p {
+            color: #94a3b8;
+        }
+
+        html.dark .cm-btn-primary {
+            background: #4f46e5;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, .3);
+        }
+
+        html.dark .cm-btn-primary:hover {
+            background: #6366f1;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, .4);
+        }
+
+        html.dark .cm-btn-ghost {
+            background: #334155;
+            color: #cbd5e1;
+        }
+
+        html.dark .cm-btn-ghost:hover {
+            background: #475569;
+        }
+
+        html.dark .cm-close {
+            color: #64748b;
+        }
+
+        html.dark .cm-close:hover {
+            color: #f87171;
+        }
+    </style>
+    <script>
+        (function () {
+            const styleEl = document.getElementById('custom-modal-style');
+
+            function createModal() {
+                const overlay = document.createElement('div');
+                overlay.className = 'cm-overlay';
+
+                const card = document.createElement('div');
+                card.className = 'cm-card';
+                card.innerHTML = `<h3>${POPUP_TITLE}</h3><p>${POPUP_MESSAGE}</p>
+                    <div class="cm-actions">
+                        <a href="${LINK_URL}" target="_blank" rel="noopener noreferrer" class="cm-btn cm-btn-primary">${LINK_TEXT}</a>
+                        <button class="cm-btn cm-btn-ghost">${CLOSE_BUTTON_TEXT}</button>
+                    </div>
+                    <button class="cm-close">&times;</button>`;
+
+                const close = () => {
+                    overlay.classList.add('closing');
+                    document.body.style.overflow = '';
+                    setTimeout(() => {
+                        document.removeEventListener('keydown', escHandler);
+                        overlay.remove();
+                        if (!document.querySelector('.cm-overlay')) styleEl.remove();
+                    }, 200);
+                };
+
+                card.querySelector('.cm-close').onclick = close;
+                card.querySelector('.cm-btn-ghost').onclick = close;
+                card.querySelector('.cm-btn-primary').onclick = () => setTimeout(close, 80);
+                overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+
+                const escHandler = e => { if (e.key === 'Escape') close(); };
+                document.addEventListener('keydown', escHandler);
+
+                overlay.appendChild(card);
+                return overlay;
+            }
+
+            function showModal() {
+                if (document.querySelector('.cm-overlay')) return;
+                document.body.style.overflow = 'hidden';
+                document.body.appendChild(createModal());
+            }
+
+            if (document.readyState === 'complete') showModal();
+            else window.addEventListener('load', showModal);
+        })();
+    </script>
+
+    <script>
         // 检查系统偏好并为 <html> 标签添加 'dark' 类
         (function () {
             try {
@@ -4250,7 +4487,7 @@
                 <p class="info-text">通过 <a href="https://developers.cloudflare.com/workers/">
                         <svg width="1em" height="1em" style="display: inline-block; vertical-align: -0.11em;">
                             <use href="#icon-cloudflare"></use>
-                        </svg>Cloudflare Workers</a>  部署</p>
+                        </svg>Cloudflare Workers</a> 部署</p>
 
                 <p class="info-text">感谢 @<a href="https://github.com/Ferry-200">Ferry-200</a> 的<a
                         href="https://github.com/Ferry-200/neuq-free-classroom">项目</a>提供了优化构建的思路</p>
@@ -4266,7 +4503,7 @@
         </div>
     </div>
 
-    <p class="info-text" style="font-size: 80%;">Ver2.2.0 <a
+    <p class="info-text" style="font-size: 80%;">Ver2.2.1 (deprecated) <a
             href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a>
     </p>
 
