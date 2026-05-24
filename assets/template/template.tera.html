@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" lang="zh-CN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no, email=no, address=no">
+
+    <title>东秦空闲教室总表</title>
+
+    <script>
+        // 检查系统偏好并为 <html> 标签添加 'dark' 类
+        (function () {
+            try {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                }
+            } catch (e) {
+                // 旧版浏览器可能不支持 matchMedia
+            }
+        })();
+    </script>
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+    <link rel="stylesheet" href="/assets/styles/main.css">
+    <link rel="stylesheet" href="/assets/styles/font.css">
+
+    <link rel="stylesheet" href="/assets/styles/{{ background_pattern }}">
+
+    <style></style>
+</head>
+
+<body>
+    <h1><span id="current-date-placeholder">{{ current_date }}</span><svg width="2.2em" height="1.75em"
+            style="display: inline-block; vertical-align: -0.5em;">
+            <use href="#icon-neuq-emblem-core"></use>
+        </svg>空闲教室总表</h1>
+
+    <p class="info-text update-time">
+        <span>本表更新于 <span id="update-time-placeholder">{{ update_time }}</span></span>
+        {{ status_badge_html | safe }}
+    </p>
+
+    <div class="date-switcher">
+        <button id="prev-day-btn" class="date-switcher-btn" onclick="changeDay(-1)" disabled>
+            <svg width="24" height="24">
+                <use href="#icon-chevron-double-left"></use>
+            </svg>
+        </button>
+        <div id="date-display" class="date-display">今天 (MM/DD)</div>
+        <button id="next-day-btn" class="date-switcher-btn" onclick="changeDay(1)">
+            <svg width="24" height="24">
+                <use href="#icon-chevron-double-right"></use>
+            </svg>
+        </button>
+    </div>
+
+    <div class="emergency-info">
+        {{ emergency_content | safe }}
+    </div>
+
+    <div id="days-wrapper">
+        {% for day in days %}
+        <div id="day-{{ day.index }}-content" class="day-content{% if day.index == 0 %} active{% endif %}">
+
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" onclick="openTab(event, 'day-{{ day.index }}-gongxueguan')">工学馆</button>
+                    <button class="tab-button" onclick="openTab(event, 'day-{{ day.index }}-benbuqita')">本部其它</button>
+                    <button class="tab-button" onclick="openTab(event, 'day-{{ day.index }}-nanxiaoqu')">南校区</button>
+                </div>
+
+                {# 工学馆 #}
+                <div id="day-{{ day.index }}-gongxueguan" class="tab-content active">
+                    {% for slot in time_slots %}
+                    <h3 class="timeslot-title" onclick="toggleTable(this)">
+                        <span class="toggle-icon">
+                            <svg width="16" height="16">
+                                <use href="#icon-chevron-down"></use>
+                            </svg>
+                        </span>{{ slot_labels[slot] }}
+                    </h3>
+                    <table border="1" class="gxg-table">
+                        <tbody>
+                            {% for floor in [1, 2, 3, 4, 5, 6, 7] %}
+                            <tr>
+                                <td>{{ floor }}F</td>
+                                <td id="day-{{ day.index }}-GXG{{ floor }}F{{ slot }}">{{ day.gxg[slot][floor] | safe }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endfor %}
+                </div>
+
+                {# 本部其它 #}
+                <div id="day-{{ day.index }}-benbuqita" class="tab-content">
+                    {% for slot in time_slots %}
+                    <h3 class="timeslot-title" onclick="toggleTable(this)">
+                        <span class="toggle-icon">
+                            <svg width="16" height="16">
+                                <use href="#icon-chevron-down"></use>
+                            </svg>
+                        </span>{{ slot_labels[slot] }}
+                    </h3>
+                    <table border="1" class="campus-table">
+                        <tbody>
+                            <tr class="building-name-row">
+                                <td>基础楼</td>
+                                <td>综合实验楼</td>
+                                <td>地质楼</td>
+                                <td>管理楼</td>
+                            </tr>
+                            <tr class="classroom-row">
+                                <td id="day-{{ day.index }}-JCL{{ slot }}">{{ day.jcl[slot] | safe }}</td>
+                                <td id="day-{{ day.index }}-ZHSYL{{ slot }}">{{ day.zhsyl[slot] | safe }}</td>
+                                <td id="day-{{ day.index }}-DZL{{ slot }}">{{ day.dzl[slot] | safe }}</td>
+                                <td id="day-{{ day.index }}-GLL{{ slot }}">{{ day.gll[slot] | safe }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor %}
+                </div>
+
+                {# 南校区 #}
+                <div id="day-{{ day.index }}-nanxiaoqu" class="tab-content">
+                    {% for slot in time_slots %}
+                    <h3 class="timeslot-title" onclick="toggleTable(this)">
+                        <span class="toggle-icon">
+                            <svg width="16" height="16">
+                                <use href="#icon-chevron-down"></use>
+                            </svg>
+                        </span>{{ slot_labels[slot] }}
+                    </h3>
+                    <table border="1" class="campus-table">
+                        <tbody>
+                            <tr class="building-name-row">
+                                <td>科技楼</td>
+                                <td>人文楼</td>
+                            </tr>
+                            <tr class="classroom-row">
+                                <td id="day-{{ day.index }}-KJL{{ slot }}" style="font-size: 13px">{{ day.kjl[slot] | safe }}</td>
+                                <td id="day-{{ day.index }}-RWL{{ slot }}" style="font-size: 13px">{{ day.rwl[slot] | safe }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="collapsible-container">
+        <button class="collapsible-toggle" onclick="toggleClick(this)">
+            <span class="toggle-text">使用须知</span>
+            <svg class="toggle-icon" width="12" height="12">
+                <use href="#icon-chevron-down"></use>
+            </svg>
+        </button>
+        <div class="collapsible-content">
+            <div class="collapsible-inner">
+                <p class="info-text" style="text-align: justify; font-size: 75%;">
+                    [INFO]
+                    <u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示教室全天(1-12节)空闲，<del>删除线</del>表示教室将于下一时段被占用。
+                </p>
+                <p class="info-text" style="text-align: justify; font-size: 75%;">
+                    [INFO]
+                    本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室及某些位于
+                    blacklist
+                    中的教室也不会予以显示。
+                </p>
+                <p class="info-text" style="text-align: justify; font-size: 75%;">
+                    [WARN]
+                    因节假日调休时，教务系统未更新会导致本表无法显示当日正确的教室信息，请使用未来一周内对应信息作为参考（例如，若调休日上周三课程，那么就参考未来一周内周三那天的空教室表）。
+                </p>
+                <p class="info-text" style="text-align: justify; font-size: 75%;">
+                    [WARN]
+                    内容仅供参考，实际请以<a href="https://jwxt.neuq.edu.cn/">教务系统</a>查询结果为准。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="collapsible-container">
+        <button class="collapsible-toggle" onclick="toggleClick(this)">
+            <span class="toggle-text">Credits</span>
+            <svg class="toggle-icon" width="12" height="12">
+                <use href="#icon-chevron-down"></use>
+            </svg>
+        </button>
+        <div class="collapsible-content">
+            <div class="collapsible-inner">
+                <p class="info-text">由 <a href="https://aistudio.xiaomimimo.com/">
+                        <svg width="1em" height="1em" style="display: inline-block; vertical-align: -0.17em;">
+                            <use href="#icon-xiaomi"></use>
+                        </svg>MIMO</a> 和 <a href="https://chat.deepseek.com/">
+                        <svg width="1em" height="1em" style="display: inline-block; vertical-align: -0.15em;">
+                            <use href="#icon-deepseek"></use>
+                        </svg>Deepseek</a> 创建</p>
+
+                <p class="info-text">通过 <a href="https://developers.cloudflare.com/workers/">
+                        <svg width="1em" height="1em" style="display: inline-block; vertical-align: -0.11em;">
+                            <use href="#icon-cloudflare"></use>
+                        </svg>Cloudflare Pages</a> 部署</p>
+
+                <p class="info-text">感谢 @<a href="https://github.com/Ferry-200">Ferry-200</a> 的<a
+                        href="https://github.com/Ferry-200/neuq-free-classroom">项目</a>提供了优化构建的思路</p>
+
+                <p class="info-text">以及 @<a href="https://github.com/subframe7536">subframe7536</a> 制作的 <a
+                        href="https://font.subf.dev/zh-cn/">Maple Mono</a> 字体</p>
+
+                <p class="info-text">和 @<a href="https://github.com/lxgw">LXGW</a> 制作的<a
+                        href="https://github.com/lxgw/LxgwWenKai">霞鹜文楷</a>字体</p>
+
+                <p class="info-text">还有 @<a href="https://www.urongda.com/">urongda</a> 提供的矢量校徽</p>
+            </div>
+        </div>
+    </div>
+
+    <p class="info-text" style="font-size: 80%;">Ver3.0.0 <a
+            href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a>
+    </p>
+
+    <meta name="page-content-hash" content='{{ daily_hashes }}'>
+
+    <script>
+        let currentDay = 0;
+        const totalDays = {{ days | length }};
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateDateDisplay();
+        });
+
+        function changeDay(offset) {
+            const newDay = currentDay + offset;
+
+            if (newDay >= 0 && newDay < totalDays) {
+                document.getElementById('day-' + currentDay + '-content').classList.remove('active');
+
+                currentDay = newDay;
+
+                document.getElementById('day-' + currentDay + '-content').classList.add('active');
+                updateDateDisplay();
+            }
+        }
+
+        function updateDateDisplay() {
+            const today = new Date();
+            const targetDate = new Date();
+            targetDate.setDate(today.getDate() + currentDay);
+
+            const year = targetDate.getFullYear();
+            const month = (targetDate.getMonth() + 1).toString().padStart(2, '0');
+            const day = targetDate.getDate().toString().padStart(2, '0');
+
+            document.getElementById('current-date-placeholder').textContent = `${year}/${month}/${day}`;
+
+            let displayLabel = '';
+            if (currentDay === 0) {
+                displayLabel = `今天 (${month}/${day})`;
+            } else if (currentDay === 1) {
+                displayLabel = `明天 (${month}/${day})`;
+            } else {
+                const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+                displayLabel = `${weekdays[targetDate.getDay()]} (${month}/${day})`;
+            }
+            document.getElementById('date-display').textContent = displayLabel;
+
+            document.getElementById('prev-day-btn').disabled = (currentDay === 0);
+            document.getElementById('next-day-btn').disabled = (currentDay === totalDays - 1);
+        }
+
+        function openTab(evt, tabName) {
+            const tabContainer = evt.currentTarget.closest('.tab-container');
+            if (!tabContainer) return;
+
+            Array.from(tabContainer.getElementsByClassName("tab-content")).forEach(tc => tc.classList.remove("active"));
+            Array.from(tabContainer.getElementsByClassName("tab-button")).forEach(tb => tb.classList.remove("active"));
+
+            const targetTab = document.getElementById(tabName);
+            if (targetTab) {
+                targetTab.classList.add("active");
+            }
+            evt.currentTarget.classList.add("active");
+        }
+
+        function toggleTable(headerElement) {
+            const table = headerElement.nextElementSibling;
+            if (table && table.tagName === 'TABLE') {
+                const icon = headerElement.querySelector('.toggle-icon');
+                if (table.style.display === 'none') {
+                    table.style.display = '';
+                    icon.classList.remove('collapsed');
+                } else {
+                    table.style.display = 'none';
+                    icon.classList.add('collapsed');
+                }
+            }
+        }
+
+        function toggleClick(button) {
+            const container = button.closest('.collapsible-container');
+            if (container) {
+                container.classList.toggle('expanded');
+            }
+        }
+
+        // 异步加载并注入 SVG icons
+        (function () {
+            fetch('/assets/icons/icons.svg')
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(function (svgText) {
+                    var div = document.createElement('div');
+                    div.style.display = 'none';
+                    div.innerHTML = svgText;
+                    document.body.insertBefore(div, document.body.firstChild);
+                })
+                .catch(function (error) {
+                    console.error('Failed to load SVG icons:', error);
+                });
+        })();
+    </script>
+</body>
+
+</html>

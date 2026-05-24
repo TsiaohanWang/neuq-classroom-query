@@ -1,5 +1,20 @@
 # 本地测试需要，暂不提交
-/output-day-*/
+/output/
 /index.html
 
-/node_modules
+/target
+
+# 环境变量文件（包含敏感信息）
+.env
+.env.local
+.env.*.local
+
+# IDE 配置
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS 文件
+.DS_Store
+Thumbs.db

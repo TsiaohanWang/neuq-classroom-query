@@ -1,0 +1,92 @@
+[package]
+name = "neuq-classroom-query"
+version = "3.0.0"
+edition = "2024"
+description = "东北大学秦皇岛分校空闲教室总表"
+authors = ["Tsiaohan Wang"]
+
+[dependencies]
+# HTTP 客户端
+reqwest = { version = "0.12", features = ["json", "cookies", "rustls-tls", "gzip", "brotli"] }
+reqwest-retry = "0.6"
+reqwest-middleware = "0.4"
+
+# 序列化/反序列化
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# HTML 解析
+scraper = "0.21"
+
+# 加密
+sha1 = "0.10"
+hex = "0.4"
+
+# 异步运行时
+tokio = { version = "1", features = ["full"] }
+
+# 错误处理
+thiserror = "2"
+anyhow = "1"
+
+# 日志
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "chrono"] }
+
+# CLI 参数
+clap = { version = "4", features = ["derive"] }
+
+# 正则表达式（预编译）
+regex = "1"
+lazy_static = "1"
+
+# 日期时间处理
+chrono = { version = "0.4", features = ["serde"] }
+
+# 随机数
+rand = "0.8"
+
+# 文件路径处理
+dirs = "6"
+
+# MD5 哈希
+md5 = "0.7"
+
+# Cookie 存储
+reqwest_cookie_store = "0.8"
+
+# 并发处理
+futures = "0.3"
+
+# 并行迭代器
+rayon = "1"
+
+# 内存分配器（性能优化）
+tikv-jemallocator = { version = "0.6", optional = true }
+
+# HTML 压缩
+minify-html = "0.15"
+
+# 字符串处理优化
+compact_str = "0.8"
+
+# 环境变量文件支持
+dotenvy = "0.15"
+
+# 模板引擎
+tera = "1"
+
+[dev-dependencies]
+tempfile = "3"
+mockall = "0.13"
+
+[features]
+default = ["jemalloc"]
+jemalloc = ["dep:tikv-jemallocator"]
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = true
