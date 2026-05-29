@@ -198,7 +198,7 @@ hr {
   color: var(--banner-text);
   background-color: var(--banner-bg);
   border-bottom: 1px solid var(--banner-border);
-  margin: 0 -10px 12px;
+  margin: 0 -10px 2px;
 }
 
 .top-banner a {
@@ -628,6 +628,23 @@ center {
   gap: 8px;
   margin: 12px 0;
   flex-wrap: wrap;
+}
+
+.theme-preset-select {
+  padding: 4px 8px;
+  font-size: 12px;
+  color: var(--btn-text);
+  background: var(--container-bg);
+  border: 1px solid var(--theme-btn-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  appearance: auto;
+}
+.theme-preset-select:hover {
+  border-color: var(--theme-btn-hover-border);
+  background: var(--theme-btn-hover-bg);
 }
 
 .theme-import-btn {

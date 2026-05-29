@@ -30,8 +30,11 @@
 </head>
 
 <body>
-    <div class="top-banner"><span>🛠️ 此为本项目的实验分支，用于测试新增功能。</span><button class="top-banner-close" onclick="this.parentElement.style.display='none'" aria-label="关闭">×</button></div>
-    
+    <div class="top-banner"><span>🛠️ 此为本项目的实验分支，用于测试新增功能。</span><button class="top-banner-close"
+            onclick="this.parentElement.style.display='none'" aria-label="关闭">×</button></div>
+    <div class="top-banner"><span>🎉 现已支持自定义主题配置！滚动到页面底部查看更多细节。</span><button class="top-banner-close"
+            onclick="this.parentElement.style.display='none'" aria-label="关闭">×</button></div>
+
     <h1><span id="current-date-placeholder">{{ current_date }}</span><svg width="2.2em" height="1.75em"
             style="display: inline-block; vertical-align: -0.5em;">
             <use href="#icon-neuq-emblem-core"></use>
@@ -66,7 +69,8 @@
 
             <div class="tab-container">
                 <div class="tab-buttons">
-                    <button class="tab-button active" onclick="openTab(event, 'day-{{ day.index }}-gongxueguan')">工学馆</button>
+                    <button class="tab-button active"
+                        onclick="openTab(event, 'day-{{ day.index }}-gongxueguan')">工学馆</button>
                     <button class="tab-button" onclick="openTab(event, 'day-{{ day.index }}-benbuqita')">本部其它</button>
                     <button class="tab-button" onclick="openTab(event, 'day-{{ day.index }}-nanxiaoqu')">南校区</button>
                 </div>
@@ -86,7 +90,8 @@
                             {% for floor in [1, 2, 3, 4, 5, 6, 7] %}
                             <tr>
                                 <td>{{ floor }}F</td>
-                                <td id="day-{{ day.index }}-GXG{{ floor }}F{{ slot }}">{{ day.gxg[slot][floor] | safe }}</td>
+                                <td id="day-{{ day.index }}-GXG{{ floor }}F{{ slot }}">{{ day.gxg[slot][floor] | safe }}
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -140,8 +145,10 @@
                                 <td>人文楼</td>
                             </tr>
                             <tr class="classroom-row">
-                                <td id="day-{{ day.index }}-KJL{{ slot }}" style="font-size: 13px">{{ day.kjl[slot] | safe }}</td>
-                                <td id="day-{{ day.index }}-RWL{{ slot }}" style="font-size: 13px">{{ day.rwl[slot] | safe }}</td>
+                                <td id="day-{{ day.index }}-KJL{{ slot }}" style="font-size: 13px">{{ day.kjl[slot] |
+                                    safe }}</td>
+                                <td id="day-{{ day.index }}-RWL{{ slot }}" style="font-size: 13px">{{ day.rwl[slot] |
+                                    safe }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -223,17 +230,23 @@
         </div>
     </div>
 
-    <p class="info-text" style="font-size: 80%;">Ver3.0.0 <a
-            href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a>
-    </p>
-
     <div class="theme-controls">
-        <label class="theme-import-btn" title="导入主题配置文件">
+        <select class="theme-preset-select" id="theme-preset-select" onchange="applyPresetTheme(this)" title="选择预设主题">
+            <option value="">默认主题</option>
+            <option value="ayu">Ayu</option>
+            <option value="catppuccin">Catppuccin</option>
+            <option value="everforest">Everforest</option>
+            <option value="gruvbox">Gruvbox</option>
+            <option value="kanagawa">Kanagawa</option>
+            <option value="nord">Nord</option>
+            <option value="tokyonight">Tokyo Night</option>
+        </select>
+        <label class="theme-import-btn" title="导入自定义主题配置文件">
             <svg width="14" height="14" style="vertical-align: -2px;">
                 <use href="#icon-upload"></use>
             </svg>
             导入主题
-            <input type="file" accept=".toml,.json" onchange="importThemeFile(this)" style="display: none;">
+            <input type="file" accept=".toml" onchange="importThemeFile(this)" style="display: none;">
         </label>
         <button class="theme-reset-btn" onclick="resetTheme()" title="恢复默认主题">
             <svg width="14" height="14" style="vertical-align: -2px;">
@@ -249,6 +262,10 @@
         </a>
         <span id="theme-name" class="theme-name-display"></span>
     </div>
+
+    <p class="info-text" style="font-size: 80%;">Ver3.1.0 <a
+            href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a>
+    </p>
 
     <meta name="page-content-hash" content='{{ daily_hashes }}'>
 
@@ -382,7 +399,13 @@
                 if (saved) {
                     try {
                         const themeData = JSON.parse(decodeURIComponent(saved));
+                        applyMode(themeData.mode);
                         applyTheme(themeData);
+                        updateThemeUI(themeData.name || null);
+                        if (themeData._preset) {
+                            var sel = document.getElementById('theme-preset-select');
+                            if (sel) sel.value = themeData._preset;
+                        }
                     } catch (e) {
                         console.warn('Failed to parse theme cookie:', e);
                     }
@@ -402,10 +425,8 @@
 
                         if (file.name.endsWith('.toml')) {
                             themeData = parseToml(content);
-                        } else if (file.name.endsWith('.json')) {
-                            themeData = JSON.parse(content);
                         } else {
-                            alert('不支持的文件格式，请使用 .toml 或 .json 文件');
+                            alert('不支持的文件格式，请使用 .toml 文件');
                             return;
                         }
 
@@ -420,6 +441,10 @@
                         // 应用主题
                         applyTheme(themeData);
 
+                        // 清除预设下拉选择
+                        var sel = document.getElementById('theme-preset-select');
+                        if (sel) sel.value = '';
+
                         // 更新 UI
                         updateThemeUI(themeData.name || file.name);
 
@@ -428,6 +453,36 @@
                     }
                 };
                 reader.readAsText(file);
+            };
+
+            // 预设主题
+            window.applyPresetTheme = function (select) {
+                const name = select.value;
+                if (!name) {
+                    window.resetTheme();
+                    return;
+                }
+                const url = '/assets/themes/' + name + '.toml';
+                fetch(url)
+                    .then(function (res) {
+                        if (!res.ok) throw new Error('HTTP ' + res.status);
+                        return res.text();
+                    })
+                    .then(function (text) {
+                        var themeData = parseToml(text);
+                        if (!themeData.light) themeData.light = {};
+                        if (!themeData.dark) themeData.dark = {};
+                        if (!themeData.layout) themeData.layout = {};
+                        themeData._preset = name;
+                        applyMode(themeData.mode);
+                        applyTheme(themeData);
+                        setCookie(THEME_COOKIE_NAME, encodeURIComponent(JSON.stringify(themeData)), THEME_COOKIE_MAX_AGE);
+                        updateThemeUI(themeData.name || name);
+                    })
+                    .catch(function (err) {
+                        alert('加载预设主题失败: ' + err.message);
+                        select.value = '';
+                    });
             };
 
             // 重置主题
@@ -441,6 +496,8 @@
                 } else {
                     document.documentElement.classList.remove('dark');
                 }
+                var sel = document.getElementById('theme-preset-select');
+                if (sel) sel.value = '';
                 updateThemeUI(null);
             };
 

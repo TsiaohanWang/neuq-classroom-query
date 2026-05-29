@@ -70,10 +70,10 @@
   <li><a href="#format">文件格式</a></li>
   <li><a href="#mode">明暗模式锁定</a></li>
   <li><a href="#import">导入与管理</a></li>
+  <li><a href="#presets">预设主题</a></li>
   <li><a href="#colors">颜色变量参考</a></li>
   <li><a href="#layout">布局变量参考</a></li>
   <li><a href="#example">完整示例</a></li>
-  <li><a href="#json">JSON 格式</a></li>
   <li><a href="#faq">常见问题</a></li>
 </ol>
 </div>
@@ -83,6 +83,8 @@
 <!-- ============================================================ -->
 
 <p>创建一个 <code>.toml</code> 文件，填写需要自定义的字段，然后在页面底部点击「导入主题」按钮选择该文件即可。未填写的字段自动使用默认值。</p>
+
+<p>也可以直接使用页面底部的<strong>预设主题下拉菜单</strong>，从 7 个内置主题中一键切换。</p>
 
 <pre><span class="cmt"># my-theme.toml — 最简示例</span>
 <span class="key">name</span> = <span class="str">"我的主题"</span>
@@ -95,7 +97,7 @@
 <span class="key">timeslot_title_text</span> = <span class="str">"#3182ce"</span>
 <span class="key">link_color</span> = <span class="str">"#3182ce"</span></pre>
 
-<div class="tip"><strong>提示：</strong>项目 <code>assets/themes/</code> 目录下提供了 7 个预制主题（Tokyo Night、Nord、Catppuccin、Gruvbox、Ayu、Everforest、Kanagawa），可直接导入使用，也可作为编写自定义主题的参考。</div>
+<div class="tip"><strong>提示：</strong>项目 <code>assets/themes/</code> 目录下提供了 7 个预制主题（Tokyo Night、Nord、Catppuccin、Gruvbox、Ayu、Everforest、Kanagawa），可通过下拉菜单直接选择，也可下载 TOML 文件作为编写自定义主题的参考。</div>
 
 <!-- ============================================================ -->
 <h2 id="format">2. 文件格式</h2>
@@ -149,19 +151,40 @@
 <!-- ============================================================ -->
 
 <ul>
-  <li><strong>导入：</strong>在页面底部点击「导入主题」按钮，选择 <code>.toml</code> 或 <code>.json</code> 文件</li>
+  <li><strong>预设主题：</strong>在页面底部的下拉菜单中选择内置主题（Ayu、Catppuccin、Everforest 等），一键切换</li>
+  <li><strong>导入自定义：</strong>点击「导入主题」按钮，选择 <code>.toml</code> 文件</li>
   <li><strong>持久化：</strong>主题配置保存在浏览器 Cookie 中（有效期 1 年），刷新页面后自动生效</li>
   <li><strong>重置：</strong>点击「重置」按钮可清除自定义主题，恢复系统默认样式和明暗模式偏好</li>
-  <li><strong>格式：</strong>支持 <code>.toml</code> 和 <code>.json</code> 两种文件格式</li>
 </ul>
 
+<div class="note">预设主题和自定义导入互斥：选择预设主题后会覆盖之前的自定义主题，导入自定义文件后下拉菜单会自动回到「默认主题」。点击「重置」会同时清除两者。</div>
+
 <!-- ============================================================ -->
-<h2 id="colors">5. 颜色变量参考</h2>
+<h2 id="presets">5. 预设主题</h2>
+<!-- ============================================================ -->
+
+<p>页面底部的下拉菜单提供了以下内置主题，选择即可即时预览并保存：</p>
+
+<table>
+<tr><th>名称</th><th>风格</th><th>文件</th></tr>
+<tr><td>Ayu</td><td>暖粉调</td><td><code>ayu.toml</code></td></tr>
+<tr><td>Catppuccin</td><td>紫罗兰调</td><td><code>catppuccin.toml</code></td></tr>
+<tr><td>Everforest</td><td>森林绿调</td><td><code>everforest.toml</code></td></tr>
+<tr><td>Gruvbox</td><td>复古暖调</td><td><code>gruvbox.toml</code></td></tr>
+<tr><td>Kanagawa</td><td>朱红调</td><td><code>kanagawa.toml</code></td></tr>
+<tr><td>Nord</td><td>北欧蓝调</td><td><code>nord.toml</code></td></tr>
+<tr><td>Tokyo Night</td><td>冷蓝调都市夜景</td><td><code>tokyonight.toml</code></td></tr>
+</table>
+
+<div class="tip"><strong>自定义预设：</strong>所有预设主题的 TOML 源文件位于项目的 <code>assets/themes/</code> 目录下，可下载后修改为自己的主题。</div>
+
+<!-- ============================================================ -->
+<h2 id="colors">6. 颜色变量参考</h2>
 <!-- ============================================================ -->
 
 <p>颜色值支持任何合法的 CSS 颜色格式：<code>#hex</code>、<code>rgb()</code>、<code>rgba()</code>、<code>hsl()</code> 等。</p>
 
-<h3>5.1 背景色</h3>
+<h3>6.1 背景色</h3>
 <table>
 <tr><th>TOML 字段</th><th>控制元素</th><th>默认值 (亮/暗)</th></tr>
 <tr><td><code>body_bg</code></td><td>页面整体背景</td><td><code>#f9f9f9</code> / <code>#121212</code></td></tr>
@@ -174,7 +197,7 @@
 <tr><td><code>info_box_bg</code></td><td>通知框背景</td><td><code>rgba(138,138,138,0.05)</code> / <code>rgba(213,213,213,0.08)</code></td></tr>
 </table>
 
-<h3>5.2 主文字色</h3>
+<h3>6.2 主文字色</h3>
 <table>
 <tr><th>TOML 字段</th><th>控制元素</th><th>默认值 (亮/暗)</th></tr>
 <tr><td><code>body_text</code></td><td>页面正文文字</td><td><code>#474747</code> / <code>#bbb</code></td></tr>
@@ -190,14 +213,14 @@
 <tr><td><code>date_display_text</code></td><td>日期切换器显示文字</td><td><code>#3f3f3f</code> / <code>#ccc</code></td></tr>
 </table>
 
-<h3>5.3 Tab 文字色</h3>
+<h3>6.3 Tab 文字色</h3>
 <table>
 <tr><th>TOML 字段</th><th>控制元素</th><th>默认值 (亮/暗)</th></tr>
 <tr><td><code>tab_text</code></td><td>Tab 按钮文字</td><td><code>#888</code> / <code>#aaa</code></td></tr>
 <tr><td><code>tab_text_hover</code></td><td>Tab 按钮悬停文字</td><td><code>#000</code> / <code>#fff</code></td></tr>
 </table>
 
-<h3>5.4 悬停背景色</h3>
+<h3>6.4 悬停背景色</h3>
 <table>
 <tr><th>TOML 字段</th><th>控制元素</th><th>默认值 (亮/暗)</th></tr>
 <tr><td><code>date_btn_hover_bg</code></td><td>日期切换按钮悬停背景</td><td><code>#e5e5e5</code> / <code>#3a3a3a</code></td></tr>
@@ -205,7 +228,7 @@
 <tr><td><code>theme_btn_hover_bg</code></td><td>主题按钮悬停背景</td><td><code>#e5e5e5</code> / <code>#3a3a3a</code></td></tr>
 </table>
 
-<h3>5.5 边框色</h3>
+<h3>6.5 边框色</h3>
 <table>
 <tr><th>TOML 字段</th><th>控制元素</th><th>默认值 (亮/暗)</th></tr>
 <tr><td><code>banner_border</code></td><td>横幅底边框</td><td><code>rgba(137,137,137,0.3)</code> / <code>rgba(213,213,213,0.3)</code></td></tr>
@@ -219,7 +242,7 @@
 <tr><td><code>theme_btn_border</code></td><td>主题按钮边框</td><td><code>#d8d8d8</code> / <code>#444</code></td></tr>
 </table>
 
-<h3>5.6 表格色</h3>
+<h3>6.6 表格色</h3>
 <table>
 <tr><th>TOML 字段</th><th>控制元素</th><th>默认值 (亮/暗)</th></tr>
 <tr><td><code>table_header_text</code></td><td>表头文字 (th)</td><td><code>inherit</code></td></tr>
@@ -232,7 +255,7 @@
 <tr><td><code>info_box_text</code></td><td>临时通知框文字</td><td><code>#4f4f4f</code> / <code>#ccc</code></td></tr>
 </table>
 
-<h3>5.7 强调色</h3>
+<h3>6.7 强调色</h3>
 <table>
 <tr><th>TOML 字段</th><th>控制元素</th><th>默认值 (亮/暗)</th></tr>
 <tr><td><code>date_btn_icon</code></td><td>日期切换箭头图标</td><td><code>#777</code> / <code>#d1d1d1</code></td></tr>
@@ -242,7 +265,7 @@
 <tr><td><code>theme_btn_hover_border</code></td><td>主题按钮悬停边框</td><td><code>#777</code> / <code>#d1d1d1</code></td></tr>
 </table>
 
-<h3>5.8 链接与标记色</h3>
+<h3>6.8 链接与标记色</h3>
 <table>
 <tr><th>TOML 字段</th><th>控制元素</th><th>默认值 (亮/暗)</th></tr>
 <tr><td><code>link_color</code></td><td>链接文字、下划线装饰色</td><td><code>#4e4e4e</code> / <code>#c8c8c8</code></td></tr>
@@ -251,7 +274,7 @@
 </table>
 
 <!-- ============================================================ -->
-<h2 id="layout">6. 布局变量参考</h2>
+<h2 id="layout">7. 布局变量参考</h2>
 <!-- ============================================================ -->
 
 <p>布局变量在 <code>[layout]</code> 部分配置，亮暗模式共用。所有值均为合法的 CSS 长度值（如 <code>14px</code>、<code>1.2em</code>、<code>1rem</code>）。</p>
@@ -270,10 +293,10 @@
 <div class="note">容器整体宽度不可通过主题配置自定义，固定为 <code>800px</code>。</div>
 
 <!-- ============================================================ -->
-<h2 id="example">7. 完整示例</h2>
+<h2 id="example">8. 完整示例</h2>
 <!-- ============================================================ -->
 
-<h3>7.1 最小配置</h3>
+<h3>8.1 最小配置</h3>
 <p>只修改一两个变量，其余全部使用默认值：</p>
 <pre><span class="key">name</span> = <span class="str">"极简"</span>
 
@@ -281,7 +304,7 @@
 <span class="key">tab_active_text</span> = <span class="str">"#e74c3c"</span>
 <span class="key">timeslot_title_text</span> = <span class="str">"#e74c3c"</span></pre>
 
-<h3>7.2 锁定暗色模式</h3>
+<h3>8.2 锁定暗色模式</h3>
 <pre><span class="key">name</span> = <span class="str">"永夜"</span>
 <span class="key">mode</span> = <span class="str">"dark"</span>
 
@@ -296,7 +319,7 @@
 <span class="key">timeslot_title_text</span> = <span class="str">"#58a6ff"</span>
 <span class="key">link_color</span> = <span class="str">"#58a6ff"</span></pre>
 
-<h3>7.3 完整双色主题</h3>
+<h3>8.3 完整双色主题</h3>
 <pre><span class="key">name</span> = <span class="str">"我的主题"</span>
 
 <span class="sec">[light]</span>
@@ -429,28 +452,6 @@
 <span class="key">font_size_timeslot</span> = <span class="str">"20px"</span>
 <span class="key">font_size_tab</span> = <span class="str">"17px"</span>
 <span class="key">font_size_date</span> = <span class="str">"18px"</span></pre>
-
-<!-- ============================================================ -->
-<h2 id="json">8. JSON 格式</h2>
-<!-- ============================================================ -->
-
-<p>除 TOML 外，也支持 JSON 格式导入。JSON 的键名与 TOML 字段名相同（snake_case）：</p>
-
-<pre>{
-  <span class="key">"name"</span>: <span class="str">"My Theme"</span>,
-  <span class="key">"mode"</span>: <span class="str">"dark"</span>,
-  <span class="key">"light"</span>: {
-    <span class="key">"body_bg"</span>: <span class="str">"#f5f5f5"</span>,
-    <span class="key">"h1_text"</span>: <span class="str">"#333"</span>
-  },
-  <span class="key">"dark"</span>: {
-    <span class="key">"body_bg"</span>: <span class="str">"#1a1a2e"</span>,
-    <span class="key">"h1_text"</span>: <span class="str">"#ccc"</span>
-  },
-  <span class="key">"layout"</span>: {
-    <span class="key">"font_size_header"</span>: <span class="str">"24px"</span>
-  }
-}</pre>
 
 <!-- ============================================================ -->
 <h2 id="faq">9. 常见问题</h2>
