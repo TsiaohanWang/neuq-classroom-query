@@ -7,6 +7,8 @@ use crate::config::{AppConfig, TIME_SLOTS};
 use crate::error::{Result, with_retry};
 use crate::models::RawClassroomData;
 
+const MAX_EMPTY_RETRIES: u8 = 2;
+
 /// 数据抓取器
 pub struct Fetcher {
     config: Arc<AppConfig>,
@@ -44,7 +46,7 @@ impl Fetcher {
                 )
                 .await?;
 
-                tracing::info!("Day {} 登录成功", day_offset);
+                tracing::info!("Day {} 登录成功，开始抓取", day_offset);
 
                 // 串行抓取该天的所有时段（同一 session 内必须串行）
                 fetch_day_data(client, config, day_offset).await
@@ -75,54 +77,119 @@ impl Fetcher {
     }
 }
 
-/// 抓取单天数据（串行抓取所有时段，同一 session 内不能并发）
+/// 抓取单个时段并保存结果，返回是否获取到数据
+async fn fetch_and_save_slot(
+    client: &HttpClient,
+    day_offset: u8,
+    date_str: &str,
+    slot: &crate::config::TimeSlot,
+    output_dir: &std::path::Path,
+) -> Result<bool> {
+    let classrooms = client
+        .search_free_classrooms(date_str, slot.begin, slot.end)
+        .await?;
+
+    if classrooms.is_empty() {
+        return Ok(false);
+    }
+
+    let raw_data: Vec<RawClassroomData> = classrooms
+        .iter()
+        .map(|entry| entry.to_raw_classroom_data(slot.file_suffix.to_string()))
+        .collect::<Result<Vec<_>>>()?;
+
+    crate::models::validate_batch(&raw_data, &format!("时段 {}", slot.file_suffix))?;
+
+    let file_path = output_dir.join(format!("classroom_results_{}.json", slot.file_suffix));
+    let json = serde_json::to_string_pretty(&raw_data)?;
+    fs::write(&file_path, json).await?;
+
+    tracing::info!("Day {} {} 保存 {} 条", day_offset, slot.file_suffix, raw_data.len());
+    Ok(true)
+}
+
+/// 抓取单天数据，带空结果重试队列
+///
+/// 首轮串行抓取所有时段，若某时段返回空结果（WARN），将其加入重试队列。
+/// 首轮结束后，对队列中的时段逐一重试（最多 MAX_EMPTY_RETRIES 次）。
+/// 若重试仍失败，记录最终 WARN。
 async fn fetch_day_data(
     client: HttpClient,
     config: Arc<AppConfig>,
     day_offset: u8,
 ) -> Result<()> {
-    tracing::info!("Day {} 开始抓取...", day_offset);
-
-    // 计算目标日期（使用北京时间）
     let date_str = get_beijing_date_string(day_offset as i64);
-    tracing::info!("Day {} 日期: {}", day_offset, date_str);
 
-    // 创建输出目录
     let output_dir = config.output_dir.join(format!("output-day-{}", day_offset));
     fs::create_dir_all(&output_dir).await?;
 
-    // 串行抓取所有时段
+    // 首轮：串行抓取所有时段，收集空结果
+    let mut failed_slots: Vec<&crate::config::TimeSlot> = Vec::new();
+
     for slot in TIME_SLOTS {
         tokio::time::sleep(config.request_delay).await;
 
-        let classrooms = with_retry(
+        match with_retry(
             &config.retry_config,
-            || async {
-                client
-                    .search_free_classrooms(&date_str, slot.begin, slot.end)
-                    .await
-            },
+            || async { fetch_and_save_slot(&client, day_offset, &date_str, slot, &output_dir).await },
             &format!("Day {} 时段 {}-{}", day_offset, slot.begin, slot.end),
         )
-        .await?;
+        .await
+        {
+            Ok(true) => {}
+            Ok(false) => {
+                tracing::warn!("Day {} {} 首轮未找到结果表格，稍后重试", day_offset, slot.file_suffix);
+                failed_slots.push(slot);
+            }
+            Err(e) => return Err(e),
+        }
+    }
 
-        if classrooms.is_empty() {
-            tracing::info!("Day {} {} 无数据", day_offset, slot.file_suffix);
-            continue;
+    // 重试队列
+    for attempt in 1..=MAX_EMPTY_RETRIES {
+        if failed_slots.is_empty() {
+            break;
         }
 
-        let raw_data: Vec<RawClassroomData> = classrooms
-            .iter()
-            .map(|entry| entry.to_raw_classroom_data(slot.file_suffix.to_string()))
-            .collect::<Result<Vec<_>>>()?;
+        tracing::info!(
+            "Day {} 重试第 {} 轮，剩余 {} 个时段",
+            day_offset, attempt, failed_slots.len()
+        );
 
-        crate::models::validate_batch(&raw_data, &format!("时段 {}", slot.file_suffix))?;
+        let mut still_failed: Vec<&crate::config::TimeSlot> = Vec::new();
 
-        let file_path = output_dir.join(format!("classroom_results_{}.json", slot.file_suffix));
-        let json = serde_json::to_string_pretty(&raw_data)?;
-        fs::write(&file_path, json).await?;
+        for slot in &failed_slots {
+            tokio::time::sleep(config.request_delay).await;
 
-        tracing::info!("Day {} {} 保存 {} 条", day_offset, slot.file_suffix, raw_data.len());
+            match with_retry(
+                &config.retry_config,
+                || async { fetch_and_save_slot(&client, day_offset, &date_str, slot, &output_dir).await },
+                &format!("Day {} 时段 {}-{} (重试{})", day_offset, slot.begin, slot.end, attempt),
+            )
+            .await
+            {
+                Ok(true) => {
+                    tracing::info!("Day {} {} 重试成功", day_offset, slot.file_suffix);
+                }
+                Ok(false) => {
+                    still_failed.push(slot);
+                }
+                Err(e) => return Err(e),
+            }
+        }
+
+        failed_slots = still_failed;
+    }
+
+    // 记录最终失败的时段
+    if !failed_slots.is_empty() {
+        let names: Vec<&str> = failed_slots.iter().map(|s| s.file_suffix).collect();
+        tracing::warn!(
+            "Day {} 以下时段经 {} 次重试仍无数据: {}",
+            day_offset,
+            MAX_EMPTY_RETRIES,
+            names.join(", ")
+        );
     }
 
     tracing::info!("Day {} 完成", day_offset);
