@@ -136,7 +136,7 @@ impl Generator {
             if data_path.exists() {
                 if let Ok(content) = std::fs::read_to_string(&data_path) {
                     let hash = format!("{:x}", md5::compute(content.as_bytes()));
-                    tracing::debug!("Day {} 数据哈希: {} (文件大小: {} bytes)", day_offset, hash, content.len());
+                    tracing::info!("Day {} 数据哈希: {} ({} bytes)", day_offset, hash, content.len());
                     hashes.insert(day_offset.to_string(), hash);
                 } else {
                     tracing::warn!("Day {}: 无法读取数据文件", day_offset);
@@ -198,6 +198,19 @@ impl Generator {
 
         let live_hashes = self.extract_hashes_from_html(&live_html);
 
+        for day_offset in 0..self.config.total_days {
+            let key = day_offset.to_string();
+            let new_hash = new_hashes.get(&key).map(|s| s.as_str()).unwrap_or("无");
+            let live_hash = live_hashes.get(&key).map(|s| s.as_str()).unwrap_or("无");
+            tracing::info!(
+                "Day {}: 部署={} | 抓取={} | {}",
+                day_offset,
+                &live_hash[..8.min(live_hash.len())],
+                &new_hash[..8.min(new_hash.len())],
+                if new_hash == live_hash { "未变更" } else { "已变更" }
+            );
+        }
+
         let total_days = self.config.total_days as usize;
         let mut updated_days = Vec::new();
         let mut unchanged_days = Vec::new();
@@ -207,10 +220,8 @@ impl Generator {
             let new_hash = new_hashes.get(&key);
             let live_hash = live_hashes.get(&key);
             if new_hash != live_hash {
-                tracing::debug!("Day {} 变更: 新={:?} 旧={:?}", day_offset, new_hash, live_hash);
                 updated_days.push(day_offset);
             } else {
-                tracing::debug!("Day {} 未变更: {}", day_offset, new_hash.unwrap_or(&"无".to_string()));
                 unchanged_days.push(day_offset);
             }
         }

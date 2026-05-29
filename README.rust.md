@@ -21,9 +21,14 @@
   - 减少文件大小 30-50%
 - **Release 编译优化**：
   - `opt-level = 3`：最大优化级别
-  - `lto = "fat"`：链接时优化
-  - `codegen-units = 1`：更好的优化
+  - `lto = "thin"`：增量链接时优化（比 fat LTO 快数倍，效果接近）
+  - `codegen-units = 16`：并行代码生成
   - `strip = true`：移除调试符号
+- **CI 编译优化**：
+  - `opt-level = 2`：适度优化，编译更快
+  - `lto = false`：跳过链接时优化
+  - `codegen-units = 256`：最大并行度
+  - 使用 mold 链接器，链接阶段提速 2-5 倍
 
 ### 3. 增强的错误处理
 
@@ -213,11 +218,39 @@ cargo test -- --nocapture
 
 ## 编译优化配置
 
+### Release Profile（生产部署）
+
 ```toml
 [profile.release]
 opt-level = 3        # 最大优化级别
-lto = "fat"          # 链接时优化
-codegen-units = 1    # 单codegen单元，更好的优化
+lto = "thin"         # 增量链接时优化（比 fat 快数倍）
+codegen-units = 16   # 并行代码生成
 panic = "abort"      # 直接 abort，减少二进制大小
 strip = true         # 移除调试符号
+```
+
+### CI Profile（GitHub Actions / Cloudflare Pages）
+
+```toml
+[profile.ci]
+inherits = "release"
+opt-level = 2        # 适度优化，编译更快
+lto = false          # 跳过链接时优化
+codegen-units = 256  # 最大并行度
+```
+
+CI 环境中使用 `cargo build --profile ci` 构建，牺牲少量二进制大小换取显著的编译速度提升。
+
+### mold 链接器
+
+在 CI 中安装并使用 mold 链接器，链接阶段提速 2-5 倍：
+
+```yaml
+- name: Install mold linker
+  run: sudo apt-get install -y mold
+
+- name: Build
+  env:
+    RUSTFLAGS: "-C linker=clang -C link-arg=-fuse-ld=mold"
+  run: cargo build --profile ci
 ```

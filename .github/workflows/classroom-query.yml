@@ -48,9 +48,14 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-cargo-
           
+    - name: Install mold linker
+      run: sudo apt-get install -y mold
+
     - name: Build Rust project
       working-directory: rust-classroom-query
-      run: cargo build --release
+      env:
+        RUSTFLAGS: "-C linker=clang -C link-arg=-fuse-ld=mold"
+      run: cargo build --profile ci
       
     - name: Run tests
       working-directory: rust-classroom-query
@@ -64,21 +69,21 @@ jobs:
         ASSETS_DIR: ../assets
         OUTPUT_DIR: ./output
         FORCE_OVERWRITE: ${{ inputs.force_overwrite || 'false' }}
-      run: ./target/release/neuq-classroom-query fetch
+      run: ./target/ci/neuq-classroom-query fetch
       
     - name: Process Data
       working-directory: rust-classroom-query
       env:
         ASSETS_DIR: ../assets
         OUTPUT_DIR: ./output
-      run: ./target/release/neuq-classroom-query process
+      run: ./target/ci/neuq-classroom-query process
       
     - name: Generate HTML
       working-directory: rust-classroom-query
       env:
         ASSETS_DIR: ../assets
         OUTPUT_DIR: ./output
-      run: ./target/release/neuq-classroom-query generate
+      run: ./target/ci/neuq-classroom-query generate
       
     - name: Copy output files
       run: |

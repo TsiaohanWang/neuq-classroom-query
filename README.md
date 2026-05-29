@@ -58,6 +58,8 @@ on:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable && . "$HOME/.cargo/env" && cargo build --release && ./target/release/neuq-classroom-query deploy && rm -rf target/
 ```
 
+> **说明**：如需加速编译，可将 `cargo build --release` 替换为 `cargo build --profile ci`，并将二进制路径 `./target/release/` 改为 `./target/ci/`。CI profile 跳过了链接时优化（LTO），编译速度更快，适合 CI/CD 环境。详见 `README.rust.md`。
+
 #### 环境变量配置
 
 进入 **Settings → Environment variables**，添加以下变量：
