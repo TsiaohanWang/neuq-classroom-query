@@ -73,6 +73,9 @@ compact_str = "0.8"
 # 环境变量文件支持
 dotenvy = "0.15"
 
+# TOML 解析
+toml = "0.8"
+
 # 模板引擎
 tera = "1"
 

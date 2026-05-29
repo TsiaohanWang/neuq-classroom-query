@@ -5,5 +5,6 @@ pub mod fetcher;
 pub mod generator;
 pub mod models;
 pub mod processor;
+pub mod theme;
 
 pub use error::{AppError, Result};

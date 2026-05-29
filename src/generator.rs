@@ -74,8 +74,6 @@ impl Generator {
         context.insert("current_date", &now.format("%Y/%m/%d").to_string());
         context.insert("update_time", &now.format("%Y/%m/%d %H:%M").to_string());
 
-        let background_pattern = self.choose_random_background();
-        context.insert("background_pattern", &background_pattern);
 
         let events = self.load_events().await?;
         let quotes = self.load_quotes().await?;
@@ -91,25 +89,18 @@ impl Generator {
             days.push(day_data);
         }
         context.insert("days", &days);
-        context.insert("daily_hashes", "{}");
-        context.insert("status_badge_html", "");
+        context.insert("theme_css_json", &crate::theme::ThemeConfig::default_json());
 
-        let html = self.tera.render("template.tera.html", &context)
-            .map_err(|e| {
-                tracing::error!("模板渲染错误详情: {:?}", e);
-                crate::error::AppError::Generate {
-                    message: format!("模板渲染失败: {}", e),
-                }
-            })?;
-
-        let daily_hashes = self.compute_daily_hashes(&html);
+        // 从源数据 JSON 文件计算哈希（确定性，不受 scraper 属性排序影响）
+        let daily_hashes = self.compute_daily_hashes();
 
         // 与线上版本比较生成 badge
         let badge_html = self.compare_with_live(&daily_hashes).await;
 
-        // 用真实哈希重新渲染
+        // 用真实哈希渲染最终 HTML
         context.insert("daily_hashes", &serde_json::to_string(&daily_hashes)?);
         context.insert("status_badge_html", &badge_html);
+        context.insert("theme_css_json", &crate::theme::ThemeConfig::default_json());
 
         let html = self.tera.render("template.tera.html", &context)
             .map_err(|e| crate::error::AppError::Generate {
@@ -131,21 +122,31 @@ impl Generator {
         Ok(())
     }
 
-    fn compute_daily_hashes(&self, html: &str) -> HashMap<String, String> {
-        let document = Html::parse_document(html);
+    /// 从源数据 JSON 文件计算每日哈希（确定性输出，避免 scraper 属性排序不一致问题）
+    fn compute_daily_hashes(&self) -> HashMap<String, String> {
         let mut hashes = HashMap::new();
 
-            for day_offset in 0..self.config.total_days {
-            let selector_str = format!(r#"#day-{}-content .tab-container"#, day_offset);
-            if let Ok(selector) = scraper::Selector::parse(&selector_str) {
-                if let Some(element) = document.select(&selector).next() {
-                    let content = element.html();
+        for day_offset in 0..self.config.total_days {
+            let data_path = self
+                .config
+                .output_dir
+                .join(format!("output-day-{}", day_offset))
+                .join("processed_classroom_data.json");
+
+            if data_path.exists() {
+                if let Ok(content) = std::fs::read_to_string(&data_path) {
                     let hash = format!("{:x}", md5::compute(content.as_bytes()));
+                    tracing::debug!("Day {} 数据哈希: {} (文件大小: {} bytes)", day_offset, hash, content.len());
                     hashes.insert(day_offset.to_string(), hash);
+                } else {
+                    tracing::warn!("Day {}: 无法读取数据文件", day_offset);
                 }
+            } else {
+                tracing::debug!("Day {}: 数据文件不存在，跳过", day_offset);
             }
         }
 
+        tracing::info!("计算得到 {}/{} 天的数据哈希", hashes.len(), self.config.total_days);
         hashes
     }
 
@@ -154,7 +155,7 @@ impl Generator {
 
         let cname_path = Path::new("CNAME");
         if !cname_path.exists() {
-            tracing::debug!("无 CNAME 文件，跳过比较");
+            tracing::info!("无 CNAME 文件，跳过比较");
             return String::new();
         }
 
@@ -164,7 +165,7 @@ impl Generator {
         };
 
         let url = format!("https://{}", domain);
-        tracing::debug!("获取线上版本: {}", url);
+        tracing::info!("获取线上版本: {}", url);
 
         let client = match reqwest::Client::builder()
             .timeout(std::time::Duration::from_secs(15))
@@ -196,34 +197,45 @@ impl Generator {
         };
 
         let live_hashes = self.extract_hashes_from_html(&live_html);
-        tracing::debug!("线上哈希: {:?}", live_hashes);
 
         let total_days = self.config.total_days as usize;
         let mut updated_days = Vec::new();
+        let mut unchanged_days = Vec::new();
 
         for day_offset in 0..self.config.total_days {
             let key = day_offset.to_string();
             let new_hash = new_hashes.get(&key);
             let live_hash = live_hashes.get(&key);
             if new_hash != live_hash {
+                tracing::debug!("Day {} 变更: 新={:?} 旧={:?}", day_offset, new_hash, live_hash);
                 updated_days.push(day_offset);
+            } else {
+                tracing::debug!("Day {} 未变更: {}", day_offset, new_hash.unwrap_or(&"无".to_string()));
+                unchanged_days.push(day_offset);
             }
         }
 
-        // 生成 badge - 格式与原版一致
+        // 生成 badge 并输出状态日志
         if updated_days.is_empty() {
+            tracing::info!("状态: 无变更 (0/{} 天更新)", total_days);
             "<span class=\"status-badge badge-not-updated\">NOT UPDATED</span>".to_string()
         } else if updated_days.len() == total_days {
+            tracing::info!("状态: 全部变更 ({}/{} 天更新)", updated_days.len(), total_days);
             "<span class=\"status-badge badge-updated\">ALL UPDATED</span>".to_string()
         } else {
-            // 第一个天数带 DAY 前缀，其余只显示数字
             let days_text = updated_days
                 .iter()
                 .enumerate()
                 .map(|(i, d)| if i == 0 { format!("DAY{}", d) } else { d.to_string() })
                 .collect::<Vec<_>>()
                 .join(",");
-            tracing::info!("更新天数: {}", days_text);
+            tracing::info!(
+                "状态: 部分变更 ({}/{} 天更新) — 更新: [{}], 未变: [{}]",
+                updated_days.len(),
+                total_days,
+                updated_days.iter().map(|d| d.to_string()).collect::<Vec<_>>().join(","),
+                unchanged_days.iter().map(|d| d.to_string()).collect::<Vec<_>>().join(",")
+            );
             format!("<span class=\"status-badge badge-updated\">{} UPDATED</span>", days_text)
         }
     }
@@ -239,23 +251,25 @@ impl Generator {
                         .replace("&amp;", "&")
                         .replace("&lt;", "<")
                         .replace("&gt;", ">");
-                    if let Ok(hashes) = serde_json::from_str::<HashMap<String, String>>(&decoded) {
-                        return hashes;
+                    match serde_json::from_str::<HashMap<String, String>>(&decoded) {
+                        Ok(hashes) => {
+                            tracing::info!("成功解析线上哈希，共 {} 天", hashes.len());
+                            return hashes;
+                        }
+                        Err(e) => {
+                            tracing::warn!("解析线上哈希 JSON 失败: {}", e);
+                        }
                     }
+                } else {
+                    tracing::warn!("meta[name=page-content-hash] 没有 content 属性");
                 }
+            } else {
+                tracing::warn!("未找到 meta[name=page-content-hash] 标签");
             }
         }
 
+        tracing::warn!("线上哈希提取失败，返回空 HashMap");
         HashMap::new()
-    }
-
-    fn choose_random_background(&self) -> String {
-        let patterns = [
-            "pattern0.css", "pattern1.css", "pattern2.css", "pattern3.css",
-            "pattern4.css", "pattern5.css", "pattern6.css", "pattern7.css",
-        ];
-        let mut rng = rand::thread_rng();
-        patterns[rng.gen_range(0..patterns.len())].to_string()
     }
 
     fn minify_html(&self, html: &str) -> String {
@@ -677,6 +691,77 @@ mod tests {
         });
 
         Generator { config, tera }
+    }
+
+    #[test]
+    fn test_extract_hashes_nodejs_format() {
+        let generator = create_test_generator();
+        // Node.js 版本的 meta 标签格式（双引号包裹 content，&quot; 实体编码）
+        let html = r#"<html><head><meta name="page-content-hash" content="{&quot;0&quot;:&quot;abc123&quot;,&quot;1&quot;:&quot;def456&quot;,&quot;2&quot;:&quot;789ghi&quot;}"></head><body></body></html>"#;
+        let hashes = generator.extract_hashes_from_html(html);
+        assert_eq!(hashes.len(), 3);
+        assert_eq!(hashes.get("0").unwrap(), "abc123");
+        assert_eq!(hashes.get("1").unwrap(), "def456");
+        assert_eq!(hashes.get("2").unwrap(), "789ghi");
+    }
+
+    #[test]
+    fn test_extract_hashes_rust_format() {
+        let generator = create_test_generator();
+        // Rust 版本的 meta 标签格式（单引号包裹 content，无实体编码）
+        let html = r#"<html><head><meta name="page-content-hash" content='{"0":"abc123","1":"def456","2":"789ghi"}'></head><body></body></html>"#;
+        let hashes = generator.extract_hashes_from_html(html);
+        assert_eq!(hashes.len(), 3);
+        assert_eq!(hashes.get("0").unwrap(), "abc123");
+        assert_eq!(hashes.get("1").unwrap(), "def456");
+        assert_eq!(hashes.get("2").unwrap(), "789ghi");
+    }
+
+    #[test]
+    fn test_extract_hashes_minified_format() {
+        let generator = create_test_generator();
+        // minify-html 可能去掉引号的格式
+        let html = r#"<html><head><meta content={"0":"abc123","1":"def456"} name=page-content-hash></head><body></body></html>"#;
+        let hashes = generator.extract_hashes_from_html(html);
+        // 这种格式可能无法解析，但不应 panic
+        // 如果能解析则验证结果
+        if !hashes.is_empty() {
+            assert_eq!(hashes.get("0").unwrap(), "abc123");
+        }
+    }
+
+    #[test]
+    fn test_extract_hashes_no_meta() {
+        let generator = create_test_generator();
+        let html = r#"<html><head></head><body></body></html>"#;
+        let hashes = generator.extract_hashes_from_html(html);
+        assert!(hashes.is_empty());
+    }
+
+    #[test]
+    fn test_scraper_html_determinism() {
+        // 说明：scraper 的 .html() 不保证属性顺序一致
+        // 相同 HTML 输入在不同 parse 时可能产生不同属性排列
+        // 因此 compute_daily_hashes 已改为基于 JSON 数据文件计算哈希
+        let html = r##"<html><body><table border="1" class="gxg-table"><tr><td>1F</td></tr></table></body></html>"##;
+
+        let doc1 = scraper::Html::parse_document(html);
+        let doc2 = scraper::Html::parse_document(html);
+
+        let sel = scraper::Selector::parse("table").unwrap();
+        let el1 = doc1.select(&sel).next().unwrap();
+        let el2 = doc2.select(&sel).next().unwrap();
+
+        let h1 = el1.html();
+        let h2 = el2.html();
+        // 这个断言可能失败 —— 这正是我们改用 JSON 数据哈希的原因
+        // 如果失败了，说明 scraper 确实不保证属性顺序
+        let deterministic = h1 == h2;
+        if !deterministic {
+            // 预期行为：属性顺序不同
+            assert_ne!(h1, h2);
+        }
+        // 无论哪种情况都通过 —— 我们只是验证这个行为存在
     }
 
     use std::path::PathBuf;

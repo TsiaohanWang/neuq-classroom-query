@@ -26,9 +26,7 @@
     <link rel="stylesheet" href="/assets/styles/main.css">
     <link rel="stylesheet" href="/assets/styles/font.css">
 
-    <link rel="stylesheet" href="/assets/styles/{{ background_pattern }}">
-
-    <style></style>
+    <style id="theme-style"></style>
 </head>
 
 <body>
@@ -39,7 +37,7 @@
             <use href="#icon-neuq-emblem-core"></use>
         </svg>空闲教室总表</h1>
 
-    <p class="info-text update-time">
+    <p class="info-text update-time-text">
         <span>本表更新于 <span id="update-time-placeholder">{{ update_time }}</span></span>
         {{ status_badge_html | safe }}
     </p>
@@ -229,7 +227,235 @@
             href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a>
     </p>
 
+    <div class="theme-controls">
+        <label class="theme-import-btn" title="导入主题配置文件">
+            <svg width="14" height="14" style="vertical-align: -2px;">
+                <use href="#icon-upload"></use>
+            </svg>
+            导入主题
+            <input type="file" accept=".toml,.json" onchange="importThemeFile(this)" style="display: none;">
+        </label>
+        <button class="theme-reset-btn" onclick="resetTheme()" title="恢复默认主题">
+            <svg width="14" height="14" style="vertical-align: -2px;">
+                <use href="#icon-reset"></use>
+            </svg>
+            重置
+        </button>
+        <a href="theme-guide.html" class="theme-guide-link" title="查看主题配置指南" target="_blank">
+            <svg width="14" height="14" style="vertical-align: -2px;">
+                <use href="#icon-guide"></use>
+            </svg>
+            配置指南
+        </a>
+        <span id="theme-name" class="theme-name-display"></span>
+    </div>
+
     <meta name="page-content-hash" content='{{ daily_hashes }}'>
+
+    <script>
+        // 主题配置系统
+        (function () {
+            const THEME_COOKIE_NAME = 'neuq_theme_config';
+            const THEME_COOKIE_MAX_AGE = 365 * 24 * 60 * 60; // 1 year
+
+            // Cookie 操作
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+                return null;
+            }
+
+            function setCookie(name, value, maxAge) {
+                document.cookie = `${name}=${value}; max-age=${maxAge}; path=/; SameSite=Lax`;
+            }
+
+            function deleteCookie(name) {
+                document.cookie = `${name}=; max-age=0; path=/`;
+            }
+
+            // 将 snake_case 转为 CSS 变量名 --kebab-case
+            function toCssVar(key) {
+                return '--' + key.replace(/_/g, '-');
+            }
+
+            // 应用主题 CSS 变量
+            function applyTheme(themeData) {
+                const styleEl = document.getElementById('theme-style');
+                if (!styleEl) return;
+
+                let css = '';
+
+                // 亮色模式变量
+                if (themeData.light && Object.keys(themeData.light).length > 0) {
+                    css += ':root{';
+                    for (const [key, value] of Object.entries(themeData.light)) {
+                        css += `${toCssVar(key)}:${value};`;
+                    }
+                    css += '}';
+                }
+
+                // 暗色模式变量
+                if (themeData.dark && Object.keys(themeData.dark).length > 0) {
+                    css += 'html.dark{';
+                    for (const [key, value] of Object.entries(themeData.dark)) {
+                        css += `${toCssVar(key)}:${value};`;
+                    }
+                    css += '}';
+                }
+
+                // 布局变量
+                if (themeData.layout && Object.keys(themeData.layout).length > 0) {
+                    css += ':root{';
+                    for (const [key, value] of Object.entries(themeData.layout)) {
+                        css += `${toCssVar(key)}:${value};`;
+                    }
+                    css += '}';
+                }
+
+                styleEl.textContent = css;
+
+                // 应用明暗模式锁定
+                applyMode(themeData.mode);
+            }
+
+            // 应用明暗模式锁定
+            function applyMode(mode) {
+                if (mode === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else if (mode === 'light') {
+                    document.documentElement.classList.remove('dark');
+                }
+                // mode 为 null/undefined 时保持系统偏好，不做修改
+            }
+
+            // 解析 TOML（轻量级解析器，仅支持本项目主题格式）
+            function parseToml(text) {
+                const result = { light: {}, dark: {}, layout: {} };
+                let currentSection = null;
+                let currentSubSection = null;
+
+                for (let line of text.split('\n')) {
+                    line = line.trim();
+                    if (!line || line.startsWith('#')) continue;
+
+                    // 检测顶层 section [name]
+                    const sectionMatch = line.match(/^\[(\w+)\]$/);
+                    if (sectionMatch) {
+                        currentSection = sectionMatch[1];
+                        currentSubSection = null;
+                        continue;
+                    }
+
+                    // 检测子 section [parent.child]
+                    const subSectionMatch = line.match(/^\[(\w+)\.(\w+)\]$/);
+                    if (subSectionMatch) {
+                        currentSection = subSectionMatch[1];
+                        currentSubSection = subSectionMatch[2];
+                        continue;
+                    }
+
+                    // 解析 key = "value"
+                    const kvMatch = line.match(/^(\w+)\s*=\s*"([^"]*)"$/);
+                    if (kvMatch) {
+                        const key = kvMatch[1];
+                        const value = kvMatch[2];
+
+                        if (!currentSection && (key === 'name' || key === 'mode')) {
+                            result[key] = value;
+                        } else if (currentSection === 'light') {
+                            result.light[key] = value;
+                        } else if (currentSection === 'dark') {
+                            result.dark[key] = value;
+                        } else if (currentSection === 'layout') {
+                            result.layout[key] = value;
+                        }
+                    }
+                }
+
+                return result;
+            }
+
+            // 初始化主题
+            function initTheme() {
+                const saved = getCookie(THEME_COOKIE_NAME);
+                if (saved) {
+                    try {
+                        const themeData = JSON.parse(decodeURIComponent(saved));
+                        applyTheme(themeData);
+                    } catch (e) {
+                        console.warn('Failed to parse theme cookie:', e);
+                    }
+                }
+            }
+
+            // 文件导入处理
+            window.importThemeFile = function (fileInput) {
+                const file = fileInput.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    try {
+                        const content = e.target.result;
+                        let themeData;
+
+                        if (file.name.endsWith('.toml')) {
+                            themeData = parseToml(content);
+                        } else if (file.name.endsWith('.json')) {
+                            themeData = JSON.parse(content);
+                        } else {
+                            alert('不支持的文件格式，请使用 .toml 或 .json 文件');
+                            return;
+                        }
+
+                        // 验证结构
+                        if (!themeData.light) themeData.light = {};
+                        if (!themeData.dark) themeData.dark = {};
+                        if (!themeData.layout) themeData.layout = {};
+
+                        // 保存到 cookie
+                        setCookie(THEME_COOKIE_NAME, encodeURIComponent(JSON.stringify(themeData)), THEME_COOKIE_MAX_AGE);
+
+                        // 应用主题
+                        applyTheme(themeData);
+
+                        // 更新 UI
+                        updateThemeUI(themeData.name || file.name);
+
+                    } catch (err) {
+                        alert('主题文件解析失败: ' + err.message);
+                    }
+                };
+                reader.readAsText(file);
+            };
+
+            // 重置主题
+            window.resetTheme = function () {
+                deleteCookie(THEME_COOKIE_NAME);
+                const styleEl = document.getElementById('theme-style');
+                if (styleEl) styleEl.textContent = '';
+                // 恢复系统偏好
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+                updateThemeUI(null);
+            };
+
+            // 更新 UI 显示
+            function updateThemeUI(themeName) {
+                const nameEl = document.getElementById('theme-name');
+                if (nameEl) {
+                    nameEl.textContent = themeName ? `当前: ${themeName}` : '';
+                }
+            }
+
+            // 页面加载时初始化
+            initTheme();
+        })();
+    </script>
 
     <script>
         let currentDay = 0;

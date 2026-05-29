@@ -4,56 +4,156 @@
   box-sizing: border-box;
 }
 
+/* ============================================================
+   CSS 变量定义 — 每个变量仅控制单一元素的单一属性
+   默认值保持与原始样式完全一致
+   ============================================================ */
 :root {
-  --bg-color: #f9f9f9;
-  --text-color-primary: #474747;
-  --text-color-secondary: #7b7b7b;
-  --text-color-header: #3f3f3f;
+  /* --- 背景色 --- */
+  --body-bg: #f9f9f9;
+  --badge-bg: #7b7b7b;
+  --banner-bg: #f9f9f9;
+  --tab-bar-bg: #f0f0f0;
+  --tab-active-bg: rgba(255, 255, 255, 0.75);
   --container-bg: rgba(255, 255, 255, 0.2);
   --container-shadow: 2px 4px 3px 2px rgba(0, 0, 0, 0.06);
-  --tab-bg: #f0f0f0;
-  --tab-border: #d8d8d8;
+  --info-box-bg: rgba(138, 138, 138, 0.05);
+
+  /* --- 主文字色 --- */
+  --body-text: #474747;
+  --collapsible-text: #474747;
+  --btn-text: #474747;
+  --info-text: #7b7b7b;
+  --badge-text: #f9f9f9;
+  --banner-text: #7b7b7b;
+  --banner-close-text: #7b7b7b;
+  --collapsible-desc-text: #7b7b7b;
+  --theme-name-text: #7b7b7b;
+  --h1-text: #3f3f3f;
+  --date-display-text: #3f3f3f;
+
+  /* --- 表格文字色 --- */
+  --table-header-text: inherit;
+  --floor-label-bg: #f7f7f7;
+  --floor-label-text: inherit;
+  --building-name-bg: #f7f7f7;
+  --building-name-text: inherit;
+
+  /* --- Tab 文字色 --- */
   --tab-text: #888;
   --tab-text-hover: #000;
+
+  /* --- Hover 背景色 --- */
+  --date-btn-hover-bg: #e5e5e5;
   --tab-hover-bg: #e5e5e5;
-  --tab-active-bg: rgba(255, 255, 255, 0.75);
-  --theme-color-primary: #777;
-  --theme-color-secondary: #888;
+  --theme-btn-hover-bg: #e5e5e5;
+
+  /* --- 边框色 --- */
+  --banner-border: rgba(137, 137, 137, 0.3);
+  --info-box-border: rgba(137, 137, 137, 0.3);
+  --container-border: rgba(137, 137, 137, 0.3);
+  --tab-bar-border: #d8d8d8;
+  --tab-btn-border: #d8d8d8;
+  --hr-border: #d8d8d8;
+  --collapsible-border: #d8d8d8;
+  --collapsible-desc-border: #d8d8d8;
+  --theme-btn-border: #d8d8d8;
   --table-border: #e0e0e0;
   --table-header-bg: #f7f7f7;
-  --info-box-border: rgba(137, 137, 137, 0.3);
-  --info-box-bg: rgba(138, 138, 138, 0.05);
   --info-box-text: #4f4f4f;
+
+  /* --- 强调色 --- */
+  --date-btn-icon: #777;
+  --tab-active-text: #777;
+  --tab-active-border: #777;
+  --timeslot-title-text: #777;
+  --theme-btn-hover-border: #777;
+
+  /* --- 链接 / 标记色 --- */
   --link-color: #4e4e4e;
   --strong-color: rgb(76, 76, 76);
   --del-color: gray;
+
+  /* --- 布局 --- */
+  --font-size-table: 12px;
+  --font-size-td: 14px;
+  --font-size-header: 22px;
+  --font-size-info: 13px;
+  --font-size-timeslot: 20px;
+  --font-size-tab: 17px;
+  --font-size-date: 18px;
 }
 
 html.dark {
-  --bg-color: #121212;
-  --text-color-primary: #bbb;
-  --text-color-secondary: #888;
-  --text-color-header: #ccc;
+  /* --- 背景色 --- */
+  --body-bg: #121212;
+  --badge-bg: #888;
+  --banner-bg: #121212;
+  --tab-bar-bg: #2a2a2a;
+  --tab-active-bg: rgba(30, 30, 30, 0.75);
   --container-bg: rgba(30, 30, 30, 0.5);
   --container-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.5);
-  --tab-bg: #2a2a2a;
-  --tab-border: #444;
+  --info-box-bg: rgba(213, 213, 213, 0.08);
+
+  /* --- 主文字色 --- */
+  --body-text: #bbb;
+  --collapsible-text: #bbb;
+  --btn-text: #bbb;
+  --info-text: #888;
+  --badge-text: #121212;
+  --banner-text: #888;
+  --banner-close-text: #888;
+  --collapsible-desc-text: #888;
+  --theme-name-text: #888;
+  --h1-text: #ccc;
+  --date-display-text: #ccc;
+
+  /* --- 表格文字色 --- */
+  --table-header-text: inherit;
+  --floor-label-bg: #2c2c2c;
+  --floor-label-text: inherit;
+  --building-name-bg: #2c2c2c;
+  --building-name-text: inherit;
+
+  /* --- Tab 文字色 --- */
   --tab-text: #aaa;
   --tab-text-hover: #fff;
+
+  /* --- Hover 背景色 --- */
+  --date-btn-hover-bg: #3a3a3a;
   --tab-hover-bg: #3a3a3a;
-  --tab-active-bg: rgba(30, 30, 30, 0.75);
-  --theme-color-primary: #d1d1d1;
-  --theme-color-secondary: #c8c8c8;
+  --theme-btn-hover-bg: #3a3a3a;
+
+  /* --- 边框色 --- */
+  --banner-border: rgba(213, 213, 213, 0.3);
+  --info-box-border: rgba(213, 213, 213, 0.3);
+  --container-border: rgba(213, 213, 213, 0.3);
+  --tab-bar-border: #444;
+  --tab-btn-border: #444;
+  --hr-border: #444;
+  --collapsible-border: #444;
+  --collapsible-desc-border: #444;
+  --theme-btn-border: #444;
   --table-border: #444;
   --table-header-bg: #2c2c2c;
-  --info-box-border: rgba(213, 213, 213, 0.3);
-  --info-box-bg: rgba(213, 213, 213, 0.08);
   --info-box-text: #ccc;
+
+  /* --- 强调色 --- */
+  --date-btn-icon: #d1d1d1;
+  --tab-active-text: #d1d1d1;
+  --tab-active-border: #d1d1d1;
+  --timeslot-title-text: #d1d1d1;
+  --theme-btn-hover-border: #d1d1d1;
+
+  /* --- 链接 / 标记色 --- */
   --link-color: #c8c8c8;
   --strong-color: #ddd;
   --del-color: #888;
 }
 
+/* ============================================================
+   基础元素
+   ============================================================ */
 body {
   max-width: 800px;
   margin: 0px auto 10px;
@@ -63,12 +163,68 @@ body {
   font-feature-settings: "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43",
     "cv61", "cv62", "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
   line-height: 1.35;
-  color: var(--text-color-primary);
-  background-color: transparent;
+  color: var(--body-text);
+  background-color: var(--body-bg);
   transition: color 0.3s;
 }
 
-/* 日期切换器样式 */
+h1 {
+  text-align: center;
+  margin-bottom: 1px;
+  font-size: var(--font-size-header);
+  color: var(--h1-text);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--hr-border);
+  margin: 12px 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============================================================
+   顶部 Banner
+   ============================================================ */
+.top-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.7em;
+  padding: 5px 10px;
+  color: var(--banner-text);
+  background-color: var(--banner-bg);
+  border-bottom: 1px solid var(--banner-border);
+  margin: 0 -10px 12px;
+}
+
+.top-banner a {
+  color: var(--link-color);
+  text-decoration: dotted underline;
+}
+
+.top-banner-close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1em;
+  line-height: 1;
+  padding: 0 0 0 8px;
+  color: var(--banner-close-text);
+  opacity: 0.7;
+}
+
+.top-banner-close:hover {
+  opacity: 1;
+}
+
+/* ============================================================
+   日期切换器
+   ============================================================ */
 .date-switcher {
   display: flex;
   justify-content: center;
@@ -78,9 +234,9 @@ body {
 }
 
 .date-display {
-  font-size: 18px;
+  font-size: var(--font-size-date);
   font-weight: bold;
-  color: var(--text-color-header);
+  color: var(--date-display-text);
   padding: 0 15px;
   min-width: 120px;
   text-align: center;
@@ -99,13 +255,13 @@ body {
 }
 
 .date-switcher-btn:hover {
-  background-color: var(--tab-hover-bg);
+  background-color: var(--date-btn-hover-bg);
 }
 
 .date-switcher-btn svg {
   width: 24px;
   height: 24px;
-  color: var(--theme-color-primary);
+  color: var(--date-btn-icon);
 }
 
 .date-switcher-btn[disabled] {
@@ -113,7 +269,9 @@ body {
   opacity: 0.3;
 }
 
-/* 每日数据容器的显示/隐藏 */
+/* ============================================================
+   每日数据容器
+   ============================================================ */
 .day-content {
   display: none;
 }
@@ -123,6 +281,9 @@ body {
   animation: fadeIn 0.3s;
 }
 
+/* ============================================================
+   Tab 容器
+   ============================================================ */
 .tab-container {
   width: 100%;
   margin-top: 10px;
@@ -131,7 +292,7 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 10px;
-  border: 1px solid var(--info-box-border);
+  border: 1px solid var(--container-border);
   box-shadow: var(--container-shadow);
   overflow: hidden;
   text-align: center;
@@ -140,8 +301,8 @@ body {
 
 .tab-buttons {
   display: flex;
-  background-color: var(--tab-bg);
-  border-bottom: 1px solid var(--tab-border);
+  background-color: var(--tab-bar-bg);
+  border-bottom: 1px solid var(--tab-bar-border);
 }
 
 .tab-button {
@@ -154,14 +315,14 @@ body {
     Roboto, "Helvetica Neue", Arial, sans-serif;
   font-feature-settings: "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43",
     "cv61", "cv62", "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
-  font-size: 17px;
+  font-size: var(--font-size-tab);
   font-weight: 500;
   transition: background-color 0.2s ease, color 0.2s ease,
     border-color 0.2s ease;
   outline: none;
   flex-grow: 1;
   text-align: center;
-  border-right: 1px solid var(--tab-border);
+  border-right: 1px solid var(--tab-btn-border);
 }
 
 .tab-button:last-child {
@@ -175,9 +336,9 @@ body {
 
 .tab-button.active {
   background-color: var(--tab-active-bg);
-  color: var(--theme-color-primary);
-  border-bottom: 2px solid var(--theme-color-primary);
-  font-size: 17px;
+  color: var(--tab-active-text);
+  border-bottom: 2px solid var(--tab-active-border);
+  font-size: var(--font-size-tab);
 }
 
 .tab-content {
@@ -190,22 +351,14 @@ body {
   display: block;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-/* 表格样式 */
+/* ============================================================
+   表格
+   ============================================================ */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
-  font-size: 12px;
+  font-size: var(--font-size-table);
 }
 
 th,
@@ -219,32 +372,36 @@ td {
 th {
   background-color: var(--table-header-bg);
   font-weight: bold;
-  font-size: 12px;
+  font-size: var(--font-size-table);
   text-align: center;
+  color: var(--table-header-text);
 }
 
 td {
-  font-size: 14px;
+  font-size: var(--font-size-td);
   text-align: center;
 }
 
-/* 工学馆楼层列样式 */
+/* 工学馆楼层列 */
 .gxg-table td:first-child {
   font-weight: bold;
   width: 30px;
-  font-size: 14px;
+  font-size: var(--font-size-td);
   text-align: center;
+  background-color: var(--floor-label-bg);
+  color: var(--floor-label-text);
 }
 
-/* 本部其它和南校区表格的教学楼名称行样式 */
+/* 教学楼名称行 */
 .campus-table .building-name-row td {
   font-weight: bold;
   text-align: center;
-  background-color: var(--table-header-bg);
+  background-color: var(--building-name-bg);
+  color: var(--building-name-text);
   font-size: 13px;
 }
 
-/* 本部其它和南校区表格的教室号行样式 */
+/* 教室号行 */
 .campus-table .classroom-row td {
   text-align: center;
   min-height: 50px;
@@ -252,24 +409,35 @@ td {
   white-space: pre-wrap;
 }
 
-/* 页面标题和信息文本样式 */
-h1 {
+/* ============================================================
+   时间段标题
+   ============================================================ */
+.timeslot-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-timeslot);
   text-align: center;
-  margin-bottom: 1px;
-  font-size: 22px;
-  color: var(--text-color-header);
+  margin-top: 10px;
+  margin-bottom: 4px;
+  color: var(--timeslot-title-text);
+  cursor: pointer;
+  user-select: none;
 }
 
+/* ============================================================
+   更新时间 / 版本号 / 通用信息文本
+   ============================================================ */
 .info-text {
   font-family: "Maple Mono", "LXGW Wenkai";
   text-align: center;
   margin-top: 4px;
   margin-bottom: 4px;
-  font-size: 13px;
-  color: var(--text-color-secondary);
+  font-size: var(--font-size-info);
+  color: var(--info-text);
 }
 
-.info-text.update-time {
+.update-time-text {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -285,21 +453,9 @@ h1 {
   text-decoration: underline;
 }
 
-/* 时间段标题样式 */
-.timeslot-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 4px;
-  color: var(--theme-color-primary);
-  cursor: pointer;
-  user-select: none;
-}
-
-/* 临时信息通知框样式 */
+/* ============================================================
+   临时信息通知框
+   ============================================================ */
 .emergency-info {
   padding: 3px 8px 4px 6px;
   margin: 8px auto;
@@ -324,20 +480,9 @@ h1 {
   max-width: 100%;
 }
 
-/* 应用于格言的斜体专用字体 已弃用
-        i {
-            font-family: "New Computer Modern", "LXGW Wenkai", serif;
-            font-style: italic;
-        }
-        */
-
-/* 当父元素语言为中文时 i 显示为正体 已弃用
-        p:lang(zh) i {
-            font-style: normal;
-        }
-        */
-
-/* 为下划线、加粗和删除线添加样式 */
+/* ============================================================
+   内联文本标记（加粗 / 下划线 / 删除线）
+   ============================================================ */
 u {
   text-decoration: underline;
   text-decoration-color: var(--link-color);
@@ -361,7 +506,9 @@ center {
   font-feature-settings: inherit;
 }
 
-/* 状态徽章样式 */
+/* ============================================================
+   状态徽章
+   ============================================================ */
 .status-badge {
   margin-left: 8px;
   padding: 1.2px 6px 1px;
@@ -373,21 +520,23 @@ center {
 }
 
 .badge-updated {
-  background-color: var(--text-color-secondary);
-  color: var(--bg-color);
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
 }
 
 .badge-not-updated {
-  background-color: var(--text-color-secondary);
-  color: var(--bg-color);
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
 }
 
 .badge-not-found {
-  background-color: var(--text-color-secondary);
-  color: var(--bg-color);
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
 }
 
-/* 折叠按钮图标样式 */
+/* ============================================================
+   折叠按钮图标
+   ============================================================ */
 .toggle-icon {
   margin-right: 4px;
   transition: transform 0.4s ease-in-out;
@@ -397,16 +546,12 @@ center {
   transform: rotate(-90deg);
 }
 
-hr {
-  border: none;
-  border-top: 1px solid var(--tab-border);
-  margin: 12px 0;
-}
-
-/* 折叠容器样式 */
+/* ============================================================
+   折叠容器（使用须知 / Credits）
+   ============================================================ */
 .collapsible-container {
   margin: 10px 0 10px;
-  border: 1px solid var(--tab-border);
+  border: 1px solid var(--collapsible-border);
   border-radius: 12px;
   background-color: var(--container-bg);
   backdrop-filter: blur(12px);
@@ -428,12 +573,12 @@ hr {
   justify-content: space-between;
   align-items: center;
   font-size: 12px;
-  color: var(--text-color-primary);
+  color: var(--collapsible-text);
   font-family: inherit;
 }
 
 .collapsible-toggle:hover {
-  color: var(--text-color-primary);
+  color: var(--collapsible-text);
 }
 
 .collapsible-toggle .toggle-icon {
@@ -458,7 +603,7 @@ hr {
 
 .collapsible-inner {
   padding: 4px 10px 4px 10px;
-  border-top: 1px solid var(--tab-border);
+  border-top: 1px solid var(--collapsible-desc-border);
   margin: 0;
 }
 
@@ -466,43 +611,89 @@ hr {
   margin: 6px 0;
   font-size: 14px;
   text-align: center;
-  color: var(--text-color-secondary);
+  color: var(--collapsible-desc-text);
 }
 
 .collapsible-inner a {
   color: var(--link-color);
 }
 
-/* 顶部 Banner */
-.top-banner {
+/* ============================================================
+   主题控制区
+   ============================================================ */
+.theme-controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  font-size: 0.7em;
-  padding: 5px 10px;
-  color: var(--text-color-secondary);
-  background-color: var(--bg-color);
-  border-bottom: 1px solid var(--info-box-border);
-  margin: 0 -10px 12px;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0;
+  flex-wrap: wrap;
 }
 
-.top-banner a {
-  color: var(--link-color);
-  text-decoration: dotted underline;
-}
-
-.top-banner-close {
-  flex-shrink: 0;
-  background: none;
-  border: none;
+.theme-import-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--btn-text);
+  background: var(--container-bg);
+  border: 1px solid var(--theme-btn-border);
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 1.1em;
-  line-height: 1;
-  padding: 0 0 0 8px;
-  color: var(--text-color-secondary);
-  opacity: 0.7;
+  transition: all 0.2s ease;
+  font-family: inherit;
 }
 
-.top-banner-close:hover {
-  opacity: 1;
+.theme-import-btn:hover {
+  color: var(--btn-text);
+  border-color: var(--theme-btn-hover-border);
+  background: var(--theme-btn-hover-bg);
+}
+
+.theme-reset-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--btn-text);
+  background: var(--container-bg);
+  border: 1px solid var(--theme-btn-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.theme-reset-btn:hover {
+  color: var(--btn-text);
+  border-color: var(--del-color);
+  background: var(--theme-btn-hover-bg);
+}
+
+.theme-guide-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--collapsible-text);
+  background: var(--container-bg);
+  border: 1px solid var(--theme-btn-border);
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.theme-guide-link:hover {
+  color: var(--btn-text);
+  border-color: var(--theme-btn-hover-border);
+  background: var(--theme-btn-hover-bg);
+}
+
+.theme-name-display {
+  font-size: 11px;
+  color: var(--theme-name-text);
+  font-style: italic;
 }

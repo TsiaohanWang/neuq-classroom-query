@@ -30,6 +30,10 @@ pub enum AppError {
     #[error("日期时间解析错误: {0}")]
     Chrono(#[from] chrono::ParseError),
 
+    /// TOML 解析错误
+    #[error("TOML 解析错误: {0}")]
+    Toml(#[from] toml::de::Error),
+
     /// 登录失败
     #[error("登录失败: {reason}")]
     LoginFailed { reason: String },
