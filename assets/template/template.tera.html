@@ -12,12 +12,18 @@
         // 检查系统偏好并为 <html> 标签添加 'dark' 类
         (function () {
             try {
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                var mql = window.matchMedia('(prefers-color-scheme: dark)');
+                if (mql.matches) {
                     document.documentElement.classList.add('dark');
                 }
-            } catch (e) {
-                // 旧版浏览器可能不支持 matchMedia
-            }
+                mql.addEventListener('change', function (e) {
+                    if (e.matches) {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+                });
+            } catch (e) {}
         })();
     </script>
 
@@ -272,24 +278,7 @@
     <script>
         // 主题配置系统
         (function () {
-            const THEME_COOKIE_NAME = 'neuq_theme_config';
-            const THEME_COOKIE_MAX_AGE = 365 * 24 * 60 * 60; // 1 year
-
-            // Cookie 操作
-            function getCookie(name) {
-                const value = `; ${document.cookie}`;
-                const parts = value.split(`; ${name}=`);
-                if (parts.length === 2) return parts.pop().split(';').shift();
-                return null;
-            }
-
-            function setCookie(name, value, maxAge) {
-                document.cookie = `${name}=${value}; max-age=${maxAge}; path=/; SameSite=Lax`;
-            }
-
-            function deleteCookie(name) {
-                document.cookie = `${name}=; max-age=0; path=/`;
-            }
+            const THEME_STORAGE_KEY = 'neuq_theme_config';
 
             // 将 snake_case 转为 CSS 变量名 --kebab-case
             function toCssVar(key) {
@@ -395,10 +384,10 @@
 
             // 初始化主题
             function initTheme() {
-                const saved = getCookie(THEME_COOKIE_NAME);
+                const saved = localStorage.getItem(THEME_STORAGE_KEY);
                 if (saved) {
                     try {
-                        const themeData = JSON.parse(decodeURIComponent(saved));
+                        const themeData = JSON.parse(saved);
                         applyMode(themeData.mode);
                         applyTheme(themeData);
                         updateThemeUI(themeData.name || null);
@@ -407,7 +396,7 @@
                             if (sel) sel.value = themeData._preset;
                         }
                     } catch (e) {
-                        console.warn('Failed to parse theme cookie:', e);
+                        console.warn('Failed to parse theme config:', e);
                     }
                 }
             }
@@ -435,8 +424,8 @@
                         if (!themeData.dark) themeData.dark = {};
                         if (!themeData.layout) themeData.layout = {};
 
-                        // 保存到 cookie
-                        setCookie(THEME_COOKIE_NAME, encodeURIComponent(JSON.stringify(themeData)), THEME_COOKIE_MAX_AGE);
+                    // 保存到 localStorage
+                    localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(themeData));
 
                         // 应用主题
                         applyTheme(themeData);
@@ -476,7 +465,7 @@
                         themeData._preset = name;
                         applyMode(themeData.mode);
                         applyTheme(themeData);
-                        setCookie(THEME_COOKIE_NAME, encodeURIComponent(JSON.stringify(themeData)), THEME_COOKIE_MAX_AGE);
+                        localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(themeData));
                         updateThemeUI(themeData.name || name);
                     })
                     .catch(function (err) {
@@ -487,7 +476,7 @@
 
             // 重置主题
             window.resetTheme = function () {
-                deleteCookie(THEME_COOKIE_NAME);
+                localStorage.removeItem(THEME_STORAGE_KEY);
                 const styleEl = document.getElementById('theme-style');
                 if (styleEl) styleEl.textContent = '';
                 // 恢复系统偏好
