@@ -481,7 +481,7 @@ hr {
   font-size: 0.7em;
   padding: 5px 10px;
   color: var(--text-color-secondary);
-  background-color: var(--info-box-bg);
+  background-color: var(--bg-color);
   border-bottom: 1px solid var(--info-box-border);
   margin: 0 -10px 12px;
 }
