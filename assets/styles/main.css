@@ -102,6 +102,7 @@ html:not(.page-loaded) .loading-badge {
   --theme-btn-hover-bg: #e5e5e5;
   --theme-btn-border: #d8d8d8;
   --theme-btn-hover-border: #777;
+  --theme-btn-reset-border: #c0392b;
   --theme-name-color: #7b7b7b;
 
   /* ── 分割线 ── */
@@ -211,6 +212,7 @@ html.dark {
   --theme-btn-hover-bg: #3a3a3a;
   --theme-btn-border: #444;
   --theme-btn-hover-border: #d1d1d1;
+  --theme-btn-reset-border: #e74c3c;
   --theme-name-color: #888;
 
   /* ── 分割线 ── */
@@ -784,7 +786,7 @@ center {
 
 /* 重置按钮悬停：红色边框 */
 .theme-reset-btn:hover {
-  border-color: var(--data-del-color);
+  border-color: var(--theme-btn-reset-border);
 }
 
 /* 主题名称 */
@@ -800,20 +802,4 @@ center {
 .theme-name-display:hover {
   border: none;
   background: none;
-}
-
-/* 明暗模式切换按钮 */
-.mode-toggle-btn {
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  min-width: 52px;
-  justify-content: center;
-}
-
-/* 明暗模式切换按钮 */
-.mode-toggle-btn {
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  min-width: 52px;
-  justify-content: center;
 }

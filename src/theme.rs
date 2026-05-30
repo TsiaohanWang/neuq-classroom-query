@@ -84,6 +84,7 @@ pub struct ThemeColors {
     pub theme_btn_hover_bg: Option<String>,
     pub theme_btn_border: Option<String>,
     pub theme_btn_hover_border: Option<String>,
+    pub theme_btn_reset_border: Option<String>,
     pub theme_name_color: Option<String>,
 
     // ── 分割线 ────────────────────────────────────────────
@@ -256,6 +257,7 @@ impl ThemeConfig {
         if let Some(v) = &colors.theme_btn_hover_bg { map.insert("--theme-btn-hover-bg", v); }
         if let Some(v) = &colors.theme_btn_border { map.insert("--theme-btn-border", v); }
         if let Some(v) = &colors.theme_btn_hover_border { map.insert("--theme-btn-hover-border", v); }
+        if let Some(v) = &colors.theme_btn_reset_border { map.insert("--theme-btn-reset-border", v); }
         if let Some(v) = &colors.theme_name_color { map.insert("--theme-name-color", v); }
 
         // 分割线
@@ -409,6 +411,7 @@ mod tests {
                 theme_btn_hover_bg: Some("a".into()),
                 theme_btn_border: Some("a".into()),
                 theme_btn_hover_border: Some("a".into()),
+                theme_btn_reset_border: Some("a".into()),
                 theme_name_color: Some("a".into()),
                 hr_border: Some("a".into()),
                 link_color: Some("a".into()),
@@ -723,6 +726,7 @@ page_bg = \"#ffffff\"\n";
                 collapsible_desc_color: Some("a".into()), collapsible_desc_border: Some("a".into()),
                 theme_btn_color: Some("a".into()), theme_btn_hover_bg: Some("a".into()),
                 theme_btn_border: Some("a".into()), theme_btn_hover_border: Some("a".into()),
+                theme_btn_reset_border: Some("a".into()),
                 theme_name_color: Some("a".into()),
                 hr_border: Some("a".into()),
                 link_color: Some("a".into()),
@@ -744,7 +748,7 @@ page_bg = \"#ffffff\"\n";
         let json_str = config.to_css_json();
         let json: serde_json::Value = serde_json::from_str(&json_str).unwrap();
         let light_vars = json["light"].as_object().unwrap().len();
-        assert_eq!(light_vars, 61, "Expected 61 color CSS variables, got {}", light_vars);
+        assert_eq!(light_vars, 62, "Expected 62 color CSS variables, got {}", light_vars);
     }
 
     #[test]
