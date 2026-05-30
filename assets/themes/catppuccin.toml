@@ -1,131 +1,168 @@
-# Catppuccin — 柔和紫罗兰主题
-# A warm, cozy theme with soft pastel accents
+# Catppuccin — Latte (亮色) / Mocha (暗色)
+# 官方调色板: https://catppuccin.com/palette/
 
 name = "Catppuccin"
-# mode = "light"  # 锁定明暗模式: "light" | "dark"（省略则跟随系统）
 
 [light]
-page_bg = "#f2f0f8"
+# 页面
+page_bg = "#eff1f5"
 page_color = "#4c4f69"
-heading_color = "#5c2dbf"
-date_color = "#5c2dbf"
-banner_bg = "#e8e0f5"
+heading_color = "#8839ef"
+date_color = "#8839ef"
+# 横幅
+banner_bg = "#e6e9ef"
 banner_color = "#4c4f69"
 banner_close_color = "#6c6f85"
-banner_border = "#c0b0e0"
+banner_border = "#ccd0da"
+# 徽章
 badge_bg = "#8839ef"
 badge_color = "#eff1f5"
-container_bg = "rgba(255, 255, 255, 0.85)"
-container_shadow = "0 4px 24px rgba(136, 57, 239, 0.08)"
-container_border = "#d0c4e8"
-infobox_bg = "#e0d8f0"
+# 容器
+container_bg = "rgba(236, 239, 245, 0.85)"
+container_shadow = "0 4px 24px rgba(136, 57, 239, 0.06)"
+container_border = "#ccd0da"
+# 信息框
+infobox_bg = "#e6e9ef"
 infobox_color = "#4c4f69"
-infobox_border = "#9880c8"
-info_color = "#7a6ea0"
-tabbar_bg = "#e5dff2"
-tabbar_border = "#d0c4e8"
+infobox_border = "#bcc0cc"
+# 信息文本
+info_color = "#6c6f85"
+# Tab 栏
+tabbar_bg = "#e6e9ef"
+tabbar_border = "#ccd0da"
+# Tab 按钮
 tab_color = "#6c6f85"
-tab_hover_color = "#5c2dbf"
-tab_hover_bg = "#d8cce8"
-tab_active_bg = "#faf8ff"
+tab_hover_color = "#8839ef"
+tab_hover_bg = "#ccd0da"
+tab_active_bg = "#eff1f5"
 tab_active_color = "#8839ef"
 tab_active_border = "#8839ef"
-tab_border = "#d0c4e8"
+tab_border = "#ccd0da"
+# 日期切换按钮
 date_btn_color = "#8839ef"
-date_btn_hover_bg = "#d8cce8"
+date_btn_hover_bg = "#ccd0da"
+# 时段标题
 timeslot_color = "#8839ef"
-table_border = "#dcd4ee"
-table_header_bg = "#e5dff2"
+# 表格
+table_border = "#ccd0da"
+table_header_bg = "#e6e9ef"
 table_header_color = "#4c4f69"
-floor_bg = "#d8cce8"
+floor_bg = "#ccd0da"
 floor_color = "#8839ef"
-building_bg = "#d8cce8"
+building_bg = "#ccd0da"
 building_color = "#8839ef"
+# 折叠面板
 collapsible_color = "#4c4f69"
-collapsible_border = "#d0c4e8"
+collapsible_border = "#ccd0da"
 collapsible_desc_color = "#6c6f85"
-collapsible_desc_border = "#dcd4ee"
+collapsible_desc_border = "#ccd0da"
+# 主题控制按钮
 theme_btn_color = "#6c6f85"
-theme_btn_hover_bg = "#d8cce8"
-theme_btn_border = "#d0c4e8"
+theme_btn_hover_bg = "#ccd0da"
+theme_btn_border = "#bcc0cc"
 theme_btn_hover_border = "#8839ef"
 theme_name_color = "#6c6f85"
-hr_border = "#dcd4ee"
-link_color = "#8839ef"
-data_strong_color = "#d20f39"
-data_strong_bg = "rgba(210,15,57,0.08)"
-data_del_color = "#d04060"
-data_del_decoration_color = "#d04060"
+# 分割线
+hr_border = "#ccd0da"
+# 链接
+link_color = "#1e66f5"
+# 数据单元格
+data_color = "#5c5f77"
+data_bg = "rgba(136, 57, 239, 0.04)"
+# 加粗（全天空闲）— Green
+data_strong_color = "#40a02b"
+data_strong_bg = "rgba(64, 160, 43, 0.08)"
+# 删除线 — Red
+data_del_color = "#d20f39"
+data_del_decoration_color = "#d20f39"
 data_del_decoration_style = "solid"
 data_del_decoration_thickness = "1px"
-data_del_bg = "rgba(208,64,96,0.08)"
-data_u_color = "#8839ef"
-data_u_decoration_color = "#8839ef"
+data_del_bg = "rgba(210, 15, 57, 0.06)"
+# 下划线 — Blue
+data_u_color = "#1e66f5"
+data_u_decoration_color = "#1e66f5"
 data_u_decoration_style = "solid"
 data_u_decoration_thickness = "1.25px"
-data_u_bg = "rgba(136,57,239,0.08)"
-data_color = "#6c5a8a"
-data_bg = "rgba(136,57,239,0.04)"
+data_u_bg = "rgba(30, 102, 245, 0.06)"
 
 [dark]
+# 页面
 page_bg = "#1e1e2e"
 page_color = "#cdd6f4"
 heading_color = "#cba6f7"
 date_color = "#cba6f7"
-banner_bg = "#201830"
+# 横幅
+banner_bg = "#181825"
 banner_color = "#cdd6f4"
 banner_close_color = "#a6adc8"
-banner_border = "rgba(203, 166, 247, 0.2)"
+banner_border = "#313244"
+# 徽章
 badge_bg = "#cba6f7"
 badge_color = "#1e1e2e"
+# 容器
 container_bg = "rgba(30, 30, 46, 0.9)"
-container_shadow = "0 4px 24px rgba(203, 166, 247, 0.08)"
-container_border = "#2e2448"
-infobox_bg = "#1e1834"
+container_shadow = "0 4px 24px rgba(203, 166, 247, 0.06)"
+container_border = "#313244"
+# 信息框
+infobox_bg = "#181825"
 infobox_color = "#cdd6f4"
-infobox_border = "rgba(203, 166, 247, 0.35)"
-info_color = "#8a7fba"
-tabbar_bg = "#232036"
-tabbar_border = "#2e2448"
+infobox_border = "#313244"
+# 信息文本
+info_color = "#a6adc8"
+# Tab 栏
+tabbar_bg = "#181825"
+tabbar_border = "#313244"
+# Tab 按钮
 tab_color = "#a6adc8"
 tab_hover_color = "#cba6f7"
-tab_hover_bg = "#2a2240"
-tab_active_bg = "#2a2a3c"
+tab_hover_bg = "#313244"
+tab_active_bg = "#1e1e2e"
 tab_active_color = "#cba6f7"
 tab_active_border = "#cba6f7"
-tab_border = "#2e2448"
+tab_border = "#313244"
+# 日期切换按钮
 date_btn_color = "#cba6f7"
-date_btn_hover_bg = "#2a2240"
+date_btn_hover_bg = "#313244"
+# 时段标题
 timeslot_color = "#cba6f7"
-table_border = "#2e2448"
-table_header_bg = "#232036"
+# 表格
+table_border = "#313244"
+table_header_bg = "#181825"
 table_header_color = "#cdd6f4"
-floor_bg = "#2a2240"
+floor_bg = "#313244"
 floor_color = "#cba6f7"
-building_bg = "#2a2240"
+building_bg = "#313244"
 building_color = "#cba6f7"
+# 折叠面板
 collapsible_color = "#cdd6f4"
-collapsible_border = "#2e2448"
+collapsible_border = "#313244"
 collapsible_desc_color = "#a6adc8"
-collapsible_desc_border = "#2e2448"
+collapsible_desc_border = "#313244"
+# 主题控制按钮
 theme_btn_color = "#a6adc8"
-theme_btn_hover_bg = "#2a2240"
-theme_btn_border = "#2e2448"
+theme_btn_hover_bg = "#313244"
+theme_btn_border = "#45475a"
 theme_btn_hover_border = "#cba6f7"
 theme_name_color = "#a6adc8"
-hr_border = "#2e2448"
-link_color = "#cba6f7"
-data_strong_color = "#fab387"
-data_strong_bg = "rgba(250,179,135,0.1)"
+# 分割线
+hr_border = "#313244"
+# 链接
+link_color = "#89b4fa"
+# 数据单元格
+data_color = "#bac2de"
+data_bg = "rgba(203, 166, 247, 0.04)"
+# 加粗（全天空闲）— Green
+data_strong_color = "#a6e3a1"
+data_strong_bg = "rgba(166, 227, 161, 0.08)"
+# 删除线 — Red
 data_del_color = "#f38ba8"
 data_del_decoration_color = "#f38ba8"
 data_del_decoration_style = "solid"
 data_del_decoration_thickness = "1px"
-data_del_bg = "rgba(243,139,168,0.1)"
-data_u_color = "#cba6f7"
-data_u_decoration_color = "#cba6f7"
+data_del_bg = "rgba(243, 139, 168, 0.08)"
+# 下划线 — Blue
+data_u_color = "#89b4fa"
+data_u_decoration_color = "#89b4fa"
 data_u_decoration_style = "solid"
 data_u_decoration_thickness = "1.25px"
-data_u_bg = "rgba(203,166,247,0.1)"
-data_color = "#a090c0"
-data_bg = "rgba(203,166,247,0.04)"
+data_u_bg = "rgba(137, 180, 250, 0.08)"

@@ -1,131 +1,168 @@
-# Nord — 北欧极光蓝主题
-# An arctic, north-bluish clean and elegant theme
+# Nord — Frost (亮色) / Polar Night (暗色)
+# 官方调色板: https://www.nordtheme.com/docs/colors-and-palettes
 
 name = "Nord"
-# mode = "light"  # 锁定明暗模式: "light" | "dark"（省略则跟随系统）
 
 [light]
-page_bg = "#f0f3f8"
+# 页面
+page_bg = "#eceff4"
 page_color = "#2e3440"
-heading_color = "#2e3440"
-date_color = "#2e3440"
-banner_bg = "#dce3ef"
+heading_color = "#5e81ac"
+date_color = "#5e81ac"
+# 横幅
+banner_bg = "#e5e9f0"
 banner_color = "#2e3440"
 banner_close_color = "#4c566a"
-banner_border = "#b0c0d8"
+banner_border = "#d8dee9"
+# 徽章
 badge_bg = "#5e81ac"
-badge_color = "#f5f5f9"
-container_bg = "rgba(255, 255, 255, 0.85)"
-container_shadow = "0 4px 24px rgba(94, 129, 172, 0.1)"
-container_border = "#c5d2e0"
-infobox_bg = "#d5e0ee"
+badge_color = "#eceff4"
+# 容器
+container_bg = "rgba(236, 239, 244, 0.85)"
+container_shadow = "0 4px 24px rgba(94, 129, 172, 0.06)"
+container_border = "#d8dee9"
+# 信息框
+infobox_bg = "#e5e9f0"
 infobox_color = "#2e3440"
-infobox_border = "#8098c0"
-info_color = "#6a7a94"
-tabbar_bg = "#dfe5f0"
-tabbar_border = "#c5d2e0"
+infobox_border = "#d8dee9"
+# 信息文本
+info_color = "#4c566a"
+# Tab 栏
+tabbar_bg = "#e5e9f0"
+tabbar_border = "#d8dee9"
+# Tab 按钮
 tab_color = "#4c566a"
-tab_hover_color = "#2e3440"
-tab_hover_bg = "#c5d2e0"
-tab_active_bg = "#f5f7fb"
+tab_hover_color = "#5e81ac"
+tab_hover_bg = "#d8dee9"
+tab_active_bg = "#eceff4"
 tab_active_color = "#5e81ac"
 tab_active_border = "#5e81ac"
-tab_border = "#c5d2e0"
+tab_border = "#d8dee9"
+# 日期切换按钮
 date_btn_color = "#5e81ac"
-date_btn_hover_bg = "#c5d2e0"
+date_btn_hover_bg = "#d8dee9"
+# 时段标题
 timeslot_color = "#5e81ac"
-table_border = "#d0dae8"
-table_header_bg = "#dfe5f0"
+# 表格
+table_border = "#d8dee9"
+table_header_bg = "#e5e9f0"
 table_header_color = "#2e3440"
-floor_bg = "#c5d2e0"
+floor_bg = "#d8dee9"
 floor_color = "#5e81ac"
-building_bg = "#c5d2e0"
+building_bg = "#d8dee9"
 building_color = "#5e81ac"
+# 折叠面板
 collapsible_color = "#2e3440"
-collapsible_border = "#c5d2e0"
+collapsible_border = "#d8dee9"
 collapsible_desc_color = "#4c566a"
-collapsible_desc_border = "#d0dae8"
+collapsible_desc_border = "#d8dee9"
+# 主题控制按钮
 theme_btn_color = "#4c566a"
-theme_btn_hover_bg = "#c5d2e0"
-theme_btn_border = "#c5d2e0"
+theme_btn_hover_bg = "#d8dee9"
+theme_btn_border = "#d8dee9"
 theme_btn_hover_border = "#5e81ac"
 theme_name_color = "#4c566a"
-hr_border = "#d0dae8"
+# 分割线
+hr_border = "#d8dee9"
+# 链接
 link_color = "#5e81ac"
-data_strong_color = "#9e5a3a"
-data_strong_bg = "rgba(158,90,58,0.08)"
-data_del_color = "#c04050"
-data_del_decoration_color = "#c04050"
+# 数据单元格
+data_color = "#3b4252"
+data_bg = "rgba(94, 129, 172, 0.04)"
+# 加粗（全天空闲）— Aurora Green
+data_strong_color = "#a3be8c"
+data_strong_bg = "rgba(163, 190, 140, 0.1)"
+# 删除线 — Aurora Red
+data_del_color = "#bf616a"
+data_del_decoration_color = "#bf616a"
 data_del_decoration_style = "solid"
 data_del_decoration_thickness = "1px"
-data_del_bg = "rgba(192,64,80,0.08)"
+data_del_bg = "rgba(191, 97, 106, 0.08)"
+# 下划线 — Frost Blue
 data_u_color = "#5e81ac"
 data_u_decoration_color = "#5e81ac"
 data_u_decoration_style = "solid"
 data_u_decoration_thickness = "1.25px"
-data_u_bg = "rgba(94,129,172,0.08)"
-data_color = "#4c6080"
-data_bg = "rgba(94,129,172,0.04)"
+data_u_bg = "rgba(94, 129, 172, 0.08)"
 
 [dark]
+# 页面
 page_bg = "#2e3440"
 page_color = "#d8dee9"
-heading_color = "#d8dee9"
-date_color = "#d8dee9"
-banner_bg = "#272d38"
+heading_color = "#88c0d0"
+date_color = "#88c0d0"
+# 横幅
+banner_bg = "#3b4252"
 banner_color = "#d8dee9"
-banner_close_color = "#81a1c1"
-banner_border = "rgba(136, 192, 208, 0.2)"
+banner_close_color = "#d8dee9"
+banner_border = "#434c5e"
+# 徽章
 badge_bg = "#88c0d0"
 badge_color = "#2e3440"
+# 容器
 container_bg = "rgba(46, 52, 64, 0.9)"
-container_shadow = "0 4px 24px rgba(136, 192, 208, 0.08)"
-container_border = "#3b4252"
-infobox_bg = "#283848"
+container_shadow = "0 4px 24px rgba(136, 192, 208, 0.06)"
+container_border = "#434c5e"
+# 信息框
+infobox_bg = "#3b4252"
 infobox_color = "#d8dee9"
-infobox_border = "rgba(136, 192, 208, 0.35)"
-info_color = "#6a7a94"
-tabbar_bg = "#303844"
-tabbar_border = "#3b4252"
-tab_color = "#81a1c1"
-tab_hover_color = "#d8dee9"
-tab_hover_bg = "#3b4252"
-tab_active_bg = "#3b4252"
+infobox_border = "#434c5e"
+# 信息文本
+info_color = "#d8dee9"
+# Tab 栏
+tabbar_bg = "#3b4252"
+tabbar_border = "#434c5e"
+# Tab 按钮
+tab_color = "#d8dee9"
+tab_hover_color = "#88c0d0"
+tab_hover_bg = "#434c5e"
+tab_active_bg = "#2e3440"
 tab_active_color = "#88c0d0"
 tab_active_border = "#88c0d0"
-tab_border = "#3b4252"
+tab_border = "#434c5e"
+# 日期切换按钮
 date_btn_color = "#88c0d0"
-date_btn_hover_bg = "#3b4252"
+date_btn_hover_bg = "#434c5e"
+# 时段标题
 timeslot_color = "#88c0d0"
-table_border = "#3b4252"
-table_header_bg = "#303844"
+# 表格
+table_border = "#434c5e"
+table_header_bg = "#3b4252"
 table_header_color = "#d8dee9"
-floor_bg = "#2a3b52"
+floor_bg = "#434c5e"
 floor_color = "#88c0d0"
-building_bg = "#2a3b52"
+building_bg = "#434c5e"
 building_color = "#88c0d0"
+# 折叠面板
 collapsible_color = "#d8dee9"
-collapsible_border = "#3b4252"
-collapsible_desc_color = "#81a1c1"
-collapsible_desc_border = "#3b4252"
-theme_btn_color = "#81a1c1"
-theme_btn_hover_bg = "#3b4252"
-theme_btn_border = "#3b4252"
+collapsible_border = "#434c5e"
+collapsible_desc_color = "#d8dee9"
+collapsible_desc_border = "#434c5e"
+# 主题控制按钮
+theme_btn_color = "#d8dee9"
+theme_btn_hover_bg = "#434c5e"
+theme_btn_border = "#4c566a"
 theme_btn_hover_border = "#88c0d0"
-theme_name_color = "#81a1c1"
-hr_border = "#3b4252"
+theme_name_color = "#d8dee9"
+# 分割线
+hr_border = "#434c5e"
+# 链接
 link_color = "#88c0d0"
-data_strong_color = "#d08770"
-data_strong_bg = "rgba(208,135,112,0.1)"
-data_del_color = "#d05060"
-data_del_decoration_color = "#d05060"
+# 数据单元格
+data_color = "#e5e9f0"
+data_bg = "rgba(136, 192, 208, 0.04)"
+# 加粗（全天空闲）— Aurora Green
+data_strong_color = "#a3be8c"
+data_strong_bg = "rgba(163, 190, 140, 0.1)"
+# 删除线 — Aurora Red
+data_del_color = "#bf616a"
+data_del_decoration_color = "#bf616a"
 data_del_decoration_style = "solid"
 data_del_decoration_thickness = "1px"
-data_del_bg = "rgba(208,80,96,0.1)"
+data_del_bg = "rgba(191, 97, 106, 0.1)"
+# 下划线 — Frost Blue
 data_u_color = "#88c0d0"
 data_u_decoration_color = "#88c0d0"
 data_u_decoration_style = "solid"
 data_u_decoration_thickness = "1.25px"
-data_u_bg = "rgba(136,192,208,0.1)"
-data_color = "#7e9ab0"
-data_bg = "rgba(136,192,208,0.04)"
+data_u_bg = "rgba(136, 192, 208, 0.1)"
