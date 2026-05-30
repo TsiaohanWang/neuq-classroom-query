@@ -4,6 +4,15 @@
   box-sizing: border-box;
 }
 
+/* 页面加载完成前隐藏校徽 */
+html:not(.page-loaded) .loading-badge {
+  opacity: 0;
+}
+.page-loaded .loading-badge {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
 /* ============================================================
    CSS 变量定义 — 命名规则: --{element}-{css_property}
    每个变量仅控制单一元素的单一属性
@@ -731,6 +740,77 @@ center {
 }
 
 .theme-controls button,
+.theme-controls select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--theme-btn-color);
+  background: var(--container-bg);
+  border: 1px solid var(--theme-btn-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  font-family: inherit;
+  outline: none;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.theme-controls button:hover,
+.theme-controls select:hover {
+  border-color: var(--theme-btn-hover-border);
+  background: var(--theme-btn-hover-bg);
+}
+.theme-controls button:focus-visible,
+.theme-controls select:focus-visible {
+  border-color: var(--theme-btn-hover-border);
+}
+
+/* 下拉菜单自定义箭头 */
+.theme-preset-select {
+  padding-right: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 12px;
+  background-color: var(--container-bg);
+}
+
+/* 重置按钮悬停：红色边框 */
+.theme-reset-btn:hover {
+  border-color: var(--data-del-color);
+}
+
+/* 主题名称 */
+.theme-name-display {
+  font-size: 11px;
+  color: var(--theme-name-color);
+  font-style: italic;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: default;
+}
+.theme-name-display:hover {
+  border: none;
+  background: none;
+}
+
+/* 明暗模式切换按钮 */
+.mode-toggle-btn {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  min-width: 52px;
+  justify-content: center;
+}
+
+.theme-controls button,
 .theme-controls select,
 .theme-controls label,
 .theme-controls a {
@@ -766,32 +846,6 @@ center {
 .theme-controls button:focus-visible,
 .theme-controls select:focus-visible {
   border-color: var(--theme-btn-hover-border);
-}
-
-/* 下拉菜单：自定义箭头替代原生 */
-.theme-preset-select {
-  padding-right: 28px;
-  background-image: none;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  background-size: 12px;
-}
-.theme-preset-select-wrap {
-  position: relative;
-  display: inline-flex;
-}
-.theme-preset-select-wrap svg {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 12px;
-  height: 12px;
-  pointer-events: none;
-  color: var(--theme-btn-color);
-}
-.theme-preset-select {
-  padding-right: 28px;
 }
 
 /* 重置按钮悬停：红色边框 */

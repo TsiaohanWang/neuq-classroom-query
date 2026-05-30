@@ -1,168 +1,130 @@
 # Tokyo Night — Light (亮色) / Storm (暗色)
-# 官方调色板: https://wixdaq.github.io/Tokyo-Night-Website/palette.html
+# 冷蓝都市夜景 + 霓虹高光
 
 name = "Tokyo Night"
 
 [light]
-# 页面
 page_bg = "#e1e2e7"
 page_color = "#485874"
 heading_color = "#2e7de9"
 date_color = "#2e7de9"
-# 横幅
 banner_bg = "#d5d6db"
 banner_color = "#485874"
 banner_close_color = "#68709a"
-banner_border = "#d5d6db"
-# 徽章
-badge_bg = "#2e7de9"
+banner_border = "#b8bcc8"
+badge_bg = "#8c4351"
 badge_color = "#e1e2e7"
-# 容器
-container_bg = "rgba(225, 226, 231, 0.85)"
-container_shadow = "0 4px 24px rgba(46, 125, 233, 0.06)"
-container_border = "#d5d6db"
-# 信息框
-infobox_bg = "#d5d6db"
+container_bg = "rgba(225, 226, 231, 0.88)"
+container_shadow = "0 4px 20px rgba(46, 125, 233, 0.1)"
+container_border = "#b8bcc8"
+infobox_bg = "#d0d4e0"
 infobox_color = "#485874"
-infobox_border = "#d5d6db"
-# 信息文本
+infobox_border = "#a0a8c0"
 info_color = "#68709a"
-# Tab 栏
-tabbar_bg = "#d5d6db"
-tabbar_border = "#d5d6db"
-# Tab 按钮
+tabbar_bg = "#d0d4e0"
+tabbar_border = "#a0a8c0"
 tab_color = "#68709a"
 tab_hover_color = "#2e7de9"
-tab_hover_bg = "#d5d6db"
+tab_hover_bg = "#c0c8d8"
 tab_active_bg = "#e1e2e7"
 tab_active_color = "#2e7de9"
 tab_active_border = "#2e7de9"
-tab_border = "#d5d6db"
-# 日期切换按钮
+tab_border = "#a0a8c0"
 date_btn_color = "#2e7de9"
-date_btn_hover_bg = "#d5d6db"
-# 时段标题
+date_btn_hover_bg = "#c0c8d8"
 timeslot_color = "#2e7de9"
-# 表格
-table_border = "#d5d6db"
-table_header_bg = "#d5d6db"
+table_border = "#b8bcc8"
+table_header_bg = "#d0d4e0"
 table_header_color = "#485874"
-floor_bg = "#d5d6db"
+floor_bg = "#c0c8d8"
 floor_color = "#2e7de9"
-building_bg = "#d5d6db"
+building_bg = "#c0c8d8"
 building_color = "#2e7de9"
-# 折叠面板
 collapsible_color = "#485874"
-collapsible_border = "#d5d6db"
+collapsible_border = "#b8bcc8"
 collapsible_desc_color = "#68709a"
-collapsible_desc_border = "#d5d6db"
-# 主题控制按钮
+collapsible_desc_border = "#b8bcc8"
 theme_btn_color = "#68709a"
-theme_btn_hover_bg = "#d5d6db"
-theme_btn_border = "#d5d6db"
+theme_btn_hover_bg = "#c0c8d8"
+theme_btn_border = "#a0a8c0"
 theme_btn_hover_border = "#2e7de9"
 theme_name_color = "#68709a"
-# 分割线
-hr_border = "#d5d6db"
-# 链接
+hr_border = "#b8bcc8"
 link_color = "#2e7de9"
-# 数据单元格
 data_color = "#3760bf"
 data_bg = "rgba(46, 125, 233, 0.04)"
-# 加粗（全天空闲）— Green
 data_strong_color = "#587539"
-data_strong_bg = "rgba(88, 117, 57, 0.08)"
-# 删除线 — Red
+data_strong_bg = "rgba(88, 117, 57, 0.1)"
 data_del_color = "#8c4351"
 data_del_decoration_color = "#8c4351"
 data_del_decoration_style = "solid"
 data_del_decoration_thickness = "1px"
-data_del_bg = "rgba(140, 67, 81, 0.06)"
-# 下划线 — Blue
+data_del_bg = "rgba(140, 67, 81, 0.08)"
 data_u_color = "#2e7de9"
 data_u_decoration_color = "#2e7de9"
 data_u_decoration_style = "solid"
 data_u_decoration_thickness = "1.25px"
-data_u_bg = "rgba(46, 125, 233, 0.06)"
+data_u_bg = "rgba(46, 125, 233, 0.08)"
 
 [dark]
-# 页面
 page_bg = "#24283b"
 page_color = "#c0caf5"
 heading_color = "#7aa2f7"
 date_color = "#7aa2f7"
-# 横幅
 banner_bg = "#1f2335"
 banner_color = "#c0caf5"
 banner_close_color = "#a9b1d6"
 banner_border = "#292e42"
-# 徽章
-badge_bg = "#7aa2f7"
+badge_bg = "#f7768e"
 badge_color = "#1f2335"
-# 容器
-container_bg = "rgba(36, 40, 59, 0.9)"
-container_shadow = "0 4px 24px rgba(122, 162, 247, 0.06)"
+container_bg = "rgba(36, 40, 59, 0.92)"
+container_shadow = "0 4px 20px rgba(122, 162, 247, 0.1)"
 container_border = "#292e42"
-# 信息框
-infobox_bg = "#1f2335"
+infobox_bg = "#1a2040"
 infobox_color = "#c0caf5"
-infobox_border = "#292e42"
-# 信息文本
+infobox_border = "#2a3870"
 info_color = "#565f89"
-# Tab 栏
-tabbar_bg = "#1f2335"
-tabbar_border = "#292e42"
-# Tab 按钮
+tabbar_bg = "#1a2040"
+tabbar_border = "#2a3870"
 tab_color = "#a9b1d6"
 tab_hover_color = "#7aa2f7"
 tab_hover_bg = "#292e42"
 tab_active_bg = "#24283b"
 tab_active_color = "#7aa2f7"
 tab_active_border = "#7aa2f7"
-tab_border = "#292e42"
-# 日期切换按钮
+tab_border = "#2a3870"
 date_btn_color = "#7aa2f7"
 date_btn_hover_bg = "#292e42"
-# 时段标题
 timeslot_color = "#7aa2f7"
-# 表格
-table_border = "#292e42"
-table_header_bg = "#1f2335"
+table_border = "#2a3870"
+table_header_bg = "#1a2040"
 table_header_color = "#c0caf5"
 floor_bg = "#292e42"
 floor_color = "#7aa2f7"
 building_bg = "#292e42"
 building_color = "#7aa2f7"
-# 折叠面板
 collapsible_color = "#c0caf5"
 collapsible_border = "#292e42"
 collapsible_desc_color = "#a9b1d6"
-collapsible_desc_border = "#292e42"
-# 主题控制按钮
+collapsible_desc_border = "#2a3870"
 theme_btn_color = "#a9b1d6"
 theme_btn_hover_bg = "#292e42"
 theme_btn_border = "#3b4261"
 theme_btn_hover_border = "#7aa2f7"
 theme_name_color = "#a9b1d6"
-# 分割线
-hr_border = "#292e42"
-# 链接
+hr_border = "#2a3870"
 link_color = "#7aa2f7"
-# 数据单元格
 data_color = "#a9b1d6"
 data_bg = "rgba(122, 162, 247, 0.04)"
-# 加粗（全天空闲）— Green
 data_strong_color = "#9ece6a"
-data_strong_bg = "rgba(158, 206, 106, 0.08)"
-# 删除线 — Red
+data_strong_bg = "rgba(158, 206, 106, 0.1)"
 data_del_color = "#f7768e"
 data_del_decoration_color = "#f7768e"
 data_del_decoration_style = "solid"
 data_del_decoration_thickness = "1px"
-data_del_bg = "rgba(247, 118, 142, 0.08)"
-# 下划线 — Blue
+data_del_bg = "rgba(247, 118, 142, 0.1)"
 data_u_color = "#7aa2f7"
 data_u_decoration_color = "#7aa2f7"
 data_u_decoration_style = "solid"
 data_u_decoration_thickness = "1.25px"
-data_u_bg = "rgba(122, 162, 247, 0.08)"
+data_u_bg = "rgba(122, 162, 247, 0.1)"

@@ -41,7 +41,7 @@
     <div class="top-banner"><span>🎉 现已支持自定义主题配置！滚动到页面底部查看更多细节。</span><button class="top-banner-close"
             onclick="this.parentElement.style.display='none'" aria-label="关闭">×</button></div>
 
-    <h1><span id="current-date-placeholder">{{ current_date }}</span><svg width="2.2em" height="1.75em"
+    <h1><span id="current-date-placeholder">{{ current_date }}</span><svg class="loading-badge" width="2.2em" height="1.75em"
             style="display: inline-block; vertical-align: -0.5em;">
             <use href="#icon-neuq-emblem-core"></use>
         </svg>空闲教室总表</h1>
@@ -238,38 +238,29 @@
 
     <div class="theme-controls">
         <button class="mode-toggle-btn" id="mode-toggle-btn" onclick="cycleMode()" title="切换明暗模式">AUTO</button>
-        <div class="theme-preset-select-wrap">
-            <select class="theme-preset-select" id="theme-preset-select" onchange="applyPresetTheme(this)" title="选择预设主题">
-                <option value="">默认主题</option>
-                <option value="ayu">Ayu</option>
-                <option value="catppuccin">Catppuccin</option>
-                <option value="everforest">Everforest</option>
-                <option value="gruvbox">Gruvbox</option>
-                <option value="kanagawa">Kanagawa</option>
-                <option value="nord">Nord</option>
-                <option value="tokyonight">Tokyo Night</option>
-            </select>
-            <svg><use href="#icon-chevron-down"></use></svg>
-        </div>
-        <label class="theme-import-btn" title="导入自定义主题配置文件">
-            <svg width="14" height="14" style="vertical-align: -2px;">
-                <use href="#icon-upload"></use>
-            </svg>
+        <select class="theme-preset-select" id="theme-preset-select" onchange="applyPresetTheme(this)" title="选择预设主题">
+            <option value="">默认主题</option>
+            <option value="ayu">Ayu</option>
+            <option value="catppuccin">Catppuccin</option>
+            <option value="everforest">Everforest</option>
+            <option value="gruvbox">Gruvbox</option>
+            <option value="kanagawa">Kanagawa</option>
+            <option value="nord">Nord</option>
+            <option value="tokyonight">Tokyo Night</option>
+        </select>
+        <button class="theme-import-btn" onclick="document.getElementById('theme-file-input').click()" title="导入自定义主题配置文件">
+            <svg width="14" height="14" style="vertical-align: -2px;"><use href="#icon-upload"></use></svg>
             导入主题
-            <input type="file" accept=".toml" onchange="importThemeFile(this)" style="display: none;">
-        </label>
+        </button>
+        <input type="file" id="theme-file-input" accept=".toml" onchange="importThemeFile(this)" style="display: none;">
         <button class="theme-reset-btn" onclick="resetTheme()" title="恢复默认主题">
-            <svg width="14" height="14" style="vertical-align: -2px;">
-                <use href="#icon-reset"></use>
-            </svg>
+            <svg width="14" height="14" style="vertical-align: -2px;"><use href="#icon-reset"></use></svg>
             重置
         </button>
-        <a href="theme-guide.html" class="theme-guide-link" title="查看主题配置指南" target="_blank">
-            <svg width="14" height="14" style="vertical-align: -2px;">
-                <use href="#icon-guide"></use>
-            </svg>
+        <button class="theme-guide-btn" onclick="window.open('theme-guide.html','_blank')" title="查看主题配置指南">
+            <svg width="14" height="14" style="vertical-align: -2px;"><use href="#icon-guide"></use></svg>
             配置指南
-        </a>
+        </button>
         <span id="theme-name" class="theme-name-display"></span>
     </div>
 
@@ -284,6 +275,37 @@
         (function () {
             const THEME_STORAGE_KEY = 'neuq_theme_config';
             const MODE_STORAGE_KEY = 'neuq_mode_preference';
+
+            // 预设主题列表及缓存
+            const PRESET_THEMES = ['ayu','catppuccin','everforest','gruvbox','kanagawa','nord','tokyonight'];
+            var themeCache = {};
+
+            // 预加载所有预设主题 TOML
+            function preloadPresets() {
+                return Promise.all(PRESET_THEMES.map(function (name) {
+                    return fetch('/assets/themes/' + name + '.toml')
+                        .then(function (res) { return res.text(); })
+                        .then(function (text) { themeCache[name] = text; })
+                        .catch(function () {});
+                }));
+            }
+
+            // 等待所有 CSS <link> 加载完成
+            function waitForCSS() {
+                var links = document.querySelectorAll('link[rel="stylesheet"]');
+                return Promise.all(Array.prototype.map.call(links, function (link) {
+                    if (link.sheet) return Promise.resolve();
+                    return new Promise(function (resolve) {
+                        link.addEventListener('load', resolve);
+                        link.addEventListener('error', resolve);
+                    });
+                }));
+            }
+
+            // 标记页面加载完成，显示校徽
+            function markPageLoaded() {
+                document.documentElement.classList.add('page-loaded');
+            }
 
             // 将 snake_case 转为 CSS 变量名 --kebab-case
             function toCssVar(key) {
@@ -488,27 +510,17 @@
                     window.resetTheme();
                     return;
                 }
-                const url = '/assets/themes/' + name + '.toml';
-                fetch(url)
-                    .then(function (res) {
-                        if (!res.ok) throw new Error('HTTP ' + res.status);
-                        return res.text();
-                    })
-                    .then(function (text) {
-                        var themeData = parseToml(text);
-                        if (!themeData.light) themeData.light = {};
-                        if (!themeData.dark) themeData.dark = {};
-                        if (!themeData.layout) themeData.layout = {};
-                        themeData._preset = name;
-                        applyMode(themeData.mode);
-                        applyTheme(themeData);
-                        localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(themeData));
-                        updateThemeUI(themeData.name || name);
-                    })
-                    .catch(function (err) {
-                        alert('加载预设主题失败: ' + err.message);
-                        select.value = '';
-                    });
+                var text = themeCache[name];
+                if (!text) return;
+                var themeData = parseToml(text);
+                if (!themeData.light) themeData.light = {};
+                if (!themeData.dark) themeData.dark = {};
+                if (!themeData.layout) themeData.layout = {};
+                themeData._preset = name;
+                applyMode(themeData.mode);
+                applyTheme(themeData);
+                localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(themeData));
+                updateThemeUI(themeData.name || name);
             };
 
             // 重置主题
@@ -532,8 +544,11 @@
                 }
             }
 
-            // 页面加载时初始化
-            initTheme();
+            // 等待 CSS 加载 + 预加载预设主题 + 初始化主题，然后显示校徽
+            Promise.all([waitForCSS(), preloadPresets()]).then(function () {
+                initTheme();
+                markPageLoaded();
+            });
         })();
     </script>
 

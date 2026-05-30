@@ -1,168 +1,130 @@
 # Gruvbox — Light (亮色) / Dark (暗色)
-# 官方调色板: https://github.com/morhetz/gruvbox
+# 复古暖调 + 深沉大地色
 
 name = "Gruvbox"
 
 [light]
-# 页面
 page_bg = "#fbf1c7"
 page_color = "#3c3836"
 heading_color = "#076678"
 date_color = "#076678"
-# 横幅
 banner_bg = "#ebdbb2"
 banner_color = "#3c3836"
 banner_close_color = "#665c54"
-banner_border = "#d5c4a1"
-# 徽章
-badge_bg = "#076678"
+banner_border = "#c8b892"
+badge_bg = "#9d0006"
 badge_color = "#fbf1c7"
-# 容器
-container_bg = "rgba(251, 241, 199, 0.85)"
-container_shadow = "0 4px 24px rgba(7, 102, 120, 0.06)"
-container_border = "#d5c4a1"
-# 信息框
-infobox_bg = "#ebdbb2"
+container_bg = "rgba(251, 241, 199, 0.88)"
+container_shadow = "0 4px 20px rgba(7, 102, 120, 0.08)"
+container_border = "#c8b892"
+infobox_bg = "#e0d0a8"
 infobox_color = "#3c3836"
-infobox_border = "#d5c4a1"
-# 信息文本
+infobox_border = "#c0a878"
 info_color = "#665c54"
-# Tab 栏
-tabbar_bg = "#ebdbb2"
-tabbar_border = "#d5c4a1"
-# Tab 按钮
+tabbar_bg = "#e0d0a8"
+tabbar_border = "#c0a878"
 tab_color = "#665c54"
 tab_hover_color = "#076678"
-tab_hover_bg = "#d5c4a1"
+tab_hover_bg = "#d0c098"
 tab_active_bg = "#fbf1c7"
 tab_active_color = "#076678"
 tab_active_border = "#076678"
-tab_border = "#d5c4a1"
-# 日期切换按钮
+tab_border = "#c0a878"
 date_btn_color = "#076678"
-date_btn_hover_bg = "#d5c4a1"
-# 时段标题
+date_btn_hover_bg = "#d0c098"
 timeslot_color = "#076678"
-# 表格
-table_border = "#d5c4a1"
-table_header_bg = "#ebdbb2"
+table_border = "#c8b892"
+table_header_bg = "#e0d0a8"
 table_header_color = "#3c3836"
-floor_bg = "#d5c4a1"
+floor_bg = "#d0c098"
 floor_color = "#076678"
-building_bg = "#d5c4a1"
+building_bg = "#d0c098"
 building_color = "#076678"
-# 折叠面板
 collapsible_color = "#3c3836"
-collapsible_border = "#d5c4a1"
+collapsible_border = "#c8b892"
 collapsible_desc_color = "#665c54"
-collapsible_desc_border = "#d5c4a1"
-# 主题控制按钮
+collapsible_desc_border = "#c8b892"
 theme_btn_color = "#665c54"
-theme_btn_hover_bg = "#d5c4a1"
-theme_btn_border = "#bdae93"
+theme_btn_hover_bg = "#d0c098"
+theme_btn_border = "#c0a878"
 theme_btn_hover_border = "#076678"
 theme_name_color = "#665c54"
-# 分割线
-hr_border = "#d5c4a1"
-# 链接
+hr_border = "#c8b892"
 link_color = "#076678"
-# 数据单元格
 data_color = "#504945"
 data_bg = "rgba(7, 102, 120, 0.04)"
-# 加粗（全天空闲）— Green
 data_strong_color = "#79740e"
-data_strong_bg = "rgba(121, 116, 14, 0.08)"
-# 删除线 — Red
+data_strong_bg = "rgba(121, 116, 14, 0.1)"
 data_del_color = "#9d0006"
 data_del_decoration_color = "#9d0006"
 data_del_decoration_style = "solid"
 data_del_decoration_thickness = "1px"
-data_del_bg = "rgba(157, 0, 6, 0.06)"
-# 下划线 — Aqua
+data_del_bg = "rgba(157, 0, 6, 0.08)"
 data_u_color = "#427b58"
 data_u_decoration_color = "#427b58"
 data_u_decoration_style = "solid"
 data_u_decoration_thickness = "1.25px"
-data_u_bg = "rgba(66, 123, 88, 0.06)"
+data_u_bg = "rgba(66, 123, 88, 0.08)"
 
 [dark]
-# 页面
 page_bg = "#282828"
 page_color = "#ebdbb2"
 heading_color = "#83a598"
 date_color = "#83a598"
-# 横幅
 banner_bg = "#3c3836"
 banner_color = "#ebdbb2"
 banner_close_color = "#bdae93"
 banner_border = "#504945"
-# 徽章
-badge_bg = "#83a598"
+badge_bg = "#fb4934"
 badge_color = "#282828"
-# 容器
-container_bg = "rgba(40, 40, 40, 0.9)"
-container_shadow = "0 4px 24px rgba(131, 165, 152, 0.06)"
+container_bg = "rgba(40, 40, 40, 0.92)"
+container_shadow = "0 4px 20px rgba(131, 165, 152, 0.08)"
 container_border = "#504945"
-# 信息框
-infobox_bg = "#3c3836"
+infobox_bg = "#322e28"
 infobox_color = "#ebdbb2"
-infobox_border = "#504945"
-# 信息文本
+infobox_border = "#4a4030"
 info_color = "#a89984"
-# Tab 栏
-tabbar_bg = "#3c3836"
-tabbar_border = "#504945"
-# Tab 按钮
+tabbar_bg = "#322e28"
+tabbar_border = "#4a4030"
 tab_color = "#bdae93"
 tab_hover_color = "#83a598"
 tab_hover_bg = "#504945"
 tab_active_bg = "#282828"
 tab_active_color = "#83a598"
 tab_active_border = "#83a598"
-tab_border = "#504945"
-# 日期切换按钮
+tab_border = "#4a4030"
 date_btn_color = "#83a598"
 date_btn_hover_bg = "#504945"
-# 时段标题
 timeslot_color = "#83a598"
-# 表格
-table_border = "#504945"
-table_header_bg = "#3c3836"
+table_border = "#4a4030"
+table_header_bg = "#322e28"
 table_header_color = "#ebdbb2"
 floor_bg = "#504945"
 floor_color = "#83a598"
 building_bg = "#504945"
 building_color = "#83a598"
-# 折叠面板
 collapsible_color = "#ebdbb2"
 collapsible_border = "#504945"
 collapsible_desc_color = "#bdae93"
-collapsible_desc_border = "#504945"
-# 主题控制按钮
+collapsible_desc_border = "#4a4030"
 theme_btn_color = "#bdae93"
 theme_btn_hover_bg = "#504945"
 theme_btn_border = "#665c54"
 theme_btn_hover_border = "#83a598"
 theme_name_color = "#bdae93"
-# 分割线
-hr_border = "#504945"
-# 链接
+hr_border = "#4a4030"
 link_color = "#83a598"
-# 数据单元格
 data_color = "#d5c4a1"
 data_bg = "rgba(131, 165, 152, 0.04)"
-# 加粗（全天空闲）— Green
 data_strong_color = "#b8bb26"
-data_strong_bg = "rgba(184, 187, 38, 0.08)"
-# 删除线 — Red
+data_strong_bg = "rgba(184, 187, 38, 0.1)"
 data_del_color = "#fb4934"
 data_del_decoration_color = "#fb4934"
 data_del_decoration_style = "solid"
 data_del_decoration_thickness = "1px"
-data_del_bg = "rgba(251, 73, 52, 0.08)"
-# 下划线 — Aqua
+data_del_bg = "rgba(251, 73, 52, 0.1)"
 data_u_color = "#8ec07c"
 data_u_decoration_color = "#8ec07c"
 data_u_decoration_style = "solid"
 data_u_decoration_thickness = "1.25px"
-data_u_bg = "rgba(142, 192, 124, 0.08)"
+data_u_bg = "rgba(142, 192, 124, 0.1)"
