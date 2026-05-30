@@ -810,64 +810,6 @@ center {
   justify-content: center;
 }
 
-.theme-controls button,
-.theme-controls select,
-.theme-controls label,
-.theme-controls a {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 5px 12px;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--theme-btn-color);
-  background: var(--container-bg);
-  border: 1px solid var(--theme-btn-border);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
-  font-family: inherit;
-  outline: none;
-  white-space: nowrap;
-  vertical-align: middle;
-  text-decoration: none;
-}
-.theme-controls button:hover,
-.theme-controls select:hover,
-.theme-controls label:hover,
-.theme-controls a:hover {
-  border-color: var(--theme-btn-hover-border);
-  background: var(--theme-btn-hover-bg);
-}
-.theme-controls button:focus-visible,
-.theme-controls select:focus-visible {
-  border-color: var(--theme-btn-hover-border);
-}
-
-/* 重置按钮悬停：红色边框 */
-.theme-reset-btn:hover {
-  border-color: var(--data-del-color);
-}
-
-/* 主题名称 */
-.theme-name-display {
-  font-size: 11px;
-  color: var(--theme-name-color);
-  font-style: italic;
-  border: none;
-  background: none;
-  padding: 0;
-  cursor: default;
-}
-.theme-name-display:hover {
-  border: none;
-  background: none;
-}
-
 /* 明暗模式切换按钮 */
 .mode-toggle-btn {
   font-weight: 600;
