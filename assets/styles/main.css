@@ -718,6 +718,9 @@ center {
 /* ============================================================
    主题控制区
    ============================================================ */
+/* ── 主题控制按钮区 ──────────────────────────────────────────
+   所有控件统一 appearance: none，消除浏览器/OS 原生样式差异
+   ============================================================ */
 .theme-controls {
   display: flex;
   align-items: center;
@@ -727,109 +730,94 @@ center {
   flex-wrap: wrap;
 }
 
-.theme-preset-select {
-  padding: 4px 8px;
-  font-size: 12px;
-  color: var(--theme-btn-color);
-  background: var(--container-bg);
-  border: 1px solid var(--theme-btn-border);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-  appearance: auto;
-}
-.theme-preset-select:hover {
-  border-color: var(--theme-btn-hover-border);
-  background: var(--theme-btn-hover-bg);
-}
-
-.theme-import-btn {
+.theme-controls button,
+.theme-controls select,
+.theme-controls label,
+.theme-controls a {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 4px 10px;
+  padding: 5px 12px;
   font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
   color: var(--theme-btn-color);
   background: var(--container-bg);
   border: 1px solid var(--theme-btn-border);
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
   font-family: inherit;
-}
-
-.theme-import-btn:hover {
-  color: var(--theme-btn-color);
-  border-color: var(--theme-btn-hover-border);
-  background: var(--theme-btn-hover-bg);
-}
-
-.theme-reset-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  font-size: 12px;
-  color: var(--theme-btn-color);
-  background: var(--container-bg);
-  border: 1px solid var(--theme-btn-border);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
-
-.theme-reset-btn:hover {
-  color: var(--theme-btn-color);
-  border-color: var(--data-del-color);
-  background: var(--theme-btn-hover-bg);
-}
-
-.theme-guide-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  padding: 4px 10px;
-  font-size: 12px;
-  color: var(--collapsible-color);
-  background: var(--container-bg);
-  border: 1px solid var(--theme-btn-border);
-  border-radius: 4px;
+  outline: none;
+  white-space: nowrap;
+  vertical-align: middle;
   text-decoration: none;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
 }
-.theme-guide-link:hover {
-  color: var(--theme-btn-color);
+.theme-controls button:hover,
+.theme-controls select:hover,
+.theme-controls label:hover,
+.theme-controls a:hover {
   border-color: var(--theme-btn-hover-border);
   background: var(--theme-btn-hover-bg);
 }
+.theme-controls button:focus-visible,
+.theme-controls select:focus-visible {
+  border-color: var(--theme-btn-hover-border);
+}
 
+/* 下拉菜单：自定义箭头替代原生 */
+.theme-preset-select {
+  padding-right: 28px;
+  background-image: none;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 12px;
+}
+.theme-preset-select-wrap {
+  position: relative;
+  display: inline-flex;
+}
+.theme-preset-select-wrap svg {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  color: var(--theme-btn-color);
+}
+.theme-preset-select {
+  padding-right: 28px;
+}
+
+/* 重置按钮悬停：红色边框 */
+.theme-reset-btn:hover {
+  border-color: var(--data-del-color);
+}
+
+/* 主题名称 */
 .theme-name-display {
   font-size: 11px;
   color: var(--theme-name-color);
   font-style: italic;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: default;
+}
+.theme-name-display:hover {
+  border: none;
+  background: none;
 }
 
+/* 明暗模式切换按钮 */
 .mode-toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 10px;
-  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.5px;
-  color: var(--theme-btn-color);
-  background: var(--container-bg);
-  border: 1px solid var(--theme-btn-border);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
   min-width: 52px;
-}
-.mode-toggle-btn:hover {
-  border-color: var(--theme-btn-hover-border);
-  background: var(--theme-btn-hover-bg);
+  justify-content: center;
 }

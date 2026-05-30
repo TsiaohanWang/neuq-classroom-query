@@ -238,16 +238,19 @@
 
     <div class="theme-controls">
         <button class="mode-toggle-btn" id="mode-toggle-btn" onclick="cycleMode()" title="切换明暗模式">AUTO</button>
-        <select class="theme-preset-select" id="theme-preset-select" onchange="applyPresetTheme(this)" title="选择预设主题">
-            <option value="">默认主题</option>
-            <option value="ayu">Ayu</option>
-            <option value="catppuccin">Catppuccin</option>
-            <option value="everforest">Everforest</option>
-            <option value="gruvbox">Gruvbox</option>
-            <option value="kanagawa">Kanagawa</option>
-            <option value="nord">Nord</option>
-            <option value="tokyonight">Tokyo Night</option>
-        </select>
+        <div class="theme-preset-select-wrap">
+            <select class="theme-preset-select" id="theme-preset-select" onchange="applyPresetTheme(this)" title="选择预设主题">
+                <option value="">默认主题</option>
+                <option value="ayu">Ayu</option>
+                <option value="catppuccin">Catppuccin</option>
+                <option value="everforest">Everforest</option>
+                <option value="gruvbox">Gruvbox</option>
+                <option value="kanagawa">Kanagawa</option>
+                <option value="nord">Nord</option>
+                <option value="tokyonight">Tokyo Night</option>
+            </select>
+            <svg><use href="#icon-chevron-down"></use></svg>
+        </div>
         <label class="theme-import-btn" title="导入自定义主题配置文件">
             <svg width="14" height="14" style="vertical-align: -2px;">
                 <use href="#icon-upload"></use>

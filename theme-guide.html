@@ -322,7 +322,7 @@
 <table>
 <tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
 <tr><td><code>data_del_color</code></td><td><code>--data-del-color</code></td><td>删除线文字颜色</td><td>gray</td><td>#888</td></tr>
-<tr><td><code>data_del_decoration_color</code></td><td><code>--data-del-decoration-color</code></td><td>删除线线条颜色</td><td>跟随 data_del_color</td><td>跟随 data_del_color</td></tr>
+<tr><td><code>data_del_decoration_color</code></td><td><code>--data-del-decoration-color</code></td><td>删除线线条颜色</td><td>var(--data-del-color)</td><td>var(--data-del-color)</td></tr>
 <tr><td><code>data_del_decoration_style</code></td><td><code>--data-del-decoration-style</code></td><td>删除线样式</td><td>solid</td><td>solid</td></tr>
 <tr><td><code>data_del_decoration_thickness</code></td><td><code>--data-del-decoration-thickness</code></td><td>删除线粗细</td><td>0.75px</td><td>0.75px</td></tr>
 <tr><td><code>data_del_bg</code></td><td><code>--data-del-bg</code></td><td>删除线文字背景色</td><td>transparent</td><td>transparent</td></tr>
@@ -332,7 +332,7 @@
 <table>
 <tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
 <tr><td><code>data_u_color</code></td><td><code>--data-u-color</code></td><td>下划线文字颜色</td><td>inherit</td><td>inherit</td></tr>
-<tr><td><code>data_u_decoration_color</code></td><td><code>--data-u-decoration-color</code></td><td>下划线线条颜色</td><td>跟随 link_color</td><td>跟随 link_color</td></tr>
+<tr><td><code>data_u_decoration_color</code></td><td><code>--data-u-decoration-color</code></td><td>下划线线条颜色</td><td>var(--link-color)</td><td>var(--link-color)</td></tr>
 <tr><td><code>data_u_decoration_style</code></td><td><code>--data-u-decoration-style</code></td><td>下划线样式</td><td>solid</td><td>solid</td></tr>
 <tr><td><code>data_u_decoration_thickness</code></td><td><code>--data-u-decoration-thickness</code></td><td>下划线粗细</td><td>1.25px</td><td>1.25px</td></tr>
 <tr><td><code>data_u_bg</code></td><td><code>--data-u-bg</code></td><td>下划线文字背景色</td><td>transparent</td><td>transparent</td></tr>
