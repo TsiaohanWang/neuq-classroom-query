@@ -811,3 +811,25 @@ center {
   color: var(--theme-name-color);
   font-style: italic;
 }
+
+.mode-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--theme-btn-color);
+  background: var(--container-bg);
+  border: 1px solid var(--theme-btn-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  min-width: 52px;
+}
+.mode-toggle-btn:hover {
+  border-color: var(--theme-btn-hover-border);
+  background: var(--theme-btn-hover-bg);
+}

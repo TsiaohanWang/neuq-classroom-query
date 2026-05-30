@@ -237,6 +237,7 @@
     </div>
 
     <div class="theme-controls">
+        <button class="mode-toggle-btn" id="mode-toggle-btn" onclick="cycleMode()" title="切换明暗模式">AUTO</button>
         <select class="theme-preset-select" id="theme-preset-select" onchange="applyPresetTheme(this)" title="选择预设主题">
             <option value="">默认主题</option>
             <option value="ayu">Ayu</option>
@@ -279,6 +280,7 @@
         // 主题配置系统
         (function () {
             const THEME_STORAGE_KEY = 'neuq_theme_config';
+            const MODE_STORAGE_KEY = 'neuq_mode_preference';
 
             // 将 snake_case 转为 CSS 变量名 --kebab-case
             function toCssVar(key) {
@@ -321,18 +323,43 @@
 
                 styleEl.textContent = css;
 
-                // 应用明暗模式锁定
-                applyMode(themeData.mode);
+                // 仅当用户未手动设置模式时，才应用主题配置的 mode
+                if (!localStorage.getItem(MODE_STORAGE_KEY)) {
+                    applyMode(themeData.mode);
+                }
             }
 
-            // 应用明暗模式锁定
+            // 应用明暗模式
             function applyMode(mode) {
                 if (mode === 'dark') {
                     document.documentElement.classList.add('dark');
                 } else if (mode === 'light') {
                     document.documentElement.classList.remove('dark');
+                } else {
+                    // auto: 跟随系统
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
                 }
-                // mode 为 null/undefined 时保持系统偏好，不做修改
+                updateModeToggle(mode || 'auto');
+            }
+
+            // 用户通过切换按钮设置明暗模式
+            var MODE_CYCLE = ['auto', 'light', 'dark'];
+            var MODE_LABELS = { auto: 'AUTO', light: 'LIGHT', dark: 'DARK' };
+            window.cycleMode = function () {
+                var cur = localStorage.getItem(MODE_STORAGE_KEY) || 'auto';
+                var next = MODE_CYCLE[(MODE_CYCLE.indexOf(cur) + 1) % 3];
+                localStorage.setItem(MODE_STORAGE_KEY, next);
+                applyMode(next);
+            };
+
+            // 更新切换按钮文字
+            function updateModeToggle(mode) {
+                var btn = document.getElementById('mode-toggle-btn');
+                if (btn) btn.textContent = MODE_LABELS[mode] || 'AUTO';
             }
 
             // 解析 TOML（轻量级解析器，仅支持本项目主题格式）
@@ -384,11 +411,18 @@
 
             // 初始化主题
             function initTheme() {
-                const saved = localStorage.getItem(THEME_STORAGE_KEY);
+                // 先恢复用户模式偏好（优先于主题配置的 mode）
+                var savedMode = localStorage.getItem(MODE_STORAGE_KEY);
+                applyMode(savedMode || 'auto');
+
+                var saved = localStorage.getItem(THEME_STORAGE_KEY);
                 if (saved) {
                     try {
                         const themeData = JSON.parse(saved);
-                        applyMode(themeData.mode);
+                        // 仅当用户未设置独立模式偏好时，才使用主题配置的 mode
+                        if (!savedMode && themeData.mode) {
+                            applyMode(themeData.mode);
+                        }
                         applyTheme(themeData);
                         updateThemeUI(themeData.name || null);
                         if (themeData._preset) {
@@ -477,17 +511,14 @@
             // 重置主题
             window.resetTheme = function () {
                 localStorage.removeItem(THEME_STORAGE_KEY);
-                const styleEl = document.getElementById('theme-style');
+                localStorage.removeItem(MODE_STORAGE_KEY);
+                var styleEl = document.getElementById('theme-style');
                 if (styleEl) styleEl.textContent = '';
-                // 恢复系统偏好
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
                 var sel = document.getElementById('theme-preset-select');
                 if (sel) sel.value = '';
                 updateThemeUI(null);
+                // 恢复系统偏好
+                applyMode('auto');
             };
 
             // 更新 UI 显示

@@ -60,14 +60,14 @@
 <body>
 
 <h1>自定义主题配置指南</h1>
-<p class="subtitle">NEUQ 空闲教室总表 · 主题系统 · Ver 3.0</p>
+<p class="subtitle">NEUQ 空闲教室总表 · 主题系统 · Ver 3.2</p>
 
 <div class="toc">
 <strong>目录</strong>
 <ol>
   <li><a href="#quick">快速开始</a></li>
   <li><a href="#naming">命名规则</a></li>
-  <li><a href="#mode">明暗模式锁定</a></li>
+  <li><a href="#mode">明暗模式</a></li>
   <li><a href="#import">导入与管理</a></li>
   <li><a href="#presets">预设主题</a></li>
   <li><a href="#colors">颜色变量参考</a></li>
@@ -150,26 +150,37 @@
 <div class="note"><strong>示例：</strong><code>banner_bg</code> = 横幅(<code>banner</code>) + 背景色(<code>bg</code>)；<code>tab_hover_color</code> = Tab按钮(<code>tab</code>) + 悬停状态(<code>hover</code>) + 文字色(<code>color</code>)。</div>
 
 <!-- ============================================================ -->
-<h2 id="mode">3. 明暗模式锁定</h2>
+<h2 id="mode">3. 明暗模式</h2>
 <!-- ============================================================ -->
 
-<p>默认情况下，页面自动跟随系统明暗模式。可通过 <code>mode</code> 字段锁定为某一模式：</p>
+<h3>3.1 切换按钮</h3>
+<p>页面底部提供一个明暗模式切换按钮，点击可在三种模式间轮换：</p>
+<ul>
+  <li><strong>AUTO</strong> — 跟随系统（默认）</li>
+  <li><strong>LIGHT</strong> — 强制亮色模式</li>
+  <li><strong>DARK</strong> — 强制暗色模式</li>
+</ul>
+<p>按钮显示当前模式名称，状态保存在浏览器 localStorage 中，刷新后自动恢复。</p>
 
-<pre><span class="key">mode</span> = <span class="str">"dark"</span>  <span class="cmt"># 锁定暗色模式</span>
-<span class="cmt"># mode = "light"  # 锁定亮色模式</span>
+<h3>3.2 TOML 配置</h3>
+<p>主题文件中可通过 <code>mode</code> 字段指定默认明暗模式：</p>
+
+<pre><span class="key">mode</span> = <span class="str">"dark"</span>  <span class="cmt"># 默认暗色模式</span>
+<span class="cmt"># mode = "light"  # 默认亮色模式</span>
 <span class="cmt"># 省略则跟随系统</span></pre>
 
-<div class="note"><strong>注意：</strong>锁定模式后，即使用户系统切换了明暗模式，页面也会保持锁定的模式。</div>
+<div class="note"><strong>优先级：</strong>用户通过按钮手动切换的模式 > 主题文件中的 <code>mode</code> 字段 > 跟随系统。用户手动切换后，主题文件的 <code>mode</code> 字段将被忽略，直到用户点击「重置」按钮。</div>
 
 <!-- ============================================================ -->
 <h2 id="import">4. 导入与管理</h2>
 <!-- ============================================================ -->
 
 <ul>
-  <li><strong>导入主题</strong> — 点击页面底部的「导入主题」按钮，选择 <code>.toml</code> 文件</li>
+  <li><strong>明暗切换</strong> — 点击底部的 <code>AUTO</code>/<code>LIGHT</code>/<code>DARK</code> 按钮轮换明暗模式</li>
   <li><strong>预设主题</strong> — 使用下拉菜单从 7 个内置主题中选择</li>
-  <li><strong>重置主题</strong> — 点击「重置」按钮恢复默认样式</li>
-  <li><strong>持久化</strong> — 主题配置保存在浏览器 localStorage 中，刷新页面后自动恢复</li>
+  <li><strong>导入主题</strong> — 点击「导入主题」按钮，选择 <code>.toml</code> 文件</li>
+  <li><strong>重置主题</strong> — 点击「重置」按钮恢复默认样式和跟随系统模式</li>
+  <li><strong>持久化</strong> — 主题配置和模式偏好分别保存在浏览器 localStorage 中，刷新页面后自动恢复</li>
 </ul>
 
 <div class="tip"><strong>提示：</strong>预设主题和自定义导入互斥——选择预设会清除自定义配置，导入自定义会清除预设选择。</div>
@@ -180,13 +191,13 @@
 
 <table>
 <tr><th>主题名</th><th>风格</th><th>文件名</th></tr>
-<tr><td>Ayu</td><td>暖粉橙调</td><td><code>ayu.toml</code></td></tr>
-<tr><td>Catppuccin</td><td>柔和紫罗兰</td><td><code>catppuccin.toml</code></td></tr>
-<tr><td>Everforest</td><td>森林绿</td><td><code>everforest.toml</code></td></tr>
-<tr><td>Gruvbox</td><td>复古暖调</td><td><code>gruvbox.toml</code></td></tr>
-<tr><td>Kanagawa</td><td>朱红暖调</td><td><code>kanagawa.toml</code></td></tr>
-<tr><td>Nord</td><td>北欧极光蓝</td><td><code>nord.toml</code></td></tr>
-<tr><td>Tokyo Night</td><td>冷蓝调都市夜景</td><td><code>tokyonight.toml</code></td></tr>
+<tr><td>Ayu</td><td>清新蓝调（Light/Dark）</td><td><code>ayu.toml</code></td></tr>
+<tr><td>Catppuccin</td><td>柔和紫罗兰（Latte/Mocha）</td><td><code>catppuccin.toml</code></td></tr>
+<tr><td>Everforest</td><td>森林绿（Light/Dark medium）</td><td><code>everforest.toml</code></td></tr>
+<tr><td>Gruvbox</td><td>复古暖调（Light/Dark）</td><td><code>gruvbox.toml</code></td></tr>
+<tr><td>Kanagawa</td><td>蓝灰雅调（Lotus/Wave）</td><td><code>kanagawa.toml</code></td></tr>
+<tr><td>Nord</td><td>北欧蓝（Frost/Polar Night）</td><td><code>nord.toml</code></td></tr>
+<tr><td>Tokyo Night</td><td>冷蓝都市（Light/Storm）</td><td><code>tokyonight.toml</code></td></tr>
 </table>
 
 <!-- ============================================================ -->
@@ -412,6 +423,8 @@
 <span class="key">theme_name_color</span> = <span class="str">"#546e7a"</span>
 <span class="key">hr_border</span> = <span class="str">"#b3e5fc"</span>
 <span class="key">link_color</span> = <span class="str">"#0277bd"</span>
+<span class="key">data_color</span> = <span class="str">"#1a365d"</span>
+<span class="key">data_bg</span> = <span class="str">"rgba(2,119,189,0.04)"</span>
 <span class="key">data_strong_color</span> = <span class="str">"#e65100"</span>
 <span class="key">data_strong_bg</span> = <span class="str">"rgba(230,81,0,0.08)"</span>
 <span class="key">data_del_color</span> = <span class="str">"#c62828"</span>
@@ -466,6 +479,8 @@
 <span class="key">theme_name_color</span> = <span class="str">"#4db6ac"</span>
 <span class="key">hr_border</span> = <span class="str">"rgba(79,195,247,0.15)"</span>
 <span class="key">link_color</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">data_color</span> = <span class="str">"#b2ebf2"</span>
+<span class="key">data_bg</span> = <span class="str">"rgba(79,195,247,0.04)"</span>
 <span class="key">data_strong_color</span> = <span class="str">"#ffb74d"</span>
 <span class="key">data_strong_bg</span> = <span class="str">"rgba(255,183,77,0.1)"</span>
 <span class="key">data_del_color</span> = <span class="str">"#ef5350"</span>
@@ -492,13 +507,13 @@
 <p>分别在 <code>[light]</code> 和 <code>[dark]</code> 段落中配置。省略的字段使用默认值。</p>
 
 <h3>Q: 主题配置保存在哪里？</h3>
-<p>保存在浏览器的 localStorage 中，有效期一年。清除浏览器数据会丢失自定义主题。</p>
+<p>保存在浏览器的 localStorage 中，永久有效，除非用户手动清除浏览器数据。</p>
 
 <h3>Q: 能否修改页面整体宽度？</h3>
 <p>不能。页面宽度固定为 800px，不在主题配置范围内。</p>
 
 <hr>
-<p style="text-align:center; color:#999; font-size:12px;">NEUQ 空闲教室总表 · 自定义主题配置指南 · Ver 3.0</p>
+<p style="text-align:center; color:#999; font-size:12px;">NEUQ 空闲教室总表 · 自定义主题配置指南 · Ver 3.2</p>
 
 </body>
 </html>
