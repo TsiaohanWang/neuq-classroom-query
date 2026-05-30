@@ -5,150 +5,232 @@
 }
 
 /* ============================================================
-   CSS 变量定义 — 每个变量仅控制单一元素的单一属性
-   默认值保持与原始样式完全一致
+   CSS 变量定义 — 命名规则: --{element}-{css_property}
+   每个变量仅控制单一元素的单一属性
    ============================================================ */
 :root {
-  /* --- 背景色 --- */
-  --body-bg: #f9f9f9;
-  --badge-bg: #7b7b7b;
+  /* ── 页面 ── */
+  --page-bg: #f9f9f9;
+  --page-color: #474747;
+
+  /* ── 标题 ── */
+  --heading-color: #3f3f3f;
+  --heading-font-size: 22px;
+
+  /* ── 日期显示 ── */
+  --date-color: #3f3f3f;
+  --date-font-size: 18px;
+
+  /* ── 横幅 ── */
   --banner-bg: #f9f9f9;
-  --tab-bar-bg: #f0f0f0;
-  --tab-active-bg: rgba(255, 255, 255, 0.75);
+  --banner-color: #7b7b7b;
+  --banner-close-color: #7b7b7b;
+  --banner-border: rgba(137, 137, 137, 0.3);
+
+  /* ── 徽章 ── */
+  --badge-bg: #7b7b7b;
+  --badge-color: #f9f9f9;
+
+  /* ── 容器 ── */
   --container-bg: rgba(255, 255, 255, 0.2);
   --container-shadow: 2px 4px 3px 2px rgba(0, 0, 0, 0.06);
-  --info-box-bg: rgba(138, 138, 138, 0.05);
-
-  /* --- 主文字色 --- */
-  --body-text: #474747;
-  --collapsible-text: #474747;
-  --btn-text: #474747;
-  --info-text: #7b7b7b;
-  --badge-text: #f9f9f9;
-  --banner-text: #7b7b7b;
-  --banner-close-text: #7b7b7b;
-  --collapsible-desc-text: #7b7b7b;
-  --theme-name-text: #7b7b7b;
-  --h1-text: #3f3f3f;
-  --date-display-text: #3f3f3f;
-
-  /* --- 表格文字色 --- */
-  --table-header-text: inherit;
-  --floor-label-bg: #f7f7f7;
-  --floor-label-text: inherit;
-  --building-name-bg: #f7f7f7;
-  --building-name-text: inherit;
-
-  /* --- Tab 文字色 --- */
-  --tab-text: #888;
-  --tab-text-hover: #000;
-
-  /* --- Hover 背景色 --- */
-  --date-btn-hover-bg: #e5e5e5;
-  --tab-hover-bg: #e5e5e5;
-  --theme-btn-hover-bg: #e5e5e5;
-
-  /* --- 边框色 --- */
-  --banner-border: rgba(137, 137, 137, 0.3);
-  --info-box-border: rgba(137, 137, 137, 0.3);
   --container-border: rgba(137, 137, 137, 0.3);
-  --tab-bar-border: #d8d8d8;
-  --tab-btn-border: #d8d8d8;
-  --hr-border: #d8d8d8;
-  --collapsible-border: #d8d8d8;
-  --collapsible-desc-border: #d8d8d8;
-  --theme-btn-border: #d8d8d8;
+
+  /* ── 信息框（紧急信息/事件） ── */
+  --infobox-bg: rgba(138, 138, 138, 0.05);
+  --infobox-color: #4f4f4f;
+  --infobox-border: rgba(137, 137, 137, 0.3);
+
+  /* ── 信息文本（更新时间/版本等） ── */
+  --info-color: #7b7b7b;
+  --info-font-size: 13px;
+
+  /* ── Tab 栏 ── */
+  --tabbar-bg: #f0f0f0;
+  --tabbar-border: #d8d8d8;
+
+  /* ── Tab 按钮 ── */
+  --tab-color: #888;
+  --tab-hover-color: #000;
+  --tab-hover-bg: #e5e5e5;
+  --tab-active-bg: rgba(255, 255, 255, 0.75);
+  --tab-active-color: #777;
+  --tab-active-border: #777;
+  --tab-border: #d8d8d8;
+  --tab-font-size: 17px;
+
+  /* ── 日期切换按钮 ── */
+  --date-btn-color: #777;
+  --date-btn-hover-bg: #e5e5e5;
+
+  /* ── 时段标题 ── */
+  --timeslot-color: #777;
+  --timeslot-font-size: 20px;
+
+  /* ── 表格 ── */
   --table-border: #e0e0e0;
   --table-header-bg: #f7f7f7;
-  --info-box-text: #4f4f4f;
+  --table-header-color: inherit;
+  --table-font-size: 12px;
+  --td-font-size: 14px;
 
-  /* --- 强调色 --- */
-  --date-btn-icon: #777;
-  --tab-active-text: #777;
-  --tab-active-border: #777;
-  --timeslot-title-text: #777;
+  /* ── 楼层标签（工学馆） ── */
+  --floor-bg: #f7f7f7;
+  --floor-color: inherit;
+
+  /* ── 教学楼名称（本部其它/南校区） ── */
+  --building-bg: #f7f7f7;
+  --building-color: inherit;
+
+  /* ── 折叠面板 ── */
+  --collapsible-color: #474747;
+  --collapsible-border: #d8d8d8;
+  --collapsible-desc-color: #7b7b7b;
+  --collapsible-desc-border: #d8d8d8;
+
+  /* ── 主题控制按钮 ── */
+  --theme-btn-color: #474747;
+  --theme-btn-hover-bg: #e5e5e5;
+  --theme-btn-border: #d8d8d8;
   --theme-btn-hover-border: #777;
+  --theme-name-color: #7b7b7b;
 
-  /* --- 链接 / 标记色 --- */
+  /* ── 分割线 ── */
+  --hr-border: #d8d8d8;
+
+  /* ── 链接 ── */
   --link-color: #4e4e4e;
-  --strong-color: rgb(76, 76, 76);
-  --del-color: gray;
 
-  /* --- 布局 --- */
-  --font-size-table: 12px;
-  --font-size-td: 14px;
-  --font-size-header: 22px;
-  --font-size-info: 13px;
-  --font-size-timeslot: 20px;
-  --font-size-tab: 17px;
-  --font-size-date: 18px;
+  /* ── 数据单元格 ── */
+  --data-color: inherit;
+  --data-bg: transparent;
+
+  /* ── 数据单元格 · 加粗 ── */
+  --data-strong-color: rgb(76, 76, 76);
+  --data-strong-bg: transparent;
+
+  /* ── 数据单元格 · 删除线 ── */
+  --data-del-color: gray;
+  --data-del-decoration-color: var(--data-del-color);
+  --data-del-decoration-style: solid;
+  --data-del-decoration-thickness: 0.75px;
+  --data-del-bg: transparent;
+
+  /* ── 数据单元格 · 下划线 ── */
+  --data-u-color: inherit;
+  --data-u-decoration-color: var(--link-color);
+  --data-u-decoration-style: solid;
+  --data-u-decoration-thickness: 1.25px;
+  --data-u-bg: transparent;
 }
 
 html.dark {
-  /* --- 背景色 --- */
-  --body-bg: #121212;
-  --badge-bg: #888;
+  /* ── 页面 ── */
+  --page-bg: #121212;
+  --page-color: #bbb;
+
+  /* ── 标题 ── */
+  --heading-color: #ccc;
+
+  /* ── 日期显示 ── */
+  --date-color: #ccc;
+
+  /* ── 横幅 ── */
   --banner-bg: #121212;
-  --tab-bar-bg: #2a2a2a;
-  --tab-active-bg: rgba(30, 30, 30, 0.75);
+  --banner-color: #888;
+  --banner-close-color: #888;
+  --banner-border: rgba(213, 213, 213, 0.3);
+
+  /* ── 徽章 ── */
+  --badge-bg: #888;
+  --badge-color: #121212;
+
+  /* ── 容器 ── */
   --container-bg: rgba(30, 30, 30, 0.5);
   --container-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.5);
-  --info-box-bg: rgba(213, 213, 213, 0.08);
-
-  /* --- 主文字色 --- */
-  --body-text: #bbb;
-  --collapsible-text: #bbb;
-  --btn-text: #bbb;
-  --info-text: #888;
-  --badge-text: #121212;
-  --banner-text: #888;
-  --banner-close-text: #888;
-  --collapsible-desc-text: #888;
-  --theme-name-text: #888;
-  --h1-text: #ccc;
-  --date-display-text: #ccc;
-
-  /* --- 表格文字色 --- */
-  --table-header-text: inherit;
-  --floor-label-bg: #2c2c2c;
-  --floor-label-text: inherit;
-  --building-name-bg: #2c2c2c;
-  --building-name-text: inherit;
-
-  /* --- Tab 文字色 --- */
-  --tab-text: #aaa;
-  --tab-text-hover: #fff;
-
-  /* --- Hover 背景色 --- */
-  --date-btn-hover-bg: #3a3a3a;
-  --tab-hover-bg: #3a3a3a;
-  --theme-btn-hover-bg: #3a3a3a;
-
-  /* --- 边框色 --- */
-  --banner-border: rgba(213, 213, 213, 0.3);
-  --info-box-border: rgba(213, 213, 213, 0.3);
   --container-border: rgba(213, 213, 213, 0.3);
-  --tab-bar-border: #444;
-  --tab-btn-border: #444;
-  --hr-border: #444;
-  --collapsible-border: #444;
-  --collapsible-desc-border: #444;
-  --theme-btn-border: #444;
+
+  /* ── 信息框 ── */
+  --infobox-bg: rgba(213, 213, 213, 0.08);
+  --infobox-color: #ccc;
+  --infobox-border: rgba(213, 213, 213, 0.3);
+
+  /* ── 信息文本 ── */
+  --info-color: #888;
+
+  /* ── Tab 栏 ── */
+  --tabbar-bg: #2a2a2a;
+  --tabbar-border: #444;
+
+  /* ── Tab 按钮 ── */
+  --tab-color: #aaa;
+  --tab-hover-color: #fff;
+  --tab-hover-bg: #3a3a3a;
+  --tab-active-bg: rgba(30, 30, 30, 0.75);
+  --tab-active-color: #d1d1d1;
+  --tab-active-border: #d1d1d1;
+  --tab-border: #444;
+
+  /* ── 日期切换按钮 ── */
+  --date-btn-color: #d1d1d1;
+  --date-btn-hover-bg: #3a3a3a;
+
+  /* ── 时段标题 ── */
+  --timeslot-color: #d1d1d1;
+
+  /* ── 表格 ── */
   --table-border: #444;
   --table-header-bg: #2c2c2c;
-  --info-box-text: #ccc;
+  --table-header-color: inherit;
 
-  /* --- 强调色 --- */
-  --date-btn-icon: #d1d1d1;
-  --tab-active-text: #d1d1d1;
-  --tab-active-border: #d1d1d1;
-  --timeslot-title-text: #d1d1d1;
+  /* ── 楼层标签 ── */
+  --floor-bg: #2c2c2c;
+  --floor-color: inherit;
+
+  /* ── 教学楼名称 ── */
+  --building-bg: #2c2c2c;
+  --building-color: inherit;
+
+  /* ── 折叠面板 ── */
+  --collapsible-color: #bbb;
+  --collapsible-border: #444;
+  --collapsible-desc-color: #888;
+  --collapsible-desc-border: #444;
+
+  /* ── 主题控制按钮 ── */
+  --theme-btn-color: #bbb;
+  --theme-btn-hover-bg: #3a3a3a;
+  --theme-btn-border: #444;
   --theme-btn-hover-border: #d1d1d1;
+  --theme-name-color: #888;
 
-  /* --- 链接 / 标记色 --- */
+  /* ── 分割线 ── */
+  --hr-border: #444;
+
+  /* ── 链接 ── */
   --link-color: #c8c8c8;
-  --strong-color: #ddd;
-  --del-color: #888;
+
+  /* ── 数据单元格 ── */
+  --data-color: inherit;
+  --data-bg: transparent;
+
+  /* ── 数据单元格 · 加粗 ── */
+  --data-strong-color: #ddd;
+  --data-strong-bg: transparent;
+
+  /* ── 数据单元格 · 删除线 ── */
+  --data-del-color: #888;
+  --data-del-decoration-color: var(--data-del-color);
+  --data-del-decoration-style: solid;
+  --data-del-decoration-thickness: 0.75px;
+  --data-del-bg: transparent;
+
+  /* ── 数据单元格 · 下划线 ── */
+  --data-u-color: inherit;
+  --data-u-decoration-color: var(--link-color);
+  --data-u-decoration-style: solid;
+  --data-u-decoration-thickness: 1.25px;
+  --data-u-bg: transparent;
 }
 
 /* ============================================================
@@ -163,16 +245,16 @@ body {
   font-feature-settings: "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43",
     "cv61", "cv62", "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
   line-height: 1.35;
-  color: var(--body-text);
-  background-color: var(--body-bg);
+  color: var(--page-color);
+  background-color: var(--page-bg);
   transition: color 0.3s;
 }
 
 h1 {
   text-align: center;
   margin-bottom: 1px;
-  font-size: var(--font-size-header);
-  color: var(--h1-text);
+  font-size: var(--heading-font-size);
+  color: var(--heading-color);
 }
 
 hr {
@@ -195,7 +277,7 @@ hr {
   justify-content: space-between;
   font-size: 0.7em;
   padding: 5px 10px;
-  color: var(--banner-text);
+  color: var(--banner-color);
   background-color: var(--banner-bg);
   border-bottom: 1px solid var(--banner-border);
   margin: 0 -10px 2px;
@@ -214,7 +296,7 @@ hr {
   font-size: 1.1em;
   line-height: 1;
   padding: 0 0 0 8px;
-  color: var(--banner-close-text);
+  color: var(--banner-close-color);
   opacity: 0.7;
 }
 
@@ -234,9 +316,9 @@ hr {
 }
 
 .date-display {
-  font-size: var(--font-size-date);
+  font-size: var(--date-font-size);
   font-weight: bold;
-  color: var(--date-display-text);
+  color: var(--date-color);
   padding: 0 15px;
   min-width: 120px;
   text-align: center;
@@ -261,7 +343,7 @@ hr {
 .date-switcher-btn svg {
   width: 24px;
   height: 24px;
-  color: var(--date-btn-icon);
+  color: var(--date-btn-color);
 }
 
 .date-switcher-btn[disabled] {
@@ -301,8 +383,8 @@ hr {
 
 .tab-buttons {
   display: flex;
-  background-color: var(--tab-bar-bg);
-  border-bottom: 1px solid var(--tab-bar-border);
+  background-color: var(--tabbar-bg);
+  border-bottom: 1px solid var(--tabbar-border);
 }
 
 .tab-button {
@@ -310,19 +392,19 @@ hr {
   cursor: pointer;
   border: none;
   background-color: transparent;
-  color: var(--tab-text);
+  color: var(--tab-color);
   font-family: "Maple Mono", "PingFang SC", "Microsoft YaHei", "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
   font-feature-settings: "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43",
     "cv61", "cv62", "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
-  font-size: var(--font-size-tab);
+  font-size: var(--tab-font-size);
   font-weight: 500;
   transition: background-color 0.2s ease, color 0.2s ease,
     border-color 0.2s ease;
   outline: none;
   flex-grow: 1;
   text-align: center;
-  border-right: 1px solid var(--tab-btn-border);
+  border-right: 1px solid var(--tab-border);
 }
 
 .tab-button:last-child {
@@ -331,14 +413,14 @@ hr {
 
 .tab-button:hover {
   background-color: var(--tab-hover-bg);
-  color: var(--tab-text-hover);
+  color: var(--tab-hover-color);
 }
 
 .tab-button.active {
   background-color: var(--tab-active-bg);
-  color: var(--tab-active-text);
+  color: var(--tab-active-color);
   border-bottom: 2px solid var(--tab-active-border);
-  font-size: var(--font-size-tab);
+  font-size: var(--tab-font-size);
 }
 
 .tab-content {
@@ -358,7 +440,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
-  font-size: var(--font-size-table);
+  font-size: var(--table-font-size);
 }
 
 th,
@@ -372,13 +454,13 @@ td {
 th {
   background-color: var(--table-header-bg);
   font-weight: bold;
-  font-size: var(--font-size-table);
+  font-size: var(--table-font-size);
   text-align: center;
-  color: var(--table-header-text);
+  color: var(--table-header-color);
 }
 
 td {
-  font-size: var(--font-size-td);
+  font-size: var(--td-font-size);
   text-align: center;
 }
 
@@ -386,18 +468,24 @@ td {
 .gxg-table td:first-child {
   font-weight: bold;
   width: 30px;
-  font-size: var(--font-size-td);
+  font-size: var(--td-font-size);
   text-align: center;
-  background-color: var(--floor-label-bg);
-  color: var(--floor-label-text);
+  background-color: var(--floor-bg);
+  color: var(--floor-color);
+}
+
+/* 工学馆数据列 */
+.gxg-table td:not(:first-child) {
+  color: var(--data-color);
+  background-color: var(--data-bg);
 }
 
 /* 教学楼名称行 */
 .campus-table .building-name-row td {
   font-weight: bold;
   text-align: center;
-  background-color: var(--building-name-bg);
-  color: var(--building-name-text);
+  background-color: var(--building-bg);
+  color: var(--building-color);
   font-size: 13px;
 }
 
@@ -407,6 +495,8 @@ td {
   min-height: 50px;
   word-break: break-word;
   white-space: pre-wrap;
+  color: var(--data-color);
+  background-color: var(--data-bg);
 }
 
 /* ============================================================
@@ -416,11 +506,11 @@ td {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--font-size-timeslot);
+  font-size: var(--timeslot-font-size);
   text-align: center;
   margin-top: 10px;
   margin-bottom: 4px;
-  color: var(--timeslot-title-text);
+  color: var(--timeslot-color);
   cursor: pointer;
   user-select: none;
 }
@@ -433,8 +523,8 @@ td {
   text-align: center;
   margin-top: 4px;
   margin-bottom: 4px;
-  font-size: var(--font-size-info);
-  color: var(--info-text);
+  font-size: var(--info-font-size);
+  color: var(--info-color);
 }
 
 .update-time-text {
@@ -459,12 +549,12 @@ td {
 .emergency-info {
   padding: 3px 8px 4px 6px;
   margin: 8px auto;
-  border: 1px solid var(--info-box-border);
+  border: 1px solid var(--infobox-border);
   border-radius: 10px;
-  background-color: var(--info-box-bg);
+  background-color: var(--infobox-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  color: var(--info-box-text);
+  color: var(--infobox-color);
   font-size: 13px;
   display: flex;
   justify-content: center;
@@ -485,19 +575,26 @@ td {
    ============================================================ */
 u {
   text-decoration: underline;
-  text-decoration-color: var(--link-color);
-  text-decoration-thickness: 1.25px;
+  text-decoration-color: var(--data-u-decoration-color);
+  text-decoration-style: var(--data-u-decoration-style);
+  text-decoration-thickness: var(--data-u-decoration-thickness);
+  color: var(--data-u-color);
+  background-color: var(--data-u-bg);
 }
 
 strong, b {
   font-weight: bold;
-  color: var(--strong-color);
+  color: var(--data-strong-color);
+  background-color: var(--data-strong-bg);
 }
 
 del {
   text-decoration: line-through;
-  text-decoration-color: var(--del-color);
-  text-decoration-thickness: 0.75px;
+  text-decoration-color: var(--data-del-decoration-color);
+  text-decoration-style: var(--data-del-decoration-style);
+  text-decoration-thickness: var(--data-del-decoration-thickness);
+  color: var(--data-del-color);
+  background-color: var(--data-del-bg);
 }
 
 center {
@@ -521,17 +618,17 @@ center {
 
 .badge-updated {
   background-color: var(--badge-bg);
-  color: var(--badge-text);
+  color: var(--badge-color);
 }
 
 .badge-not-updated {
   background-color: var(--badge-bg);
-  color: var(--badge-text);
+  color: var(--badge-color);
 }
 
 .badge-not-found {
   background-color: var(--badge-bg);
-  color: var(--badge-text);
+  color: var(--badge-color);
 }
 
 /* ============================================================
@@ -573,12 +670,12 @@ center {
   justify-content: space-between;
   align-items: center;
   font-size: 12px;
-  color: var(--collapsible-text);
+  color: var(--collapsible-color);
   font-family: inherit;
 }
 
 .collapsible-toggle:hover {
-  color: var(--collapsible-text);
+  color: var(--collapsible-color);
 }
 
 .collapsible-toggle .toggle-icon {
@@ -611,7 +708,7 @@ center {
   margin: 6px 0;
   font-size: 14px;
   text-align: center;
-  color: var(--collapsible-desc-text);
+  color: var(--collapsible-desc-color);
 }
 
 .collapsible-inner a {
@@ -633,7 +730,7 @@ center {
 .theme-preset-select {
   padding: 4px 8px;
   font-size: 12px;
-  color: var(--btn-text);
+  color: var(--theme-btn-color);
   background: var(--container-bg);
   border: 1px solid var(--theme-btn-border);
   border-radius: 6px;
@@ -653,7 +750,7 @@ center {
   gap: 4px;
   padding: 4px 10px;
   font-size: 12px;
-  color: var(--btn-text);
+  color: var(--theme-btn-color);
   background: var(--container-bg);
   border: 1px solid var(--theme-btn-border);
   border-radius: 6px;
@@ -663,7 +760,7 @@ center {
 }
 
 .theme-import-btn:hover {
-  color: var(--btn-text);
+  color: var(--theme-btn-color);
   border-color: var(--theme-btn-hover-border);
   background: var(--theme-btn-hover-bg);
 }
@@ -674,7 +771,7 @@ center {
   gap: 4px;
   padding: 4px 10px;
   font-size: 12px;
-  color: var(--btn-text);
+  color: var(--theme-btn-color);
   background: var(--container-bg);
   border: 1px solid var(--theme-btn-border);
   border-radius: 6px;
@@ -684,8 +781,8 @@ center {
 }
 
 .theme-reset-btn:hover {
-  color: var(--btn-text);
-  border-color: var(--del-color);
+  color: var(--theme-btn-color);
+  border-color: var(--data-del-color);
   background: var(--theme-btn-hover-bg);
 }
 
@@ -695,7 +792,7 @@ center {
   gap: 3px;
   padding: 4px 10px;
   font-size: 12px;
-  color: var(--collapsible-text);
+  color: var(--collapsible-color);
   background: var(--container-bg);
   border: 1px solid var(--theme-btn-border);
   border-radius: 4px;
@@ -704,13 +801,13 @@ center {
   transition: background 0.2s, border-color 0.2s;
 }
 .theme-guide-link:hover {
-  color: var(--btn-text);
+  color: var(--theme-btn-color);
   border-color: var(--theme-btn-hover-border);
   background: var(--theme-btn-hover-bg);
 }
 
 .theme-name-display {
   font-size: 11px;
-  color: var(--theme-name-text);
+  color: var(--theme-name-color);
   font-style: italic;
 }
