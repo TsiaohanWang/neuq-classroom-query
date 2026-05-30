@@ -101,8 +101,7 @@ html:not(.page-loaded) .loading-badge {
   --theme-btn-color: #474747;
   --theme-btn-hover-bg: #e5e5e5;
   --theme-btn-border: #d8d8d8;
-  --theme-btn-hover-border: #777;
-  --theme-btn-reset-border: #c0392b;
+  --theme-btn-hover-border: #c0392b;
   --theme-name-color: #7b7b7b;
 
   /* ── 分割线 ── */
@@ -211,8 +210,7 @@ html.dark {
   --theme-btn-color: #bbb;
   --theme-btn-hover-bg: #3a3a3a;
   --theme-btn-border: #444;
-  --theme-btn-hover-border: #d1d1d1;
-  --theme-btn-reset-border: #e74c3c;
+  --theme-btn-hover-border: #e74c3c;
   --theme-name-color: #888;
 
   /* ── 分割线 ── */
@@ -741,7 +739,7 @@ center {
   flex-wrap: wrap;
 }
 
-.theme-controls button,
+.theme-controls .theme-btn,
 .theme-controls select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -764,18 +762,18 @@ center {
   white-space: nowrap;
   vertical-align: middle;
 }
-.theme-controls button:hover,
+.theme-controls .theme-btn:hover,
 .theme-controls select:hover {
   border-color: var(--theme-btn-hover-border);
   background: var(--theme-btn-hover-bg);
 }
-.theme-controls button:focus-visible,
+.theme-controls .theme-btn:focus-visible,
 .theme-controls select:focus-visible {
   border-color: var(--theme-btn-hover-border);
 }
 
 /* 下拉菜单自定义箭头 */
-.theme-preset-select {
+.theme-controls select {
   padding-right: 28px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -784,12 +782,7 @@ center {
   background-color: var(--container-bg);
 }
 
-/* 重置按钮悬停：红色边框 */
-.theme-reset-btn:hover {
-  border-color: var(--theme-btn-reset-border);
-}
-
-/* 主题名称 */
+/* 主题名称（非交互） */
 .theme-name-display {
   font-size: 11px;
   color: var(--theme-name-color);

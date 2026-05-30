@@ -237,8 +237,8 @@
     </div>
 
     <div class="theme-controls">
-        <button class="mode-toggle-btn" id="mode-toggle-btn" onclick="cycleMode()" title="切换明暗模式">AUTO</button>
-        <select class="theme-preset-select" id="theme-preset-select" onchange="applyPresetTheme(this)" title="选择预设主题">
+        <button class="theme-btn" id="mode-toggle-btn" onclick="cycleMode()" title="切换明暗模式">AUTO</button>
+        <select id="theme-preset-select" onchange="applyPresetTheme(this)" title="选择预设主题">
             <option value="">默认主题</option>
             <option value="ayu">Ayu</option>
             <option value="catppuccin">Catppuccin</option>
@@ -248,24 +248,17 @@
             <option value="nord">Nord</option>
             <option value="tokyonight">Tokyo Night</option>
         </select>
-        <button class="theme-import-btn" onclick="document.getElementById('theme-file-input').click()"
-            title="导入自定义主题配置文件">
-            <svg width="14" height="14" style="vertical-align: -2px;">
-                <use href="#icon-upload"></use>
-            </svg>
+        <button class="theme-btn" onclick="document.getElementById('theme-file-input').click()" title="导入自定义主题配置文件">
+            <svg width="14" height="14" style="vertical-align: -2px;"><use href="#icon-upload"></use></svg>
             导入主题
         </button>
         <input type="file" id="theme-file-input" accept=".toml" onchange="importThemeFile(this)" style="display: none;">
-        <button class="theme-reset-btn" onclick="resetTheme()" title="恢复默认主题">
-            <svg width="14" height="14" style="vertical-align: -2px;">
-                <use href="#icon-reset"></use>
-            </svg>
+        <button class="theme-btn" onclick="resetTheme()" title="恢复默认主题">
+            <svg width="14" height="14" style="vertical-align: -2px;"><use href="#icon-reset"></use></svg>
             重置
         </button>
-        <button class="theme-guide-btn" onclick="window.open('theme-guide.html','_blank')" title="查看主题配置指南">
-            <svg width="14" height="14" style="vertical-align: -2px;">
-                <use href="#icon-guide"></use>
-            </svg>
+        <button class="theme-btn" onclick="window.open('theme-guide.html','_blank')" title="查看主题配置指南">
+            <svg width="14" height="14" style="vertical-align: -2px;"><use href="#icon-guide"></use></svg>
             配置指南
         </button>
         <span id="theme-name" class="theme-name-display"></span>
