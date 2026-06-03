@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自定义主题配置指南 - NEUQ 空闲教室总表</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    max-width: 860px; margin: 0 auto; padding: 20px 16px 40px;
+    font-family: "Maple Mono", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.7; color: #333; background: #fafafa;
+  }
+  h1 { text-align: center; font-size: 24px; margin-bottom: 6px; }
+  .subtitle { text-align: center; color: #888; font-size: 13px; margin-bottom: 24px; }
+  h2 { font-size: 18px; margin: 32px 0 14px; padding-bottom: 6px; border-bottom: 2px solid #e0e0e0; color: #444; }
+  h3 { font-size: 15px; margin: 20px 0 10px; color: #555; }
+  p, li { font-size: 14px; margin-bottom: 6px; }
+  ul, ol { padding-left: 22px; }
+  code { font-family: "Maple Mono", monospace; background: #f0f0f0; padding: 1px 5px; border-radius: 3px; font-size: 13px; }
+  pre {
+    background: #1e1e2e; color: #cdd6f4; padding: 14px 16px; border-radius: 8px;
+    overflow-x: auto; font-size: 13px; line-height: 1.55; margin: 10px 0 16px;
+    font-family: "Maple Mono", monospace;
+  }
+  pre .cmt { color: #6c7086; }
+  pre .key { color: #89b4fa; }
+  pre .str { color: #a6e3a1; }
+  pre .sec { color: #f9e2af; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 13px; }
+  th, td { border: 1px solid #ddd; padding: 7px 10px; text-align: left; }
+  th { background: #f0f0f0; font-weight: 600; }
+  td code { background: none; padding: 0; color: #c84053; }
+  .note { background: #fff8e1; border-left: 3px solid #ffb300; padding: 10px 14px; margin: 14px 0; border-radius: 0 6px 6px 0; font-size: 13px; }
+  .tip { background: #e8f5e9; border-left: 3px solid #4caf50; padding: 10px 14px; margin: 14px 0; border-radius: 0 6px 6px 0; font-size: 13px; }
+  .warn { background: #fce4ec; border-left: 3px solid #e53935; padding: 10px 14px; margin: 14px 0; border-radius: 0 6px 6px 0; font-size: 13px; }
+  a { color: #1976d2; }
+  hr { border: none; border-top: 1px solid #e0e0e0; margin: 24px 0; }
+  .toc { background: #f5f5f5; padding: 14px 18px; border-radius: 8px; margin: 16px 0; }
+  .toc a { text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin-bottom: 4px; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #1a1a2e; color: #c8ccd4; }
+    h2 { color: #d0d4dc; border-bottom-color: #3a3a50; }
+    h3 { color: #b0b4bc; }
+    code { background: #2a2a3c; color: #e0b088; }
+    pre { background: #12121e; }
+    th { background: #2a2a3c; }
+    th, td { border-color: #3a3a50; }
+    .note { background: #2a2520; border-left-color: #ffb300; }
+    .tip { background: #1a2520; border-left-color: #4caf50; }
+    .warn { background: #2a1520; border-left-color: #e53935; }
+    .toc { background: #22223a; }
+    td code { background: none; color: #f38ba8; }
+  }
+</style>
+</head>
+<body>
+
+<h1>自定义主题配置指南</h1>
+<p class="subtitle">NEUQ 空闲教室总表 · 主题系统 · Ver 3.2</p>
+
+<div class="toc">
+<strong>目录</strong>
+<ol>
+  <li><a href="#quick">快速开始</a></li>
+  <li><a href="#naming">命名规则</a></li>
+  <li><a href="#mode">明暗模式</a></li>
+  <li><a href="#import">导入与管理</a></li>
+  <li><a href="#presets">预设主题</a></li>
+  <li><a href="#colors">颜色变量参考</a></li>
+  <li><a href="#layout">布局变量参考</a></li>
+  <li><a href="#example">完整示例</a></li>
+  <li><a href="#faq">常见问题</a></li>
+</ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="quick">1. 快速开始</h2>
+<!-- ============================================================ -->
+
+<p>创建一个 <code>.toml</code> 文件，填写需要自定义的字段，然后在页面底部点击「导入主题」按钮选择该文件即可。未填写的字段自动使用默认值。</p>
+
+<p>也可以直接使用页面底部的<strong>预设主题下拉菜单</strong>，从 7 个内置主题中一键切换。</p>
+
+<pre><span class="cmt"># my-theme.toml — 最简示例</span>
+<span class="key">name</span> = <span class="str">"我的主题"</span>
+
+<span class="sec">[light]</span>
+<span class="key">page_bg</span> = <span class="str">"#f0f4f8"</span>
+<span class="key">heading_color</span> = <span class="str">"#1a365d"</span>
+<span class="key">tab_active_color</span> = <span class="str">"#3182ce"</span>
+<span class="key">tab_active_border</span> = <span class="str">"#3182ce"</span>
+<span class="key">timeslot_color</span> = <span class="str">"#3182ce"</span>
+<span class="key">link_color</span> = <span class="str">"#3182ce"</span></pre>
+
+<div class="tip"><strong>提示：</strong>项目 <code>assets/themes/</code> 目录下提供了 7 个预制主题（Tokyo Night、Nord、Catppuccin、Gruvbox、Ayu、Everforest、Kanagawa），可通过下拉菜单直接选择，也可下载 TOML 文件作为编写自定义主题的参考。</div>
+
+<!-- ============================================================ -->
+<h2 id="naming">2. 命名规则</h2>
+<!-- ============================================================ -->
+
+<p>所有配置项遵循统一的命名格式：</p>
+<pre><span class="key">元素名</span>_<span class="str">CSS属性</span></pre>
+
+<p><strong>元素名</strong>标识页面中的 UI 组件，<strong>CSS属性</strong>标识要控制的样式属性。两者用下划线连接。</p>
+
+<h3>元素名一览</h3>
+<table>
+<tr><th>元素名</th><th>对应 UI</th></tr>
+<tr><td><code>page</code></td><td>页面整体（<code>&lt;body&gt;</code>）</td></tr>
+<tr><td><code>heading</code></td><td>主标题（<code>&lt;h1&gt;</code>）</td></tr>
+<tr><td><code>date</code></td><td>日期显示文字</td></tr>
+<tr><td><code>banner</code></td><td>顶部横幅通知栏</td></tr>
+<tr><td><code>badge</code></td><td>更新状态徽章</td></tr>
+<tr><td><code>container</code></td><td>Tab 容器 / 折叠面板容器</td></tr>
+<tr><td><code>infobox</code></td><td>紧急信息 / 格言通知框</td></tr>
+<tr><td><code>info</code></td><td>信息文本（更新时间、版本号等）</td></tr>
+<tr><td><code>tabbar</code></td><td>Tab 按钮栏</td></tr>
+<tr><td><code>tab</code></td><td>Tab 按钮（工学馆/本部其它/南校区）</td></tr>
+<tr><td><code>date_btn</code></td><td>日期切换箭头按钮</td></tr>
+<tr><td><code>timeslot</code></td><td>时段标题（1-2节、3-4节…）</td></tr>
+<tr><td><code>table</code></td><td>数据表格</td></tr>
+<tr><td><code>floor</code></td><td>楼层标签（1F、2F…工学馆左侧）</td></tr>
+<tr><td><code>building</code></td><td>教学楼名称行（本部其它/南校区）</td></tr>
+<tr><td><code>collapsible</code></td><td>折叠面板标题（使用须知/Credits）</td></tr>
+<tr><td><code>collapsible_desc</code></td><td>折叠面板内部描述文字</td></tr>
+<tr><td><code>theme_btn</code></td><td>主题控制按钮（导入/重置/下拉）</td></tr>
+<tr><td><code>theme_name</code></td><td>当前主题名称显示</td></tr>
+<tr><td><code>hr</code></td><td>分割线</td></tr>
+<tr><td><code>link</code></td><td>超链接</td></tr>
+<tr><td><code>data</code></td><td>数据单元格（教室数据，含普通/加粗/删除线/下划线状态）</td></tr>
+</table>
+
+<h3>CSS 属性后缀</h3>
+<table>
+<tr><th>后缀</th><th>含义</th><th>示例值</th></tr>
+<tr><td><code>bg</code></td><td>背景色</td><td><code>"#f0f4f8"</code></td></tr>
+<tr><td><code>color</code></td><td>文字色</td><td><code>"#333333"</code></td></tr>
+<tr><td><code>border</code></td><td>边框色</td><td><code>"#d0d0d0"</code></td></tr>
+<tr><td><code>shadow</code></td><td>阴影</td><td><code>"0 2px 8px rgba(0,0,0,0.1)"</code></td></tr>
+<tr><td><code>font_size</code></td><td>字号（仅布局）</td><td><code>"14px"</code></td></tr>
+<tr><td><code>decoration_color</code></td><td>装饰线颜色（下划线/删除线）</td><td><code>"#c62828"</code></td></tr>
+<tr><td><code>decoration_style</code></td><td>装饰线样式</td><td><code>"solid"</code> / <code>"dashed"</code> / <code>"dotted"</code> / <code>"wavy"</code></td></tr>
+<tr><td><code>decoration_thickness</code></td><td>装饰线粗细</td><td><code>"1.25px"</code></td></tr>
+</table>
+
+<div class="note"><strong>示例：</strong><code>banner_bg</code> = 横幅(<code>banner</code>) + 背景色(<code>bg</code>)；<code>tab_hover_color</code> = Tab按钮(<code>tab</code>) + 悬停状态(<code>hover</code>) + 文字色(<code>color</code>)。</div>
+
+<!-- ============================================================ -->
+<h2 id="mode">3. 明暗模式</h2>
+<!-- ============================================================ -->
+
+<h3>3.1 切换按钮</h3>
+<p>页面底部提供一个明暗模式切换按钮，点击可在三种模式间轮换：</p>
+<ul>
+  <li><strong>AUTO</strong> — 跟随系统（默认）</li>
+  <li><strong>LIGHT</strong> — 强制亮色模式</li>
+  <li><strong>DARK</strong> — 强制暗色模式</li>
+</ul>
+<p>按钮显示当前模式名称，状态保存在浏览器 localStorage 中，刷新后自动恢复。</p>
+
+<h3>3.2 TOML 配置</h3>
+<p>主题文件中可通过 <code>mode</code> 字段指定默认明暗模式：</p>
+
+<pre><span class="key">mode</span> = <span class="str">"dark"</span>  <span class="cmt"># 默认暗色模式</span>
+<span class="cmt"># mode = "light"  # 默认亮色模式</span>
+<span class="cmt"># 省略则跟随系统</span></pre>
+
+<div class="note"><strong>优先级：</strong>用户通过按钮手动切换的模式 > 主题文件中的 <code>mode</code> 字段 > 跟随系统。用户手动切换后，主题文件的 <code>mode</code> 字段将被忽略，直到用户点击「重置」按钮。</div>
+
+<!-- ============================================================ -->
+<h2 id="import">4. 导入与管理</h2>
+<!-- ============================================================ -->
+
+<ul>
+  <li><strong>明暗切换</strong> — 点击底部的 <code>AUTO</code>/<code>LIGHT</code>/<code>DARK</code> 按钮轮换明暗模式</li>
+  <li><strong>预设主题</strong> — 使用下拉菜单从 7 个内置主题中选择</li>
+  <li><strong>导入主题</strong> — 点击「导入主题」按钮，选择 <code>.toml</code> 文件</li>
+  <li><strong>重置主题</strong> — 点击「重置」按钮恢复默认样式和跟随系统模式</li>
+  <li><strong>持久化</strong> — 主题配置和模式偏好分别保存在浏览器 localStorage 中，刷新页面后自动恢复</li>
+</ul>
+
+<div class="tip"><strong>提示：</strong>预设主题和自定义导入互斥——选择预设会清除自定义配置，导入自定义会清除预设选择。</div>
+
+<!-- ============================================================ -->
+<h2 id="presets">5. 预设主题</h2>
+<!-- ============================================================ -->
+
+<table>
+<tr><th>主题名</th><th>风格</th><th>文件名</th></tr>
+<tr><td>Ayu</td><td>清新蓝调（Light/Dark）</td><td><code>ayu.toml</code></td></tr>
+<tr><td>Catppuccin</td><td>柔和紫罗兰（Latte/Mocha）</td><td><code>catppuccin.toml</code></td></tr>
+<tr><td>Everforest</td><td>森林绿（Light/Dark medium）</td><td><code>everforest.toml</code></td></tr>
+<tr><td>Gruvbox</td><td>复古暖调（Light/Dark）</td><td><code>gruvbox.toml</code></td></tr>
+<tr><td>Kanagawa</td><td>蓝灰雅调（Lotus/Wave）</td><td><code>kanagawa.toml</code></td></tr>
+<tr><td>Nord</td><td>北欧蓝（Frost/Polar Night）</td><td><code>nord.toml</code></td></tr>
+<tr><td>Tokyo Night</td><td>冷蓝都市（Light/Storm）</td><td><code>tokyonight.toml</code></td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="colors">6. 颜色变量参考</h2>
+<!-- ============================================================ -->
+
+<p>在 TOML 文件的 <code>[light]</code> 或 <code>[dark]</code> 段落中配置对应模式的颜色。未配置的字段使用默认值。</p>
+
+<h3>6.1 页面与标题</h3>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>page_bg</code></td><td><code>--page-bg</code></td><td>页面背景</td><td>#f9f9f9</td><td>#121212</td></tr>
+<tr><td><code>page_color</code></td><td><code>--page-color</code></td><td>页面文字</td><td>#474747</td><td>#bbb</td></tr>
+<tr><td><code>heading_color</code></td><td><code>--heading-color</code></td><td>主标题文字</td><td>#3f3f3f</td><td>#ccc</td></tr>
+<tr><td><code>date_color</code></td><td><code>--date-color</code></td><td>日期显示文字</td><td>#3f3f3f</td><td>#ccc</td></tr>
+</table>
+
+<h3>6.2 横幅与徽章</h3>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>banner_bg</code></td><td><code>--banner-bg</code></td><td>横幅背景</td><td>#f9f9f9</td><td>#121212</td></tr>
+<tr><td><code>banner_color</code></td><td><code>--banner-color</code></td><td>横幅文字</td><td>#7b7b7b</td><td>#888</td></tr>
+<tr><td><code>banner_close_color</code></td><td><code>--banner-close-color</code></td><td>横幅关闭按钮</td><td>#7b7b7b</td><td>#888</td></tr>
+<tr><td><code>banner_border</code></td><td><code>--banner-border</code></td><td>横幅边框</td><td>rgba(137,137,137,0.3)</td><td>rgba(213,213,213,0.3)</td></tr>
+<tr><td><code>badge_bg</code></td><td><code>--badge-bg</code></td><td>徽章背景</td><td>#7b7b7b</td><td>#888</td></tr>
+<tr><td><code>badge_color</code></td><td><code>--badge-color</code></td><td>徽章文字</td><td>#f9f9f9</td><td>#121212</td></tr>
+</table>
+
+<h3>6.3 容器</h3>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>container_bg</code></td><td><code>--container-bg</code></td><td>容器背景</td><td>rgba(255,255,255,0.2)</td><td>rgba(30,30,30,0.5)</td></tr>
+<tr><td><code>container_shadow</code></td><td><code>--container-shadow</code></td><td>容器阴影</td><td>2px 4px 3px 2px rgba(0,0,0,0.06)</td><td>0px 2px 5px 1px rgba(0,0,0,0.5)</td></tr>
+<tr><td><code>container_border</code></td><td><code>--container-border</code></td><td>容器边框</td><td>rgba(137,137,137,0.3)</td><td>rgba(213,213,213,0.3)</td></tr>
+</table>
+
+<h3>6.4 信息框与信息文本</h3>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>infobox_bg</code></td><td><code>--infobox-bg</code></td><td>紧急信息/格言框背景</td><td>rgba(138,138,138,0.05)</td><td>rgba(213,213,213,0.08)</td></tr>
+<tr><td><code>infobox_color</code></td><td><code>--infobox-color</code></td><td>紧急信息/格言框文字</td><td>#4f4f4f</td><td>#ccc</td></tr>
+<tr><td><code>infobox_border</code></td><td><code>--infobox-border</code></td><td>紧急信息/格言框边框</td><td>rgba(137,137,137,0.3)</td><td>rgba(213,213,213,0.3)</td></tr>
+<tr><td><code>info_color</code></td><td><code>--info-color</code></td><td>更新时间/版本等信息文字</td><td>#7b7b7b</td><td>#888</td></tr>
+</table>
+
+<h3>6.5 Tab 栏与按钮</h3>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>tabbar_bg</code></td><td><code>--tabbar-bg</code></td><td>Tab 栏背景</td><td>#f0f0f0</td><td>#2a2a2a</td></tr>
+<tr><td><code>tabbar_border</code></td><td><code>--tabbar-border</code></td><td>Tab 栏底边框</td><td>#d8d8d8</td><td>#444</td></tr>
+<tr><td><code>tab_color</code></td><td><code>--tab-color</code></td><td>Tab 按钮文字</td><td>#888</td><td>#aaa</td></tr>
+<tr><td><code>tab_hover_color</code></td><td><code>--tab-hover-color</code></td><td>Tab 悬停文字</td><td>#000</td><td>#fff</td></tr>
+<tr><td><code>tab_hover_bg</code></td><td><code>--tab-hover-bg</code></td><td>Tab 悬停背景</td><td>#e5e5e5</td><td>#3a3a3a</td></tr>
+<tr><td><code>tab_active_bg</code></td><td><code>--tab-active-bg</code></td><td>Tab 选中背景</td><td>rgba(255,255,255,0.75)</td><td>rgba(30,30,30,0.75)</td></tr>
+<tr><td><code>tab_active_color</code></td><td><code>--tab-active-color</code></td><td>Tab 选中文字</td><td>#777</td><td>#d1d1d1</td></tr>
+<tr><td><code>tab_active_border</code></td><td><code>--tab-active-border</code></td><td>Tab 选中底边框</td><td>#777</td><td>#d1d1d1</td></tr>
+<tr><td><code>tab_border</code></td><td><code>--tab-border</code></td><td>Tab 按钮间分隔线</td><td>#d8d8d8</td><td>#444</td></tr>
+</table>
+
+<h3>6.6 日期切换与时段标题</h3>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>date_btn_color</code></td><td><code>--date-btn-color</code></td><td>日期切换箭头颜色</td><td>#777</td><td>#d1d1d1</td></tr>
+<tr><td><code>date_btn_hover_bg</code></td><td><code>--date-btn-hover-bg</code></td><td>日期切换悬停背景</td><td>#e5e5e5</td><td>#3a3a3a</td></tr>
+<tr><td><code>timeslot_color</code></td><td><code>--timeslot-color</code></td><td>时段标题文字</td><td>#777</td><td>#d1d1d1</td></tr>
+</table>
+
+<h3>6.7 表格</h3>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>table_border</code></td><td><code>--table-border</code></td><td>表格边框</td><td>#e0e0e0</td><td>#444</td></tr>
+<tr><td><code>table_header_bg</code></td><td><code>--table-header-bg</code></td><td>表头背景</td><td>#f7f7f7</td><td>#2c2c2c</td></tr>
+<tr><td><code>table_header_color</code></td><td><code>--table-header-color</code></td><td>表头文字</td><td>inherit</td><td>inherit</td></tr>
+<tr><td><code>floor_bg</code></td><td><code>--floor-bg</code></td><td>楼层标签背景（1F,2F…）</td><td>#f7f7f7</td><td>#2c2c2c</td></tr>
+<tr><td><code>floor_color</code></td><td><code>--floor-color</code></td><td>楼层标签文字</td><td>inherit</td><td>inherit</td></tr>
+<tr><td><code>building_bg</code></td><td><code>--building-bg</code></td><td>教学楼名称行背景</td><td>#f7f7f7</td><td>#2c2c2c</td></tr>
+<tr><td><code>building_color</code></td><td><code>--building-color</code></td><td>教学楼名称行文字</td><td>inherit</td><td>inherit</td></tr>
+</table>
+
+<h3>6.8 折叠面板</h3>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>collapsible_color</code></td><td><code>--collapsible-color</code></td><td>折叠标题文字</td><td>#474747</td><td>#bbb</td></tr>
+<tr><td><code>collapsible_border</code></td><td><code>--collapsible-border</code></td><td>折叠面板边框</td><td>#d8d8d8</td><td>#444</td></tr>
+<tr><td><code>collapsible_desc_color</code></td><td><code>--collapsible-desc-color</code></td><td>折叠内容描述文字</td><td>#7b7b7b</td><td>#888</td></tr>
+<tr><td><code>collapsible_desc_border</code></td><td><code>--collapsible-desc-border</code></td><td>折叠内容分割线</td><td>#d8d8d8</td><td>#444</td></tr>
+</table>
+
+<h3>6.9 主题控制按钮</h3>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>theme_btn_color</code></td><td><code>--theme-btn-color</code></td><td>按钮文字</td><td>#474747</td><td>#bbb</td></tr>
+<tr><td><code>theme_btn_hover_bg</code></td><td><code>--theme-btn-hover-bg</code></td><td>按钮悬停背景</td><td>#e5e5e5</td><td>#3a3a3a</td></tr>
+<tr><td><code>theme_btn_border</code></td><td><code>--theme-btn-border</code></td><td>按钮边框</td><td>#d8d8d8</td><td>#444</td></tr>
+<tr><td><code>theme_btn_hover_border</code></td><td><code>--theme-btn-hover-border</code></td><td>按钮悬停边框</td><td>#c0392b</td><td>#e74c3c</td></tr>
+<tr><td><code>theme_name_color</code></td><td><code>--theme-name-color</code></td><td>当前主题名称文字</td><td>#7b7b7b</td><td>#888</td></tr>
+</table>
+
+<h3>6.10 分割线与行内元素</h3>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>hr_border</code></td><td><code>--hr-border</code></td><td>分割线颜色</td><td>#d8d8d8</td><td>#444</td></tr>
+<tr><td><code>link_color</code></td><td><code>--link-color</code></td><td>超链接颜色</td><td>#4e4e4e</td><td>#c8c8c8</td></tr>
+</table>
+
+<h3>6.11 数据单元格 · 普通样式</h3>
+<p>控制表格中未加粗、未加下划线、未加删除线的普通教室数据的样式。</p>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>data_color</code></td><td><code>--data-color</code></td><td>普通数据文字色</td><td>inherit</td><td>inherit</td></tr>
+<tr><td><code>data_bg</code></td><td><code>--data-bg</code></td><td>普通数据背景色</td><td>transparent</td><td>transparent</td></tr>
+</table>
+
+<h3>6.12 数据单元格 · 加粗（&lt;strong&gt;）</h3>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>data_strong_color</code></td><td><code>--data-strong-color</code></td><td>加粗文字颜色</td><td>rgb(76,76,76)</td><td>#ddd</td></tr>
+<tr><td><code>data_strong_bg</code></td><td><code>--data-strong-bg</code></td><td>加粗文字背景色</td><td>transparent</td><td>transparent</td></tr>
+</table>
+
+<h3>6.13 数据单元格 · 删除线（&lt;del&gt;）</h3>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>data_del_color</code></td><td><code>--data-del-color</code></td><td>删除线文字颜色</td><td>gray</td><td>#888</td></tr>
+<tr><td><code>data_del_decoration_color</code></td><td><code>--data-del-decoration-color</code></td><td>删除线线条颜色</td><td>var(--data-del-color)</td><td>var(--data-del-color)</td></tr>
+<tr><td><code>data_del_decoration_style</code></td><td><code>--data-del-decoration-style</code></td><td>删除线样式</td><td>solid</td><td>solid</td></tr>
+<tr><td><code>data_del_decoration_thickness</code></td><td><code>--data-del-decoration-thickness</code></td><td>删除线粗细</td><td>0.75px</td><td>0.75px</td></tr>
+<tr><td><code>data_del_bg</code></td><td><code>--data-del-bg</code></td><td>删除线文字背景色</td><td>transparent</td><td>transparent</td></tr>
+</table>
+
+<h3>6.14 数据单元格 · 下划线（&lt;u&gt;）</h3>
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>亮色默认</th><th>暗色默认</th></tr>
+<tr><td><code>data_u_color</code></td><td><code>--data-u-color</code></td><td>下划线文字颜色</td><td>inherit</td><td>inherit</td></tr>
+<tr><td><code>data_u_decoration_color</code></td><td><code>--data-u-decoration-color</code></td><td>下划线线条颜色</td><td>var(--link-color)</td><td>var(--link-color)</td></tr>
+<tr><td><code>data_u_decoration_style</code></td><td><code>--data-u-decoration-style</code></td><td>下划线样式</td><td>solid</td><td>solid</td></tr>
+<tr><td><code>data_u_decoration_thickness</code></td><td><code>--data-u-decoration-thickness</code></td><td>下划线粗细</td><td>1.25px</td><td>1.25px</td></tr>
+<tr><td><code>data_u_bg</code></td><td><code>--data-u-bg</code></td><td>下划线文字背景色</td><td>transparent</td><td>transparent</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="layout">7. 布局变量参考</h2>
+<!-- ============================================================ -->
+
+<p>在 <code>[layout]</code> 段落中配置字号。所有字段均为可选。</p>
+
+<table>
+<tr><th>TOML 字段</th><th>CSS 变量</th><th>控制元素</th><th>默认值</th></tr>
+<tr><td><code>table_font_size</code></td><td><code>--table-font-size</code></td><td>表格 / 表头字号</td><td>12px</td></tr>
+<tr><td><code>td_font_size</code></td><td><code>--td-font-size</code></td><td>单元格字号</td><td>14px</td></tr>
+<tr><td><code>heading_font_size</code></td><td><code>--heading-font-size</code></td><td>主标题字号</td><td>22px</td></tr>
+<tr><td><code>info_font_size</code></td><td><code>--info-font-size</code></td><td>信息文本字号</td><td>13px</td></tr>
+<tr><td><code>timeslot_font_size</code></td><td><code>--timeslot-font-size</code></td><td>时段标题字号</td><td>20px</td></tr>
+<tr><td><code>tab_font_size</code></td><td><code>--tab-font-size</code></td><td>Tab 按钮字号</td><td>17px</td></tr>
+<tr><td><code>date_font_size</code></td><td><code>--date-font-size</code></td><td>日期显示字号</td><td>18px</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="example">8. 完整示例</h2>
+<!-- ============================================================ -->
+
+<h3>8.1 最小配置</h3>
+<pre><span class="key">name</span> = <span class="str">"极简"</span>
+
+<span class="sec">[light]</span>
+<span class="key">page_bg</span> = <span class="str">"#fff"</span>
+<span class="key">heading_color</span> = <span class="str">"#000"</span></pre>
+
+<h3>8.2 锁定暗色模式</h3>
+<pre><span class="key">name</span> = <span class="str">"纯黑"</span>
+<span class="key">mode</span> = <span class="str">"dark"</span>
+
+<span class="sec">[dark]</span>
+<span class="key">page_bg</span> = <span class="str">"#000"</span>
+<span class="key">page_color</span> = <span class="str">"#eee"</span>
+<span class="key">container_bg</span> = <span class="str">"rgba(20,20,20,0.9)"</span></pre>
+
+<h3>8.3 完整双模式主题</h3>
+<pre><span class="key">name</span> = <span class="str">"Ocean"</span>
+
+<span class="sec">[light]</span>
+<span class="key">page_bg</span> = <span class="str">"#e8f4f8"</span>
+<span class="key">page_color</span> = <span class="str">"#1a365d"</span>
+<span class="key">heading_color</span> = <span class="str">"#0d47a1"</span>
+<span class="key">banner_bg</span> = <span class="str">"#d0e8f0"</span>
+<span class="key">banner_color</span> = <span class="str">"#1a365d"</span>
+<span class="key">banner_border</span> = <span class="str">"#90caf9"</span>
+<span class="key">badge_bg</span> = <span class="str">"#0277bd"</span>
+<span class="key">badge_color</span> = <span class="str">"#fff"</span>
+<span class="key">container_bg</span> = <span class="str">"rgba(255,255,255,0.7)"</span>
+<span class="key">container_border</span> = <span class="str">"#90caf9"</span>
+<span class="key">infobox_bg</span> = <span class="str">"#e3f2fd"</span>
+<span class="key">infobox_color</span> = <span class="str">"#1a365d"</span>
+<span class="key">infobox_border</span> = <span class="str">"#64b5f6"</span>
+<span class="key">info_color</span> = <span class="str">"#546e7a"</span>
+<span class="key">tabbar_bg</span> = <span class="str">"#d0e8f0"</span>
+<span class="key">tabbar_border</span> = <span class="str">"#90caf9"</span>
+<span class="key">tab_color</span> = <span class="str">"#546e7a"</span>
+<span class="key">tab_hover_color</span> = <span class="str">"#0d47a1"</span>
+<span class="key">tab_hover_bg</span> = <span class="str">"#b3e5fc"</span>
+<span class="key">tab_active_bg</span> = <span class="str">"#ffffff"</span>
+<span class="key">tab_active_color</span> = <span class="str">"#0277bd"</span>
+<span class="key">tab_active_border</span> = <span class="str">"#0277bd"</span>
+<span class="key">tab_border</span> = <span class="str">"#90caf9"</span>
+<span class="key">date_btn_color</span> = <span class="str">"#0277bd"</span>
+<span class="key">date_btn_hover_bg</span> = <span class="str">"#b3e5fc"</span>
+<span class="key">timeslot_color</span> = <span class="str">"#0277bd"</span>
+<span class="key">table_border</span> = <span class="str">"#b3e5fc"</span>
+<span class="key">table_header_bg</span> = <span class="str">"#d0e8f0"</span>
+<span class="key">table_header_color</span> = <span class="str">"#1a365d"</span>
+<span class="key">floor_bg</span> = <span class="str">"#b3e5fc"</span>
+<span class="key">floor_color</span> = <span class="str">"#0277bd"</span>
+<span class="key">building_bg</span> = <span class="str">"#b3e5fc"</span>
+<span class="key">building_color</span> = <span class="str">"#0277bd"</span>
+<span class="key">collapsible_color</span> = <span class="str">"#1a365d"</span>
+<span class="key">collapsible_border</span> = <span class="str">"#90caf9"</span>
+<span class="key">collapsible_desc_color</span> = <span class="str">"#546e7a"</span>
+<span class="key">collapsible_desc_border</span> = <span class="str">"#b3e5fc"</span>
+<span class="key">theme_btn_color</span> = <span class="str">"#546e7a"</span>
+<span class="key">theme_btn_hover_bg</span> = <span class="str">"#b3e5fc"</span>
+<span class="key">theme_btn_border</span> = <span class="str">"#90caf9"</span>
+<span class="key">theme_btn_hover_border</span> = <span class="str">"#0277bd"</span>
+<span class="key">theme_name_color</span> = <span class="str">"#546e7a"</span>
+<span class="key">hr_border</span> = <span class="str">"#b3e5fc"</span>
+<span class="key">link_color</span> = <span class="str">"#0277bd"</span>
+<span class="key">data_color</span> = <span class="str">"#1a365d"</span>
+<span class="key">data_bg</span> = <span class="str">"rgba(2,119,189,0.04)"</span>
+<span class="key">data_strong_color</span> = <span class="str">"#e65100"</span>
+<span class="key">data_strong_bg</span> = <span class="str">"rgba(230,81,0,0.08)"</span>
+<span class="key">data_del_color</span> = <span class="str">"#c62828"</span>
+<span class="key">data_del_decoration_color</span> = <span class="str">"#c62828"</span>
+<span class="key">data_del_bg</span> = <span class="str">"rgba(198,40,40,0.08)"</span>
+<span class="key">data_u_color</span> = <span class="str">"#0277bd"</span>
+<span class="key">data_u_decoration_color</span> = <span class="str">"#0277bd"</span>
+<span class="key">data_u_bg</span> = <span class="str">"rgba(2,119,189,0.08)"</span>
+
+<span class="sec">[dark]</span>
+<span class="key">page_bg</span> = <span class="str">"#0a1929"</span>
+<span class="key">page_color</span> = <span class="str">"#b2ebf2"</span>
+<span class="key">heading_color</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">banner_bg</span> = <span class="str">"#0d2137"</span>
+<span class="key">banner_color</span> = <span class="str">"#80cbc4"</span>
+<span class="key">banner_border</span> = <span class="str">"rgba(79,195,247,0.2)"</span>
+<span class="key">badge_bg</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">badge_color</span> = <span class="str">"#0a1929"</span>
+<span class="key">container_bg</span> = <span class="str">"rgba(13,33,55,0.9)"</span>
+<span class="key">container_border</span> = <span class="str">"rgba(79,195,247,0.15)"</span>
+<span class="key">infobox_bg</span> = <span class="str">"#0d2137"</span>
+<span class="key">infobox_color</span> = <span class="str">"#b2ebf2"</span>
+<span class="key">infobox_border</span> = <span class="str">"rgba(79,195,247,0.3)"</span>
+<span class="key">info_color</span> = <span class="str">"#4db6ac"</span>
+<span class="key">tabbar_bg</span> = <span class="str">"#0d2137"</span>
+<span class="key">tabbar_border</span> = <span class="str">"rgba(79,195,247,0.15)"</span>
+<span class="key">tab_color</span> = <span class="str">"#4db6ac"</span>
+<span class="key">tab_hover_color</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">tab_hover_bg</span> = <span class="str">"#1a3a5c"</span>
+<span class="key">tab_active_bg</span> = <span class="str">"#1a3a5c"</span>
+<span class="key">tab_active_color</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">tab_active_border</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">tab_border</span> = <span class="str">"rgba(79,195,247,0.15)"</span>
+<span class="key">date_btn_color</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">date_btn_hover_bg</span> = <span class="str">"#1a3a5c"</span>
+<span class="key">timeslot_color</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">table_border</span> = <span class="str">"rgba(79,195,247,0.15)"</span>
+<span class="key">table_header_bg</span> = <span class="str">"#0d2137"</span>
+<span class="key">table_header_color</span> = <span class="str">"#b2ebf2"</span>
+<span class="key">floor_bg</span> = <span class="str">"#1a3a5c"</span>
+<span class="key">floor_color</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">building_bg</span> = <span class="str">"#1a3a5c"</span>
+<span class="key">building_color</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">collapsible_color</span> = <span class="str">"#b2ebf2"</span>
+<span class="key">collapsible_border</span> = <span class="str">"rgba(79,195,247,0.15)"</span>
+<span class="key">collapsible_desc_color</span> = <span class="str">"#4db6ac"</span>
+<span class="key">collapsible_desc_border</span> = <span class="str">"rgba(79,195,247,0.15)"</span>
+<span class="key">theme_btn_color</span> = <span class="str">"#4db6ac"</span>
+<span class="key">theme_btn_hover_bg</span> = <span class="str">"#1a3a5c"</span>
+<span class="key">theme_btn_border</span> = <span class="str">"rgba(79,195,247,0.15)"</span>
+<span class="key">theme_btn_hover_border</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">theme_name_color</span> = <span class="str">"#4db6ac"</span>
+<span class="key">hr_border</span> = <span class="str">"rgba(79,195,247,0.15)"</span>
+<span class="key">link_color</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">data_color</span> = <span class="str">"#b2ebf2"</span>
+<span class="key">data_bg</span> = <span class="str">"rgba(79,195,247,0.04)"</span>
+<span class="key">data_strong_color</span> = <span class="str">"#ffb74d"</span>
+<span class="key">data_strong_bg</span> = <span class="str">"rgba(255,183,77,0.1)"</span>
+<span class="key">data_del_color</span> = <span class="str">"#ef5350"</span>
+<span class="key">data_del_decoration_color</span> = <span class="str">"#ef5350"</span>
+<span class="key">data_del_bg</span> = <span class="str">"rgba(239,83,80,0.1)"</span>
+<span class="key">data_u_color</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">data_u_decoration_color</span> = <span class="str">"#4fc3f7"</span>
+<span class="key">data_u_bg</span> = <span class="str">"rgba(79,195,247,0.1)"</span>
+
+<span class="sec">[layout]</span>
+<span class="key">heading_font_size</span> = <span class="str">"24px"</span></pre>
+
+<!-- ============================================================ -->
+<h2 id="faq">9. 常见问题</h2>
+<!-- ============================================================ -->
+
+<h3>Q: 导入后没有变化？</h3>
+<p>检查 TOML 语法是否正确——引号遗漏、段落名拼写错误都会导致解析失败。可在浏览器控制台查看是否有报错。</p>
+
+<h3>Q: 只需要修改一两个变量？</h3>
+<p>完全可以。只需在 TOML 中写需要覆盖的字段，其余自动使用默认值。</p>
+
+<h3>Q: 如何让暗色模式和亮色模式使用不同颜色？</h3>
+<p>分别在 <code>[light]</code> 和 <code>[dark]</code> 段落中配置。省略的字段使用默认值。</p>
+
+<h3>Q: 主题配置保存在哪里？</h3>
+<p>保存在浏览器的 localStorage 中，永久有效，除非用户手动清除浏览器数据。</p>
+
+<h3>Q: 能否修改页面整体宽度？</h3>
+<p>不能。页面宽度固定为 800px，不在主题配置范围内。</p>
+
+<hr>
+<p style="text-align:center; color:#999; font-size:12px;">NEUQ 空闲教室总表 · 自定义主题配置指南 · Ver 3.2</p>
+
+</body>
+</html>

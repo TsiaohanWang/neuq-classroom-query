@@ -1,39 +1,24 @@
 # 东北大学秦皇岛分校空闲教室总表
 
-本仓库通过部署在 Cloudflare Pages 上的 JavaScript 脚本来自动化获取空闲教室信息，并且生成对应 HTML 文件，自动发布在 Cloudflare Pages 上。该流程每 1 小时自动执行一次。
+本仓库通过部署在 Cloudflare Pages 上的 Rust 程序来自动化获取空闲教室信息，并且生成对应 HTML 文件，自动发布在 Cloudflare Pages 上。该流程每 1 小时自动执行一次。
 
 本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室也不会予以显示。
 
 本表定期更新可能占用教室的校园事件。
 
-本项目通过 `scripts/fetch_data.js` 文件向东秦教务系统发送请求，查询空闲教室信息，并将结果保存为JSON格式储存于 `output/` 中。
-
-查询结果随后会被 `scripts/process_json.js` 处理，对数据进行筛选和合并，存储在 `output-day-x/processed_classroom_data.json` 中。
-
-`scripts/generate_html.js` 会将 `output/processed_classroom_data.json` 转换为对应的 `index.html`。然后将该 HTML 文件发布在 Cloudflare Pages 上。
-
-对于可能占用教室的校园事件，将其记录在 `calendar/neuq_events.json` 中。`scripts/generate_html.js` 在生成 HTML 文件时会读取该文件，检查是否有当日发生的事件。若没有事件会按规则选取一条格言。
+对于可能占用教室的校园事件，将其记录在 `calendar/neuq_events.json` 中。在生成 HTML 文件时会读取该文件，检查是否有当日发生的事件。若没有事件会按规则选取一条格言。
 
 因节假日调休时，由于教务系统可能未更新，本空教室表无法正常显示。
 
 由于东秦教务系统网站时有变动，可能会导致自动化运行失效，**请以教务系统实际查询结果为准**。
 
-本项目的诞生离不开 Gemini 和 GitHub Copilot 的协助。同时也感谢 [Ferry-200 的项目](https://github.com/Ferry-200/neuq-free-classroom) 提供了优化构建的思路。
+本项目的诞生离不开 Xiaomi MIMO 和 Deepseek 的协助。同时也感谢 [Ferry-200 的项目](https://github.com/Ferry-200/neuq-free-classroom) 提供了优化构建的思路。
 
 ---
 
 ## 本地测试
 
-本地测试时，需要修改 `scripts/fetch_data.js` 中的部分代码。
-
-首先找到这里：
-
-```js
-    const username = process.env.YOUR_NEUQ_USERNAME;
-    const password = process.env.YOUR_NEUQ_PASSWORD;
-```
-
-将 `process.env.YOUR_NEUQ_USERNAME` 和 `process.env.YOUR_NEUQ_PASSWORD` 分布替换为你的教务系统学号和登录密码。就可以正常在本地测试了。
+本地测试时，按照 `.env.example` 所示创建 `.env` 文件并填入对应变量即可。
 
 ## 自动化部署
 
@@ -61,12 +46,27 @@ on:
 | 字段 | 值 |
 |---|---|
 | **Framework preset** | `None` |
+<<<<<<< HEAD
 | **Build command** | `npm install && npm run deploy` |
+=======
+| **Build command** | 见下方 |
+>>>>>>> Rust
 | **Build output directory** | `.` |
 | **Root directory** | `/`（留空即可） |
 
 然后设置自定义域以指向您的站点，需要与 `CNAME` 文件内容保持一致。
 
+<<<<<<< HEAD
+=======
+#### 构建命令（Build command）
+
+```shell
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable && . "$HOME/.cargo/env" && cargo build --release && ./target/release/neuq-classroom-query deploy && rm -rf target/
+```
+
+> **说明**：如需加速编译，可将 `cargo build --release` 替换为 `cargo build --profile ci`，并将二进制路径 `./target/release/` 改为 `./target/ci/`。CI profile 跳过了链接时优化（LTO），编译速度更快，适合 CI/CD 环境。详见 `README.rust.md`。
+
+>>>>>>> Rust
 #### 环境变量配置
 
 进入 **Settings → Environment variables**，添加以下变量：
@@ -75,6 +75,14 @@ on:
 |---|---|---|
 | `YOUR_NEUQ_USERNAME` | 你的学号 | **设置为密钥** |
 | `YOUR_NEUQ_PASSWORD` | 你的密码 | **设置为密钥** |
+<<<<<<< HEAD
+=======
+| `ASSETS_DIR` | `./assets` | 静态资源目录（可选） |
+| `OUTPUT_DIR` | `./output` | HTML 输出目录（可选） |
+| `TOTAL_DAYS` | `7` | 查询天数（可选） |
+| `MINIFY_HTML` | `true` | 压缩 HTML（可选） |
+
+>>>>>>> Rust
 
 #### 启用定期自动更新
 

@@ -1,0 +1,798 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 页面加载完成前隐藏校徽 */
+html:not(.page-loaded) .loading-badge {
+  opacity: 0;
+}
+.page-loaded .loading-badge {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+/* ============================================================
+   CSS 变量定义 — 命名规则: --{element}-{css_property}
+   每个变量仅控制单一元素的单一属性
+   ============================================================ */
+:root {
+  /* ── 页面 ── */
+  --page-bg: #f9f9f9;
+  --page-color: #474747;
+
+  /* ── 标题 ── */
+  --heading-color: #3f3f3f;
+  --heading-font-size: 22px;
+
+  /* ── 日期显示 ── */
+  --date-color: #3f3f3f;
+  --date-font-size: 18px;
+
+  /* ── 横幅 ── */
+  --banner-bg: #f9f9f9;
+  --banner-color: #7b7b7b;
+  --banner-close-color: #7b7b7b;
+  --banner-border: rgba(137, 137, 137, 0.3);
+
+  /* ── 徽章 ── */
+  --badge-bg: #7b7b7b;
+  --badge-color: #f9f9f9;
+
+  /* ── 容器 ── */
+  --container-bg: rgba(255, 255, 255, 0.2);
+  --container-shadow: 2px 4px 3px 2px rgba(0, 0, 0, 0.06);
+  --container-border: rgba(137, 137, 137, 0.3);
+
+  /* ── 信息框（紧急信息/事件） ── */
+  --infobox-bg: rgba(138, 138, 138, 0.05);
+  --infobox-color: #4f4f4f;
+  --infobox-border: rgba(137, 137, 137, 0.3);
+
+  /* ── 信息文本（更新时间/版本等） ── */
+  --info-color: #7b7b7b;
+  --info-font-size: 13px;
+
+  /* ── Tab 栏 ── */
+  --tabbar-bg: #f0f0f0;
+  --tabbar-border: #d8d8d8;
+
+  /* ── Tab 按钮 ── */
+  --tab-color: #888;
+  --tab-hover-color: #000;
+  --tab-hover-bg: #e5e5e5;
+  --tab-active-bg: rgba(255, 255, 255, 0.75);
+  --tab-active-color: #777;
+  --tab-active-border: #777;
+  --tab-border: #d8d8d8;
+  --tab-font-size: 17px;
+
+  /* ── 日期切换按钮 ── */
+  --date-btn-color: #777;
+  --date-btn-hover-bg: #e5e5e5;
+
+  /* ── 时段标题 ── */
+  --timeslot-color: #777;
+  --timeslot-font-size: 20px;
+
+  /* ── 表格 ── */
+  --table-border: #e0e0e0;
+  --table-header-bg: #f7f7f7;
+  --table-header-color: inherit;
+  --table-font-size: 12px;
+  --td-font-size: 14px;
+
+  /* ── 楼层标签（工学馆） ── */
+  --floor-bg: #f7f7f7;
+  --floor-color: inherit;
+
+  /* ── 教学楼名称（本部其它/南校区） ── */
+  --building-bg: #f7f7f7;
+  --building-color: inherit;
+
+  /* ── 折叠面板 ── */
+  --collapsible-color: #474747;
+  --collapsible-border: #d8d8d8;
+  --collapsible-desc-color: #7b7b7b;
+  --collapsible-desc-border: #d8d8d8;
+
+  /* ── 主题控制按钮 ── */
+  --theme-btn-color: #474747;
+  --theme-btn-hover-bg: #e5e5e5;
+  --theme-btn-border: #d8d8d8;
+  --theme-btn-hover-border: #c0392b;
+  --theme-name-color: #7b7b7b;
+
+  /* ── 分割线 ── */
+  --hr-border: #d8d8d8;
+
+  /* ── 链接 ── */
+  --link-color: #4e4e4e;
+
+  /* ── 数据单元格 ── */
+  --data-color: inherit;
+  --data-bg: transparent;
+
+  /* ── 数据单元格 · 加粗 ── */
+  --data-strong-color: rgb(76, 76, 76);
+  --data-strong-bg: transparent;
+
+  /* ── 数据单元格 · 删除线 ── */
+  --data-del-color: gray;
+  --data-del-decoration-color: var(--data-del-color);
+  --data-del-decoration-style: solid;
+  --data-del-decoration-thickness: 0.75px;
+  --data-del-bg: transparent;
+
+  /* ── 数据单元格 · 下划线 ── */
+  --data-u-color: inherit;
+  --data-u-decoration-color: var(--link-color);
+  --data-u-decoration-style: solid;
+  --data-u-decoration-thickness: 1.25px;
+  --data-u-bg: transparent;
+}
+
+html.dark {
+  /* ── 页面 ── */
+  --page-bg: #121212;
+  --page-color: #bbb;
+
+  /* ── 标题 ── */
+  --heading-color: #ccc;
+
+  /* ── 日期显示 ── */
+  --date-color: #ccc;
+
+  /* ── 横幅 ── */
+  --banner-bg: #121212;
+  --banner-color: #888;
+  --banner-close-color: #888;
+  --banner-border: rgba(213, 213, 213, 0.3);
+
+  /* ── 徽章 ── */
+  --badge-bg: #888;
+  --badge-color: #121212;
+
+  /* ── 容器 ── */
+  --container-bg: rgba(30, 30, 30, 0.5);
+  --container-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.5);
+  --container-border: rgba(213, 213, 213, 0.3);
+
+  /* ── 信息框 ── */
+  --infobox-bg: rgba(213, 213, 213, 0.08);
+  --infobox-color: #ccc;
+  --infobox-border: rgba(213, 213, 213, 0.3);
+
+  /* ── 信息文本 ── */
+  --info-color: #888;
+
+  /* ── Tab 栏 ── */
+  --tabbar-bg: #2a2a2a;
+  --tabbar-border: #444;
+
+  /* ── Tab 按钮 ── */
+  --tab-color: #aaa;
+  --tab-hover-color: #fff;
+  --tab-hover-bg: #3a3a3a;
+  --tab-active-bg: rgba(30, 30, 30, 0.75);
+  --tab-active-color: #d1d1d1;
+  --tab-active-border: #d1d1d1;
+  --tab-border: #444;
+
+  /* ── 日期切换按钮 ── */
+  --date-btn-color: #d1d1d1;
+  --date-btn-hover-bg: #3a3a3a;
+
+  /* ── 时段标题 ── */
+  --timeslot-color: #d1d1d1;
+
+  /* ── 表格 ── */
+  --table-border: #444;
+  --table-header-bg: #2c2c2c;
+  --table-header-color: inherit;
+
+  /* ── 楼层标签 ── */
+  --floor-bg: #2c2c2c;
+  --floor-color: inherit;
+
+  /* ── 教学楼名称 ── */
+  --building-bg: #2c2c2c;
+  --building-color: inherit;
+
+  /* ── 折叠面板 ── */
+  --collapsible-color: #bbb;
+  --collapsible-border: #444;
+  --collapsible-desc-color: #888;
+  --collapsible-desc-border: #444;
+
+  /* ── 主题控制按钮 ── */
+  --theme-btn-color: #bbb;
+  --theme-btn-hover-bg: #3a3a3a;
+  --theme-btn-border: #444;
+  --theme-btn-hover-border: #e74c3c;
+  --theme-name-color: #888;
+
+  /* ── 分割线 ── */
+  --hr-border: #444;
+
+  /* ── 链接 ── */
+  --link-color: #c8c8c8;
+
+  /* ── 数据单元格 ── */
+  --data-color: inherit;
+  --data-bg: transparent;
+
+  /* ── 数据单元格 · 加粗 ── */
+  --data-strong-color: #ddd;
+  --data-strong-bg: transparent;
+
+  /* ── 数据单元格 · 删除线 ── */
+  --data-del-color: #888;
+  --data-del-decoration-color: var(--data-del-color);
+  --data-del-decoration-style: solid;
+  --data-del-decoration-thickness: 0.75px;
+  --data-del-bg: transparent;
+
+  /* ── 数据单元格 · 下划线 ── */
+  --data-u-color: inherit;
+  --data-u-decoration-color: var(--link-color);
+  --data-u-decoration-style: solid;
+  --data-u-decoration-thickness: 1.25px;
+  --data-u-bg: transparent;
+}
+
+/* ============================================================
+   基础元素
+   ============================================================ */
+body {
+  max-width: 800px;
+  margin: 0px auto 10px;
+  padding: 0 10px;
+  font-family: "Maple Mono", "PingFang SC", "Microsoft YaHei", "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43",
+    "cv61", "cv62", "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
+  line-height: 1.35;
+  color: var(--page-color);
+  background-color: var(--page-bg);
+  transition: color 0.3s;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1px;
+  font-size: var(--heading-font-size);
+  color: var(--heading-color);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--hr-border);
+  margin: 12px 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============================================================
+   顶部 Banner
+   ============================================================ */
+.top-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.7em;
+  padding: 5px 10px;
+  color: var(--banner-color);
+  background-color: var(--banner-bg);
+  border-bottom: 1px solid var(--banner-border);
+  margin: 0 -10px 2px;
+}
+
+.top-banner a {
+  color: var(--link-color);
+  text-decoration: dotted underline;
+}
+
+.top-banner-close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1em;
+  line-height: 1;
+  padding: 0 0 0 8px;
+  color: var(--banner-close-color);
+  opacity: 0.7;
+}
+
+.top-banner-close:hover {
+  opacity: 1;
+}
+
+/* ============================================================
+   日期切换器
+   ============================================================ */
+.date-switcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 6px 0;
+  user-select: none;
+}
+
+.date-display {
+  font-size: var(--date-font-size);
+  font-weight: bold;
+  color: var(--date-color);
+  padding: 0 15px;
+  min-width: 120px;
+  text-align: center;
+}
+
+.date-switcher-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.date-switcher-btn:hover {
+  background-color: var(--date-btn-hover-bg);
+}
+
+.date-switcher-btn svg {
+  width: 24px;
+  height: 24px;
+  color: var(--date-btn-color);
+}
+
+.date-switcher-btn[disabled] {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+/* ============================================================
+   每日数据容器
+   ============================================================ */
+.day-content {
+  display: none;
+}
+
+.day-content.active {
+  display: block;
+  animation: fadeIn 0.3s;
+}
+
+/* ============================================================
+   Tab 容器
+   ============================================================ */
+.tab-container {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 16px;
+  background-color: var(--container-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 10px;
+  border: 1px solid var(--container-border);
+  box-shadow: var(--container-shadow);
+  overflow: hidden;
+  text-align: center;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.tab-buttons {
+  display: flex;
+  background-color: var(--tabbar-bg);
+  border-bottom: 1px solid var(--tabbar-border);
+}
+
+.tab-button {
+  padding: 6px 10px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: var(--tab-color);
+  font-family: "Maple Mono", "PingFang SC", "Microsoft YaHei", "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43",
+    "cv61", "cv62", "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
+  font-size: var(--tab-font-size);
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
+  outline: none;
+  flex-grow: 1;
+  text-align: center;
+  border-right: 1px solid var(--tab-border);
+}
+
+.tab-button:last-child {
+  border-right: none;
+}
+
+.tab-button:hover {
+  background-color: var(--tab-hover-bg);
+  color: var(--tab-hover-color);
+}
+
+.tab-button.active {
+  background-color: var(--tab-active-bg);
+  color: var(--tab-active-color);
+  border-bottom: 2px solid var(--tab-active-border);
+  font-size: var(--tab-font-size);
+}
+
+.tab-content {
+  display: none;
+  padding: 0 10px 10px 10px;
+  border-top: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ============================================================
+   表格
+   ============================================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: var(--table-font-size);
+}
+
+th,
+td {
+  border: 1px solid var(--table-border);
+  padding: 4px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+th {
+  background-color: var(--table-header-bg);
+  font-weight: bold;
+  font-size: var(--table-font-size);
+  text-align: center;
+  color: var(--table-header-color);
+}
+
+td {
+  font-size: var(--td-font-size);
+  text-align: center;
+}
+
+/* 工学馆楼层列 */
+.gxg-table td:first-child {
+  font-weight: bold;
+  width: 30px;
+  font-size: var(--td-font-size);
+  text-align: center;
+  background-color: var(--floor-bg);
+  color: var(--floor-color);
+}
+
+/* 工学馆数据列 */
+.gxg-table td:not(:first-child) {
+  color: var(--data-color);
+  background-color: var(--data-bg);
+}
+
+/* 教学楼名称行 */
+.campus-table .building-name-row td {
+  font-weight: bold;
+  text-align: center;
+  background-color: var(--building-bg);
+  color: var(--building-color);
+  font-size: 13px;
+}
+
+/* 教室号行 */
+.campus-table .classroom-row td {
+  text-align: center;
+  min-height: 50px;
+  word-break: break-word;
+  white-space: pre-wrap;
+  color: var(--data-color);
+  background-color: var(--data-bg);
+}
+
+/* ============================================================
+   时间段标题
+   ============================================================ */
+.timeslot-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--timeslot-font-size);
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  color: var(--timeslot-color);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ============================================================
+   更新时间 / 版本号 / 通用信息文本
+   ============================================================ */
+.info-text {
+  font-family: "Maple Mono", "LXGW Wenkai";
+  text-align: center;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  font-size: var(--info-font-size);
+  color: var(--info-color);
+}
+
+.update-time-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.info-text a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.info-text a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================
+   临时信息通知框
+   ============================================================ */
+.emergency-info {
+  padding: 3px 8px 4px 6px;
+  margin: 8px auto;
+  border: 1px solid var(--infobox-border);
+  border-radius: 10px;
+  background-color: var(--infobox-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--infobox-color);
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.emergency-info p {
+  margin: 0;
+  font-family: "New Computer Modern", "Source Han Serif", serif;
+  font-feature-settings: normal;
+  text-align: start;
+  max-width: 100%;
+}
+
+/* ============================================================
+   内联文本标记（加粗 / 下划线 / 删除线）
+   ============================================================ */
+u {
+  text-decoration: underline;
+  text-decoration-color: var(--data-u-decoration-color);
+  text-decoration-style: var(--data-u-decoration-style);
+  text-decoration-thickness: var(--data-u-decoration-thickness);
+  color: var(--data-u-color);
+  background-color: var(--data-u-bg);
+}
+
+strong, b {
+  font-weight: bold;
+  color: var(--data-strong-color);
+  background-color: var(--data-strong-bg);
+}
+
+del {
+  text-decoration: line-through;
+  text-decoration-color: var(--data-del-decoration-color);
+  text-decoration-style: var(--data-del-decoration-style);
+  text-decoration-thickness: var(--data-del-decoration-thickness);
+  color: var(--data-del-color);
+  background-color: var(--data-del-bg);
+}
+
+center {
+  text-align: center;
+  font-family: inherit;
+  font-feature-settings: inherit;
+}
+
+/* ============================================================
+   状态徽章
+   ============================================================ */
+.status-badge {
+  margin-left: 8px;
+  padding: 1.2px 6px 1px;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 18px;
+  text-transform: uppercase;
+  opacity: 0.67;
+}
+
+.badge-updated {
+  background-color: var(--badge-bg);
+  color: var(--badge-color);
+}
+
+.badge-not-updated {
+  background-color: var(--badge-bg);
+  color: var(--badge-color);
+}
+
+.badge-not-found {
+  background-color: var(--badge-bg);
+  color: var(--badge-color);
+}
+
+/* ============================================================
+   折叠按钮图标
+   ============================================================ */
+.toggle-icon {
+  margin-right: 4px;
+  transition: transform 0.4s ease-in-out;
+}
+
+.toggle-icon.collapsed {
+  transform: rotate(-90deg);
+}
+
+/* ============================================================
+   折叠容器（使用须知 / Credits）
+   ============================================================ */
+.collapsible-container {
+  margin: 10px 0 10px;
+  border: 1px solid var(--collapsible-border);
+  border-radius: 12px;
+  background-color: var(--container-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--container-shadow);
+  overflow: hidden;
+  transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.collapsible-toggle {
+  width: 100%;
+  padding: 6px 6px 6px 10px;
+  background-color: var(--container-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--collapsible-color);
+  font-family: inherit;
+}
+
+.collapsible-toggle:hover {
+  color: var(--collapsible-color);
+}
+
+.collapsible-toggle .toggle-icon {
+  transition: transform 0.3s ease-in-out;
+}
+
+.collapsible-container.expanded .toggle-icon {
+  transform: rotate(90deg);
+}
+
+.collapsible-content {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.collapsible-container.expanded .collapsible-content {
+  max-height: max-content;
+}
+
+.collapsible-inner {
+  padding: 4px 10px 4px 10px;
+  border-top: 1px solid var(--collapsible-desc-border);
+  margin: 0;
+}
+
+.collapsible-inner p {
+  margin: 6px 0;
+  font-size: 14px;
+  text-align: center;
+  color: var(--collapsible-desc-color);
+}
+
+.collapsible-inner a {
+  color: var(--link-color);
+}
+
+/* ============================================================
+   主题控制区
+   ============================================================ */
+/* ── 主题控制按钮区 ──────────────────────────────────────────
+   所有控件统一 appearance: none，消除浏览器/OS 原生样式差异
+   ============================================================ */
+.theme-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+
+.theme-controls .theme-btn,
+.theme-controls select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--theme-btn-color);
+  background: var(--container-bg);
+  border: 1px solid var(--theme-btn-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  font-family: inherit;
+  outline: none;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.theme-controls .theme-btn:hover,
+.theme-controls select:hover {
+  border-color: var(--theme-btn-hover-border);
+  background: var(--theme-btn-hover-bg);
+}
+.theme-controls .theme-btn:focus-visible,
+.theme-controls select:focus-visible {
+  border-color: var(--theme-btn-hover-border);
+}
+
+/* 下拉菜单自定义箭头 */
+.theme-controls select {
+  padding-right: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 12px;
+  background-color: var(--container-bg);
+}
+
+/* 主题名称（非交互） */
+.theme-name-display {
+  font-size: 11px;
+  color: var(--theme-name-color);
+  font-style: italic;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: default;
+}
+.theme-name-display:hover {
+  border: none;
+  background: none;
+}

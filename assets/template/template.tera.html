@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" lang="zh-CN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no, email=no, address=no">
+
+    <title>东秦空闲教室总表</title>
+
+    <script>
+        // 检查系统偏好并为 <html> 标签添加 'dark' 类
+        (function () {
+            try {
+                var mql = window.matchMedia('(prefers-color-scheme: dark)');
+                if (mql.matches) {
+                    document.documentElement.classList.add('dark');
+                }
+                mql.addEventListener('change', function (e) {
+                    if (e.matches) {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+                });
+            } catch (e) { }
+        })();
+    </script>
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+    <link rel="stylesheet" href="/assets/styles/main.css">
+    <link rel="stylesheet" href="/assets/styles/font.css">
+
+    <style id="theme-style"></style>
+</head>
+
+<body>
+    <div class="top-banner"><span>🛠️ 此为本项目的实验分支，用于测试新增功能。</span><button class="top-banner-close"
+            onclick="this.parentElement.style.display='none'" aria-label="关闭">×</button></div>
+    <div class="top-banner"><span>🎉 现已支持自定义主题配置！滚动到页面底部查看更多细节。</span><button class="top-banner-close"
+            onclick="this.parentElement.style.display='none'" aria-label="关闭">×</button></div>
+
+    <h1><span id="current-date-placeholder">{{ current_date }}</span><svg class="loading-badge" width="2.2em"
+            height="1.75em" style="display: inline-block; vertical-align: -0.5em;">
+            <use href="#icon-neuq-emblem-core"></use>
+        </svg>空闲教室总表</h1>
+
+    <p class="info-text update-time-text">
+        <span>本表更新于 <span id="update-time-placeholder">{{ update_time }}</span></span>
+        {{ status_badge_html | safe }}
+    </p>
+
+    <div class="date-switcher">
+        <button id="prev-day-btn" class="date-switcher-btn" onclick="changeDay(-1)" disabled>
+            <svg width="24" height="24">
+                <use href="#icon-chevron-double-left"></use>
+            </svg>
+        </button>
+        <div id="date-display" class="date-display">今天 (MM/DD)</div>
+        <button id="next-day-btn" class="date-switcher-btn" onclick="changeDay(1)">
+            <svg width="24" height="24">
+                <use href="#icon-chevron-double-right"></use>
+            </svg>
+        </button>
+    </div>
+
+    <div class="emergency-info">
+        {{ emergency_content | safe }}
+    </div>
+
+    <div id="days-wrapper">
+        {% for day in days %}
+        <div id="day-{{ day.index }}-content" class="day-content{% if day.index == 0 %} active{% endif %}">
+
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active"
+                        onclick="openTab(event, 'day-{{ day.index }}-gongxueguan')">工学馆</button>
+                    <button class="tab-button" onclick="openTab(event, 'day-{{ day.index }}-benbuqita')">本部其它</button>
+                    <button class="tab-button" onclick="openTab(event, 'day-{{ day.index }}-nanxiaoqu')">南校区</button>
+                </div>
+
+                {# 工学馆 #}
+                <div id="day-{{ day.index }}-gongxueguan" class="tab-content active">
+                    {% for slot in time_slots %}
+                    <h3 class="timeslot-title" onclick="toggleTable(this)">
+                        <span class="toggle-icon">
+                            <svg width="16" height="16">
+                                <use href="#icon-chevron-down"></use>
+                            </svg>
+                        </span>{{ slot_labels[slot] }}
+                    </h3>
+                    <table border="1" class="gxg-table">
+                        <tbody>
+                            {% for floor in [1, 2, 3, 4, 5, 6, 7] %}
+                            <tr>
+                                <td>{{ floor }}F</td>
+                                <td id="day-{{ day.index }}-GXG{{ floor }}F{{ slot }}">{{ day.gxg[slot][floor] | safe }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endfor %}
+                </div>
+
+                {# 本部其它 #}
+                <div id="day-{{ day.index }}-benbuqita" class="tab-content">
+                    {% for slot in time_slots %}
+                    <h3 class="timeslot-title" onclick="toggleTable(this)">
+                        <span class="toggle-icon">
+                            <svg width="16" height="16">
+                                <use href="#icon-chevron-down"></use>
+                            </svg>
+                        </span>{{ slot_labels[slot] }}
+                    </h3>
+                    <table border="1" class="campus-table">
+                        <tbody>
+                            <tr class="building-name-row">
+                                <td>基础楼</td>
+                                <td>综合实验楼</td>
+                                <td>地质楼</td>
+                                <td>管理楼</td>
+                            </tr>
+                            <tr class="classroom-row">
+                                <td id="day-{{ day.index }}-JCL{{ slot }}">{{ day.jcl[slot] | safe }}</td>
+                                <td id="day-{{ day.index }}-ZHSYL{{ slot }}">{{ day.zhsyl[slot] | safe }}</td>
+                                <td id="day-{{ day.index }}-DZL{{ slot }}">{{ day.dzl[slot] | safe }}</td>
+                                <td id="day-{{ day.index }}-GLL{{ slot }}">{{ day.gll[slot] | safe }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor %}
+                </div>
+
+                {# 南校区 #}
+                <div id="day-{{ day.index }}-nanxiaoqu" class="tab-content">
+                    {% for slot in time_slots %}
+                    <h3 class="timeslot-title" onclick="toggleTable(this)">
+                        <span class="toggle-icon">
+                            <svg width="16" height="16">
+                                <use href="#icon-chevron-down"></use>
+                            </svg>
+                        </span>{{ slot_labels[slot] }}
+                    </h3>
+                    <table border="1" class="campus-table">
+                        <tbody>
+                            <tr class="building-name-row">
+                                <td>科技楼</td>
+                                <td>人文楼</td>
+                            </tr>
+                            <tr class="classroom-row">
+                                <td id="day-{{ day.index }}-KJL{{ slot }}" style="font-size: 13px">{{ day.kjl[slot] |
+                                    safe }}</td>
+                                <td id="day-{{ day.index }}-RWL{{ slot }}" style="font-size: 13px">{{ day.rwl[slot] |
+                                    safe }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="collapsible-container">
+        <button class="collapsible-toggle" onclick="toggleClick(this)">
+            <span class="toggle-text">使用须知</span>
+            <svg class="toggle-icon" width="12" height="12">
+                <use href="#icon-chevron-down"></use>
+            </svg>
+        </button>
+        <div class="collapsible-content">
+            <div class="collapsible-inner">
+                <p class="info-text" style="text-align: justify; font-size: 75%;">
+                    [INFO]
+                    此为本项目的实验分支，用于测试新增功能。
+                </p>
+                <p class="info-text" style="text-align: justify; font-size: 75%;">
+                    [INFO]
+                    <u>下划线</u>表示该教室在上一时段未处于空闲，<strong>加粗体</strong>表示教室全天(1-12节)空闲，<del>删除线</del>表示教室将于下一时段被占用。
+                </p>
+                <p class="info-text" style="text-align: justify; font-size: 75%;">
+                    [INFO]
+                    本表不显示机房、实验室、语音室、研讨室、多功能、活动教室、智慧教室、不排课教室、体育教学场地。大学会馆、旧实验楼以及科技楼的部分特殊教室被排除在外。教务系统中信息存在异常项的教室及某些位于
+                    blacklist
+                    中的教室也不会予以显示。
+                </p>
+                <p class="info-text" style="text-align: justify; font-size: 75%;">
+                    [WARN]
+                    因节假日调休时，教务系统未更新会导致本表无法显示当日正确的教室信息，请使用未来一周内对应信息作为参考（例如，若调休日上周三课程，那么就参考未来一周内周三那天的空教室表）。
+                </p>
+                <p class="info-text" style="text-align: justify; font-size: 75%;">
+                    [WARN]
+                    内容仅供参考，实际请以<a href="https://jwxt.neuq.edu.cn/">教务系统</a>查询结果为准。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="collapsible-container">
+        <button class="collapsible-toggle" onclick="toggleClick(this)">
+            <span class="toggle-text">Credits</span>
+            <svg class="toggle-icon" width="12" height="12">
+                <use href="#icon-chevron-down"></use>
+            </svg>
+        </button>
+        <div class="collapsible-content">
+            <div class="collapsible-inner">
+                <p class="info-text">由 <a href="https://aistudio.xiaomimimo.com/">
+                        <svg width="1em" height="1em" style="display: inline-block; vertical-align: -0.17em;">
+                            <use href="#icon-xiaomi"></use>
+                        </svg>MIMO</a> 和 <a href="https://chat.deepseek.com/">
+                        <svg width="1em" height="1em" style="display: inline-block; vertical-align: -0.15em;">
+                            <use href="#icon-deepseek"></use>
+                        </svg>Deepseek</a> 创建</p>
+
+                <p class="info-text">通过 <a href="https://developers.cloudflare.com/workers/">
+                        <svg width="1em" height="1em" style="display: inline-block; vertical-align: -0.11em;">
+                            <use href="#icon-cloudflare"></use>
+                        </svg>Cloudflare Pages</a> 部署</p>
+
+                <p class="info-text">感谢 @<a href="https://github.com/Ferry-200">Ferry-200</a> 的<a
+                        href="https://github.com/Ferry-200/neuq-free-classroom">项目</a>提供了优化构建的思路</p>
+
+                <p class="info-text">以及 @<a href="https://github.com/subframe7536">subframe7536</a> 制作的 <a
+                        href="https://font.subf.dev/zh-cn/">Maple Mono</a> 字体</p>
+
+                <p class="info-text">和 @<a href="https://github.com/lxgw">LXGW</a> 制作的<a
+                        href="https://github.com/lxgw/LxgwWenKai">霞鹜文楷</a>字体</p>
+
+                <p class="info-text">还有 @<a href="https://www.urongda.com/">urongda</a> 提供的矢量校徽</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="theme-controls">
+        <button class="theme-btn" id="mode-toggle-btn" onclick="cycleMode()" title="切换明暗模式">AUTO</button>
+        <select id="theme-preset-select" onchange="applyPresetTheme(this)" title="选择预设主题">
+            <option value="">默认主题</option>
+            <option value="ayu">Ayu</option>
+            <option value="catppuccin">Catppuccin</option>
+            <option value="everforest">Everforest</option>
+            <option value="gruvbox">Gruvbox</option>
+            <option value="kanagawa">Kanagawa</option>
+            <option value="nord">Nord</option>
+            <option value="tokyonight">Tokyo Night</option>
+        </select>
+        <button class="theme-btn" onclick="document.getElementById('theme-file-input').click()" title="导入自定义主题配置文件">
+            <svg width="14" height="14" style="vertical-align: -2px;"><use href="#icon-upload"></use></svg>
+            导入主题
+        </button>
+        <input type="file" id="theme-file-input" accept=".toml" onchange="importThemeFile(this)" style="display: none;">
+        <button class="theme-btn" onclick="resetTheme()" title="恢复默认主题">
+            <svg width="14" height="14" style="vertical-align: -2px;"><use href="#icon-reset"></use></svg>
+            重置
+        </button>
+        <button class="theme-btn" onclick="window.open('theme-guide.html','_blank')" title="查看主题配置指南">
+            <svg width="14" height="14" style="vertical-align: -2px;"><use href="#icon-guide"></use></svg>
+            配置指南
+        </button>
+        <span id="theme-name" class="theme-name-display"></span>
+    </div>
+
+    <p class="info-text" style="font-size: 80%;">Ver3.2.0 <a
+            href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a>
+    </p>
+
+    <meta name="page-content-hash" content='{{ daily_hashes }}'>
+
+    <script>
+        // 主题配置系统
+        (function () {
+            const THEME_STORAGE_KEY = 'neuq_theme_config';
+            const MODE_STORAGE_KEY = 'neuq_mode_preference';
+
+            // 预设主题列表及缓存
+            const PRESET_THEMES = ['ayu', 'catppuccin', 'everforest', 'gruvbox', 'kanagawa', 'nord', 'tokyonight'];
+            var themeCache = {};
+
+            // 预加载所有预设主题 TOML
+            function preloadPresets() {
+                return Promise.all(PRESET_THEMES.map(function (name) {
+                    return fetch('/assets/themes/' + name + '.toml')
+                        .then(function (res) { return res.text(); })
+                        .then(function (text) { themeCache[name] = text; })
+                        .catch(function () { });
+                }));
+            }
+
+            // 等待所有 CSS <link> 加载完成
+            function waitForCSS() {
+                var links = document.querySelectorAll('link[rel="stylesheet"]');
+                return Promise.all(Array.prototype.map.call(links, function (link) {
+                    if (link.sheet) return Promise.resolve();
+                    return new Promise(function (resolve) {
+                        link.addEventListener('load', resolve);
+                        link.addEventListener('error', resolve);
+                    });
+                }));
+            }
+
+            // 标记页面加载完成，显示校徽
+            function markPageLoaded() {
+                document.documentElement.classList.add('page-loaded');
+            }
+
+            // 将 snake_case 转为 CSS 变量名 --kebab-case
+            function toCssVar(key) {
+                return '--' + key.replace(/_/g, '-');
+            }
+
+            // 应用主题 CSS 变量
+            function applyTheme(themeData) {
+                const styleEl = document.getElementById('theme-style');
+                if (!styleEl) return;
+
+                let css = '';
+
+                // 亮色模式变量
+                if (themeData.light && Object.keys(themeData.light).length > 0) {
+                    css += ':root{';
+                    for (const [key, value] of Object.entries(themeData.light)) {
+                        css += `${toCssVar(key)}:${value};`;
+                    }
+                    css += '}';
+                }
+
+                // 暗色模式变量
+                if (themeData.dark && Object.keys(themeData.dark).length > 0) {
+                    css += 'html.dark{';
+                    for (const [key, value] of Object.entries(themeData.dark)) {
+                        css += `${toCssVar(key)}:${value};`;
+                    }
+                    css += '}';
+                }
+
+                // 布局变量
+                if (themeData.layout && Object.keys(themeData.layout).length > 0) {
+                    css += ':root{';
+                    for (const [key, value] of Object.entries(themeData.layout)) {
+                        css += `${toCssVar(key)}:${value};`;
+                    }
+                    css += '}';
+                }
+
+                styleEl.textContent = css;
+
+                // 仅当用户未手动设置模式时，才应用主题配置的 mode
+                if (!localStorage.getItem(MODE_STORAGE_KEY)) {
+                    applyMode(themeData.mode);
+                }
+            }
+
+            // 应用明暗模式
+            function applyMode(mode) {
+                if (mode === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else if (mode === 'light') {
+                    document.documentElement.classList.remove('dark');
+                } else {
+                    // auto: 跟随系统
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+                }
+                updateModeToggle(mode || 'auto');
+            }
+
+            // 用户通过切换按钮设置明暗模式
+            var MODE_CYCLE = ['auto', 'light', 'dark'];
+            var MODE_LABELS = { auto: 'AUTO', light: 'LIGHT', dark: 'DARK' };
+            window.cycleMode = function () {
+                var cur = localStorage.getItem(MODE_STORAGE_KEY) || 'auto';
+                var next = MODE_CYCLE[(MODE_CYCLE.indexOf(cur) + 1) % 3];
+                localStorage.setItem(MODE_STORAGE_KEY, next);
+                applyMode(next);
+            };
+
+            // 更新切换按钮文字
+            function updateModeToggle(mode) {
+                var btn = document.getElementById('mode-toggle-btn');
+                if (btn) btn.textContent = MODE_LABELS[mode] || 'AUTO';
+            }
+
+            // 解析 TOML（轻量级解析器，仅支持本项目主题格式）
+            function parseToml(text) {
+                const result = { light: {}, dark: {}, layout: {} };
+                let currentSection = null;
+                let currentSubSection = null;
+
+                for (let line of text.split('\n')) {
+                    line = line.trim();
+                    if (!line || line.startsWith('#')) continue;
+
+                    // 检测顶层 section [name]
+                    const sectionMatch = line.match(/^\[(\w+)\]$/);
+                    if (sectionMatch) {
+                        currentSection = sectionMatch[1];
+                        currentSubSection = null;
+                        continue;
+                    }
+
+                    // 检测子 section [parent.child]
+                    const subSectionMatch = line.match(/^\[(\w+)\.(\w+)\]$/);
+                    if (subSectionMatch) {
+                        currentSection = subSectionMatch[1];
+                        currentSubSection = subSectionMatch[2];
+                        continue;
+                    }
+
+                    // 解析 key = "value"
+                    const kvMatch = line.match(/^(\w+)\s*=\s*"([^"]*)"$/);
+                    if (kvMatch) {
+                        const key = kvMatch[1];
+                        const value = kvMatch[2];
+
+                        if (!currentSection && (key === 'name' || key === 'mode')) {
+                            result[key] = value;
+                        } else if (currentSection === 'light') {
+                            result.light[key] = value;
+                        } else if (currentSection === 'dark') {
+                            result.dark[key] = value;
+                        } else if (currentSection === 'layout') {
+                            result.layout[key] = value;
+                        }
+                    }
+                }
+
+                return result;
+            }
+
+            // 初始化主题
+            function initTheme() {
+                // 先恢复用户模式偏好（优先于主题配置的 mode）
+                var savedMode = localStorage.getItem(MODE_STORAGE_KEY);
+                applyMode(savedMode || 'auto');
+
+                var saved = localStorage.getItem(THEME_STORAGE_KEY);
+                if (saved) {
+                    try {
+                        const themeData = JSON.parse(saved);
+                        // 仅当用户未设置独立模式偏好时，才使用主题配置的 mode
+                        if (!savedMode && themeData.mode) {
+                            applyMode(themeData.mode);
+                        }
+                        applyTheme(themeData);
+                        updateThemeUI(themeData.name || null);
+                        if (themeData._preset) {
+                            var sel = document.getElementById('theme-preset-select');
+                            if (sel) sel.value = themeData._preset;
+                        }
+                    } catch (e) {
+                        console.warn('Failed to parse theme config:', e);
+                    }
+                }
+            }
+
+            // 文件导入处理
+            window.importThemeFile = function (fileInput) {
+                const file = fileInput.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    try {
+                        const content = e.target.result;
+                        let themeData;
+
+                        if (file.name.endsWith('.toml')) {
+                            themeData = parseToml(content);
+                        } else {
+                            alert('不支持的文件格式，请使用 .toml 文件');
+                            return;
+                        }
+
+                        // 验证结构
+                        if (!themeData.light) themeData.light = {};
+                        if (!themeData.dark) themeData.dark = {};
+                        if (!themeData.layout) themeData.layout = {};
+
+                        // 保存到 localStorage
+                        localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(themeData));
+
+                        // 应用主题
+                        applyTheme(themeData);
+
+                        // 清除预设下拉选择
+                        var sel = document.getElementById('theme-preset-select');
+                        if (sel) sel.value = '';
+
+                        // 更新 UI
+                        updateThemeUI(themeData.name || file.name);
+
+                    } catch (err) {
+                        alert('主题文件解析失败: ' + err.message);
+                    }
+                };
+                reader.readAsText(file);
+            };
+
+            // 预设主题
+            window.applyPresetTheme = function (select) {
+                const name = select.value;
+                if (!name) {
+                    window.resetTheme();
+                    return;
+                }
+                var text = themeCache[name];
+                if (!text) return;
+                var themeData = parseToml(text);
+                if (!themeData.light) themeData.light = {};
+                if (!themeData.dark) themeData.dark = {};
+                if (!themeData.layout) themeData.layout = {};
+                themeData._preset = name;
+                applyMode(themeData.mode);
+                applyTheme(themeData);
+                localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(themeData));
+                updateThemeUI(themeData.name || name);
+            };
+
+            // 重置主题
+            window.resetTheme = function () {
+                localStorage.removeItem(THEME_STORAGE_KEY);
+                localStorage.removeItem(MODE_STORAGE_KEY);
+                var styleEl = document.getElementById('theme-style');
+                if (styleEl) styleEl.textContent = '';
+                var sel = document.getElementById('theme-preset-select');
+                if (sel) sel.value = '';
+                updateThemeUI(null);
+                // 恢复系统偏好
+                applyMode('auto');
+            };
+
+            // 更新 UI 显示
+            function updateThemeUI(themeName) {
+                const nameEl = document.getElementById('theme-name');
+                if (nameEl) {
+                    nameEl.textContent = themeName ? `当前: ${themeName}` : '';
+                }
+            }
+
+            // 等待 CSS 加载 + 预加载预设主题 + 初始化主题，然后显示校徽
+            Promise.all([waitForCSS(), preloadPresets()]).then(function () {
+                initTheme();
+                markPageLoaded();
+            });
+        })();
+    </script>
+
+    <script>
+        let currentDay = 0;
+        const totalDays = {{ days | length }};
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateDateDisplay();
+        });
+
+        function changeDay(offset) {
+            const newDay = currentDay + offset;
+
+            if (newDay >= 0 && newDay < totalDays) {
+                document.getElementById('day-' + currentDay + '-content').classList.remove('active');
+
+                currentDay = newDay;
+
+                document.getElementById('day-' + currentDay + '-content').classList.add('active');
+                updateDateDisplay();
+            }
+        }
+
+        function updateDateDisplay() {
+            const today = new Date();
+            const targetDate = new Date();
+            targetDate.setDate(today.getDate() + currentDay);
+
+            const year = targetDate.getFullYear();
+            const month = (targetDate.getMonth() + 1).toString().padStart(2, '0');
+            const day = targetDate.getDate().toString().padStart(2, '0');
+
+            document.getElementById('current-date-placeholder').textContent = `${year}/${month}/${day}`;
+
+            let displayLabel = '';
+            if (currentDay === 0) {
+                displayLabel = `今天 (${month}/${day})`;
+            } else if (currentDay === 1) {
+                displayLabel = `明天 (${month}/${day})`;
+            } else {
+                const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+                displayLabel = `${weekdays[targetDate.getDay()]} (${month}/${day})`;
+            }
+            document.getElementById('date-display').textContent = displayLabel;
+
+            document.getElementById('prev-day-btn').disabled = (currentDay === 0);
+            document.getElementById('next-day-btn').disabled = (currentDay === totalDays - 1);
+        }
+
+        function openTab(evt, tabName) {
+            const tabContainer = evt.currentTarget.closest('.tab-container');
+            if (!tabContainer) return;
+
+            Array.from(tabContainer.getElementsByClassName("tab-content")).forEach(tc => tc.classList.remove("active"));
+            Array.from(tabContainer.getElementsByClassName("tab-button")).forEach(tb => tb.classList.remove("active"));
+
+            const targetTab = document.getElementById(tabName);
+            if (targetTab) {
+                targetTab.classList.add("active");
+            }
+            evt.currentTarget.classList.add("active");
+        }
+
+        function toggleTable(headerElement) {
+            const table = headerElement.nextElementSibling;
+            if (table && table.tagName === 'TABLE') {
+                const icon = headerElement.querySelector('.toggle-icon');
+                if (table.style.display === 'none') {
+                    table.style.display = '';
+                    icon.classList.remove('collapsed');
+                } else {
+                    table.style.display = 'none';
+                    icon.classList.add('collapsed');
+                }
+            }
+        }
+
+        function toggleClick(button) {
+            const container = button.closest('.collapsible-container');
+            if (container) {
+                container.classList.toggle('expanded');
+            }
+        }
+
+        // 异步加载并注入 SVG icons
+        (function () {
+            fetch('/assets/icons/icons.svg')
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(function (svgText) {
+                    var div = document.createElement('div');
+                    div.style.display = 'none';
+                    div.innerHTML = svgText;
+                    document.body.insertBefore(div, document.body.firstChild);
+                })
+                .catch(function (error) {
+                    console.error('Failed to load SVG icons:', error);
+                });
+        })();
+    </script>
+</body>
+
+</html>
