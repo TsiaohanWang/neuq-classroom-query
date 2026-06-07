@@ -36,7 +36,9 @@
 </head>
 
 <body>
-    <div class="top-banner"><span>🛠️ 新分支将在 <a href="https://neuq-rs.tsiao.io/">Rust 实验室</a> 陆续测试新增功能，敬请期待！</span><button class="top-banner-close" onclick="this.parentElement.style.display='none'" aria-label="关闭">×</button></div>
+    <div class="top-banner"><span>🛠️ 新分支将在 <a href="https://neuq-rs.tsiao.io/">Rust 实验室</a>
+            陆续测试新增功能，敬请期待！</span><button class="top-banner-close" onclick="this.parentElement.style.display='none'"
+            aria-label="关闭">×</button></div>
     <div class="top-banner"><span>🎉 现已支持自定义主题配置！滚动到页面底部查看更多细节。</span><button class="top-banner-close"
             onclick="this.parentElement.style.display='none'" aria-label="关闭">×</button></div>
 
@@ -224,8 +226,10 @@
                 <p class="info-text">感谢 @<a href="https://github.com/Ferry-200">Ferry-200</a> 的<a
                         href="https://github.com/Ferry-200/neuq-free-classroom">项目</a>提供了优化构建的思路</p>
 
-                <p class="info-text">以及 @<a href="https://github.com/subframe7536">subframe7536</a> 制作的 <a
-                        href="https://font.subf.dev/zh-cn/">Maple Mono</a> 字体</p>
+                <p class="info-text">以及 <a href="https://www.jetbrains.com/lp/mono/"><svg width="1em" height="1em"
+                        style="display: inline-block; vertical-align: -0.13em;">
+                        <use href="#icon-jetbrains"></use>
+                    </svg>JetBrains Mono</a> 字体</p>
 
                 <p class="info-text">和 @<a href="https://github.com/lxgw">LXGW</a> 制作的<a
                         href="https://github.com/lxgw/LxgwWenKai">霞鹜文楷</a>字体</p>
@@ -248,22 +252,28 @@
             <option value="tokyonight">Tokyo Night</option>
         </select>
         <button class="theme-btn" onclick="document.getElementById('theme-file-input').click()" title="导入自定义主题配置文件">
-            <svg width="14" height="14" style="vertical-align: -2px;"><use href="#icon-upload"></use></svg>
+            <svg width="14" height="14" style="vertical-align: -2px;">
+                <use href="#icon-upload"></use>
+            </svg>
             导入主题
         </button>
         <input type="file" id="theme-file-input" accept=".toml" onchange="importThemeFile(this)" style="display: none;">
         <button class="theme-btn" onclick="resetTheme()" title="恢复默认主题">
-            <svg width="14" height="14" style="vertical-align: -2px;"><use href="#icon-reset"></use></svg>
+            <svg width="14" height="14" style="vertical-align: -2px;">
+                <use href="#icon-reset"></use>
+            </svg>
             重置
         </button>
         <button class="theme-btn" onclick="window.open('theme-guide.html','_blank')" title="查看主题配置指南">
-            <svg width="14" height="14" style="vertical-align: -2px;"><use href="#icon-guide"></use></svg>
+            <svg width="14" height="14" style="vertical-align: -2px;">
+                <use href="#icon-guide"></use>
+            </svg>
             配置指南
         </button>
         <span id="theme-name" class="theme-name-display"></span>
     </div>
 
-    <p class="info-text" style="font-size: 80%;">Ver3.0.0 <a
+    <p class="info-text" style="font-size: 80%;">Ver3.1.0 <a
             href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a>
     </p>
 

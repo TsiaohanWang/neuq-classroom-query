@@ -1,9 +1,56 @@
 @font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono/JetBrainsMono-Light.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  font-feature-settings:
+    "cv02", "cv03", "cv04", "cv05", "cv06", "cv07", "cv08", "cv11", "cv12",
+    "cv16", "cv17", "cv20", "ss19", "zero";
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono/JetBrainsMono-LightItalic.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+  font-feature-settings:
+    "cv02", "cv03", "cv04", "cv05", "cv06", "cv07", "cv08", "cv11", "cv12",
+    "cv16", "cv17", "cv20", "ss19", "zero";
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono/JetBrainsMono-ExtraBold.woff2")
+    format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+  font-feature-settings:
+    "cv02", "cv03", "cv04", "cv05", "cv06", "cv07", "cv08", "cv11", "cv12",
+    "cv16", "cv17", "cv20", "ss19", "zero";
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono/JetBrainsMono-ExtraBoldItalic.woff2")
+    format("woff2");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+  font-feature-settings:
+    "cv02", "cv03", "cv04", "cv05", "cv06", "cv07", "cv08", "cv11", "cv12",
+    "cv16", "cv17", "cv20", "ss19", "zero";
+}
+@font-face {
   font-family: "Maple Mono";
   src: url("/assets/fonts/MapleMono/MapleMono[wght].woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
+  font-feature-settings:
+    "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43", "cv61", "cv62",
+    "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
 }
 @font-face {
   font-family: "Maple Mono";
@@ -11,6 +58,9 @@
   font-weight: 900;
   font-style: normal;
   font-display: swap;
+  font-feature-settings:
+    "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43", "cv61", "cv62",
+    "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
 }
 @font-face {
   font-family: "Maple Mono";
@@ -19,6 +69,9 @@
   font-weight: 300;
   font-style: italic;
   font-display: swap;
+  font-feature-settings:
+    "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43", "cv61", "cv62",
+    "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
 }
 @font-face {
   font-family: "Maple Mono";
@@ -27,6 +80,9 @@
   font-weight: 900;
   font-style: italic;
   font-display: swap;
+  font-feature-settings:
+    "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43", "cv61", "cv62",
+    "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
 }
 
 @font-face {
@@ -39,8 +95,7 @@
 }
 @font-face {
   font-family: "New Computer Modern";
-  src: url("/assets/fonts/NewComputerModern/NewCM10-Bold.woff2")
-    format("woff2");
+  src: url("/assets/fonts/NewComputerModern/NewCM10-Bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -71,8 +126,7 @@
 
 @font-face {
   font-family: "LXGW Wenkai";
-  src: url("/assets/fonts/LXGWWenkai/LXGWWenKai-Regular.woff2")
-    format("woff2");
+  src: url("/assets/fonts/LXGWWenkai/LXGWWenKai-Regular.woff2") format("woff2");
   font-display: swap;
 }
 

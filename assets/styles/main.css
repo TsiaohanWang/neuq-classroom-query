@@ -249,10 +249,8 @@ body {
   max-width: 800px;
   margin: 0px auto 10px;
   padding: 0 10px;
-  font-family: "Maple Mono", "PingFang SC", "Microsoft YaHei", "Segoe UI",
+  font-family: "JetBrains Mono", "PingFang SC", "Microsoft YaHei", "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-feature-settings: "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43",
-    "cv61", "cv62", "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
   line-height: 1.35;
   color: var(--page-color);
   background-color: var(--page-bg);
@@ -402,10 +400,8 @@ hr {
   border: none;
   background-color: transparent;
   color: var(--tab-color);
-  font-family: "Maple Mono", "PingFang SC", "Microsoft YaHei", "Segoe UI",
+  font-family: "JetBrains Mono", "PingFang SC", "Microsoft YaHei", "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-feature-settings: "cv01", "cv02", "cv05", "cv35", "cv40", "cv42", "cv43",
-    "cv61", "cv62", "cv63", "ss01", "ss03", "ss04", "ss05", "ss06";
   font-size: var(--tab-font-size);
   font-weight: 500;
   transition: background-color 0.2s ease, color 0.2s ease,
@@ -528,7 +524,7 @@ td {
    更新时间 / 版本号 / 通用信息文本
    ============================================================ */
 .info-text {
-  font-family: "Maple Mono", "LXGW Wenkai";
+  font-family: "JetBrains Mono", "LXGW Wenkai";
   text-align: center;
   margin-top: 4px;
   margin-bottom: 4px;

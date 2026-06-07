@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::path::Path;
 use std::sync::Arc;
 
-use chrono::{FixedOffset, Local};
+use chrono::{Datelike, FixedOffset};
 use rand::Rng;
 use scraper::Html;
 use serde::Serialize;
@@ -316,7 +316,8 @@ impl Generator {
     }
 
     fn get_emergency_content(&self, events: &[EventData], quotes: &[QuoteData]) -> String {
-        let today = Local::now().format("%Y/%m/%d").to_string();
+        let beijing_offset = chrono::FixedOffset::east_opt(8 * 3600).unwrap();
+        let today = chrono::Utc::now().with_timezone(&beijing_offset).format("%Y-%m-%d").to_string();
         let active_events: Vec<&EventData> = events
             .iter()
             .filter(|event| {
@@ -344,8 +345,9 @@ impl Generator {
     }
 
     fn select_quote_index(&self, total_quotes: usize) -> usize {
-        let ms_in_day = 1000 * 60 * 60 * 24;
-        let days_since_epoch = chrono::Utc::now().timestamp_millis() / ms_in_day;
+        let beijing_offset = chrono::FixedOffset::east_opt(8 * 3600).unwrap();
+        let beijing_now = chrono::Utc::now().with_timezone(&beijing_offset);
+        let days_since_epoch = beijing_now.num_days_from_ce() as i64;
         let base_index = (days_since_epoch % total_quotes as i64) as usize;
 
         let range = 3;

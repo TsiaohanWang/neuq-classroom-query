@@ -17,7 +17,7 @@ static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
 /// NEUQ 空闲教室查询工具 (Rust 版本)
 #[derive(Parser)]
 #[command(name = "neuq-classroom-query")]
-#[command(version = "3.0.0")]
+#[command(version = "3.1.0")]
 #[command(about = "东北大学秦皇岛分校空闲教室查询工具", long_about = None)]
 struct Cli {
     #[command(subcommand)]
