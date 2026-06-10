@@ -755,6 +755,10 @@
     "description": "出自游戏和动画《命运石之门》（Steins;Gate）中主角冈部伦太郎（日语：岡部 倫太郎）。"
   },
   {
+    "content": "<p><i>Wubba Lubba dub-dub</i></p>",
+    "description": "出自动画《瑞克和莫蒂》（Rick and Morty）中主角瑞克（Rick Sanchez）。"
+  },
+  {
     "content": "<code style=\"font-size: 70%;\">main() { printf(&unix[\"\\021%six\\012\\0\"],(unix)[\"have\"]+\"fun\"-0x60);}</code>",
     "description": "出自美国贝尔实验室的 David Korn 于1987年国际C语言混乱代码大赛（IOCCC, The International Obfuscated C Code Contest）中的 Best one liner 获奖作品。"
   },
