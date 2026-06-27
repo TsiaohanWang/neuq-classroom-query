@@ -338,7 +338,17 @@ impl Generator {
             active_events.iter().map(|e| e.content.as_str()).collect::<Vec<_>>().join("")
         } else if !quotes.is_empty() {
             let quote_index = self.select_quote_index(quotes.len());
-            quotes[quote_index].content.clone()
+            let quote = &quotes[quote_index];
+            match &quote.translation {
+                Some(translation) if !translation.is_empty() => {
+                    let escaped = translation.replace('"', "&quot;").replace('<', "&lt;").replace('>', "&gt;");
+                    format!(
+                        "<span title=\"{}\">{}</span>",
+                        escaped, quote.content
+                    )
+                }
+                _ => quote.content.clone(),
+            }
         } else {
             "<p>今日暂无重要事件通知。</p>".to_string()
         }
