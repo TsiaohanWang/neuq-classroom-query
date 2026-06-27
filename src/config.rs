@@ -4,7 +4,7 @@ use std::time::Duration;
 use crate::error::{AppError, Result};
 
 /// 应用程序配置
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct AppConfig {
     /// 教务系统用户名
     pub username: String,
@@ -28,6 +28,23 @@ pub struct AppConfig {
     pub force_overwrite: bool,
     /// 是否压缩 HTML 输出
     pub minify_html: bool,
+}
+
+impl std::fmt::Debug for AppConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("AppConfig")
+            .field("username", &self.username)
+            .field("password", &"[REDACTED]")
+            .field("base_url", &self.base_url)
+            .field("request_timeout", &self.request_timeout)
+            .field("request_delay", &self.request_delay)
+            .field("total_days", &self.total_days)
+            .field("output_dir", &self.output_dir)
+            .field("assets_dir", &self.assets_dir)
+            .field("force_overwrite", &self.force_overwrite)
+            .field("minify_html", &self.minify_html)
+            .finish()
+    }
 }
 
 impl AppConfig {

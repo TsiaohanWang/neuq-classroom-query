@@ -9,20 +9,9 @@ use serde::Serialize;
 use tera::{Context, Tera};
 use tokio::fs;
 
-use crate::config::AppConfig;
+use crate::config::{AppConfig, TIME_SLOT_LABELS};
 use crate::error::Result;
 use crate::models::{EventData, ProcessedClassroomData, QuoteData, TimeSlotBuildingData};
-
-fn get_slot_labels() -> HashMap<String, String> {
-    let mut labels = HashMap::new();
-    labels.insert("1-2".to_string(), "上午第1-2节".to_string());
-    labels.insert("3-4".to_string(), "上午第3-4节".to_string());
-    labels.insert("5-6".to_string(), "下午第5-6节".to_string());
-    labels.insert("7-8".to_string(), "下午第7-8节".to_string());
-    labels.insert("9-10".to_string(), "晚上第9-10节".to_string());
-    labels.insert("11-12".to_string(), "晚上第11-12节".to_string());
-    labels
-}
 
 #[derive(Debug, Serialize)]
 struct DayData {
@@ -81,7 +70,11 @@ impl Generator {
         context.insert("emergency_content", &emergency_content);
 
         context.insert("time_slots", &["1-2", "3-4", "5-6", "7-8", "9-10", "11-12"]);
-        context.insert("slot_labels", &get_slot_labels());
+        let slot_labels: HashMap<String, String> = TIME_SLOT_LABELS
+            .iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect();
+        context.insert("slot_labels", &slot_labels);
 
         let mut days = Vec::new();
         for day_offset in 0..self.config.total_days {
@@ -341,7 +334,12 @@ impl Generator {
             let quote = &quotes[quote_index];
             match &quote.translation {
                 Some(translation) if !translation.is_empty() => {
-                    let escaped = translation.replace('"', "&quot;").replace('<', "&lt;").replace('>', "&gt;");
+                    let escaped = translation
+                        .replace('&', "&amp;")
+                        .replace('"', "&quot;")
+                        .replace('\'', "&#39;")
+                        .replace('<', "&lt;")
+                        .replace('>', "&gt;");
                     format!(
                         "<span title=\"{}\">{}</span>",
                         escaped, quote.content
@@ -788,4 +786,44 @@ mod tests {
     }
 
     use std::path::PathBuf;
+
+    #[test]
+    fn test_translation_escaping() {
+        let generator = create_test_generator();
+        
+        // 测试包含特殊字符的翻译
+        let quotes = vec![
+            crate::models::QuoteData {
+                content: "<p>Test quote</p>".to_string(),
+                description: "Test".to_string(),
+                translation: Some("包含\"引号\"和<尖括号>的翻译".to_string()),
+            },
+        ];
+        let events: Vec<crate::models::EventData> = vec![];
+
+        let html = generator.get_emergency_content(&events, &quotes);
+
+        // 验证特殊字符被正确转义
+        assert!(html.contains("title=\"包含&quot;引号&quot;和&lt;尖括号&gt;的翻译\""));
+        assert!(!html.contains("title=\"包含\"引号\"和<尖括号>的翻译\""));
+    }
+
+    #[test]
+    fn test_translation_with_ampersand() {
+        let generator = create_test_generator();
+        
+        let quotes = vec![
+            crate::models::QuoteData {
+                content: "<p>Test</p>".to_string(),
+                description: "Test".to_string(),
+                translation: Some("A & B".to_string()),
+            },
+        ];
+        let events: Vec<crate::models::EventData> = vec![];
+
+        let html = generator.get_emergency_content(&events, &quotes);
+
+        // 验证 & 被正确转义
+        assert!(html.contains("title=\"A &amp; B\""));
+    }
 }

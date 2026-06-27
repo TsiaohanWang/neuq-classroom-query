@@ -299,4 +299,60 @@ mod tests {
             let _ = NUMBER_PATTERN.is_match(case);
         }
     }
+
+    #[test]
+    fn test_blacklist_filtering() {
+        let mut blacklist_buildings = HashMap::new();
+        blacklist_buildings.insert("工学馆".to_string(), vec!["101".to_string(), "202".to_string()]);
+        let blacklist = Blacklist {
+            buildings: blacklist_buildings,
+        };
+
+        // 应被过滤的教室
+        let item1 = RawClassroomData {
+            building: "工学馆".to_string(),
+            name: "工学馆101".to_string(),
+            capacity: "60".to_string(),
+            equipment_config: "普通教室".to_string(),
+            campus: None,
+            sequence_number: None,
+            time_slot: Some("1-2".to_string()),
+            extra: HashMap::new(),
+        };
+
+        // 不在黑名单中的教室
+        let item2 = RawClassroomData {
+            building: "工学馆".to_string(),
+            name: "工学馆301".to_string(),
+            capacity: "60".to_string(),
+            equipment_config: "普通教室".to_string(),
+            campus: None,
+            sequence_number: None,
+            time_slot: Some("1-2".to_string()),
+            extra: HashMap::new(),
+        };
+
+        let data = vec![item1, item2];
+        let processor = Processor {
+            config: Arc::new(crate::config::AppConfig {
+                username: "test".to_string(),
+                password: "test".to_string(),
+                base_url: "http://test.com/".to_string(),
+                request_timeout: std::time::Duration::from_secs(45),
+                request_delay: std::time::Duration::from_millis(2000),
+                total_days: 7,
+                retry_config: crate::error::RetryConfig::default(),
+                output_dir: std::path::PathBuf::from("/tmp/test"),
+                assets_dir: std::path::PathBuf::from("/tmp/test"),
+                force_overwrite: false,
+                minify_html: true,
+            }),
+            blacklist,
+        };
+
+        let result = processor.apply_rules_parallel(data).unwrap();
+        // 101 应被过滤，301 应保留
+        assert_eq!(result.len(), 1);
+        assert_eq!(result[0].name, "301");
+    }
 }
