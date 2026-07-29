@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::path::Path;
 use std::sync::Arc;
 
-use lazy_static::lazy_static;
+use std::sync::LazyLock;
 use rayon::prelude::*;
 use regex::Regex;
 use tokio::fs;
@@ -11,16 +11,14 @@ use crate::config::{AppConfig, FORBIDDEN_BUILDINGS, FORBIDDEN_CONFIGS};
 use crate::error::Result;
 use crate::models::{Blacklist, ProcessedClassroomData, RawClassroomData, Validate};
 
-// 预编译正则表达式（性能优化）
-lazy_static! {
-    /// 数字编号格式正则
-    static ref NUMBER_PATTERN: Regex = Regex::new(r"^\d+[A-Z]?$|^\d+[A-Z]?-[A-Z\d-]+$").unwrap();
-    
-    /// 自主学习室格式正则
-    static ref ZIZHU_PATTERN: Regex = Regex::new(r"^自主学习室([A-Z])科技楼(.+)$").unwrap();
-}
+static NUMBER_PATTERN: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"^\d+[A-Z]?$|^\d+[A-Z]?-[A-Z\d-]+$").unwrap());
+
+static ZIZHU_PATTERN: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"^自主学习室([A-Z])科技楼(.+)$").unwrap());
 
 /// 数据处理器
+#[derive(Clone)]
 pub struct Processor {
     config: Arc<AppConfig>,
     blacklist: Blacklist,
@@ -54,13 +52,12 @@ impl Processor {
     pub async fn process_all(&self) -> Result<()> {
         tracing::info!("--- 数据处理开始 ---");
 
-        // 并行处理每一天的数据
         let days: Vec<u8> = (0..self.config.total_days).collect();
-        
-        let results: Vec<Result<()>> = days
-            .par_iter()
-            .map(|&day| {
-                let input_dir = self.config.output_dir.join(format!("output-day-{}", day));
+        let processor = self.clone();
+
+        let results: Vec<Result<()>> = tokio::task::spawn_blocking(move || {
+            days.par_iter().map(|&day| {
+                let input_dir = processor.config.output_dir.join(format!("output-day-{}", day));
 
                 if !input_dir.exists() {
                     tracing::warn!("Day {} 目录不存在，跳过", day);
@@ -69,12 +66,12 @@ impl Processor {
 
                 tracing::info!("Day {} 处理中...", day);
 
-                // 注意：这里需要同步处理，因为 rayon 在同步上下文中运行
-                self.process_directory_sync(&input_dir)
-            })
-            .collect();
+                processor.process_directory_sync(&input_dir)
+            }).collect()
+        }).await.map_err(|e| crate::error::AppError::Process {
+            message: format!("spawn_blocking 失败: {}", e),
+        })?;
 
-        // 检查是否有错误
         for result in results {
             result?;
         }

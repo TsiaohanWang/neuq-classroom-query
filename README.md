@@ -46,18 +46,12 @@ on:
 | 字段 | 值 |
 |---|---|
 | **Framework preset** | `None` |
-<<<<<<< HEAD
-| **Build command** | `npm install && npm run deploy` |
-=======
 | **Build command** | 见下方 |
->>>>>>> Rust
 | **Build output directory** | `.` |
 | **Root directory** | `/`（留空即可） |
 
 然后设置自定义域以指向您的站点，需要与 `CNAME` 文件内容保持一致。
 
-<<<<<<< HEAD
-=======
 #### 构建命令（Build command）
 
 ```shell
@@ -66,7 +60,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --defaul
 
 > **说明**：如需加速编译，可将 `cargo build --release` 替换为 `cargo build --profile ci`，并将二进制路径 `./target/release/` 改为 `./target/ci/`。CI profile 跳过了链接时优化（LTO），编译速度更快，适合 CI/CD 环境。详见 `README.rust.md`。
 
->>>>>>> Rust
 #### 环境变量配置
 
 进入 **Settings → Environment variables**，添加以下变量：
@@ -75,14 +68,10 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --defaul
 |---|---|---|
 | `YOUR_NEUQ_USERNAME` | 你的学号 | **设置为密钥** |
 | `YOUR_NEUQ_PASSWORD` | 你的密码 | **设置为密钥** |
-<<<<<<< HEAD
-=======
 | `ASSETS_DIR` | `./assets` | 静态资源目录（可选） |
 | `OUTPUT_DIR` | `./output` | HTML 输出目录（可选） |
 | `TOTAL_DAYS` | `7` | 查询天数（可选） |
 | `MINIFY_HTML` | `true` | 压缩 HTML（可选） |
-
->>>>>>> Rust
 
 #### 启用定期自动更新
 

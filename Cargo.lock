@@ -1784,7 +1784,6 @@ dependencies = [
  "dotenvy",
  "futures",
  "hex",
- "lazy_static",
  "md5",
  "minify-html",
  "mockall",

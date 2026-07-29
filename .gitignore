@@ -2,10 +2,7 @@
 /output/
 /index.html
 
-<<<<<<< HEAD
 /node_modules
-/target
-=======
 /target
 
 # 环境变量文件（包含敏感信息）
@@ -22,4 +19,3 @@
 # OS 文件
 .DS_Store
 Thumbs.db
->>>>>>> Rust

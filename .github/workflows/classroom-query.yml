@@ -42,9 +42,9 @@ jobs:
           ~/.cargo/bin/
           ~/.cargo/registry/index/
           ~/.cargo/registry/cache/
-          ~/.cargo/git/db/
-          rust-classroom-query/target/
-        key: ${{ runner.os }}-cargo-${{ hashFiles('rust-classroom-query/Cargo.lock') }}
+            ~/.cargo/git/db/
+            target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
         restore-keys: |
           ${{ runner.os }}-cargo-
           
@@ -52,43 +52,38 @@ jobs:
       run: sudo apt-get install -y mold
 
     - name: Build Rust project
-      working-directory: rust-classroom-query
       env:
         RUSTFLAGS: "-C linker=clang -C link-arg=-fuse-ld=mold"
       run: cargo build --profile ci
-      
+
     - name: Run tests
-      working-directory: rust-classroom-query
       run: cargo test
-      
+
     - name: Fetch Classroom Data
-      working-directory: rust-classroom-query
       env:
         YOUR_NEUQ_USERNAME: ${{ secrets.YOUR_NEUQ_USERNAME }}
         YOUR_NEUQ_PASSWORD: ${{ secrets.YOUR_NEUQ_PASSWORD }}
-        ASSETS_DIR: ../assets
+        ASSETS_DIR: ./assets
         OUTPUT_DIR: ./output
         FORCE_OVERWRITE: ${{ inputs.force_overwrite || 'false' }}
       run: ./target/ci/neuq-classroom-query fetch
-      
+
     - name: Process Data
-      working-directory: rust-classroom-query
       env:
-        ASSETS_DIR: ../assets
+        ASSETS_DIR: ./assets
         OUTPUT_DIR: ./output
       run: ./target/ci/neuq-classroom-query process
-      
+
     - name: Generate HTML
-      working-directory: rust-classroom-query
       env:
-        ASSETS_DIR: ../assets
+        ASSETS_DIR: ./assets
         OUTPUT_DIR: ./output
       run: ./target/ci/neuq-classroom-query generate
-      
+
     - name: Copy output files
       run: |
-        cp rust-classroom-query/index.html . 2>/dev/null || true
-        cp -r rust-classroom-query/output . 2>/dev/null || true
+        cp index.html . 2>/dev/null || true
+        cp -r output . 2>/dev/null || true
         
     - name: Setup Pages
       uses: actions/configure-pages@v5

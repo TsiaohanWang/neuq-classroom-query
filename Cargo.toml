@@ -38,7 +38,6 @@ clap = { version = "4", features = ["derive"] }
 
 # 正则表达式（预编译）
 regex = "1"
-lazy_static = "1"
 
 # 日期时间处理
 chrono = { version = "0.4", features = ["serde"] }
