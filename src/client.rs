@@ -211,23 +211,39 @@ impl HttpClient {
             html = response.text().await?;
         }
 
+        // 二次防护：仍被重定向到登录页时绝不能当作“空结果”处理，
+        // 否则会把缺失时段误写成合法的空数据
+        if WebvpnSession::is_login_page(&html) {
+            return Err(AppError::Fetch {
+                message: "响应被重定向到 WebVPN 登录页，会话恢复失败".to_string(),
+            });
+        }
+
         self.parse_classroom_html(&html)
     }
 
     /// 解析教室查询返回的 HTML
+    ///
+    /// 注意：响应中必须有 `gridtable` 结果表格；缺失说明响应异常
+    /// （会话失效的登录页、服务端错误页等），返回错误而非空结果，
+    /// 以免把异常响应误写成合法的“无空闲教室”数据。
+    /// 表格存在但没有数据行，才是合法的空结果。
     fn parse_classroom_html(&self, html: &str) -> Result<Vec<RawClassroomEntry>> {
         let document = Html::parse_document(html);
         let mut results = Vec::new();
 
-        // 查找表格
+        // 查找表格；未找到说明响应异常，不能静默当作空结果
         let table_selector = Selector::parse("table.gridtable")
             .map_err(|e| AppError::Other(format!("解析表格选择器失败: {:?}", e)))?;
 
         let table = match document.select(&table_selector).next() {
             Some(t) => t,
             None => {
-                tracing::warn!("未找到结果表格");
-                return Ok(results);
+                // 附带响应特征，便于诊断异常响应的来源
+                let snippet = html_snippet(&html);
+                return Err(AppError::Fetch {
+                    message: format!("响应中未找到结果表格（可能是登录页或错误页），响应特征: {}", snippet),
+                });
             }
         };
 
@@ -271,6 +287,33 @@ impl HttpClient {
     pub async fn delay(&self) {
         tokio::time::sleep(self.config.request_delay).await;
     }
+}
+
+/// 提取 HTML 响应的特征摘要（标题 + 去除标签后的前 150 字符）
+fn html_snippet(html: &str) -> String {
+    let title = regex::Regex::new(r"(?is)<title[^>]*>(.*?)</title>")
+        .ok()
+        .and_then(|re| re.captures(html))
+        .and_then(|c| c.get(1))
+        .map(|m| m.as_str().trim())
+        .unwrap_or("");
+
+    let text_re = regex::Regex::new(r"(?s)<[^>]*>")
+        .ok()
+        .map(|re| re.replace_all(html, " ").to_string())
+        .unwrap_or_default();
+    let text: String = text_re
+        .split_whitespace()
+        .collect::<Vec<_>>()
+        .join(" ")
+        .chars()
+        .take(150)
+        .collect();
+
+    if title.is_empty() && text.is_empty() {
+        return "（空响应）".to_string();
+    }
+    format!("title='{}' 正文='{}'", title, text)
 }
 
 /// 原始教室条目（从 HTML 解析）

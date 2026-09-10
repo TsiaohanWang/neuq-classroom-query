@@ -5,15 +5,10 @@ use tokio::fs;
 
 use crate::client::HttpClient;
 use crate::config::{AppConfig, TIME_SLOTS};
-use crate::error::{Result, with_retry};
+use crate::error::{AppError, Result, with_retry};
 use crate::models::RawClassroomData;
 
 const MAX_EMPTY_RETRIES: u8 = 2;
-
-/// WebVPN 模式下各天任务登录的错峰间隔（秒）。
-/// WebVPN 网关对同一 IP 短时间内的登录次数有限制（TOO_MANY_ATTEMPTS），
-/// 并行登录会触发限流，因此每天任务依次错开启动。
-const WEBVPN_LOGIN_STAGGER_SECS: u64 = 15;
 
 /// 数据抓取器
 pub struct Fetcher {
@@ -26,113 +21,62 @@ impl Fetcher {
     }
 
     /// 执行完整的数据抓取流程
-    /// 每天使用独立客户端（独立 session），7 天并行抓取
+    ///
+    /// 使用单个会话串行抓取所有天的所有时段。教务系统 eams 会踢掉同账号的
+    /// 重复登录会话（响应"本次会话已经被过期（可能是由于重复登录）"），
+    /// 多会话并行抓取会互相干扰，因此这里只登录一次、全程串行。
+    ///
+    /// 严格策略：任一时段经过时段级重试与稍后重试队列后仍失败，
+    /// 即中止整个构建（错误汇总全部失败时段），绝不发布过时或缺失时段的数据。
     pub async fn fetch_all(&self) -> Result<()> {
         tracing::info!("--- 数据抓取开始 ---");
+        let config = Arc::clone(&self.config);
 
-        // 为每天创建独立客户端并并行抓取
-        let mut handles = Vec::new();
+        let client = HttpClient::new(Arc::clone(&config))?;
 
-        for day_offset in 0..self.config.total_days {
-            let config = Arc::clone(&self.config);
+        // 登录一次教务系统（内含 WebVPN 会话建立，如启用）
+        with_retry(
+            &config.retry_config,
+            || async { client.login(&config.username, &config.password).await },
+            "登录教务系统",
+        )
+        .await?;
+        tracing::info!("登录成功，开始串行抓取");
 
-            let handle = tokio::spawn(async move {
-                // WebVPN 模式下错峰启动，避免同一 IP 并行登录触发网关限流
-                if config.webvpn_enabled && day_offset > 0 {
-                    let stagger = day_offset as u64 * WEBVPN_LOGIN_STAGGER_SECS;
-                    tracing::info!(
-                        "Day {} 错峰等待 {}s 后开始 WebVPN 登录",
-                        day_offset,
-                        stagger
-                    );
-                    tokio::time::sleep(std::time::Duration::from_secs(stagger)).await;
-                }
+        let mut failures: Vec<String> = Vec::new();
+        let mut last_login = std::time::Instant::now();
 
-                // 每个任务创建独立的客户端（独立 session）
-                let client = HttpClient::new(Arc::clone(&config))?;
-
-                // 独立登录
+        for day_offset in 0..config.total_days {
+            // 长时间运行中 eams 会话可能过期：距上次登录过久则先重新登录
+            if day_offset > 0 && last_login.elapsed() > Duration::from_secs(15 * 60) {
+                tracing::info!("距上次登录较久，重新登录教务系统后继续");
                 with_retry(
                     &config.retry_config,
                     || async { client.login(&config.username, &config.password).await },
-                    &format!("Day {} 登录", day_offset),
+                    "重新登录教务系统",
                 )
                 .await?;
+                last_login = std::time::Instant::now();
+            }
 
-                tracing::info!("Day {} 登录成功，开始抓取", day_offset);
-
-                // 串行抓取该天的所有时段（同一 session 内必须串行）
-                fetch_day_data(client, config, day_offset).await
-            });
-
-            handles.push(handle);
-        }
-
-        // 等待所有天完成
-        let mut day_failures: Vec<(u8, String)> = Vec::new();
-        for (day_offset, handle) in handles.into_iter().enumerate() {
-            match handle.await {
-                Ok(Ok(failed)) if failed.is_empty() => {}
-                Ok(Ok(failed)) => {
-                    // 整天完成但部分时段缺数据（fetch_day_data 内已记录详情）
-                    day_failures.push((
-                        day_offset as u8,
-                        format!("部分时段无数据: {}", failed.join(", ")),
-                    ));
-                }
-                Ok(Err(e)) => day_failures.push((day_offset as u8, e.to_string())),
-                Err(e) => day_failures.push((
-                    day_offset as u8,
-                    crate::error::AppError::Other(format!("任务 panic: {}", e)).to_string(),
-                )),
+            if let Err(e) = fetch_day_data(&client, Arc::clone(&config), day_offset).await {
+                failures.push(format!("Day {}: {}", day_offset, e));
             }
         }
 
-        if !day_failures.is_empty() {
-            let details: Vec<String> = day_failures
-                .iter()
-                .map(|(day, err)| format!("Day {}: {}", day, err))
-                .collect();
-            tracing::error!(
-                "以下整天抓取失败（保留原状，不影响其余天数据）: {}",
-                details.join("; ")
-            );
-        }
-
-        // 可用性保障：只要本次运行有任意一天成功抓到数据，就继续后续处理流程，
-        // 避免教务系统偶发故障（如 HTTP 500）导致整个站点构建失败；
-        // 只有所有天全部失败时才返回错误。
-        let any_data = self.has_any_fresh_data().await;
-        if !any_data {
-            let error_msg = day_failures
-                .iter()
-                .map(|(_, err)| err.clone())
-                .collect::<Vec<_>>()
-                .join("; ");
-            return Err(crate::error::AppError::Fetch {
-                message: format!("全部数据抓取失败: {}", error_msg),
+        if !failures.is_empty() {
+            return Err(AppError::Fetch {
+                message: format!(
+                    "部分数据抓取失败（为避免发布过时/缺失时段，已中止构建）: {}",
+                    failures.join("; ")
+                ),
             });
         }
 
-        tracing::info!("✔ 数据抓取完成");
+        tracing::info!("✔ 数据抓取完成（全部时段均有数据）");
         Ok(())
     }
 
-    /// 检查输出目录中是否存在本次抓取产生的数据文件
-    async fn has_any_fresh_data(&self) -> bool {
-        for day in 0..self.config.total_days {
-            let day_dir = self.config.output_dir.join(format!("output-day-{}", day));
-            if let Ok(mut entries) = fs::read_dir(&day_dir).await {
-                while let Ok(Some(entry)) = entries.next_entry().await {
-                    let name = entry.file_name().to_string_lossy().to_string();
-                    if name.starts_with("classroom_results_") && name.ends_with(".json") {
-                        return true;
-                    }
-                }
-            }
-        }
-        false
-    }
 }
 
 /// 带随机抖动的请求间隔（多天并行时错开请求，降低教务系统瞬时压力）
@@ -141,21 +85,20 @@ async fn sleep_with_jitter(base: Duration) {
     tokio::time::sleep(base + Duration::from_millis(jitter)).await;
 }
 
-/// 抓取单个时段并保存结果，返回是否获取到数据
+/// 抓取单个时段并保存结果
+///
+/// 空结果（该时段确实无空闲教室）也会写入空数据文件，
+/// 确保时段数据完整不缺失；只有请求/解析失败才返回错误。
 async fn fetch_and_save_slot(
     client: &HttpClient,
     day_offset: u8,
     date_str: &str,
     slot: &crate::config::TimeSlot,
     output_dir: &std::path::Path,
-) -> Result<bool> {
+) -> Result<()> {
     let classrooms = client
         .search_free_classrooms(date_str, slot.begin, slot.end)
         .await?;
-
-    if classrooms.is_empty() {
-        return Ok(false);
-    }
 
     let raw_data: Vec<RawClassroomData> = classrooms
         .iter()
@@ -168,22 +111,31 @@ async fn fetch_and_save_slot(
     let json = serde_json::to_string_pretty(&raw_data)?;
     fs::write(&file_path, json).await?;
 
-    tracing::info!(
-        "Day {} {} 保存 {} 条",
-        day_offset,
-        slot.file_suffix,
-        raw_data.len()
-    );
-    Ok(true)
+    if raw_data.is_empty() {
+        tracing::info!(
+            "Day {} {} 无空闲教室（已写入空数据）",
+            day_offset,
+            slot.file_suffix
+        );
+    } else {
+        tracing::info!(
+            "Day {} {} 保存 {} 条",
+            day_offset,
+            slot.file_suffix,
+            raw_data.len()
+        );
+    }
+    Ok(())
 }
 
-/// 抓取单天数据，带空结果重试队列
+/// 抓取单天数据，带稍后重试队列
 ///
-/// 首轮串行抓取所有时段，若某时段返回空结果（WARN），将其加入重试队列。
-/// 首轮结束后，对队列中的时段逐一重试（最多 MAX_EMPTY_RETRIES 次）。
-/// 若重试仍失败，记录最终 WARN。
+/// 首轮串行抓取所有时段，失败的时段（含空结果异常、HTTP 错误）
+/// 加入重试队列，首轮结束后稍后逐一重试（最多 MAX_EMPTY_RETRIES 轮）。
+/// 重试耗尽仍失败的时段：清理其残留的过时数据文件，
+/// 并返回错误（由 fetch_all 汇总后中止整个构建）。
 async fn fetch_day_data(
-    client: HttpClient,
+    client: &HttpClient,
     config: Arc<AppConfig>,
     day_offset: u8,
 ) -> Result<Vec<String>> {
@@ -192,40 +144,29 @@ async fn fetch_day_data(
     let output_dir = config.output_dir.join(format!("output-day-{}", day_offset));
     fs::create_dir_all(&output_dir).await?;
 
-    // 首轮：串行抓取所有时段，收集空结果
+    // 首轮：串行抓取所有时段，收集待重试的时段
     let mut failed_slots: Vec<&crate::config::TimeSlot> = Vec::new();
 
     for slot in TIME_SLOTS {
         sleep_with_jitter(config.request_delay).await;
 
-        match with_retry(
+        if let Err(e) = with_retry(
             &config.retry_config,
             || async {
-                fetch_and_save_slot(&client, day_offset, &date_str, slot, &output_dir).await
+                fetch_and_save_slot(client, day_offset, &date_str, slot, &output_dir).await
             },
             &format!("Day {} 时段 {}-{}", day_offset, slot.begin, slot.end),
         )
         .await
         {
-            Ok(true) => {}
-            Ok(false) => {
-                tracing::warn!(
-                    "Day {} {} 首轮未找到结果表格，稍后重试",
-                    day_offset,
-                    slot.file_suffix
-                );
-                failed_slots.push(slot);
-            }
-            Err(e) => {
-                // 单时段失败不阻断同天其余时段的抓取（教务系统偶发 500 等）
-                tracing::error!(
-                    "Day {} {} 多次重试后仍失败，跳过该时段: {}",
-                    day_offset,
-                    slot.file_suffix,
-                    e
-                );
-                failed_slots.push(slot);
-            }
+            // 单时段失败不阻断同天其余时段的抓取，加入稍后重试队列
+            tracing::error!(
+                "Day {} {} 首轮失败，加入稍后重试队列: {}",
+                day_offset,
+                slot.file_suffix,
+                e
+            );
+            failed_slots.push(slot);
         }
     }
 
@@ -250,7 +191,7 @@ async fn fetch_day_data(
             match with_retry(
                 &config.retry_config,
                 || async {
-                    fetch_and_save_slot(&client, day_offset, &date_str, slot, &output_dir).await
+                    fetch_and_save_slot(client, day_offset, &date_str, slot, &output_dir).await
                 },
                 &format!(
                     "Day {} 时段 {}-{} (重试{})",
@@ -259,16 +200,12 @@ async fn fetch_day_data(
             )
             .await
             {
-                Ok(true) => {
+                Ok(()) => {
                     tracing::info!("Day {} {} 重试成功", day_offset, slot.file_suffix);
                 }
-                Ok(false) => {
-                    still_failed.push(slot);
-                }
                 Err(e) => {
-                    // 单时段失败不阻断同天其余时段的抓取
                     tracing::error!(
-                        "Day {} {} (重试{}) 多次重试后仍失败: {}",
+                        "Day {} {} (重试{}) 仍失败: {}",
                         day_offset,
                         slot.file_suffix,
                         attempt,
@@ -282,21 +219,43 @@ async fn fetch_day_data(
         failed_slots = still_failed;
     }
 
-    // 记录最终失败的时段
-    let failed_names: Vec<String> = failed_slots
-        .iter()
-        .map(|s| s.file_suffix.to_string())
-        .collect();
-    if !failed_names.is_empty() {
+    // 重试耗尽仍有失败时段：清理其可能残留的过时数据文件，
+    // 并返回错误中止构建（绝不发布过时/缺失的时段）
+    if !failed_slots.is_empty() {
+        let failed_names: Vec<String> = failed_slots
+            .iter()
+            .map(|s| s.file_suffix.to_string())
+            .collect();
+
+        for slot in &failed_slots {
+            let file_path =
+                output_dir.join(format!("classroom_results_{}.json", slot.file_suffix));
+            if fs::try_exists(&file_path).await.unwrap_or(false) {
+                tracing::warn!(
+                    "Day {} 删除时段 {} 的过时数据文件，避免发布过时数据",
+                    day_offset,
+                    slot.file_suffix
+                );
+                fs::remove_file(&file_path).await?;
+            }
+        }
+
         tracing::error!(
-            "Day {} 以下时段最终无数据（本次发布将缺失这些时段）: {}",
+            "Day {} 以下时段重试耗尽仍失败: {}",
             day_offset,
             failed_names.join(", ")
         );
+        return Err(AppError::Fetch {
+            message: format!(
+                "Day {} 以下时段重试耗尽仍失败: {}",
+                day_offset,
+                failed_names.join(", ")
+            ),
+        });
     }
 
-    tracing::info!("Day {} 完成", day_offset);
-    Ok(failed_names)
+    tracing::info!("Day {} 完成（全部时段均有数据）", day_offset);
+    Ok(Vec::new())
 }
 
 /// 获取指定偏移量的北京日期字符串
