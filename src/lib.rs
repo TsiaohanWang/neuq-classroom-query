@@ -6,5 +6,6 @@ pub mod generator;
 pub mod models;
 pub mod processor;
 pub mod theme;
+pub mod webvpn;
 
 pub use error::{AppError, Result};

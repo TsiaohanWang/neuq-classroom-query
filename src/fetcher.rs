@@ -9,6 +9,11 @@ use crate::models::RawClassroomData;
 
 const MAX_EMPTY_RETRIES: u8 = 2;
 
+/// WebVPN 模式下各天任务登录的错峰间隔（秒）。
+/// WebVPN 网关对同一 IP 短时间内的登录次数有限制（TOO_MANY_ATTEMPTS），
+/// 并行登录会触发限流，因此每天任务依次错开启动。
+const WEBVPN_LOGIN_STAGGER_SECS: u64 = 15;
+
 /// 数据抓取器
 pub struct Fetcher {
     config: Arc<AppConfig>,
@@ -31,17 +36,24 @@ impl Fetcher {
             let config = Arc::clone(&self.config);
 
             let handle = tokio::spawn(async move {
+                // WebVPN 模式下错峰启动，避免同一 IP 并行登录触发网关限流
+                if config.webvpn_enabled && day_offset > 0 {
+                    let stagger = day_offset as u64 * WEBVPN_LOGIN_STAGGER_SECS;
+                    tracing::info!(
+                        "Day {} 错峰等待 {}s 后开始 WebVPN 登录",
+                        day_offset,
+                        stagger
+                    );
+                    tokio::time::sleep(std::time::Duration::from_secs(stagger)).await;
+                }
+
                 // 每个任务创建独立的客户端（独立 session）
                 let client = HttpClient::new(Arc::clone(&config))?;
 
                 // 独立登录
                 with_retry(
                     &config.retry_config,
-                    || async {
-                        client
-                            .login(&config.username, &config.password)
-                            .await
-                    },
+                    || async { client.login(&config.username, &config.password).await },
                     &format!("Day {} 登录", day_offset),
                 )
                 .await?;
@@ -66,7 +78,11 @@ impl Fetcher {
         }
 
         if !errors.is_empty() {
-            let error_msg = errors.iter().map(|e| e.to_string()).collect::<Vec<_>>().join("; ");
+            let error_msg = errors
+                .iter()
+                .map(|e| e.to_string())
+                .collect::<Vec<_>>()
+                .join("; ");
             return Err(crate::error::AppError::Fetch {
                 message: format!("部分数据抓取失败: {}", error_msg),
             });
@@ -104,7 +120,12 @@ async fn fetch_and_save_slot(
     let json = serde_json::to_string_pretty(&raw_data)?;
     fs::write(&file_path, json).await?;
 
-    tracing::info!("Day {} {} 保存 {} 条", day_offset, slot.file_suffix, raw_data.len());
+    tracing::info!(
+        "Day {} {} 保存 {} 条",
+        day_offset,
+        slot.file_suffix,
+        raw_data.len()
+    );
     Ok(true)
 }
 
@@ -113,11 +134,7 @@ async fn fetch_and_save_slot(
 /// 首轮串行抓取所有时段，若某时段返回空结果（WARN），将其加入重试队列。
 /// 首轮结束后，对队列中的时段逐一重试（最多 MAX_EMPTY_RETRIES 次）。
 /// 若重试仍失败，记录最终 WARN。
-async fn fetch_day_data(
-    client: HttpClient,
-    config: Arc<AppConfig>,
-    day_offset: u8,
-) -> Result<()> {
+async fn fetch_day_data(client: HttpClient, config: Arc<AppConfig>, day_offset: u8) -> Result<()> {
     let date_str = get_beijing_date_string(day_offset as i64);
 
     let output_dir = config.output_dir.join(format!("output-day-{}", day_offset));
@@ -131,14 +148,20 @@ async fn fetch_day_data(
 
         match with_retry(
             &config.retry_config,
-            || async { fetch_and_save_slot(&client, day_offset, &date_str, slot, &output_dir).await },
+            || async {
+                fetch_and_save_slot(&client, day_offset, &date_str, slot, &output_dir).await
+            },
             &format!("Day {} 时段 {}-{}", day_offset, slot.begin, slot.end),
         )
         .await
         {
             Ok(true) => {}
             Ok(false) => {
-                tracing::warn!("Day {} {} 首轮未找到结果表格，稍后重试", day_offset, slot.file_suffix);
+                tracing::warn!(
+                    "Day {} {} 首轮未找到结果表格，稍后重试",
+                    day_offset,
+                    slot.file_suffix
+                );
                 failed_slots.push(slot);
             }
             Err(e) => return Err(e),
@@ -153,7 +176,9 @@ async fn fetch_day_data(
 
         tracing::info!(
             "Day {} 重试第 {} 轮，剩余 {} 个时段",
-            day_offset, attempt, failed_slots.len()
+            day_offset,
+            attempt,
+            failed_slots.len()
         );
 
         let mut still_failed: Vec<&crate::config::TimeSlot> = Vec::new();
@@ -163,8 +188,13 @@ async fn fetch_day_data(
 
             match with_retry(
                 &config.retry_config,
-                || async { fetch_and_save_slot(&client, day_offset, &date_str, slot, &output_dir).await },
-                &format!("Day {} 时段 {}-{} (重试{})", day_offset, slot.begin, slot.end, attempt),
+                || async {
+                    fetch_and_save_slot(&client, day_offset, &date_str, slot, &output_dir).await
+                },
+                &format!(
+                    "Day {} 时段 {}-{} (重试{})",
+                    day_offset, slot.begin, slot.end, attempt
+                ),
             )
             .await
             {
@@ -208,7 +238,8 @@ pub fn get_beijing_date_string(day_offset: i64) -> String {
 
 /// 解析日期字符串
 pub fn parse_date_string(date_str: &str) -> Option<chrono::NaiveDate> {
-    chrono::NaiveDate::parse_from_str(date_str, "%Y-%m-%d").ok()
+    chrono::NaiveDate::parse_from_str(date_str, "%Y-%m-%d")
+        .ok()
         .or_else(|| chrono::NaiveDate::parse_from_str(date_str, "%Y/%m/%d").ok())
 }
 

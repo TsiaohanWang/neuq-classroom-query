@@ -2,9 +2,9 @@ use std::collections::HashMap;
 use std::path::Path;
 use std::sync::Arc;
 
-use std::sync::LazyLock;
 use rayon::prelude::*;
 use regex::Regex;
+use std::sync::LazyLock;
 use tokio::fs;
 
 use crate::config::{AppConfig, FORBIDDEN_BUILDINGS, FORBIDDEN_CONFIGS};
@@ -56,19 +56,26 @@ impl Processor {
         let processor = self.clone();
 
         let results: Vec<Result<()>> = tokio::task::spawn_blocking(move || {
-            days.par_iter().map(|&day| {
-                let input_dir = processor.config.output_dir.join(format!("output-day-{}", day));
+            days.par_iter()
+                .map(|&day| {
+                    let input_dir = processor
+                        .config
+                        .output_dir
+                        .join(format!("output-day-{}", day));
 
-                if !input_dir.exists() {
-                    tracing::warn!("Day {} 目录不存在，跳过", day);
-                    return Ok(());
-                }
+                    if !input_dir.exists() {
+                        tracing::warn!("Day {} 目录不存在，跳过", day);
+                        return Ok(());
+                    }
 
-                tracing::info!("Day {} 处理中...", day);
+                    tracing::info!("Day {} 处理中...", day);
 
-                processor.process_directory_sync(&input_dir)
-            }).collect()
-        }).await.map_err(|e| crate::error::AppError::Process {
+                    processor.process_directory_sync(&input_dir)
+                })
+                .collect()
+        })
+        .await
+        .map_err(|e| crate::error::AppError::Process {
             message: format!("spawn_blocking 失败: {}", e),
         })?;
 
@@ -136,9 +143,12 @@ impl Processor {
     }
 
     /// 并行应用所有筛选和转换规则
-    fn apply_rules_parallel(&self, data: Vec<RawClassroomData>) -> Result<Vec<ProcessedClassroomData>> {
+    fn apply_rules_parallel(
+        &self,
+        data: Vec<RawClassroomData>,
+    ) -> Result<Vec<ProcessedClassroomData>> {
         let blacklist = &self.blacklist;
-        
+
         // 使用 rayon 并行处理
         let result: Vec<ProcessedClassroomData> = data
             .into_par_iter()
@@ -176,9 +186,10 @@ impl Processor {
 
                 // Rule 13: 黑名单过滤
                 if let Some(blacklisted_rooms) = blacklist.buildings.get(&item.building)
-                    && blacklisted_rooms.contains(&cleaned_name) {
-                        return None;
-                    }
+                    && blacklisted_rooms.contains(&cleaned_name)
+                {
+                    return None;
+                }
 
                 // 创建处理后的数据
                 let processed = ProcessedClassroomData {
@@ -218,9 +229,10 @@ fn clean_name_static(building: &str, name: &str) -> Option<String> {
 /// 静态函数：提取数字部分
 fn extract_number_part_static(name: &str, prefix: &str) -> Option<String> {
     if let Some(rest) = name.strip_prefix(prefix)
-        && NUMBER_PATTERN.is_match(rest) {
-            return Some(rest.to_string());
-        }
+        && NUMBER_PATTERN.is_match(rest)
+    {
+        return Some(rest.to_string());
+    }
 
     // 如果不匹配前缀，返回原名称
     Some(name.to_string())
@@ -230,9 +242,10 @@ fn extract_number_part_static(name: &str, prefix: &str) -> Option<String> {
 fn clean_keji_building_static(name: &str) -> Option<String> {
     // 检查是否以"科技楼"开头
     if let Some(rest) = name.strip_prefix("科技楼")
-        && NUMBER_PATTERN.is_match(rest) {
-            return Some(rest.to_string());
-        }
+        && NUMBER_PATTERN.is_match(rest)
+    {
+        return Some(rest.to_string());
+    }
 
     // 检查是否是"自主学习室"格式
     if let Some(caps) = ZIZHU_PATTERN.captures(name) {
@@ -288,9 +301,7 @@ mod tests {
     #[test]
     fn test_regex_performance() {
         // 测试预编译正则的性能
-        let test_cases = vec![
-            "101", "301A", "6026-A", "1234-B5", "abc", "12-34-56",
-        ];
+        let test_cases = vec!["101", "301A", "6026-A", "1234-B5", "abc", "12-34-56"];
 
         for case in &test_cases {
             let _ = NUMBER_PATTERN.is_match(case);
@@ -300,7 +311,10 @@ mod tests {
     #[test]
     fn test_blacklist_filtering() {
         let mut blacklist_buildings = HashMap::new();
-        blacklist_buildings.insert("工学馆".to_string(), vec!["101".to_string(), "202".to_string()]);
+        blacklist_buildings.insert(
+            "工学馆".to_string(),
+            vec!["101".to_string(), "202".to_string()],
+        );
         let blacklist = Blacklist {
             buildings: blacklist_buildings,
         };
@@ -335,6 +349,10 @@ mod tests {
                 username: "test".to_string(),
                 password: "test".to_string(),
                 base_url: "http://test.com/".to_string(),
+                webvpn_enabled: false,
+                webvpn_base_url: "https://vpn.test.com".to_string(),
+                webvpn_username: "test".to_string(),
+                webvpn_password: "test".to_string(),
                 request_timeout: std::time::Duration::from_secs(45),
                 request_delay: std::time::Duration::from_millis(2000),
                 total_days: 7,

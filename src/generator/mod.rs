@@ -22,7 +22,10 @@ pub struct Generator {
 impl Generator {
     pub fn new(config: Arc<AppConfig>) -> Self {
         let template_dir = config.assets_dir.join("template");
-        let template_pattern = template_dir.join("*.tera.html").to_string_lossy().to_string();
+        let template_pattern = template_dir
+            .join("*.tera.html")
+            .to_string_lossy()
+            .to_string();
         let mut tera = Tera::new(&template_pattern).expect("无法加载模板文件");
         tera.register_filter("default_empty", format::default_empty_filter);
         Self { config, tera }
@@ -64,7 +67,9 @@ impl Generator {
         context.insert("status_badge_html", &badge_html);
         context.insert("theme_css_json", &crate::theme::ThemeConfig::default_json());
 
-        let html = self.tera.render("template.tera.html", &context)
+        let html = self
+            .tera
+            .render("template.tera.html", &context)
             .map_err(|e| crate::error::AppError::Generate {
                 message: format!("模板渲染失败: {}", e),
             })?;
@@ -97,7 +102,12 @@ impl Generator {
             if data_path.exists() {
                 if let Ok(content) = std::fs::read_to_string(&data_path) {
                     let hash = format!("{:x}", md5::compute(content.as_bytes()));
-                    tracing::info!("Day {} 数据哈希: {} ({} bytes)", day_offset, hash, content.len());
+                    tracing::info!(
+                        "Day {} 数据哈希: {} ({} bytes)",
+                        day_offset,
+                        hash,
+                        content.len()
+                    );
                     hashes.insert(day_offset.to_string(), hash);
                 } else {
                     tracing::warn!("Day {}: 无法读取数据文件", day_offset);
@@ -107,7 +117,11 @@ impl Generator {
             }
         }
 
-        tracing::info!("计算得到 {}/{} 天的数据哈希", hashes.len(), self.config.total_days);
+        tracing::info!(
+            "计算得到 {}/{} 天的数据哈希",
+            hashes.len(),
+            self.config.total_days
+        );
         hashes
     }
 
@@ -148,7 +162,8 @@ impl Generator {
                     }
                 } else {
                     tracing::warn!("获取线上版本失败，状态码: {}", response.status());
-                    return "<span class=\"status-badge badge-not-found\">NOT FOUND</span>".to_string();
+                    return "<span class=\"status-badge badge-not-found\">NOT FOUND</span>"
+                        .to_string();
                 }
             }
             Err(e) => {
@@ -168,7 +183,11 @@ impl Generator {
                 day_offset,
                 &live_hash[..8.min(live_hash.len())],
                 &new_hash[..8.min(new_hash.len())],
-                if new_hash == live_hash { "未变更" } else { "已变更" }
+                if new_hash == live_hash {
+                    "未变更"
+                } else {
+                    "已变更"
+                }
             );
         }
 
@@ -191,23 +210,44 @@ impl Generator {
             tracing::info!("状态: 无变更 (0/{} 天更新)", total_days);
             "<span class=\"status-badge badge-not-updated\">NOT UPDATED</span>".to_string()
         } else if updated_days.len() == total_days {
-            tracing::info!("状态: 全部变更 ({}/{} 天更新)", updated_days.len(), total_days);
+            tracing::info!(
+                "状态: 全部变更 ({}/{} 天更新)",
+                updated_days.len(),
+                total_days
+            );
             "<span class=\"status-badge badge-updated\">ALL UPDATED</span>".to_string()
         } else {
             let days_text = updated_days
                 .iter()
                 .enumerate()
-                .map(|(i, d)| if i == 0 { format!("DAY{}", d) } else { d.to_string() })
+                .map(|(i, d)| {
+                    if i == 0 {
+                        format!("DAY{}", d)
+                    } else {
+                        d.to_string()
+                    }
+                })
                 .collect::<Vec<_>>()
                 .join(",");
             tracing::info!(
                 "状态: 部分变更 ({}/{} 天更新) — 更新: [{}], 未变: [{}]",
                 updated_days.len(),
                 total_days,
-                updated_days.iter().map(|d| d.to_string()).collect::<Vec<_>>().join(","),
-                unchanged_days.iter().map(|d| d.to_string()).collect::<Vec<_>>().join(",")
+                updated_days
+                    .iter()
+                    .map(|d| d.to_string())
+                    .collect::<Vec<_>>()
+                    .join(","),
+                unchanged_days
+                    .iter()
+                    .map(|d| d.to_string())
+                    .collect::<Vec<_>>()
+                    .join(",")
             );
-            format!("<span class=\"status-badge badge-updated\">{} UPDATED</span>", days_text)
+            format!(
+                "<span class=\"status-badge badge-updated\">{} UPDATED</span>",
+                days_text
+            )
         }
     }
 
@@ -260,6 +300,10 @@ mod tests {
             username: "test".to_string(),
             password: "test".to_string(),
             base_url: "http://test.com/".to_string(),
+            webvpn_enabled: false,
+            webvpn_base_url: "https://vpn.test.com".to_string(),
+            webvpn_username: "test".to_string(),
+            webvpn_password: "test".to_string(),
             request_timeout: std::time::Duration::from_secs(45),
             request_delay: std::time::Duration::from_secs(2),
             total_days: 7,
@@ -272,7 +316,8 @@ mod tests {
 
         let tera = Tera::new("/tmp/test/template.tera.html").unwrap_or_else(|_| {
             let mut tera = Tera::default();
-            tera.add_raw_template("template.tera.html", "<html></html>").unwrap();
+            tera.add_raw_template("template.tera.html", "<html></html>")
+                .unwrap();
             tera
         });
 
@@ -295,8 +340,13 @@ mod tests {
 
         let rooms = vec!["101".to_string(), "102".to_string()];
         let html = generator.format_rooms_with_style(
-            &rooms, "工学馆", &all_day_rooms,
-            &prev_rooms, &next_rooms, false, false,
+            &rooms,
+            "工学馆",
+            &all_day_rooms,
+            &prev_rooms,
+            &next_rooms,
+            false,
+            false,
         );
 
         assert!(html.contains("<strong>101</strong>"));
@@ -315,8 +365,13 @@ mod tests {
 
         let rooms = vec!["101".to_string(), "102".to_string()];
         let html = generator.format_rooms_with_style(
-            &rooms, "工学馆", &all_day_rooms,
-            &prev_rooms, &next_rooms, false, false,
+            &rooms,
+            "工学馆",
+            &all_day_rooms,
+            &prev_rooms,
+            &next_rooms,
+            false,
+            false,
         );
 
         assert!(!html.contains("<u>101</u>"));
@@ -332,8 +387,13 @@ mod tests {
 
         let rooms = vec!["101".to_string(), "102".to_string()];
         let html = generator.format_rooms_with_style(
-            &rooms, "工学馆", &all_day_rooms,
-            &prev_rooms, &next_rooms, true, false,
+            &rooms,
+            "工学馆",
+            &all_day_rooms,
+            &prev_rooms,
+            &next_rooms,
+            true,
+            false,
         );
         assert!(!html.contains("<u>"));
     }
@@ -400,13 +460,11 @@ mod tests {
     #[test]
     fn test_translation_escaping() {
         let generator = create_test_generator();
-        let quotes = vec![
-            crate::models::QuoteData {
-                content: "<p>Test quote</p>".to_string(),
-                description: "Test".to_string(),
-                translation: Some("包含\"引号\"和<尖括号>的翻译".to_string()),
-            },
-        ];
+        let quotes = vec![crate::models::QuoteData {
+            content: "<p>Test quote</p>".to_string(),
+            description: "Test".to_string(),
+            translation: Some("包含\"引号\"和<尖括号>的翻译".to_string()),
+        }];
         let events: Vec<crate::models::EventData> = vec![];
 
         let html = generator.get_emergency_content(&events, &quotes);
@@ -418,13 +476,11 @@ mod tests {
     #[test]
     fn test_translation_with_ampersand() {
         let generator = create_test_generator();
-        let quotes = vec![
-            crate::models::QuoteData {
-                content: "<p>Test</p>".to_string(),
-                description: "Test".to_string(),
-                translation: Some("A & B".to_string()),
-            },
-        ];
+        let quotes = vec![crate::models::QuoteData {
+            content: "<p>Test</p>".to_string(),
+            description: "Test".to_string(),
+            translation: Some("A & B".to_string()),
+        }];
         let events: Vec<crate::models::EventData> = vec![];
 
         let html = generator.get_emergency_content(&events, &quotes);

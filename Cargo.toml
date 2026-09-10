@@ -8,6 +8,11 @@ authors = ["Tsiaohan Wang"]
 [dependencies]
 # HTTP 客户端
 reqwest = { version = "0.12", features = ["json", "cookies", "rustls-tls", "gzip", "brotli"] }
+
+# WebVPN（深澜 srun wengine）协议支持：AES-128-CBC 加密资源 URL
+aes = "0.8"
+cbc = { version = "0.1", features = ["alloc"] }
+url = "2"
 reqwest-retry = "0.6"
 reqwest-middleware = "0.4"
 
