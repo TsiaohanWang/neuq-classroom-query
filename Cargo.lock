@@ -333,6 +333,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "cfb-mode"
+version = "0.8.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "738b8d467867f80a71351933f70461f5b56f24d5c93e0cf216e59229c968d330"
+dependencies = [
+ "cipher",
+]
+
+[[package]]
 name = "cfg-if"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1827,7 +1836,9 @@ version = "3.2.0"
 dependencies = [
  "aes",
  "anyhow",
+ "base64",
  "cbc",
+ "cfb-mode",
  "chrono",
  "clap",
  "compact_str",

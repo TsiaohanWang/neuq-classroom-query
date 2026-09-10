@@ -20,6 +20,8 @@ pub struct AppConfig {
     pub webvpn_username: String,
     /// WebVPN 密码（默认与教务系统密码相同）
     pub webvpn_password: String,
+    /// WebVPN 认证方式："cas"（统一身份认证，默认）或 "local"（WebVPN 本地账号）
+    pub webvpn_auth_type: String,
     /// 请求超时时间
     pub request_timeout: Duration,
     /// 请求间隔时间
@@ -48,6 +50,7 @@ impl std::fmt::Debug for AppConfig {
             .field("webvpn_base_url", &self.webvpn_base_url)
             .field("webvpn_username", &self.webvpn_username)
             .field("webvpn_password", &"[REDACTED]")
+            .field("webvpn_auth_type", &self.webvpn_auth_type)
             .field("request_timeout", &self.request_timeout)
             .field("request_delay", &self.request_delay)
             .field("total_days", &self.total_days)
@@ -87,6 +90,8 @@ impl AppConfig {
         let webvpn_username = std::env::var("WEBVPN_USERNAME").unwrap_or_else(|_| username.clone());
 
         let webvpn_password = std::env::var("WEBVPN_PASSWORD").unwrap_or_else(|_| password.clone());
+
+        let webvpn_auth_type = std::env::var("WEBVPN_AUTH_TYPE").unwrap_or_else(|_| "cas".to_string());
 
         let request_timeout_secs: u64 = std::env::var("REQUEST_TIMEOUT_SECS")
             .unwrap_or_else(|_| "45".to_string())
@@ -141,6 +146,7 @@ impl AppConfig {
             webvpn_base_url,
             webvpn_username,
             webvpn_password,
+            webvpn_auth_type,
             request_timeout: Duration::from_secs(request_timeout_secs),
             request_delay: Duration::from_millis(request_delay_ms),
             total_days,

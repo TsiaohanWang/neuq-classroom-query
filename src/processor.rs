@@ -353,6 +353,7 @@ mod tests {
                 webvpn_base_url: "https://vpn.test.com".to_string(),
                 webvpn_username: "test".to_string(),
                 webvpn_password: "test".to_string(),
+                webvpn_auth_type: "cas".to_string(),
                 request_timeout: std::time::Duration::from_secs(45),
                 request_delay: std::time::Duration::from_millis(2000),
                 total_days: 7,
