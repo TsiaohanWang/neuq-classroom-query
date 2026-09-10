@@ -1,8 +1,10 @@
-//! 深澜（srun wengine）WebVPN 与金智统一身份认证（CAS）协议支持
+//! 深澜（srun wengine）WebVPN 加密原语
 //!
 //! 学校教务系统（jwxt.neuq.edu.cn）已限制为仅校内网访问，校外访问会被网关
 //! 直接以 HTTP 483 拒绝。本模块实现通过学校 WebVPN
-//! （<https://vpn.neuq.edu.cn>，深澜系统）代理访问教务系统。
+//! （<https://vpn.neuq.edu.cn>，深澜系统）代理访问教务系统所需的加密算法。
+//! 会话与登录流程见 [`super::session`]。
+//!
 //!
 //! ## 资源 URL 格式
 //!
@@ -49,7 +51,7 @@ pub fn encrypt_host_port(host_port: &str) -> Result<String> {
     }
 
     let mut buf = host_port.as_bytes().to_vec();
-    while buf.len() % 16 != 0 {
+    while !buf.len().is_multiple_of(16) {
         buf.push(b'0');
     }
 

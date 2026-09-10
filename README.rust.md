@@ -96,6 +96,21 @@ export MINIFY_HTML=true  # 启用 HTML 压缩
 
 > **注意**：`.env` 文件已添加到 `.gitignore`，不会被提交到版本控制系统。
 
+### 校外网络环境：通过 WebVPN 访问教务系统
+
+教务系统已限制为仅校内网访问（校外直连返回 HTTP 483）。校外运行时需在
+环境变量中额外设置：
+
+```env
+USE_WEBVPN=true
+WEBVPN_USERNAME=你的统一身份认证账号
+WEBVPN_PASSWORD=你的统一身份认证密码
+```
+
+客户端会先通过统一身份认证（CAS，默认）登录学校 WebVPN（vpn.neuq.edu.cn，
+深澜系统），再经加密资源 URL 代理访问教务系统。可选 `WEBVPN_AUTH_TYPE`
+切换 `local`（WebVPN 本地账号）认证。实现细节见 `src/webvpn/` 模块文档。
+
 ### 运行
 
 ```bash
