@@ -53,7 +53,7 @@ pub fn encrypt_host_port(host_port: &str) -> Result<String> {
         buf.push(b'0');
     }
 
-    let mut cipher = Aes128Cfb::new(DEFAULT_KEY.into(), DEFAULT_IV.into());
+    let cipher = Aes128Cfb::new(DEFAULT_KEY.into(), DEFAULT_IV.into());
     cipher.encrypt(&mut buf);
     buf.truncate(plain_len);
 

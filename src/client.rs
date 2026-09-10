@@ -510,12 +510,11 @@ fn extract_hidden_or_js(html: &str, name: &str) -> Option<String> {
         format!(r#"{}\s*=\s*"([^"]+)""#, regex::escape(name)),
     ];
     for p in patterns {
-        if let Ok(re) = regex::Regex::new(&p) {
-            if let Some(caps) = re.captures(html) {
-                if let Some(m) = caps.get(1) {
-                    return Some(m.as_str().to_string());
-                }
-            }
+        if let Some(re) = regex::Regex::new(&p).ok()
+            && let Some(caps) = re.captures(html)
+            && let Some(m) = caps.get(1)
+        {
+            return Some(m.as_str().to_string());
         }
     }
     None
@@ -529,14 +528,13 @@ fn extract_cas_error(html: &str) -> Option<String> {
         r#"id="errorMsg"[^>]*>\s*([^<]+?)\s*</span>"#,
     ];
     for p in patterns {
-        if let Ok(re) = regex::Regex::new(p) {
-            if let Some(caps) = re.captures(html) {
-                if let Some(m) = caps.get(1) {
-                    let msg = m.as_str().trim().to_string();
-                    if !msg.is_empty() {
-                        return Some(msg);
-                    }
-                }
+        if let Some(re) = regex::Regex::new(p).ok()
+            && let Some(caps) = re.captures(html)
+            && let Some(m) = caps.get(1)
+        {
+            let msg = m.as_str().trim().to_string();
+            if !msg.is_empty() {
+                return Some(msg);
             }
         }
     }
