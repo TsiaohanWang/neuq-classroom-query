@@ -8,7 +8,8 @@ use crate::config::{AppConfig, TIME_SLOTS};
 use crate::error::{AppError, Result, with_retry};
 use crate::models::RawClassroomData;
 
-const MAX_EMPTY_RETRIES: u8 = 2;
+/// 时段失败后稍后重试的最大轮数
+const MAX_RETRY_ROUNDS: u8 = 2;
 
 /// 数据抓取器
 pub struct Fetcher {
@@ -79,7 +80,7 @@ impl Fetcher {
 
 }
 
-/// 带随机抖动的请求间隔（多天并行时错开请求，降低教务系统瞬时压力）
+/// 带随机抖动的请求间隔（避免对教务系统形成固定节奏的请求，降低瞬时压力）
 async fn sleep_with_jitter(base: Duration) {
     let jitter = rand::random::<u64>() % 1000;
     tokio::time::sleep(base + Duration::from_millis(jitter)).await;
@@ -131,7 +132,7 @@ async fn fetch_and_save_slot(
 /// 抓取单天数据，带稍后重试队列
 ///
 /// 首轮串行抓取所有时段，失败的时段（含空结果异常、HTTP 错误）
-/// 加入重试队列，首轮结束后稍后逐一重试（最多 MAX_EMPTY_RETRIES 轮）。
+/// 加入重试队列，首轮结束后稍后逐一重试（最多 MAX_RETRY_ROUNDS 轮）。
 /// 重试耗尽仍失败的时段：清理其残留的过时数据文件，
 /// 并返回错误（由 fetch_all 汇总后中止整个构建）。
 async fn fetch_day_data(
@@ -171,7 +172,7 @@ async fn fetch_day_data(
     }
 
     // 重试队列
-    for attempt in 1..=MAX_EMPTY_RETRIES {
+    for attempt in 1..=MAX_RETRY_ROUNDS {
         if failed_slots.is_empty() {
             break;
         }

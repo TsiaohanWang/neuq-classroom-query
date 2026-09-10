@@ -353,4 +353,35 @@ mod tests {
         // 未启用时不限制（直连模式不用 WebVPN 地址）
         assert!(validate_webvpn_base_url("http://vpn.neuq.edu.cn", false).is_ok());
     }
+
+    #[test]
+    fn test_debug_redacts_credentials() {
+        // 安全属性：Debug 输出不得包含任何学号/账号/密码明文
+        let config = AppConfig {
+            username: "202311286".to_string(),
+            password: "secret-password".to_string(),
+            base_url: "http://jwxt.neuq.edu.cn/eams/".to_string(),
+            webvpn_enabled: true,
+            webvpn_base_url: "https://vpn.neuq.edu.cn".to_string(),
+            webvpn_username: "202311286".to_string(),
+            webvpn_password: "secret-password".to_string(),
+            webvpn_auth_type: "cas".to_string(),
+            request_timeout: std::time::Duration::from_secs(45),
+            request_delay: std::time::Duration::from_millis(2000),
+            total_days: 7,
+            retry_config: crate::error::RetryConfig::default(),
+            output_dir: std::path::PathBuf::from("/tmp/test"),
+            assets_dir: std::path::PathBuf::from("/tmp/test"),
+            force_overwrite: false,
+            minify_html: true,
+        };
+
+        let debug_output = format!("{:?}", config);
+        assert!(!debug_output.contains("202311286"), "学号不得出现在 Debug 输出中");
+        assert!(
+            !debug_output.contains("secret-password"),
+            "密码不得出现在 Debug 输出中"
+        );
+        assert!(debug_output.contains("[REDACTED]"));
+    }
 }

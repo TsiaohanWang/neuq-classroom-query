@@ -4,6 +4,7 @@ pub mod error;
 pub mod fetcher;
 pub mod generator;
 pub mod models;
+pub mod parser;
 pub mod processor;
 pub mod theme;
 pub mod webvpn;

@@ -7,6 +7,7 @@ use scraper::{Html, Selector};
 
 use crate::config::AppConfig;
 use crate::error::{AppError, Result, with_retry};
+use crate::parser::RawClassroomEntry;
 use crate::webvpn::WebvpnSession;
 
 /// HTTP 客户端封装，支持 cookie 管理和重试
@@ -109,7 +110,7 @@ impl HttpClient {
 
         for script in document.select(&script_selector) {
             if let Some(text) = script.text().next()
-                && let Some(salt) = extract_salt_from_script(text)
+                && let Some(salt) = crate::parser::extract_salt_from_script(text)
             {
                 return Ok(salt);
             }
@@ -219,68 +220,7 @@ impl HttpClient {
             });
         }
 
-        self.parse_classroom_html(&html)
-    }
-
-    /// 解析教室查询返回的 HTML
-    ///
-    /// 注意：响应中必须有 `gridtable` 结果表格；缺失说明响应异常
-    /// （会话失效的登录页、服务端错误页等），返回错误而非空结果，
-    /// 以免把异常响应误写成合法的“无空闲教室”数据。
-    /// 表格存在但没有数据行，才是合法的空结果。
-    fn parse_classroom_html(&self, html: &str) -> Result<Vec<RawClassroomEntry>> {
-        let document = Html::parse_document(html);
-        let mut results = Vec::new();
-
-        // 查找表格；未找到说明响应异常，不能静默当作空结果
-        let table_selector = Selector::parse("table.gridtable")
-            .map_err(|e| AppError::Other(format!("解析表格选择器失败: {:?}", e)))?;
-
-        let table = match document.select(&table_selector).next() {
-            Some(t) => t,
-            None => {
-                // 附带响应特征，便于诊断异常响应的来源
-                let snippet = html_snippet(&html);
-                return Err(AppError::Fetch {
-                    message: format!("响应中未找到结果表格（可能是登录页或错误页），响应特征: {}", snippet),
-                });
-            }
-        };
-
-        // 获取表头
-        let th_selector = Selector::parse("thead th")
-            .map_err(|e| AppError::Other(format!("解析表头选择器失败: {:?}", e)))?;
-
-        let headers: Vec<String> = table
-            .select(&th_selector)
-            .map(|th| th.text().collect::<String>().trim().to_string())
-            .collect();
-
-        // 获取数据行
-        let tr_selector = Selector::parse("tbody tr")
-            .map_err(|e| AppError::Other(format!("解析行选择器失败: {:?}", e)))?;
-
-        let td_selector = Selector::parse("td")
-            .map_err(|e| AppError::Other(format!("解析单元格选择器失败: {:?}", e)))?;
-
-        for row in table.select(&tr_selector) {
-            let mut entry = serde_json::Map::new();
-
-            for (j, cell) in row.select(&td_selector).enumerate() {
-                let header = headers
-                    .get(j)
-                    .cloned()
-                    .unwrap_or_else(|| format!("column{}", j + 1));
-                let value = cell.text().collect::<String>().trim().to_string();
-                entry.insert(header, serde_json::Value::String(value));
-            }
-
-            if !entry.is_empty() {
-                results.push(RawClassroomEntry(entry));
-            }
-        }
-
-        Ok(results)
+        crate::parser::parse_classroom_html(&html)
     }
 
     /// 延迟一段时间
@@ -289,127 +229,3 @@ impl HttpClient {
     }
 }
 
-/// 提取 HTML 响应的特征摘要（标题 + 去除标签后的前 150 字符）
-fn html_snippet(html: &str) -> String {
-    let title = regex::Regex::new(r"(?is)<title[^>]*>(.*?)</title>")
-        .ok()
-        .and_then(|re| re.captures(html))
-        .and_then(|c| c.get(1))
-        .map(|m| m.as_str().trim())
-        .unwrap_or("");
-
-    let text_re = regex::Regex::new(r"(?s)<[^>]*>")
-        .ok()
-        .map(|re| re.replace_all(html, " ").to_string())
-        .unwrap_or_default();
-    let text: String = text_re
-        .split_whitespace()
-        .collect::<Vec<_>>()
-        .join(" ")
-        .chars()
-        .take(150)
-        .collect();
-
-    if title.is_empty() && text.is_empty() {
-        return "（空响应）".to_string();
-    }
-    format!("title='{}' 正文='{}'", title, text)
-}
-
-/// 原始教室条目（从 HTML 解析）
-#[derive(Debug, Clone)]
-pub struct RawClassroomEntry(pub serde_json::Map<String, serde_json::Value>);
-
-impl RawClassroomEntry {
-    /// 获取字段值
-    pub fn get(&self, key: &str) -> Option<&str> {
-        self.0.get(key).and_then(|v| v.as_str())
-    }
-
-    /// 转换为 RawClassroomData
-    pub fn to_raw_classroom_data(
-        &self,
-        time_slot: String,
-    ) -> Result<crate::models::RawClassroomData> {
-        let building = self.get("教学楼").unwrap_or("").to_string();
-        let name = self.get("名称").unwrap_or("").to_string();
-        let capacity = self.get("容量").unwrap_or("0").to_string();
-        let equipment_config = self.get("教室设备配置").unwrap_or("").to_string();
-        let campus = self.get("校区").map(|s| s.to_string());
-        let sequence_number = self.get("序号").map(|s| s.to_string());
-
-        Ok(crate::models::RawClassroomData {
-            building,
-            name,
-            capacity,
-            equipment_config,
-            campus,
-            sequence_number,
-            time_slot: Some(time_slot),
-            extra: HashMap::new(),
-        })
-    }
-}
-
-use std::collections::HashMap;
-
-/// 从 script 文本中提取 salt
-fn extract_salt_from_script(text: &str) -> Option<String> {
-    // 匹配模式: CryptoJS.SHA1('salt_value-' + form['password'].value)
-    let re =
-        regex::Regex::new(r"CryptoJS\.SHA1\('([^']+)-' \+ form\['password'\]\.value\)").ok()?;
-
-    re.captures(text)
-        .and_then(|caps| caps.get(1))
-        .map(|m| m.as_str().to_string())
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_extract_salt() {
-        let script = r#"
-            var password = CryptoJS.SHA1('abc123-' + form['password'].value);
-        "#;
-        let salt = extract_salt_from_script(script);
-        assert_eq!(salt, Some("abc123".to_string()));
-    }
-
-    #[test]
-    fn test_extract_salt_no_match() {
-        let script = r#"var x = 1;"#;
-        let salt = extract_salt_from_script(script);
-        assert_eq!(salt, None);
-    }
-
-    #[test]
-    fn test_raw_classroom_entry() {
-        let mut map = serde_json::Map::new();
-        map.insert(
-            "教学楼".to_string(),
-            serde_json::Value::String("工学馆".to_string()),
-        );
-        map.insert(
-            "名称".to_string(),
-            serde_json::Value::String("101".to_string()),
-        );
-        map.insert(
-            "容量".to_string(),
-            serde_json::Value::String("60".to_string()),
-        );
-        map.insert(
-            "教室设备配置".to_string(),
-            serde_json::Value::String("普通教室".to_string()),
-        );
-
-        let entry = RawClassroomEntry(map);
-        assert_eq!(entry.get("教学楼"), Some("工学馆"));
-        assert_eq!(entry.get("名称"), Some("101"));
-
-        let data = entry.to_raw_classroom_data("1-2".to_string()).unwrap();
-        assert_eq!(data.building, "工学馆");
-        assert_eq!(data.time_slot, Some("1-2".to_string()));
-    }
-}
