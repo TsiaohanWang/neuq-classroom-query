@@ -111,6 +111,9 @@ WEBVPN_PASSWORD=你的统一身份认证密码
 深澜系统），再经加密资源 URL 代理访问教务系统。可选 `WEBVPN_AUTH_TYPE`
 切换 `local`（WebVPN 本地账号）认证。实现细节见 `src/webvpn/` 模块文档。
 
+> **注意**：账号与密码同属敏感凭证，在 CI/云平台（GitHub Actions secrets、
+> Cloudflare 环境变量等）中均应设为密钥；程序日志输出中学号与密码均已打码。
+
 ### 运行
 
 ```bash

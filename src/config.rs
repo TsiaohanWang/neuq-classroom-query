@@ -43,12 +43,12 @@ pub struct AppConfig {
 impl std::fmt::Debug for AppConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("AppConfig")
-            .field("username", &self.username)
+            .field("username", &"[REDACTED]")
             .field("password", &"[REDACTED]")
             .field("base_url", &self.base_url)
             .field("webvpn_enabled", &self.webvpn_enabled)
             .field("webvpn_base_url", &self.webvpn_base_url)
-            .field("webvpn_username", &self.webvpn_username)
+            .field("webvpn_username", &"[REDACTED]")
             .field("webvpn_password", &"[REDACTED]")
             .field("webvpn_auth_type", &self.webvpn_auth_type)
             .field("request_timeout", &self.request_timeout)

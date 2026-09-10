@@ -56,7 +56,7 @@ WebVPN 通道。客户端会先通过统一身份认证（CAS）登录学校 Web
 
 ### GitHub Actions
 
-若要部署到 GitHub Actions 中自动化执行，请在仓库设置中添加两个 Repository secrets： `YOUR_NEUQ_USERNAME` 设为你的学号； `YOUR_NEUQ_PASSWORD` 设为你的密码。并且找到 `.github/workflows/classroom-query.yml`，将下面的内容取消注释：
+若要部署到 GitHub Actions 中自动化执行，请在仓库设置中添加四个 Repository secrets： `YOUR_NEUQ_USERNAME` 设为你的学号； `YOUR_NEUQ_PASSWORD` 设为你的密码； `WEBVPN_USERNAME` 设为 WebVPN 账号； `WEBVPN_PASSWORD` 设为 WebVPN 密码（四者均应设为密钥）。并且找到 `.github/workflows/classroom-query.yml`，将下面的内容取消注释：
 
 ```yml
 on:
@@ -101,8 +101,11 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --defaul
 | `YOUR_NEUQ_USERNAME` | 你的学号 | **设置为密钥** |
 | `YOUR_NEUQ_PASSWORD` | 你的密码 | **设置为密钥** |
 | `USE_WEBVPN` | `true`，校外环境部署必须开启 |  |
-| `WEBVPN_USERNAME` | WebVPN 账号（默认同教务系统用户名） |  |
+| `WEBVPN_USERNAME` | WebVPN 账号（默认同教务系统用户名） | **设置为密钥** |
 | `WEBVPN_PASSWORD` | WebVPN 密码（统一身份认证密码） | **设置为密钥** |
+
+> 注意：四个凭证（含 `WEBVPN_USERNAME`）保密级别一致，均应设为密钥；
+> 日志输出中学号与密码均被打码。
 | `WEBVPN_AUTH_TYPE` | `cas`（统一身份认证，默认）/ `local`（WebVPN 本地账号） |  |
 | `ASSETS_DIR` | `./assets` | 静态资源目录（可选） |
 | `OUTPUT_DIR` | `./output` | HTML 输出目录（可选） |
