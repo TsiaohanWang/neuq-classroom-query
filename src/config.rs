@@ -12,6 +12,16 @@ pub struct AppConfig {
     pub password: String,
     /// 教务系统基础 URL
     pub base_url: String,
+    /// 是否通过学校 WebVPN 访问教务系统
+    pub webvpn_enabled: bool,
+    /// WebVPN 基础 URL
+    pub webvpn_base_url: String,
+    /// WebVPN 用户名（默认与教务系统用户名相同）
+    pub webvpn_username: String,
+    /// WebVPN 密码（默认与教务系统密码相同）
+    pub webvpn_password: String,
+    /// WebVPN 认证方式："cas"（统一身份认证，默认）或 "local"（WebVPN 本地账号）
+    pub webvpn_auth_type: String,
     /// 请求超时时间
     pub request_timeout: Duration,
     /// 请求间隔时间
@@ -36,6 +46,11 @@ impl std::fmt::Debug for AppConfig {
             .field("username", &self.username)
             .field("password", &"[REDACTED]")
             .field("base_url", &self.base_url)
+            .field("webvpn_enabled", &self.webvpn_enabled)
+            .field("webvpn_base_url", &self.webvpn_base_url)
+            .field("webvpn_username", &self.webvpn_username)
+            .field("webvpn_password", &"[REDACTED]")
+            .field("webvpn_auth_type", &self.webvpn_auth_type)
             .field("request_timeout", &self.request_timeout)
             .field("request_delay", &self.request_delay)
             .field("total_days", &self.total_days)
@@ -50,20 +65,36 @@ impl std::fmt::Debug for AppConfig {
 impl AppConfig {
     /// 从环境变量加载配置
     pub fn from_env() -> Result<Self> {
-        let username = std::env::var("YOUR_NEUQ_USERNAME").map_err(|_| {
-            AppError::EnvVarMissing {
+        let username =
+            std::env::var("YOUR_NEUQ_USERNAME").map_err(|_| AppError::EnvVarMissing {
                 name: "YOUR_NEUQ_USERNAME".to_string(),
-            }
-        })?;
+            })?;
 
-        let password = std::env::var("YOUR_NEUQ_PASSWORD").map_err(|_| {
-            AppError::EnvVarMissing {
+        let password =
+            std::env::var("YOUR_NEUQ_PASSWORD").map_err(|_| AppError::EnvVarMissing {
                 name: "YOUR_NEUQ_PASSWORD".to_string(),
-            }
-        })?;
+            })?;
 
         let base_url = std::env::var("NEUQ_JWXT_BASE_URL")
             .unwrap_or_else(|_| "http://jwxt.neuq.edu.cn/eams/".to_string());
+
+        let webvpn_enabled = std::env::var("USE_WEBVPN")
+            .map(|v| v == "true" || v == "1")
+            .unwrap_or(false);
+
+        let webvpn_base_url = std::env::var("NEUQ_WEBVPN_BASE_URL")
+            .unwrap_or_else(|_| "https://vpn.neuq.edu.cn".to_string());
+
+        // 安全检查：WebVPN 登录凭证经此地址明文表单传输，必须走 HTTPS
+        validate_webvpn_base_url(&webvpn_base_url, webvpn_enabled)?;
+
+        // WebVPN 通常使用统一身份认证账号，可能与教务系统密码不同，
+        // 因此允许通过 WEBVPN_USERNAME / WEBVPN_PASSWORD 单独覆盖。
+        let webvpn_username = std::env::var("WEBVPN_USERNAME").unwrap_or_else(|_| username.clone());
+
+        let webvpn_password = std::env::var("WEBVPN_PASSWORD").unwrap_or_else(|_| password.clone());
+
+        let webvpn_auth_type = std::env::var("WEBVPN_AUTH_TYPE").unwrap_or_else(|_| "cas".to_string());
 
         let request_timeout_secs: u64 = std::env::var("REQUEST_TIMEOUT_SECS")
             .unwrap_or_else(|_| "45".to_string())
@@ -114,6 +145,11 @@ impl AppConfig {
             username,
             password,
             base_url,
+            webvpn_enabled,
+            webvpn_base_url,
+            webvpn_username,
+            webvpn_password,
+            webvpn_auth_type,
             request_timeout: Duration::from_secs(request_timeout_secs),
             request_delay: Duration::from_millis(request_delay_ms),
             total_days,
@@ -129,6 +165,16 @@ impl AppConfig {
             minify_html,
         })
     }
+}
+
+/// 校验 WebVPN 地址：启用时必须使用 HTTPS（登录凭证经此地址传输）
+fn validate_webvpn_base_url(url: &str, webvpn_enabled: bool) -> Result<()> {
+    if webvpn_enabled && !url.starts_with("https://") {
+        return Err(AppError::Config(
+            "启用 USE_WEBVPN 时，NEUQ_WEBVPN_BASE_URL 必须以 https:// 开头".to_string(),
+        ));
+    }
+    Ok(())
 }
 
 /// 时段配置
@@ -296,5 +342,15 @@ mod tests {
     fn test_forbidden_lists() {
         assert!(FORBIDDEN_CONFIGS.contains(&"机房"));
         assert!(FORBIDDEN_BUILDINGS.contains(&"大学会馆"));
+    }
+
+    #[test]
+    fn test_validate_webvpn_base_url() {
+        // 启用时必须 HTTPS
+        assert!(validate_webvpn_base_url("https://vpn.neuq.edu.cn", true).is_ok());
+        assert!(validate_webvpn_base_url("http://vpn.neuq.edu.cn", true).is_err());
+        assert!(validate_webvpn_base_url("ftp://vpn.neuq.edu.cn", true).is_err());
+        // 未启用时不限制（直连模式不用 WebVPN 地址）
+        assert!(validate_webvpn_base_url("http://vpn.neuq.edu.cn", false).is_ok());
     }
 }

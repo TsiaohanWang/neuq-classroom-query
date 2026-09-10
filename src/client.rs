@@ -7,6 +7,7 @@ use scraper::{Html, Selector};
 
 use crate::config::AppConfig;
 use crate::error::{AppError, Result, with_retry};
+use crate::webvpn::WebvpnSession;
 
 /// HTTP 客户端封装，支持 cookie 管理和重试
 #[derive(Clone)]
@@ -15,6 +16,8 @@ pub struct HttpClient {
     #[allow(dead_code)]
     cookie_store: Arc<CookieStoreMutex>,
     config: Arc<AppConfig>,
+    /// WebVPN 会话（未启用时所有方法自动退化为直连）
+    webvpn: Arc<WebvpnSession>,
 }
 
 impl HttpClient {
@@ -42,16 +45,38 @@ impl HttpClient {
             .build()
             .map_err(|e| AppError::Config(format!("创建 HTTP 客户端失败: {}", e)))?;
 
+        let webvpn = Arc::new(WebvpnSession::new(client.clone(), Arc::clone(&config)));
+
         Ok(Self {
             client,
             cookie_store,
             config,
+            webvpn,
         })
+    }
+
+    /// 确保 WebVPN 已登录（幂等，未启用时为空操作）
+    async fn ensure_webvpn_login(&self) -> Result<()> {
+        self.webvpn.ensure_login().await
+    }
+
+    /// 将教务系统 URL 转换为实际请求 URL（未启用 WebVPN 时原样返回）
+    fn proxied(&self, url: &str) -> Result<String> {
+        self.webvpn.proxied(url)
+    }
+
+    /// 检测响应是否被重定向回 WebVPN 登录页；是则重新登录并返回 true
+    ///
+    /// 用于长时间运行中 WebVPN 会话过期的自动恢复（调用方应重试请求）。
+    async fn recover_webvpn_session_if_kicked(&self, html: &str) -> Result<bool> {
+        self.webvpn.recover_if_kicked(html).await
     }
 
     /// 获取登录页面并提取 salt
     pub async fn get_salt(&self) -> Result<String> {
-        let url = format!("{}loginExt.action", self.config.base_url);
+        self.ensure_webvpn_login().await?;
+
+        let url = self.proxied(&format!("{}loginExt.action", self.config.base_url))?;
 
         let response = self.client.get(&url).send().await?;
 
@@ -62,18 +87,32 @@ impl HttpClient {
         }
 
         let html = response.text().await?;
+
+        // WebVPN 会话失效自动恢复：被重定向回登录页则重登录后重试一次
+        let html = if self.recover_webvpn_session_if_kicked(&html).await? {
+            let response = self.client.get(&url).send().await?;
+            if !response.status().is_success() {
+                return Err(AppError::Fetch {
+                    message: format!("获取登录页面失败，状态码: {}", response.status()),
+                });
+            }
+            response.text().await?
+        } else {
+            html
+        };
+
         let document = Html::parse_document(&html);
 
         // 查找包含 salt 的 script 标签
-        let script_selector = Selector::parse("script").map_err(|e| {
-            AppError::Other(format!("解析 script 选择器失败: {:?}", e))
-        })?;
+        let script_selector = Selector::parse("script")
+            .map_err(|e| AppError::Other(format!("解析 script 选择器失败: {:?}", e)))?;
 
         for script in document.select(&script_selector) {
             if let Some(text) = script.text().next()
-                && let Some(salt) = extract_salt_from_script(text) {
-                    return Ok(salt);
-                }
+                && let Some(salt) = extract_salt_from_script(text)
+            {
+                return Ok(salt);
+            }
         }
 
         Err(AppError::SaltExtractionFailed)
@@ -82,6 +121,8 @@ impl HttpClient {
     /// 登录教务系统
     pub async fn login(&self, username: &str, password: &str) -> Result<()> {
         use sha1::{Digest, Sha1};
+
+        self.ensure_webvpn_login().await?;
 
         // 获取 salt
         let salt = with_retry(
@@ -101,18 +142,10 @@ impl HttpClient {
         let hashed_password = hex::encode(hasher.finalize());
 
         // 发送登录请求
-        let url = format!("{}loginExt.action", self.config.base_url);
-        let params = [
-            ("username", username),
-            ("password", &hashed_password),
-        ];
+        let url = self.proxied(&format!("{}loginExt.action", self.config.base_url))?;
+        let params = [("username", username), ("password", &hashed_password)];
 
-        let response = self
-            .client
-            .post(&url)
-            .form(&params)
-            .send()
-            .await?;
+        let response = self.client.post(&url).form(&params).send().await?;
 
         // 检查登录是否成功（通过重定向判断）
         let final_url = response.url().to_string();
@@ -134,10 +167,12 @@ impl HttpClient {
         time_begin: u8,
         time_end: u8,
     ) -> Result<Vec<RawClassroomEntry>> {
-        let url = format!(
+        self.ensure_webvpn_login().await?;
+
+        let url = self.proxied(&format!(
             "{}classroom/apply/free!search.action",
             self.config.base_url
-        );
+        ))?;
 
         let params = [
             ("classroom.building.id", ""),
@@ -159,14 +194,23 @@ impl HttpClient {
 
         if !response.status().is_success() {
             return Err(AppError::Fetch {
-                message: format!(
-                    "查询空闲教室失败，状态码: {}",
-                    response.status()
-                ),
+                message: format!("查询空闲教室失败，状态码: {}", response.status()),
             });
         }
 
-        let html = response.text().await?;
+        let mut html = response.text().await?;
+
+        // WebVPN 会话失效自动恢复：被重定向回登录页则重登录后重试一次
+        if self.recover_webvpn_session_if_kicked(&html).await? {
+            let response = self.client.post(&url).form(&params).send().await?;
+            if !response.status().is_success() {
+                return Err(AppError::Fetch {
+                    message: format!("查询空闲教室失败，状态码: {}", response.status()),
+                });
+            }
+            html = response.text().await?;
+        }
+
         self.parse_classroom_html(&html)
     }
 
@@ -176,9 +220,8 @@ impl HttpClient {
         let mut results = Vec::new();
 
         // 查找表格
-        let table_selector = Selector::parse("table.gridtable").map_err(|e| {
-            AppError::Other(format!("解析表格选择器失败: {:?}", e))
-        })?;
+        let table_selector = Selector::parse("table.gridtable")
+            .map_err(|e| AppError::Other(format!("解析表格选择器失败: {:?}", e)))?;
 
         let table = match document.select(&table_selector).next() {
             Some(t) => t,
@@ -189,9 +232,8 @@ impl HttpClient {
         };
 
         // 获取表头
-        let th_selector = Selector::parse("thead th").map_err(|e| {
-            AppError::Other(format!("解析表头选择器失败: {:?}", e))
-        })?;
+        let th_selector = Selector::parse("thead th")
+            .map_err(|e| AppError::Other(format!("解析表头选择器失败: {:?}", e)))?;
 
         let headers: Vec<String> = table
             .select(&th_selector)
@@ -199,13 +241,11 @@ impl HttpClient {
             .collect();
 
         // 获取数据行
-        let tr_selector = Selector::parse("tbody tr").map_err(|e| {
-            AppError::Other(format!("解析行选择器失败: {:?}", e))
-        })?;
+        let tr_selector = Selector::parse("tbody tr")
+            .map_err(|e| AppError::Other(format!("解析行选择器失败: {:?}", e)))?;
 
-        let td_selector = Selector::parse("td").map_err(|e| {
-            AppError::Other(format!("解析单元格选择器失败: {:?}", e))
-        })?;
+        let td_selector = Selector::parse("td")
+            .map_err(|e| AppError::Other(format!("解析单元格选择器失败: {:?}", e)))?;
 
         for row in table.select(&tr_selector) {
             let mut entry = serde_json::Map::new();
@@ -244,7 +284,10 @@ impl RawClassroomEntry {
     }
 
     /// 转换为 RawClassroomData
-    pub fn to_raw_classroom_data(&self, time_slot: String) -> Result<crate::models::RawClassroomData> {
+    pub fn to_raw_classroom_data(
+        &self,
+        time_slot: String,
+    ) -> Result<crate::models::RawClassroomData> {
         let building = self.get("教学楼").unwrap_or("").to_string();
         let name = self.get("名称").unwrap_or("").to_string();
         let capacity = self.get("容量").unwrap_or("0").to_string();
@@ -270,7 +313,8 @@ use std::collections::HashMap;
 /// 从 script 文本中提取 salt
 fn extract_salt_from_script(text: &str) -> Option<String> {
     // 匹配模式: CryptoJS.SHA1('salt_value-' + form['password'].value)
-    let re = regex::Regex::new(r"CryptoJS\.SHA1\('([^']+)-' \+ form\['password'\]\.value\)").ok()?;
+    let re =
+        regex::Regex::new(r"CryptoJS\.SHA1\('([^']+)-' \+ form\['password'\]\.value\)").ok()?;
 
     re.captures(text)
         .and_then(|caps| caps.get(1))
@@ -300,10 +344,22 @@ mod tests {
     #[test]
     fn test_raw_classroom_entry() {
         let mut map = serde_json::Map::new();
-        map.insert("教学楼".to_string(), serde_json::Value::String("工学馆".to_string()));
-        map.insert("名称".to_string(), serde_json::Value::String("101".to_string()));
-        map.insert("容量".to_string(), serde_json::Value::String("60".to_string()));
-        map.insert("教室设备配置".to_string(), serde_json::Value::String("普通教室".to_string()));
+        map.insert(
+            "教学楼".to_string(),
+            serde_json::Value::String("工学馆".to_string()),
+        );
+        map.insert(
+            "名称".to_string(),
+            serde_json::Value::String("101".to_string()),
+        );
+        map.insert(
+            "容量".to_string(),
+            serde_json::Value::String("60".to_string()),
+        );
+        map.insert(
+            "教室设备配置".to_string(),
+            serde_json::Value::String("普通教室".to_string()),
+        );
 
         let entry = RawClassroomEntry(map);
         assert_eq!(entry.get("教学楼"), Some("工学馆"));

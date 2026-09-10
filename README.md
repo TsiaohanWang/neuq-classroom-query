@@ -20,6 +20,38 @@
 
 本地测试时，按照 `.env.example` 所示创建 `.env` 文件并填入对应变量即可。
 
+### 通过 WebVPN 访问教务系统（校外网络环境）
+
+自 2025 年中起，教务系统（jwxt.neuq.edu.cn）对校外访问直接返回 HTTP 483，
+因此在校外（包括 GitHub Actions / Cloudflare Pages 等海外 CI 环境）必须开启
+WebVPN 通道。客户端会先通过统一身份认证（CAS）登录学校 WebVPN
+（vpn.neuq.edu.cn），再经代理访问教务系统。在环境变量中额外设置：
+
+| 变量名 | 说明 |
+|---|---|
+| `USE_WEBVPN` | 设为 `true` 启用 |
+| `WEBVPN_USERNAME` | WebVPN 账号（默认与教务系统用户名相同） |
+| `WEBVPN_PASSWORD` | WebVPN 密码（统一身份认证密码，本账户与教务系统密码相同） |
+| `WEBVPN_AUTH_TYPE` | `cas`（统一身份认证，默认）/ `local`（WebVPN 本地账号） |
+| `NEUQ_WEBVPN_BASE_URL` | WebVPN 地址（默认 `https://vpn.neuq.edu.cn`，启用时强制 HTTPS） |
+
+> 注意：WebVPN 登录有失败次数限制，请务必确认密码正确后再提交到 CI。
+
+实现细节：WebVPN 的资源 URL 采用深澜（srun wengine）的加密格式
+（AES-128-CFB，key/iv 为 `wrdvpnisthebest!`，见 `src/webvpn/crypto.rs`），
+登录流程包含伪造 FingerprintJS 浏览器指纹、提取 authserver 页面随机盐
+加密密码等步骤（见 `src/webvpn/session.rs`）。长时间运行中若会话失效，
+会自动重新登录并重试请求。
+
+常见问题：
+
+| 错误信息 | 原因与处理 |
+|---|---|
+| `状态码: 483` | 教务系统拒绝校外直连，需设置 `USE_WEBVPN=true` |
+| `用户名或密码不正确` | 检查 `WEBVPN_USERNAME` / `WEBVPN_PASSWORD` |
+| `请输入验证码` | 该 IP 短时间登录失败过多，等待冷却后重试或更换网络 |
+| `TOO_MANY_ATTEMPTS` | 同上，程序会自动冷却 30s 后重试 |
+
 ## 自动化部署
 
 ### GitHub Actions
@@ -68,6 +100,10 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --defaul
 |---|---|---|
 | `YOUR_NEUQ_USERNAME` | 你的学号 | **设置为密钥** |
 | `YOUR_NEUQ_PASSWORD` | 你的密码 | **设置为密钥** |
+| `USE_WEBVPN` | `true`，校外环境部署必须开启 |  |
+| `WEBVPN_USERNAME` | WebVPN 账号（默认同教务系统用户名） |  |
+| `WEBVPN_PASSWORD` | WebVPN 密码（统一身份认证密码） | **设置为密钥** |
+| `WEBVPN_AUTH_TYPE` | `cas`（统一身份认证，默认）/ `local`（WebVPN 本地账号） |  |
 | `ASSETS_DIR` | `./assets` | 静态资源目录（可选） |
 | `OUTPUT_DIR` | `./output` | HTML 输出目录（可选） |
 | `TOTAL_DAYS` | `7` | 查询天数（可选） |
