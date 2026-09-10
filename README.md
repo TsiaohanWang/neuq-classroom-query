@@ -43,6 +43,11 @@ WebVPN 通道。客户端会先通过统一身份认证（CAS）登录学校 Web
 加密密码等步骤（见 `src/webvpn/session.rs`）。长时间运行中若会话失效，
 会自动重新登录并重试请求。
 
+> 安全说明：① 伪造浏览器指纹是在规避学校系统的反自动化检测，本工具仅限
+> 校内公益用途，请保持低频访问；② 教务系统仅提供 HTTP 明文通道，
+> `SHA1(salt+密码)` 的登录哈希在校内网段明文传输，这是服务端限制，
+> 无法在客户端根治。
+
 常见问题：
 
 | 错误信息 | 原因与处理 |
@@ -64,14 +69,20 @@ WebVPN 通道。客户端会先通过统一身份认证（CAS）登录学校 Web
 - **严格发布策略**：时段重试耗尽仍失败时，清理残留过时数据并**中止构建**，
   绝不发布过时或缺失时段的数据；该时段确实无空闲教室时写入空数据，
   属于合法结果而非缺失。
+- **完整性/新鲜度双重校验**：抓取成功后为每天写入 `fetch_meta.json`
+  （含抓取日期），process/generate 阶段会校验时段文件齐全且抓取日期
+  等于目标日期，任一不满足即中止（`--force` / `FORCE_OVERWRITE=true`
+  可跳过新鲜度校验，但文件完整性仍强制要求）。
 - **异常响应识别**：结果页必须有结果表格，否则视为异常（如会话失效、
   错误页），错误信息附带响应特征摘要便于从 CI 日志诊断。
+- **双层会话自动恢复**：WebVPN 会话失效（被重定向回登录页）与教务系统
+  会话过期（"本次会话已经被过期"）均会自动重新登录并重试请求。
 
 ## 自动化部署
 
 ### GitHub Actions
 
-若要部署到 GitHub Actions 中自动化执行，请在仓库设置中添加四个 Repository secrets： `YOUR_NEUQ_USERNAME` 设为你的学号； `YOUR_NEUQ_PASSWORD` 设为你的密码； `WEBVPN_USERNAME` 设为 WebVPN 账号； `WEBVPN_PASSWORD` 设为 WebVPN 密码（四者均应设为密钥）。并且找到 `.github/workflows/classroom-query.yml`，将下面的内容取消注释：
+若要部署到 GitHub Actions 中自动化执行，请在仓库设置中添加四个 Repository secrets： `YOUR_NEUQ_USERNAME` 设为你的学号； `YOUR_NEUQ_PASSWORD` 设为你的密码； `WEBVPN_USERNAME` 设为 WebVPN 账号； `WEBVPN_PASSWORD` 设为 WebVPN 密码（四者均应设为密钥）。workflow 会检测 `WEBVPN_USERNAME` 是否已配置并自动启用 WebVPN 通道（海外 runner 直连教务系统会被 HTTP 483 拒绝）。并且找到 `.github/workflows/classroom-query.yml`，将下面的内容取消注释：
 
 ```yml
 on:

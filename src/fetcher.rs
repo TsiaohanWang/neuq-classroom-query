@@ -255,6 +255,19 @@ async fn fetch_day_data(
         });
     }
 
+    // 写入抓取日期元数据：供 process/generate 阶段校验数据新鲜度，
+    // 防止将过时数据当作当日数据发布（严格发布策略的一环）
+    let meta = serde_json::json!({
+        "date": date_str,
+        "day": day_offset,
+        "slots": TIME_SLOTS.len(),
+    });
+    fs::write(
+        output_dir.join("fetch_meta.json"),
+        serde_json::to_string_pretty(&meta)?,
+    )
+    .await?;
+
     tracing::info!("Day {} 完成（全部时段均有数据）", day_offset);
     Ok(Vec::new())
 }

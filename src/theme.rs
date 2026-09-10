@@ -1,5 +1,4 @@
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
 use crate::error::Result;
 
@@ -151,152 +150,38 @@ impl ThemeConfig {
 
     /// 转换为 CSS 变量覆盖的 JSON 字符串（供前端使用）
     pub fn to_css_json(&self) -> String {
-        let mut light = HashMap::new();
-        let mut dark = HashMap::new();
-        let mut layout = HashMap::new();
-
-        Self::map_colors(&self.light, &mut light);
-        Self::map_colors(&self.dark, &mut dark);
-
-        // 布局变量映射
-        if let Some(v) = &self.layout.table_font_size { layout.insert("--table-font-size", v); }
-        if let Some(v) = &self.layout.td_font_size { layout.insert("--td-font-size", v); }
-        if let Some(v) = &self.layout.heading_font_size { layout.insert("--heading-font-size", v); }
-        if let Some(v) = &self.layout.info_font_size { layout.insert("--info-font-size", v); }
-        if let Some(v) = &self.layout.timeslot_font_size { layout.insert("--timeslot-font-size", v); }
-        if let Some(v) = &self.layout.tab_font_size { layout.insert("--tab-font-size", v); }
-        if let Some(v) = &self.layout.date_font_size { layout.insert("--date-font-size", v); }
-
         let mut result = serde_json::json!({
-            "light": light,
-            "dark": dark,
-            "layout": layout,
+            "light": Self::to_var_map(&self.light),
+            "dark": Self::to_var_map(&self.dark),
+            "layout": Self::to_var_map(&self.layout),
         });
 
-        if let Some(mode) = &self.mode {
-            if mode == "light" || mode == "dark" {
-                result["mode"] = serde_json::Value::String(mode.clone());
-            }
+        if let Some(mode) = &self.mode
+            && (mode == "light" || mode == "dark")
+        {
+            result["mode"] = serde_json::Value::String(mode.clone());
         }
 
         serde_json::to_string(&result).unwrap_or_else(|_| "{}".to_string())
     }
 
-    fn map_colors<'a>(colors: &'a ThemeColors, map: &mut HashMap<&'static str, &'a String>) {
-        // 页面
-        if let Some(v) = &colors.page_bg { map.insert("--page-bg", v); }
-        if let Some(v) = &colors.page_color { map.insert("--page-color", v); }
-
-        // 标题
-        if let Some(v) = &colors.heading_color { map.insert("--heading-color", v); }
-
-        // 日期显示
-        if let Some(v) = &colors.date_color { map.insert("--date-color", v); }
-
-        // 横幅
-        if let Some(v) = &colors.banner_bg { map.insert("--banner-bg", v); }
-        if let Some(v) = &colors.banner_color { map.insert("--banner-color", v); }
-        if let Some(v) = &colors.banner_close_color { map.insert("--banner-close-color", v); }
-        if let Some(v) = &colors.banner_border { map.insert("--banner-border", v); }
-
-        // 徽章
-        if let Some(v) = &colors.badge_bg { map.insert("--badge-bg", v); }
-        if let Some(v) = &colors.badge_color { map.insert("--badge-color", v); }
-
-        // 容器
-        if let Some(v) = &colors.container_bg { map.insert("--container-bg", v); }
-        if let Some(v) = &colors.container_shadow { map.insert("--container-shadow", v); }
-        if let Some(v) = &colors.container_border { map.insert("--container-border", v); }
-
-        // 信息框
-        if let Some(v) = &colors.infobox_bg { map.insert("--infobox-bg", v); }
-        if let Some(v) = &colors.infobox_color { map.insert("--infobox-color", v); }
-        if let Some(v) = &colors.infobox_border { map.insert("--infobox-border", v); }
-
-        // 信息文本
-        if let Some(v) = &colors.info_color { map.insert("--info-color", v); }
-
-        // Tab 栏
-        if let Some(v) = &colors.tabbar_bg { map.insert("--tabbar-bg", v); }
-        if let Some(v) = &colors.tabbar_border { map.insert("--tabbar-border", v); }
-
-        // Tab 按钮
-        if let Some(v) = &colors.tab_color { map.insert("--tab-color", v); }
-        if let Some(v) = &colors.tab_hover_color { map.insert("--tab-hover-color", v); }
-        if let Some(v) = &colors.tab_hover_bg { map.insert("--tab-hover-bg", v); }
-        if let Some(v) = &colors.tab_active_bg { map.insert("--tab-active-bg", v); }
-        if let Some(v) = &colors.tab_active_color { map.insert("--tab-active-color", v); }
-        if let Some(v) = &colors.tab_active_border { map.insert("--tab-active-border", v); }
-        if let Some(v) = &colors.tab_border { map.insert("--tab-border", v); }
-
-        // 日期切换按钮
-        if let Some(v) = &colors.date_btn_color { map.insert("--date-btn-color", v); }
-        if let Some(v) = &colors.date_btn_hover_bg { map.insert("--date-btn-hover-bg", v); }
-
-        // 时段标题
-        if let Some(v) = &colors.timeslot_color { map.insert("--timeslot-color", v); }
-
-        // 表格
-        if let Some(v) = &colors.table_border { map.insert("--table-border", v); }
-        if let Some(v) = &colors.table_header_bg { map.insert("--table-header-bg", v); }
-        if let Some(v) = &colors.table_header_color { map.insert("--table-header-color", v); }
-        if let Some(v) = &colors.floor_bg { map.insert("--floor-bg", v); }
-        if let Some(v) = &colors.floor_color { map.insert("--floor-color", v); }
-        if let Some(v) = &colors.building_bg { map.insert("--building-bg", v); }
-        if let Some(v) = &colors.building_color { map.insert("--building-color", v); }
-
-        // 折叠面板
-        if let Some(v) = &colors.collapsible_color { map.insert("--collapsible-color", v); }
-        if let Some(v) = &colors.collapsible_border { map.insert("--collapsible-border", v); }
-        if let Some(v) = &colors.collapsible_desc_color { map.insert("--collapsible-desc-color", v); }
-        if let Some(v) = &colors.collapsible_desc_border { map.insert("--collapsible-desc-border", v); }
-
-        // 主题控制按钮
-        if let Some(v) = &colors.theme_btn_color { map.insert("--theme-btn-color", v); }
-        if let Some(v) = &colors.theme_btn_hover_bg { map.insert("--theme-btn-hover-bg", v); }
-        if let Some(v) = &colors.theme_btn_border { map.insert("--theme-btn-border", v); }
-        if let Some(v) = &colors.theme_btn_hover_border { map.insert("--theme-btn-hover-border", v); }
-        if let Some(v) = &colors.theme_name_color { map.insert("--theme-name-color", v); }
-
-        // 分割线
-        if let Some(v) = &colors.hr_border { map.insert("--hr-border", v); }
-
-        // 链接
-        if let Some(v) = &colors.link_color { map.insert("--link-color", v); }
-
-        // 数据单元格
-        if let Some(v) = &colors.data_color { map.insert("--data-color", v); }
-        if let Some(v) = &colors.data_bg { map.insert("--data-bg", v); }
-
-        // 数据单元格 · 加粗
-        if let Some(v) = &colors.data_strong_color { map.insert("--data-strong-color", v); }
-        if let Some(v) = &colors.data_strong_bg { map.insert("--data-strong-bg", v); }
-
-        // 数据单元格 · 删除线
-        if let Some(v) = &colors.data_del_color { map.insert("--data-del-color", v); }
-        if let Some(v) = &colors.data_del_decoration_color { map.insert("--data-del-decoration-color", v); }
-        if let Some(v) = &colors.data_del_decoration_style { map.insert("--data-del-decoration-style", v); }
-        if let Some(v) = &colors.data_del_decoration_thickness { map.insert("--data-del-decoration-thickness", v); }
-        if let Some(v) = &colors.data_del_bg { map.insert("--data-del-bg", v); }
-
-        // 数据单元格 · 下划线
-        if let Some(v) = &colors.data_u_color { map.insert("--data-u-color", v); }
-        if let Some(v) = &colors.data_u_decoration_color { map.insert("--data-u-decoration-color", v); }
-        if let Some(v) = &colors.data_u_decoration_style { map.insert("--data-u-decoration-style", v); }
-        if let Some(v) = &colors.data_u_decoration_thickness { map.insert("--data-u-decoration-thickness", v); }
-        if let Some(v) = &colors.data_u_bg { map.insert("--data-u-bg", v); }
+    /// 将主题配置结构体序列化为 CSS 变量映射：字段名 `page_bg` → `--page-bg`
+    ///
+    /// 借助 serde 自动完成字段到变量的映射（`Option::None` 序列化为 null，
+    /// 此处跳过），新增字段无需修改本函数。
+    fn to_var_map<T: Serialize>(config: &T) -> serde_json::Map<String, serde_json::Value> {
+        let mut map = serde_json::Map::new();
+        if let Ok(serde_json::Value::Object(fields)) = serde_json::to_value(config) {
+            for (field, value) in fields {
+                if value.is_null() {
+                    continue;
+                }
+                map.insert(format!("--{}", field.replace('_', "-")), value);
+            }
+        }
+        map
     }
 
-    /// 生成默认主题的 JSON（空配置）
-    pub fn default_json() -> String {
-        serde_json::to_string(&serde_json::json!({
-            "light": {},
-            "dark": {},
-            "layout": {},
-            "mode": null
-        }))
-        .unwrap_or_else(|_| "{}".to_string())
-    }
 }
 
 #[cfg(test)]
@@ -684,7 +569,7 @@ page_bg = \"#ffffff\"\n";
         for entry in std::fs::read_dir(&themes_dir).unwrap() {
             let entry = entry.unwrap();
             let path = entry.path();
-            if path.extension().map_or(false, |e| e == "toml") {
+            if path.extension().is_some_and(|e| e == "toml") {
                 let content = std::fs::read_to_string(&path).unwrap();
                 let config = ThemeConfig::from_toml(&content).unwrap();
                 assert!(config.name.is_some(), "Missing name in {:?}", path);
@@ -767,16 +652,4 @@ page_bg = \"#ffffff\"\n";
         assert_eq!(layout_vars, 7, "Expected 7 layout CSS variables, got {}", layout_vars);
     }
 
-    #[test]
-    fn test_default_json_structure() {
-        let json_str = ThemeConfig::default_json();
-        let json: serde_json::Value = serde_json::from_str(&json_str).unwrap();
-        assert!(json.get("light").is_some());
-        assert!(json.get("dark").is_some());
-        assert!(json.get("layout").is_some());
-        assert_eq!(json["light"].as_object().unwrap().len(), 0);
-        assert_eq!(json["dark"].as_object().unwrap().len(), 0);
-        assert_eq!(json["layout"].as_object().unwrap().len(), 0);
-        assert_eq!(json["mode"], serde_json::Value::Null);
-    }
 }

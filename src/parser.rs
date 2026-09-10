@@ -4,10 +4,24 @@
 //! 登录页 salt 提取，以及异常响应的特征摘要生成（用于错误诊断）。
 
 use std::collections::HashMap;
+use std::sync::LazyLock;
 
 use scraper::{Html, Selector};
 
 use crate::error::{AppError, Result};
+
+/// 登录页 salt 提取模式：`CryptoJS.SHA1('salt_value-' + form['password'].value)`
+static SALT_REGEX: LazyLock<regex::Regex> = LazyLock::new(|| {
+    regex::Regex::new(r"CryptoJS\.SHA1\('([^']+)-' \+ form\['password'\]\.value\)").unwrap()
+});
+
+/// 响应特征摘要：`<title>` 内容
+static TITLE_REGEX: LazyLock<regex::Regex> =
+    LazyLock::new(|| regex::Regex::new(r"(?is)<title[^>]*>(.*?)</title>").unwrap());
+
+/// 响应特征摘要：去除所有 HTML 标签
+static TAGS_REGEX: LazyLock<regex::Regex> =
+    LazyLock::new(|| regex::Regex::new(r"(?s)<[^>]*>").unwrap());
 
 /// 解析教室查询返回的 HTML
 ///
@@ -76,10 +90,8 @@ pub fn parse_classroom_html(html: &str) -> Result<Vec<RawClassroomEntry>> {
 ///
 /// 匹配模式: CryptoJS.SHA1('salt_value-' + form['password'].value)
 pub fn extract_salt_from_script(text: &str) -> Option<String> {
-    let re =
-        regex::Regex::new(r"CryptoJS\.SHA1\('([^']+)-' \+ form\['password'\]\.value\)").ok()?;
-
-    re.captures(text)
+    SALT_REGEX
+        .captures(text)
         .and_then(|caps| caps.get(1))
         .map(|m| m.as_str().to_string())
 }
@@ -88,18 +100,14 @@ pub fn extract_salt_from_script(text: &str) -> Option<String> {
 ///
 /// 用于在错误信息中附带响应特征，便于从 CI 日志诊断异常响应的来源。
 pub fn html_snippet(html: &str) -> String {
-    let title = regex::Regex::new(r"(?is)<title[^>]*>(.*?)</title>")
-        .ok()
-        .and_then(|re| re.captures(html))
+    let title = TITLE_REGEX
+        .captures(html)
         .and_then(|c| c.get(1))
         .map(|m| m.as_str().trim())
         .unwrap_or("");
 
-    let text_re = regex::Regex::new(r"(?s)<[^>]*>")
-        .ok()
-        .map(|re| re.replace_all(html, " ").to_string())
-        .unwrap_or_default();
-    let text: String = text_re
+    let text: String = TAGS_REGEX
+        .replace_all(html, " ")
         .split_whitespace()
         .collect::<Vec<_>>()
         .join(" ")

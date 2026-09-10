@@ -17,7 +17,7 @@ static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
 /// NEUQ 空闲教室查询工具 (Rust 版本)
 #[derive(Parser)]
 #[command(name = "neuq-classroom-query")]
-#[command(version = "3.2.0")]
+#[command(version = env!("CARGO_PKG_VERSION"))]
 #[command(about = "东北大学秦皇岛分校空闲教室查询工具", long_about = None)]
 struct Cli {
     #[command(subcommand)]
@@ -31,8 +31,8 @@ enum Commands {
         /// 强制覆盖已有数据
         #[arg(long, short)]
         force: bool,
-        /// 是否压缩 HTML 输出
-        #[arg(long, default_value = "true")]
+        /// 是否压缩 HTML 输出（传 --minify false 关闭）
+        #[arg(long, default_value_t = true, action = clap::ArgAction::Set)]
         minify: bool,
     },
     /// 仅抓取数据
@@ -42,11 +42,18 @@ enum Commands {
         force: bool,
     },
     /// 仅处理数据
-    Process,
+    Process {
+        /// 跳过数据新鲜度校验（仍要求时段文件完整）
+        #[arg(long, short)]
+        force: bool,
+    },
     /// 仅生成 HTML
     Generate {
-        /// 是否压缩 HTML 输出
-        #[arg(long, default_value = "true")]
+        /// 跳过数据新鲜度校验（仍要求时段文件完整）
+        #[arg(long, short)]
+        force: bool,
+        /// 是否压缩 HTML 输出（传 --minify false 关闭）
+        #[arg(long, default_value_t = true, action = clap::ArgAction::Set)]
         minify: bool,
     },
 }
@@ -93,9 +100,14 @@ async fn main() {
             config.force_overwrite = force;
             fetch(config).await
         }
-        Commands::Process => process(config).await,
-        Commands::Generate { minify } => {
+        Commands::Process { force } => {
             let mut config = config;
+            config.force_overwrite = force;
+            process(config).await
+        }
+        Commands::Generate { force, minify } => {
+            let mut config = config;
+            config.force_overwrite = force;
             config.minify_html = minify;
             generate(config).await
         }
@@ -125,7 +137,7 @@ async fn deploy(config: AppConfig) -> Result<()> {
 
     // Step 3: 生成 HTML
     tracing::info!("=== Step 3/3: 生成 HTML ===");
-    let generator = Generator::new(std::sync::Arc::clone(&config));
+    let generator = Generator::new(std::sync::Arc::clone(&config))?;
     generator.generate().await?;
 
     tracing::info!("✔ 部署完成");
@@ -161,7 +173,7 @@ async fn generate(config: AppConfig) -> Result<()> {
     tracing::info!("开始生成 HTML...");
     let config = std::sync::Arc::new(config);
 
-    let generator = Generator::new(config);
+    let generator = Generator::new(config)?;
     generator.generate().await?;
 
     tracing::info!("✔ HTML 生成完成！");
@@ -174,7 +186,7 @@ mod tests {
 
     #[test]
     fn test_cli_parse() {
-        let cli = Cli::try_parse_from(&["neuq-classroom-query", "deploy"]).unwrap();
+        let cli = Cli::try_parse_from(["neuq-classroom-query", "deploy"]).unwrap();
         match cli.command {
             Commands::Deploy { force, minify } => {
                 assert!(!force);
@@ -186,7 +198,7 @@ mod tests {
 
     #[test]
     fn test_cli_parse_with_force() {
-        let cli = Cli::try_parse_from(&["neuq-classroom-query", "deploy", "--force"]).unwrap();
+        let cli = Cli::try_parse_from(["neuq-classroom-query", "deploy", "--force"]).unwrap();
         match cli.command {
             Commands::Deploy { force, .. } => assert!(force),
             _ => panic!("Expected Deploy command"),
@@ -195,10 +207,19 @@ mod tests {
 
     #[test]
     fn test_cli_parse_no_minify() {
-        let cli = Cli::try_parse_from(&["neuq-classroom-query", "generate"]).unwrap();
+        let cli = Cli::try_parse_from(["neuq-classroom-query", "generate"]).unwrap();
         match cli.command {
-            Commands::Generate { minify } => assert!(minify), // 默认值是 true
+            Commands::Generate { minify, .. } => assert!(minify), // 默认值是 true
             _ => panic!("Expected Generate command"),
+        }
+    }
+
+    #[test]
+    fn test_cli_parse_process_force() {
+        let cli = Cli::try_parse_from(["neuq-classroom-query", "process", "-f"]).unwrap();
+        match cli.command {
+            Commands::Process { force } => assert!(force),
+            _ => panic!("Expected Process command"),
         }
     }
 }

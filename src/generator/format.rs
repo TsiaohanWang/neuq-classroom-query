@@ -22,6 +22,10 @@ pub(super) fn smart_sort_classrooms(a: &str, b: &str) -> std::cmp::Ordering {
 }
 
 impl super::Generator {
+    /// 格式化教室名并附加样式标记（加粗 = 全天空闲，下划线 = 本时段新增，
+    /// 删除线 = 下时段被占用）。参数均为同一渲染上下文的内聚部分，
+    /// 故允许超过 clippy 默认的 7 参数限制。
+    #[allow(clippy::too_many_arguments)]
     pub(super) fn format_rooms_with_style(
         &self,
         rooms: &[String],

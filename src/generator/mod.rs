@@ -20,15 +20,17 @@ pub struct Generator {
 }
 
 impl Generator {
-    pub fn new(config: Arc<AppConfig>) -> Self {
+    pub fn new(config: Arc<AppConfig>) -> Result<Self> {
         let template_dir = config.assets_dir.join("template");
         let template_pattern = template_dir
             .join("*.tera.html")
             .to_string_lossy()
             .to_string();
-        let mut tera = Tera::new(&template_pattern).expect("无法加载模板文件");
+        let mut tera = Tera::new(&template_pattern).map_err(|e| crate::error::AppError::Generate {
+            message: format!("无法加载模板文件: {}", e),
+        })?;
         tera.register_filter("default_empty", format::default_empty_filter);
-        Self { config, tera }
+        Ok(Self { config, tera })
     }
 
     pub async fn generate(&self) -> Result<()> {
@@ -39,6 +41,8 @@ impl Generator {
         let now = chrono::Utc::now().with_timezone(&beijing_offset);
         context.insert("current_date", &now.format("%Y/%m/%d").to_string());
         context.insert("update_time", &now.format("%Y/%m/%d %H:%M").to_string());
+        // 页脚版本号：单一数据源为 Cargo.toml，避免模板硬编码漂移
+        context.insert("app_version", env!("CARGO_PKG_VERSION"));
 
         let events = self.load_events().await?;
         let quotes = self.load_quotes().await?;
@@ -58,14 +62,12 @@ impl Generator {
             days.push(day_data);
         }
         context.insert("days", &days);
-        context.insert("theme_css_json", &crate::theme::ThemeConfig::default_json());
 
         let daily_hashes = self.compute_daily_hashes();
         let badge_html = self.compare_with_live(&daily_hashes).await;
 
         context.insert("daily_hashes", &serde_json::to_string(&daily_hashes)?);
         context.insert("status_badge_html", &badge_html);
-        context.insert("theme_css_json", &crate::theme::ThemeConfig::default_json());
 
         let html = self
             .tera
@@ -178,11 +180,12 @@ impl Generator {
             let key = day_offset.to_string();
             let new_hash = new_hashes.get(&key).map(|s| s.as_str()).unwrap_or("无");
             let live_hash = live_hashes.get(&key).map(|s| s.as_str()).unwrap_or("无");
+            let preview = |s: &str| s.chars().take(8).collect::<String>();
             tracing::info!(
                 "Day {}: 部署={} | 抓取={} | {}",
                 day_offset,
-                &live_hash[..8.min(live_hash.len())],
-                &new_hash[..8.min(new_hash.len())],
+                preview(live_hash),
+                preview(new_hash),
                 if new_hash == live_hash {
                     "未变更"
                 } else {
@@ -284,7 +287,9 @@ impl Generator {
     }
 
     fn minify_html(&self, html: &str) -> String {
-        let cfg = minify_html::Cfg::new();
+        let mut cfg = minify_html::Cfg::new();
+        // 保留注释：模板中被注释下线的横幅等元素需在产物中留存，便于日后恢复
+        cfg.keep_comments = true;
         let minified = minify_html::minify(html.as_bytes(), &cfg);
         String::from_utf8_lossy(&minified).to_string()
     }
@@ -440,21 +445,25 @@ mod tests {
     }
 
     #[test]
-    fn test_scraper_html_determinism() {
-        let html = r##"<html><body><table border="1" class="gxg-table"><tr><td>1F</td></tr></table></body></html>"##;
+    fn test_scraper_parse_results_are_stable() {
+        // 实证：html5ever 序列化的属性顺序在同一进程的不同解析间可能不同，
+        // 因此任何逻辑都不得依赖 scraper 的 `.html()` 字符串输出
+        // （例如用其做哈希或缓存键）；但选择器/文本/属性值等解析结果是稳定的。
+        // 本测试守护后者：同一输入多次解析的文本内容必须一致。
+        let html = r##"<html><body><table border="1" class="gxg-table"><tr><td>1F</td><td>2F</td></tr></table></body></html>"##;
 
-        let doc1 = scraper::Html::parse_document(html);
-        let doc2 = scraper::Html::parse_document(html);
+        let text_of = |h: &str| {
+            let doc = scraper::Html::parse_document(h);
+            let sel = scraper::Selector::parse("table td").unwrap();
+            doc.select(&sel)
+                .map(|e| e.text().collect::<String>())
+                .collect::<Vec<_>>()
+                .join("|")
+        };
 
-        let sel = scraper::Selector::parse("table").unwrap();
-        let el1 = doc1.select(&sel).next().unwrap();
-        let el2 = doc2.select(&sel).next().unwrap();
-
-        let h1 = el1.html();
-        let h2 = el2.html();
-        let deterministic = h1 == h2;
-        if !deterministic {
-            assert_ne!(h1, h2);
+        let first = text_of(html);
+        for _ in 0..8 {
+            assert_eq!(text_of(html), first);
         }
     }
 

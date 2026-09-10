@@ -42,8 +42,8 @@ jobs:
           ~/.cargo/bin/
           ~/.cargo/registry/index/
           ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            target/
+          ~/.cargo/git/db/
+          target/
         key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
         restore-keys: |
           ${{ runner.os }}-cargo-
@@ -57,12 +57,18 @@ jobs:
       run: cargo build --profile ci
 
     - name: Run tests
-      run: cargo test
+      # 复用 ci profile 产物，避免触发第二次全量编译
+      run: cargo test --profile ci
 
     - name: Fetch Classroom Data
       env:
         YOUR_NEUQ_USERNAME: ${{ secrets.YOUR_NEUQ_USERNAME }}
         YOUR_NEUQ_PASSWORD: ${{ secrets.YOUR_NEUQ_PASSWORD }}
+        # 海外 runner 直连教务系统会被 HTTP 483 拒绝，
+        # 已配置 WEBVPN secrets 时自动启用 WebVPN 通道
+        USE_WEBVPN: ${{ secrets.WEBVPN_USERNAME != '' && 'true' || 'false' }}
+        WEBVPN_USERNAME: ${{ secrets.WEBVPN_USERNAME }}
+        WEBVPN_PASSWORD: ${{ secrets.WEBVPN_PASSWORD }}
         ASSETS_DIR: ./assets
         OUTPUT_DIR: ./output
         FORCE_OVERWRITE: ${{ inputs.force_overwrite || 'false' }}
@@ -80,10 +86,13 @@ jobs:
         OUTPUT_DIR: ./output
       run: ./target/ci/neuq-classroom-query generate
 
-    - name: Copy output files
+    - name: Stage files for Pages
+      # 只发布站点所需文件，避免把 target/（含编译产物）、.git 等打进 Pages 产物
       run: |
-        cp index.html . 2>/dev/null || true
-        cp -r output . 2>/dev/null || true
+        mkdir -p staging
+        cp index.html staging/ 2>/dev/null || true
+        cp -r assets staging/assets
+        cp CNAME staging/CNAME 2>/dev/null || true
         
     - name: Setup Pages
       uses: actions/configure-pages@v5
@@ -91,7 +100,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: '.'
+        path: 'staging'
 
   deploy:
     environment:

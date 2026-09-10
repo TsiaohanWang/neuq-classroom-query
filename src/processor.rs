@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::sync::Arc;
 
 use rayon::prelude::*;
@@ -7,8 +7,9 @@ use regex::Regex;
 use std::sync::LazyLock;
 use tokio::fs;
 
-use crate::config::{AppConfig, FORBIDDEN_BUILDINGS, FORBIDDEN_CONFIGS};
-use crate::error::Result;
+use crate::config::{AppConfig, FORBIDDEN_BUILDINGS, FORBIDDEN_CONFIGS, TIME_SLOTS};
+use crate::error::{AppError, Result};
+use crate::fetcher::get_beijing_date_string;
 use crate::models::{Blacklist, ProcessedClassroomData, RawClassroomData, Validate};
 
 static NUMBER_PATTERN: LazyLock<Regex> =
@@ -22,6 +23,73 @@ static ZIZHU_PATTERN: LazyLock<Regex> =
 pub struct Processor {
     config: Arc<AppConfig>,
     blacklist: Blacklist,
+}
+
+/// 校验单天抓取数据的完整性与新鲜度（严格发布策略的核心检查）
+///
+/// - 目录必须存在；
+/// - 所有时段的数据文件必须齐全（`fetch_and_save_slot` 对空结果也会写文件，
+///   因此缺失文件必为抓取失败/过时残留，而非合法空数据）；
+/// - `fetch_meta.json` 的抓取日期必须等于当天目标日期（`--force` 可跳过新鲜度校验）。
+///
+/// 供 processor 与 generator 共用，确保两条发布路径执行同一套标准。
+pub(crate) async fn verify_day_input(config: &AppConfig, day: u8) -> Result<()> {
+    let input_dir: PathBuf = config.output_dir.join(format!("output-day-{}", day));
+
+    if !input_dir.exists() {
+        return Err(AppError::Process {
+            message: format!(
+                "Day {} 数据目录不存在（{}）：请先完成抓取，或检查 TOTAL_DAYS 是否被调小后残留旧数据",
+                day,
+                input_dir.display()
+            ),
+        });
+    }
+
+    for slot in TIME_SLOTS {
+        let path = input_dir.join(format!("classroom_results_{}.json", slot.file_suffix));
+        if !path.exists() {
+            return Err(AppError::Process {
+                message: format!(
+                    "Day {} 缺少时段 {} 的数据文件：数据不完整，拒绝处理/发布",
+                    day, slot.file_suffix
+                ),
+            });
+        }
+    }
+
+    if !config.force_overwrite {
+        let expected = get_beijing_date_string(day as i64);
+        let meta_path = input_dir.join("fetch_meta.json");
+        let fetched_date = match fs::read_to_string(&meta_path).await {
+            Ok(content) => serde_json::from_str::<serde_json::Value>(&content)
+                .ok()
+                .and_then(|v| v.get("date").and_then(|d| d.as_str()).map(String::from)),
+            Err(_) => None,
+        };
+
+        match fetched_date {
+            Some(d) if d == expected => {}
+            Some(d) => {
+                return Err(AppError::Process {
+                    message: format!(
+                        "Day {} 数据抓取日期为 {}，与目标日期 {} 不符（过时数据；确认无误可用 --force 跳过校验）",
+                        day, d, expected
+                    ),
+                });
+            }
+            None => {
+                return Err(AppError::Process {
+                    message: format!(
+                        "Day {} 缺少 fetch_meta.json 或格式错误，数据来源不明（可能来自旧版本残留；确认无误可用 --force 跳过校验）",
+                        day
+                    ),
+                });
+            }
+        }
+    }
+
+    Ok(())
 }
 
 impl Processor {
@@ -49,10 +117,18 @@ impl Processor {
     }
 
     /// 处理所有天数的数据
+    ///
+    /// 严格发布策略：任一天的数据目录缺失、时段文件不全或抓取日期过时，
+    /// 即中止整个处理流程（绝不基于不完整/过时的输入生成发布数据），
+    /// 除非显式传入 `force_overwrite`（跳过新鲜度校验，但仍要求文件完整）。
     pub async fn process_all(&self) -> Result<()> {
         tracing::info!("--- 数据处理开始 ---");
 
         let days: Vec<u8> = (0..self.config.total_days).collect();
+        for &day in &days {
+            verify_day_input(&self.config, day).await?;
+        }
+
         let processor = self.clone();
 
         let results: Vec<Result<()>> = tokio::task::spawn_blocking(move || {
@@ -63,9 +139,11 @@ impl Processor {
                         .output_dir
                         .join(format!("output-day-{}", day));
 
+                    // process_all 已做过严格校验，此处仅为防御性检查
                     if !input_dir.exists() {
-                        tracing::warn!("Day {} 目录不存在，跳过", day);
-                        return Ok(());
+                        return Err(crate::error::AppError::Process {
+                            message: format!("Day {} 目录不存在", day),
+                        });
                     }
 
                     tracing::info!("Day {} 处理中...", day);

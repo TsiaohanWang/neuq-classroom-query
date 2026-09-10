@@ -10,10 +10,6 @@ pub enum AppError {
     #[error("网络请求失败: {0}")]
     Network(#[from] reqwest::Error),
 
-    /// HTTP 中间件错误
-    #[error("HTTP 中间件错误: {0}")]
-    Middleware(#[from] reqwest_middleware::Error),
-
     /// JSON 序列化/反序列化错误
     #[error("JSON 解析错误: {0}")]
     Json(#[from] serde_json::Error),
@@ -126,7 +122,6 @@ pub fn is_retryable_error(err: &AppError) -> bool {
                 || e.is_connect()
                 || e.is_request()
         }
-        AppError::Middleware(_) => true,
         AppError::Fetch { .. } => true,
         _ => false,
     }

@@ -1,5 +1,5 @@
 use chrono::Datelike;
-use rand::Rng;
+
 use tokio::fs;
 
 use crate::error::Result;
@@ -41,11 +41,10 @@ impl super::Generator {
                 if let (Some(start), Some(end)) = (
                     crate::fetcher::parse_date_string(&event.start),
                     crate::fetcher::parse_date_string(&event.end),
-                ) {
-                    if let Some(today_date) = crate::fetcher::parse_date_string(&today) {
-                        let activity_start = start - chrono::Duration::days(1);
-                        return today_date >= activity_start && today_date <= end;
-                    }
+                ) && let Some(today_date) = crate::fetcher::parse_date_string(&today)
+                {
+                    let activity_start = start - chrono::Duration::days(1);
+                    return today_date >= activity_start && today_date <= end;
                 }
                 false
             })
@@ -79,33 +78,10 @@ impl super::Generator {
     fn select_quote_index(&self, total_quotes: usize) -> usize {
         let beijing_offset = chrono::FixedOffset::east_opt(8 * 3600).unwrap();
         let beijing_now = chrono::Utc::now().with_timezone(&beijing_offset);
-        let days_since_epoch = beijing_now.num_days_from_ce() as i64;
-        let base_index = (days_since_epoch % total_quotes as i64) as usize;
+        let base_index = (beijing_now.num_days_from_ce() % total_quotes as i32) as i64;
 
-        let range = 3;
-        let mut candidate_pool = Vec::new();
-        for i in -range..=range {
-            let candidate = ((base_index as i64 + i + total_quotes as i64) % total_quotes as i64) as usize;
-            if !candidate_pool.contains(&candidate) {
-                candidate_pool.push(candidate);
-            }
-        }
-
-        let pool_size = candidate_pool.len();
-        let mean = pool_size as f64 / 2.0;
-        let std_dev = 1.5;
-
-        let mut rng = rand::thread_rng();
-        let selected_pool_index = loop {
-            let u1: f64 = rng.r#gen();
-            let u2: f64 = rng.r#gen();
-            let z = (-2.0 * u1.ln()).sqrt() * (2.0 * std::f64::consts::PI * u2).cos();
-            let index = (z * std_dev + mean).round() as i64;
-            if index >= 0 && index < pool_size as i64 {
-                break index as usize;
-            }
-        };
-
-        candidate_pool[selected_pool_index]
+        // 以天为基，向邻近 ±3 天扰动，避免同一基日总是选中同一条
+        let offset: i64 = rand::Rng::gen_range(&mut rand::thread_rng(), -3i64..=3);
+        ((base_index + offset + total_quotes as i64) % total_quotes as i64) as usize
     }
 }

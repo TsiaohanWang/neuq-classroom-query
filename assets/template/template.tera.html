@@ -36,11 +36,13 @@
 </head>
 
 <body>
+    <!-- 暂时下线的顶部横幅：需要恢复时取消注释即可
     <div class="top-banner"><span>🛠️ 新分支将在 <a href="https://neuq-rs.tsiao.io/">Rust 实验室</a>
             陆续测试新增功能，敬请期待！</span><button class="top-banner-close" onclick="this.parentElement.style.display='none'"
             aria-label="关闭">×</button></div>
     <div class="top-banner"><span>🎉 现已支持自定义主题配置！滚动到页面底部查看更多细节。</span><button class="top-banner-close"
             onclick="this.parentElement.style.display='none'" aria-label="关闭">×</button></div>
+    -->
 
     <h1><span id="current-date-placeholder">{{ current_date }}</span><svg class="loading-badge" width="2.2em"
             height="1.75em" style="display: inline-block; vertical-align: -0.5em;">
@@ -269,7 +271,7 @@
         <span id="theme-name" class="theme-name-display"></span>
     </div>
 
-    <p class="info-text" style="font-size: 80%;">Ver3.2.0 <a
+    <p class="info-text" style="font-size: 80%;">Ver{{ app_version }} <a
             href="https://github.com/TsiaohanWang/neuq-classroom-query">项目入口</a>
     </p>
 

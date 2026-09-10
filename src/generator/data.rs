@@ -37,6 +37,9 @@ impl DayData {
 
 impl super::Generator {
     pub(super) async fn load_day_data(&self, day_offset: u8) -> Result<DayData> {
+        // 严格发布策略：与 process 阶段共用同一套完整性/新鲜度校验
+        crate::processor::verify_day_input(&self.config, day_offset).await?;
+
         let data_path = self
             .config
             .output_dir
@@ -48,10 +51,16 @@ impl super::Generator {
         let time_slots = ["1-2", "3-4", "5-6", "7-8", "9-10", "11-12"];
         let buildings = ["工学馆", "基础楼", "综合实验楼", "地质楼", "管理楼", "科技楼", "人文楼"];
 
+        // verify_day_input 已确保目录存在；处理结果文件缺失说明 process
+        // 未运行或失败，报错而非把缺失天渲染成"全天无空闲教室"
         if !data_path.exists() {
-            tracing::warn!("Day {} 无数据文件", day_offset);
-            self.initialize_empty_slots(&mut day_data, &time_slots);
-            return Ok(day_data);
+            return Err(crate::error::AppError::Process {
+                message: format!(
+                    "Day {} 缺少处理结果（{}）：请先运行 process",
+                    day_offset,
+                    data_path.display()
+                ),
+            });
         }
 
         let content = fs::read_to_string(&data_path).await?;

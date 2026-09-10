@@ -72,6 +72,10 @@ pub struct EventData {
 }
 
 /// 格言数据
+///
+/// 信任边界：`content` 是受信 HTML（会原样插入页面），只应来自仓库内
+/// 的 quotes.json；`translation`/`description` 会被转义后插入属性/文本。
+/// 若将来格言来源开放外部贡献，必须先对 `content` 做白名单过滤。
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct QuoteData {
     pub content: String,

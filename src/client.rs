@@ -14,8 +14,6 @@ use crate::webvpn::WebvpnSession;
 #[derive(Clone)]
 pub struct HttpClient {
     client: Client,
-    #[allow(dead_code)]
-    cookie_store: Arc<CookieStoreMutex>,
     config: Arc<AppConfig>,
     /// WebVPN 会话（未启用时所有方法自动退化为直连）
     webvpn: Arc<WebvpnSession>,
@@ -30,7 +28,7 @@ impl HttpClient {
 
         let client = Client::builder()
             .timeout(config.request_timeout)
-            .user_agent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
+            .user_agent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
             .cookie_provider(Arc::clone(&cookie_store))
             // 启用 gzip 和 brotli 压缩（减少传输数据量）
             .gzip(true)
@@ -50,7 +48,6 @@ impl HttpClient {
 
         Ok(Self {
             client,
-            cookie_store,
             config,
             webvpn,
         })
@@ -220,12 +217,44 @@ impl HttpClient {
             });
         }
 
+        // 教务系统会话过期自动恢复（同账号重复登录或超时被踢）：
+        // 重新登录后重试一次，与 WebVPN 会话恢复机制对称
+        if Self::is_eams_session_expired(&html) {
+            tracing::warn!("教务系统会话过期，重新登录后重试");
+            self.login(&self.config.username, &self.config.password).await?;
+            let response = self.client.post(&url).form(&params).send().await?;
+            if !response.status().is_success() {
+                return Err(AppError::Fetch {
+                    message: format!("查询空闲教室失败，状态码: {}", response.status()),
+                });
+            }
+            html = response.text().await?;
+        }
+
         crate::parser::parse_classroom_html(&html)
     }
 
-    /// 延迟一段时间
-    pub async fn delay(&self) {
-        tokio::time::sleep(self.config.request_delay).await;
+    /// 检测教务系统响应是否为“会话已过期”
+    ///
+    /// eams 同账号重复登录或会话超时后，查询接口会返回该提示而非结果表格。
+    pub fn is_eams_session_expired(html: &str) -> bool {
+        html.contains("会话已经被过期")
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_is_eams_session_expired() {
+        assert!(HttpClient::is_eams_session_expired(
+            "<html><body>提示：本次会话已经被过期（可能是由于重复登录）</body></html>"
+        ));
+        assert!(!HttpClient::is_eams_session_expired(
+            "<table class=\"gridtable\"><tbody></tbody></table>"
+        ));
+        assert!(!HttpClient::is_eams_session_expired(""));
     }
 }
 

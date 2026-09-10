@@ -34,7 +34,7 @@ pub struct AppConfig {
     pub output_dir: PathBuf,
     /// 静态资源目录
     pub assets_dir: PathBuf,
-    /// 是否覆盖已有数据
+    /// 是否覆盖已有数据（跳过新鲜度校验，仍要求时段文件完整）
     pub force_overwrite: bool,
     /// 是否压缩 HTML 输出
     pub minify_html: bool,
@@ -358,12 +358,12 @@ mod tests {
     fn test_debug_redacts_credentials() {
         // 安全属性：Debug 输出不得包含任何学号/账号/密码明文
         let config = AppConfig {
-            username: "202311286".to_string(),
+            username: "2023000001".to_string(),
             password: "secret-password".to_string(),
             base_url: "http://jwxt.neuq.edu.cn/eams/".to_string(),
             webvpn_enabled: true,
             webvpn_base_url: "https://vpn.neuq.edu.cn".to_string(),
-            webvpn_username: "202311286".to_string(),
+            webvpn_username: "2023000001".to_string(),
             webvpn_password: "secret-password".to_string(),
             webvpn_auth_type: "cas".to_string(),
             request_timeout: std::time::Duration::from_secs(45),
@@ -377,7 +377,7 @@ mod tests {
         };
 
         let debug_output = format!("{:?}", config);
-        assert!(!debug_output.contains("202311286"), "学号不得出现在 Debug 输出中");
+        assert!(!debug_output.contains("2023000001"), "学号不得出现在 Debug 输出中");
         assert!(
             !debug_output.contains("secret-password"),
             "密码不得出现在 Debug 输出中"
